@@ -1514,7 +1514,7 @@
         if (imgCount > 0) {
             targetImage = $('img[data-lazy]', _.$slider).first();
             targetImage.attr('src', null);
-            targetImage.attr('src', targetImage.attr('data-lazy')).removeClass('slick-loading').load(function() {
+            targetImage.attr('src', targetImage.attr('data-lazy')).removeClass('slick-loading').on('load',function() {
                     targetImage.removeAttr('data-lazy');
                     _.progressiveLazyLoad();
 
