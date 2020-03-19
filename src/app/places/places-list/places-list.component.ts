@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs";
 import { PlaceService } from "../service/place.service";
-import { Place } from "../../class/place";
+import { PlaceQuickView } from "../../class/place-quick-view";
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,13 +10,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./places-list.component.css']
 })
 export class PlacesListComponent implements OnInit {
-  places: Observable<Place[]>;
+  places: Observable<PlaceQuickView[]>;
 
   constructor(private placeService: PlaceService,
     private router: Router) { }
 
   ngOnInit(): void {
     this.places = this.placeService.getPlacesTop6List();
+  }
+
+  placeDetail(id: number){
+    this.router.navigate(['detail', id]);
   }
 
 }

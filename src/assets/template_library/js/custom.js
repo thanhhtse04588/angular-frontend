@@ -184,7 +184,7 @@ jQuery(function($){
   /* ----------------------------------------------------------- */        
 
     jQuery(function(){
-      if(jQuery('body').is('.aa-price-range')){
+      if(jQuery('div').is('.aa-single-filter-search')){
         // FOR AREA SECTION
        var skipSlider = document.getElementById('aa-sqrfeet-range');
         noUiSlider.create(skipSlider, {

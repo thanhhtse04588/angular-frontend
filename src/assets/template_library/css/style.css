@@ -266,7 +266,7 @@ img {
 ====================*/
 
 #aa-header {
-  border-bottom: 1px solid #fff;
+  background-color: white;
   left: 0;
   position: absolute;
   right: 0;
@@ -316,6 +316,7 @@ img {
   text-align: right;
 }
 #aa-header .aa-header-area .aa-header-right .aa-register {
+  text-decoration: none;
   border-right: 1px solid rgb(85,85,85);
   color: #fff;
   margin-right: 5px;
@@ -323,6 +324,7 @@ img {
   font-size: 15px;
 }
 #aa-header .aa-header-area .aa-header-right .aa-login {
+  text-decoration: none;
   color: #fff;
   font-size: 15px;
 }
@@ -333,10 +335,12 @@ img {
 
 #aa-menu-area {
   left: 0;
+  border-top: 1px solid rgb(85,85,85);
+  box-shadow: 0px 10px 31px -23px rgba(0,0,0,0.76);
   padding-top: 20px;
   position: absolute;
   right: 0;
-  top: 35px;
+  top: 30px;
   width: 100%;
   z-index: 99;
 }
@@ -394,6 +398,7 @@ img {
 #aa-menu-area .navbar-fixed-top {
   background-color: #FFF;
   padding: 15px 0;
+  box-shadow: 0px 10px 31px -23px rgba(0,0,0,0.76);
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
   -ms-transition: all 0.5s;
@@ -925,24 +930,19 @@ img {
   font-size: 14px;
 }
 .aa-properties-item .aa-properties-item-content .aa-properties-about {
-  display: inline;
   float: left;
   width: 100%;
-  padding: 10px;
 }
-.aa-properties-item .aa-properties-item-content .aa-properties-about h3 {
-  margin-top: 0px;
+.aa-properties-item .aa-properties-item-content .aa-properties-about .aa-properties-title {
+  font-size: large;
+  font-weight: 500;
+
+  height: 80px;
+  margin: 10px 30px 10px 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
-.aa-properties-item .aa-properties-item-content .aa-properties-about p {
-  font-size: 14px;
-}
-.aa-properties-item .aa-properties-item-content .aa-properties-detial {
-  border-top: 1px solid #ddd;
-  display: inline;
-  float: left;
-  padding: 10px;
-  width: 100%;
-}
+
 .aa-properties-item .aa-properties-item-content .aa-properties-detial .aa-price {
   float: left;
   font-size: 18px;

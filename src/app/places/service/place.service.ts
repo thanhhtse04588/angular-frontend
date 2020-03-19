@@ -7,11 +7,15 @@ import { Observable } from 'rxjs';
 })
 export class PlaceService {
 
-  private baseUrl = 'http://localhost:8080/cyber-place/api/cp01/places';
+  private baseUrl = 'http://localhost:8080/api/v1/places';
 
   constructor(private http: HttpClient) { }
 
   getPlacesTop6List(): Observable<any> {
     return this.http.get(`${this.baseUrl}/top6`);
+  }
+
+  getPlaceDetail(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${id}`);
   }
 }
