@@ -1,0 +1,64 @@
+<!-- Advance Search -->
+<form [formGroup]="form" #searchInfo (ngSubmit)="searchForm()">
+<section id="aa-advance-search">
+    <div class="container">
+      <div class="aa-advance-search-area">
+        <div class="form">
+          <div class="aa-advance-search-top">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="aa-single-advance-search">
+                  <input formControlName="title" class="form-control" type="text" placeholder="Tìm: tiêu đề">
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="aa-single-advance-search">
+                  <select formControlName="roleOfPlaceID" class="form-control">
+                    <option value="-1">Loại nhà đất</option>
+                    <option *ngFor="let item of roleOfPlaces | async" [ngValue]="item.roleOfPlaceID">{{item.roleName}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="aa-single-advance-search">
+                  <select formControlName="districtID" class="form-control">
+                    <option value="-1" selected>Quận/Huyện</option>
+                    <option *ngFor="let item of districts | async" [ngValue]="item.id">{{item.district}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="aa-single-advance-search">
+                  <select formControlName="areaRange" class="form-control">
+                    <option *ngFor="let item of areaRanges" [ngValue]="item">{{item.text}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="aa-single-advance-search">
+                  <input class="aa-search-btn" type="submit" value="Tìm kiếm">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="aa-advance-search-bottom">
+            <div class="row">
+              <div class="col-md-6 col-lg-12">
+                <div class="aa-single-filter-search">
+                  <span>KHOẢNG GIÁ:</span>
+                  <span>Từ</span>
+                  <span id="skip-value-lower" class="priceMin">200</span>
+                  <span>Đến</span>
+                  <span id="skip-value-upper" class="priceMax">700</span>
+                  <div id="aa-sqrfeet-range" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</form>
+  <!-- / Advance Search -->

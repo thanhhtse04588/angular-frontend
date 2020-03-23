@@ -7,8 +7,8 @@ export class PlaceDetail {
     ward:string;
     street:string;
     address:string;
-    mapLongtitude: number;
-    mapLatitude: number;
+    longtitude: number;
+    latitude: number;
     roleOfPlace: string;
     counterView: number;
     frontispiece:number

@@ -1,4 +1,4 @@
-export class District {
+export class DistrictDB {
     id: number;
     district: string;
 }

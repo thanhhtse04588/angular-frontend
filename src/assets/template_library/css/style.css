@@ -240,6 +240,7 @@ img {
   transition: all 0.5s;
 }
 .aa-secondary-btn:hover, .aa-secondary-btn:focus {
+  cursor: pointer;
   background-color: #000;
   color: #fff;
 }
@@ -891,9 +892,7 @@ img {
   box-shadow: 1px 2px 5px 3px #ccc;
 }
 .aa-properties-item .aa-properties-item-img {
-  width: 100%;
-}
-.aa-properties-item .aa-properties-item-img img {
+  height: 250px;
   width: 100%;
 }
 .aa-properties-item .aa-tag {
@@ -926,29 +925,45 @@ img {
   text-align: left;
 }
 .aa-properties-item .aa-properties-item-content .aa-properties-info span {
+  color: #777;
   margin: 0px 5px;
   font-size: 14px;
 }
 .aa-properties-item .aa-properties-item-content .aa-properties-about {
   float: left;
   width: 100%;
+  margin-left: 10px;
 }
 .aa-properties-item .aa-properties-item-content .aa-properties-about .aa-properties-title {
-  font-size: large;
-  font-weight: 500;
-
-  height: 80px;
-  margin: 10px 30px 10px 10px;
+  font-size: 17px;
+  font-weight: lighter;
+  height: 70px;
+  margin: 10px 30px 0px 0px;
   text-overflow: ellipsis;
   overflow: hidden;
 }
-
+.aa-properties-item .aa-properties-item-content .aa-properties-about .aa-properties-address {
+  color: #777;
+  font-size: 16px;
+  margin: 10px 0px;
+}
+.aa-properties-item .aa-properties-item-content .aa-properties-detial{
+  border-top: 1px solid #ddd;
+  display: inline;
+  float: left;
+  padding: 10px;
+  width: 100%;
+}
 .aa-properties-item .aa-properties-item-content .aa-properties-detial .aa-price {
+  color:#333333;
+  font-weight: 700;
+  line-height: 25px;
   float: left;
   font-size: 18px;
   padding: 3px 0;
 }
 .aa-properties-item .aa-properties-item-content .aa-properties-detial a {
+  text-decoration: none;
   float: right;
 }
 

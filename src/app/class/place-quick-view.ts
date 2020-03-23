@@ -1,5 +1,5 @@
 export class PlaceQuickView {
-    place_id: number;
+    placeID: number;
     title: string;
     district: string;
     area: number;

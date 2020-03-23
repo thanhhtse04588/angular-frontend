@@ -1,1 +1,150 @@
-<p>place-detail works!</p>
+<!-- Start Properties  -->
+<section id="aa-properties" style="margin-top: 150px; text-align: center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="aa-properties-content">
+            <!-- Start properties content body -->
+            <div class="aa-properties-details">
+              <div class="aa-properties-details-img">
+                <img src="../../../assets/template_library/img/slider/1.jpg" alt="img">
+                <img src="../../../assets/template_library/img/slider/2.jpg" alt="img">
+                <img src="../../../assets/template_library/img/slider/3.jpg" alt="img">
+              </div>
+              <div class="aa-properties-info" *ngIf="place">
+                <h2>{{place.title}}</h2>
+                <span class="aa-price">{{place.price}} triệu/tháng</span>
+                <p>{{place.description}}</p>
+                <div class="col-md-12">
+                  <a href="#" class="btn btn-primary btn-lg active btn-success btn-lg" role="button"
+                    aria-pressed="true">Liên Hệ Ngay <span class="btn-label"><i
+                        class="glyphicon glyphicon-ok"></i></span></a>
+
+                  <!--				    <a href="#" class="btn btn-primary btn-lg disabled" role="button" aria-disabled="true">Primary link</a>-->
+                </div> <br><br>
+                <h4>Tiện ích</h4>
+                <ul>
+                  <li>{{place.bedRooms}} phòng ngủ</li>
+                  <li>{{place.toilets}} phòng vệ sinh</li>
+                </ul>
+                <h4>Video</h4>
+                <iframe width="100%" height="480" src="https://www.youtube.com/embed/CegXQps0In4" frameborder="0"
+                  allowfullscreen></iframe>
+                <h4>{{place.address}}</h4>
+                
+                <div id="map"></div>
+
+              </div>
+              <!-- Properties social share -->
+              <div class="aa-properties-social">
+                <ul>
+                  <li>Share</li>
+                  <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                  <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                  <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                  <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <!-- Start properties sidebar -->
+        <!-- Start properties sidebar -->
+        <div class="col-md-4">
+          <aside class="aa-properties-sidebar">
+            <!-- Start Single properties sidebar -->
+            <div class="aa-properties-single-sidebar">
+              <h3>Tìm Kiếm</h3>
+              <form action="">
+                <div class="aa-single-advance-search">
+                  <input type="text" placeholder="Khu vực muốn tìm">
+                </div>
+                <div class="aa-single-advance-search">
+                  <select id="" name="">
+                    <option value="0" selected>Loại nhà đất</option>
+                    <option value="1">Chung cư</option>
+                    <option value="2">Nhà riêng</option>
+                    <option value="3">Văn phòng</option>
+                  </select>
+                </div>
+                <div class="aa-single-advance-search">
+                  <select id="" name="">
+                    <option value="0" selected>Hà Nội</option>
+                    <option value="1">Thanh Xuân</option>
+                    <option value="2">Cầu Giấy</option>
+                    <option value="3">Hà Đông</option>
+                    <option value="4">Hoàn Kiếm</option>
+                  </select>
+                </div>
+                <div class="aa-single-advance-search">
+                  <select id="" name="">
+                    <option value="0" selected>Diện tích</option>
+                    <option value="1"> &#60;&#61; 30m²</option>
+                    <option value="2">30 - 50m²</option>
+                    <option value="3">50 - 80m²</option>
+                    <option value="4">80 - 100m²</option>
+                  </select>
+                </div>
+                <div class="aa-single-filter-search">
+                  <span>KHOẢNG GIÁ:</span>
+                  <span>Từ</span>
+                  <span id="skip-value-lower" class="example-val">30.00</span>
+                  <span>Đến</span>
+                  <span id="skip-value-upper" class="example-val">100.00</span>
+                  <div id="aa-sqrfeet-range" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
+                  </div>
+                </div>
+                <div class="aa-single-advance-search">
+                  <input type="submit" value="Tìm Kiếm" class="aa-search-btn">
+                </div>
+              </form>
+            </div>
+            <!-- Start Single properties sidebar -->
+            <div class="aa-properties-single-sidebar">
+              <h3>Populer Properties</h3>
+              <div class="media">
+                <div class="media-left">
+                  <a href="#">
+                    <img class="media-object" src="../../../assets/template_library/img/item/1.jpg" alt="img">
+                  </a>
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading"><a href="#">This is Title</a></h4>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                  <span>$65000</span>
+                </div>
+              </div>
+              <div class="media">
+                <div class="media-left">
+                  <a href="#">
+                    <img class="media-object" src="../../../assets/template_library/img/item/1.jpg" alt="img">
+                  </a>
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading"><a href="#">This is Title</a></h4>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                  <span>$65000</span>
+                </div>
+              </div>
+              <div class="media">
+                <div class="media-left">
+                  <a href="#">
+                    <img class="media-object" src="../../../assets/template_library/img/item/1.jpg" alt="img">
+                  </a>
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading"><a href="#">This is Title</a></h4>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                  <span>$65000</span>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- / Properties  -->
+
+  

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class PlaceService {
 
-  private baseUrl = 'http://localhost:8080/api/v1/places';
+  private baseUrl = 'http://localhost:8080/api/cp/places';
 
   constructor(private http: HttpClient) { }
 

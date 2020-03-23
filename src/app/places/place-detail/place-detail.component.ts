@@ -1,5 +1,5 @@
+import { PlaceDetail } from './../../class/place-detail';
 import { PlaceService } from './../service/place.service';
-import { PlaceQuickView } from '../../class/place-quick-view';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -11,12 +11,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class PlaceDetailComponent implements OnInit {
   id:number;
-  place: PlaceQuickView;
+  place: PlaceDetail;
 
   constructor(private route: ActivatedRoute,private router: Router, private placeService: PlaceService) { }
 
   ngOnInit() {
-    this.place = new PlaceQuickView();
+    this.place = new PlaceDetail();
 
     this.id = this.route.snapshot.params['id'];
     
@@ -26,5 +26,7 @@ export class PlaceDetailComponent implements OnInit {
         this.place = data;
       }, error => console.log(error));
   }
+
+  
 
 }
