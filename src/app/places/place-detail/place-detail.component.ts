@@ -13,7 +13,9 @@ export class PlaceDetailComponent implements OnInit {
   id:number;
   place: PlaceDetail;
 
-  constructor(private route: ActivatedRoute,private router: Router, private placeService: PlaceService) { }
+  constructor(private route: ActivatedRoute,private router: Router, private placeService: PlaceService) { 
+    this.loadScripts();
+  }
 
   ngOnInit() {
     this.place = new PlaceDetail();
@@ -27,6 +29,18 @@ export class PlaceDetailComponent implements OnInit {
       }, error => console.log(error));
   }
 
-  
+  loadScripts() {
+    const dynamicScripts = [
+     '../../../assets/template_library/js/custom.js'
+    ];
+    for (let i = 0; i < dynamicScripts.length; i++) {
+      const node = document.createElement('script');
+      node.src = dynamicScripts[i];
+      node.type = 'text/javascript';
+      node.async = false;
+      node.charset = 'utf-8';
+      document.getElementsByTagName('head')[0].appendChild(node);
+    }
+  }
 
 }

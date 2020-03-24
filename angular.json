@@ -24,14 +24,16 @@
               "src/assets"
             ],
             "styles": [
+              "src/custom-theme.scss",
               "src/styles.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
-
               "src/assets/template_library/js/slick.js",
               "src/assets/template_library/js/custom.js",
               "src/assets/template_library/js/nouislider.js",
+              "src/assets/template_library/js/jquery.fancybox.pack.js",
+              "src/assets/template_library/js/jquery.mixitup.js",
               "src/assets/template_library/js/bootstrap.js"
             ]
           },

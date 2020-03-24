@@ -49,16 +49,13 @@
       <div class="aa-latest-property-area">
         <div class="aa-title">
           <h2>Nhà Đất Nổi Bật</h2>
-          <span></span>
           <p>Nhanh tay book cho mình 1 căn ưng ý nhé bạn!</p>
         </div>
         <div class="aa-latest-properties-content">
           <div class="row">
 
-
-
             <!-- Start content -->
-            <div *ngFor="let place of places | async" class="col-md-4">
+            <div *ngFor="let place of places" class="col-md-4">
               <article class="aa-properties-item">
                 <img class="aa-properties-item-img" src="{{place.imageLarge}}" alt="img">
                 <div class="aa-tag for-rent">

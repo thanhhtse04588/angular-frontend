@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-frontend';
+
+  ngOnInit(){
+    $.getScript('../assets/template_library/js/custom.js');
+    // do rest of your stuff here.
+}
+
+  
 }

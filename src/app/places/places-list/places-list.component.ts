@@ -16,7 +16,9 @@ export class PlacesListComponent implements OnInit {
   searchCondition: SearchCondition;
 
   constructor(private searchService: SearchBarService,
-    private router: Router,private route: ActivatedRoute) { }
+    private router: Router,private route: ActivatedRoute) { 
+      this.loadScripts();
+    }
 
   ngOnInit(): void {
     this.searchCondition = new SearchCondition();
@@ -30,26 +32,24 @@ export class PlacesListComponent implements OnInit {
       this.searchService.getPlacesBySearchCondition(this.searchCondition).subscribe(
         data => {
           this.places = data;
-          console.log(this.places);
         }, error => console.log(error));
 
-        // this.searchService.getPlacesBySearchCondition(
-        //   this.route.snapshot.params['title'],
-        //   this.route.snapshot.params['roleOfPlaceID'],
-        //   this.route.snapshot.params['districtID'],
-        //   this.route.snapshot.params['areaMax'],
-        //   this.route.snapshot.params['areaMin'],
-        //   this.route.snapshot.params['priceMax'],
-        //   this.route.snapshot.params['priceMin']
-        // ).subscribe(
-        //   data => {
-        //     this.places = data;
-        //     console.log(data);
-        //   }, error => console.log(error));
   }
 
   placeDetail(id: number) {
     this.router.navigate(['detail', id]);
   }
-
+  loadScripts() {
+    const dynamicScripts = [
+     '../../../assets/template_library/js/custom.js'
+    ];
+    for (let i = 0; i < dynamicScripts.length; i++) {
+      const node = document.createElement('script');
+      node.src = dynamicScripts[i];
+      node.type = 'text/javascript';
+      node.async = false;
+      node.charset = 'utf-8';
+      document.getElementsByTagName('head')[0].appendChild(node);
+    }
+  }
 }

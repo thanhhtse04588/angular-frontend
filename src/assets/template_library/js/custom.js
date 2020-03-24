@@ -183,27 +183,36 @@ jQuery(function($){
   /* 8. ADVANCE SEARCH FILTER  (noUiSlider SLIDER)
   /* ----------------------------------------------------------- */        
 
-    jQuery(function(){
+  $('document').ready(function(){
       if(jQuery('div').is('.aa-single-filter-search')){
         // FOR AREA SECTION
        var skipSlider = document.getElementById('aa-sqrfeet-range');
         noUiSlider.create(skipSlider, {
             range: {
               'min': 0,
-              '10%': 100,
-              '20%': 200,
-              '30%': 300,
-              '40%': 400,
-              '50%': 500,
-              '60%': 600,
-              '70%': 700,
-              '80%': 800,
-              '90%': 900,
-              'max': 1000
+              '10%': 1,
+              '15%': 1.5,
+              '20%': 2,
+              '25%': 2.5,
+              '30%': 3,
+              '35%': 3.5,
+              '40%': 4,
+              '45%': 4.5,
+              '50%': 5,
+              '55%': 5.5,
+              '60%': 6,
+              '65%': 6.5,
+              '70%': 7,
+              '75%': 7.5,
+              '80%': 8,
+              '85%': 8.5,
+              '90%': 9,
+              '95%': 9.5,
+              'max': 10
             },
             snap: true,
             connect: true,
-            start: [200, 700]
+            start: [2, 7]
         });
         // for value print
         var skipValues = [
@@ -217,34 +226,34 @@ jQuery(function($){
 
         // FOR PRICE SECTION
 
-        var skipSlider2 = document.getElementById('aa-price-range');
-        noUiSlider.create(skipSlider2, {
-            range: {
-                'min': 0,
-                '10%': 100,
-                '20%': 200,
-                '30%': 300,
-                '40%': 400,
-                '50%': 500,
-                '60%': 600,
-                '70%': 700,
-                '80%': 800,
-                '90%': 900,
-                'max': 1000
-            },
-            snap: true,
-            connect: true,
-            start: [200, 700]
-        });
-        // for value print
-        var skipValues2 = [
-          document.getElementById('skip-value-lower2'),
-          document.getElementById('skip-value-upper2')
-        ];
+        // var skipSlider2 = document.getElementById('aa-price-range');
+        // noUiSlider.create(skipSlider2, {
+        //     range: {
+        //         'min': 0,
+        //         '10%': 100,
+        //         '20%': 200,
+        //         '30%': 300,
+        //         '40%': 400,
+        //         '50%': 500,
+        //         '60%': 600,
+        //         '70%': 700,
+        //         '80%': 800,
+        //         '90%': 900,
+        //         'max': 1000
+        //     },
+        //     snap: true,
+        //     connect: true,
+        //     start: [200, 700]
+        // });
+        // // for value print
+        // var skipValues2 = [
+        //   document.getElementById('skip-value-lower2'),
+        //   document.getElementById('skip-value-upper2')
+        // ];
 
-        skipSlider2.noUiSlider.on('update', function( values, handle ) {
-          skipValues2[handle].innerHTML = values[handle];
-        });
+        // skipSlider2.noUiSlider.on('update', function( values, handle ) {
+        //   skipValues2[handle].innerHTML = values[handle];
+        // });
       }
     });
 

@@ -11,6 +11,8 @@ import { HeaderComponent } from './index/header/header.component';
 import { PlaceDetailComponent } from './places/place-detail/place-detail.component';
 import { SearchBarComponent } from './index/search-bar/search-bar.component';
 import { PlaceHomeComponent } from './places/place-home/place-home.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { PlaceHomeComponent } from './places/place-home/place-home.component';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule 
+    FormsModule,
+    BrowserAnimationsModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

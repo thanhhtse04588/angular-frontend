@@ -23,3 +23,5 @@
 @import 'assets/template_library/css/theme-color/yellow-theme.css'; */
 
 /* End my import */
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

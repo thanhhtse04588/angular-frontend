@@ -13,7 +13,9 @@ import { Router } from '@angular/router';
 export class PlaceHomeComponent implements OnInit {
   places: Observable<PlaceQuickView[]>;
   constructor(private placeService: PlaceService,
-    private router: Router) { }
+    private router: Router) { 
+      this.loadScripts();
+    }
 
   ngOnInit(): void {
     this.places = this.placeService.getPlacesTop6List();
@@ -23,4 +25,19 @@ export class PlaceHomeComponent implements OnInit {
     this.router.navigate(['detail', id]);
   }
 
+  loadScripts() {
+    const dynamicScripts = [
+     '../../../assets/template_library/js/custom.js'
+    ];
+    for (let i = 0; i < dynamicScripts.length; i++) {
+      const node = document.createElement('script');
+      node.src = dynamicScripts[i];
+      node.type = 'text/javascript';
+      node.async = false;
+      node.charset = 'utf-8';
+      document.getElementsByTagName('head')[0].appendChild(node);
+    }
+  }
+
+  
 }
