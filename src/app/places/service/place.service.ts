@@ -18,4 +18,7 @@ export class PlaceService {
   getPlaceDetail(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
+  getImageListByPlaceID(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/images/${id}`);
+  }
 }

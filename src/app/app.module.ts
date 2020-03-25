@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http'; 
-import { ReactiveFormsModule,FormsModule  } from '@angular/forms';  
+import { NgModule ,CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http'; 
+import { ReactiveFormsModule,FormsModule  } from '@angular/forms'; 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,7 +12,15 @@ import { PlaceDetailComponent } from './places/place-detail/place-detail.compone
 import { SearchBarComponent } from './index/search-bar/search-bar.component';
 import { PlaceHomeComponent } from './places/place-home/place-home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatSelectModule} from '@angular/material/select';
+import { LoginComponent } from './index/login/login.component';
+import { LogoutComponent } from './index/logout/logout.component';
+import { RegisterComponent } from './index/register/register.component';
+import { BasicAuthHtppInterceptorService } from './index/service/basic-auth-htpp-interceptor.service';
+
+/* Angular material */
+// import { AngularMaterialModule } from './angular-material.module';
+// import { MDBBootstrapModule } from 'angular-bootstrap-md';
+
 
 @NgModule({
   declarations: [
@@ -23,6 +31,9 @@ import {MatSelectModule} from '@angular/material/select';
     PlaceDetailComponent,
     SearchBarComponent,
     PlaceHomeComponent,
+    LoginComponent,
+    LogoutComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,9 +42,16 @@ import {MatSelectModule} from '@angular/material/select';
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatSelectModule
+
+    // AngularMaterialModule,
+    // MDBBootstrapModule.forRoot()
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {  
+      provide:HTTP_INTERCEPTORS, useClass:BasicAuthHtppInterceptorService, multi:true 
+    }
+    ],
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

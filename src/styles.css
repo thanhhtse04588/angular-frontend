@@ -1,27 +1,3 @@
-/* You can add global styles to this file, and also import other style files */
-/* My import */
-@import 'assets/template_library/css/font-awesome.css';
-@import 'assets/template_library/css/slick.css';
-@import 'assets/template_library/css/nouislider.css';
-@import 'assets/template_library/css/jquery.fancybox.css';
-@import 'assets/template_library/css/style.css';
-@import 'assets/template_library/css/bootstrap.css';
-@import 'assets/template_library/css/theme-color/default-theme.css';
-@import url('https://fonts.googleapis.com/css?family=Vollkorn');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
-/* import color theme */
-/* @import 'assets/template_library/css/theme-color/bridge-theme.css';
-@import 'assets/template_library/css/theme-color/dark-red-theme.css';
-@import 'assets/template_library/css/theme-color/default-theme.css';
-@import 'assets/template_library/css/theme-color/green-theme.css';
-@import 'assets/template_library/css/theme-color/orange-theme.css';
-@import 'assets/template_library/css/theme-color/pink-theme.css';
-@import 'assets/template_library/css/theme-color/purple-theme.css';
-@import 'assets/template_library/css/theme-color/red-theme.css';
-@import 'assets/template_library/css/theme-color/violet-theme.css';
-@import 'assets/template_library/css/theme-color/yellow-theme.css'; */
-
-/* End my import */
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

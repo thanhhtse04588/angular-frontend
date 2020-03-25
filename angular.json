@@ -32,8 +32,6 @@
               "src/assets/template_library/js/slick.js",
               "src/assets/template_library/js/custom.js",
               "src/assets/template_library/js/nouislider.js",
-              "src/assets/template_library/js/jquery.fancybox.pack.js",
-              "src/assets/template_library/js/jquery.mixitup.js",
               "src/assets/template_library/js/bootstrap.js"
             ]
           },
@@ -97,6 +95,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.css"
             ],
@@ -137,5 +136,10 @@
   "defaultProject": "angular-frontend",
   "cli": {
     "analytics": "490e271a-edb6-41e7-85b0-276beb93ff0a"
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
   }
 }

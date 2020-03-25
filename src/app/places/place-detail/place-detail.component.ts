@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { PlaceDetail } from './../../class/place-detail';
 import { PlaceService } from './../service/place.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,6 +13,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class PlaceDetailComponent implements OnInit {
   id:number;
   place: PlaceDetail;
+  images: Observable<any>;
 
   constructor(private route: ActivatedRoute,private router: Router, private placeService: PlaceService) { 
     this.loadScripts();
@@ -21,10 +23,14 @@ export class PlaceDetailComponent implements OnInit {
     this.place = new PlaceDetail();
 
     this.id = this.route.snapshot.params['id'];
-    
+
+    this.placeService.getImageListByPlaceID(this.id)
+    .subscribe(data => {
+      this.images = data;
+    }, error => console.log(error));
+
     this.placeService.getPlaceDetail(this.id)
       .subscribe(data => {
-        console.log(data)
         this.place = data;
       }, error => console.log(error));
   }

@@ -7,9 +7,7 @@
             <!-- Start properties content body -->
             <div class="aa-properties-details">
               <div class="aa-properties-details-img">
-                <img src="../../../assets/template_library/img/slider/1.jpg" alt="img">
-                <img src="../../../assets/template_library/img/slider/2.jpg" alt="img">
-                <img src="../../../assets/template_library/img/slider/3.jpg" alt="img">
+                <img *ngFor="let img of images" src="{{img}}" alt="img"> 
               </div>
               <div class="aa-properties-info" *ngIf="place">
                 <h2>{{place.title}}</h2>

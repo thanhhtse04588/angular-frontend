@@ -1,3 +1,6 @@
+
+
+
 <div class="aa-price-range">
   <!-- Pre Loader -->
   <div id="aa-preloader-area">
@@ -34,8 +37,9 @@
               </div>
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="aa-header-right">
-                  <a href="sign-up.html" class="aa-register" style="color: rgb(85,85,85);"><b>ĐĂNG KÝ</b></a>
-                  <a href="log-in.html" class="aa-login" style="color: rgb(85,85,85);"><b>ĐĂNG NHẬP</b></a>
+                  <a *ngIf="!loginService.isUserLoggedIn()" routerLink="/register" class="aa-register" style="color: rgb(85,85,85);"><b>Đăng ký</b></a>
+                  <a *ngIf="!loginService.isUserLoggedIn()" routerLink="/login" class="aa-login" style="color: rgb(85,85,85);"><b>Đăng nhập</b></a>
+                  <a *ngIf="loginService.isUserLoggedIn()" routerLink="/logout" class="aa-login" style="color: rgb(85,85,85);"><b>Đăng xuất</b></a>
                 </div>
               </div>
             </div>
@@ -78,11 +82,13 @@
             <li>
               <a class="notification" href="notifications.html"><span class="glyphicon glyphicon-bell"></span> Thông
                 báo<span class="badge">99</span> </a></li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" href="#"><img alt="Doanh thu" style="width: 25px; border-radius: 50%"
-                  src="../../../assets/template_library/img/hinh-anh-chat-ngau-dep.jpg"> DucTHSE05016 <span class="caret"></span></a>
+            <li *ngIf="loginService.isUserLoggedIn()" routerLink="/profile" class="dropdown">
+              <a class="dropdown-toggle"  ><img alt="Doanh thu" style="width: 25px; border-radius: 50%"
+                  src="../../../assets/template_library/img/hinh-anh-chat-ngau-dep.jpg" > {{getNameUser()}} <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Đăng xuất</a></li>
+                <li><a href="#">Option 1</a></li>
+                <li><a href="#">Option 2</a></li>
+                <li><a href="#">Option 3</a></li>
               </ul>
             </li>
           </ul>
