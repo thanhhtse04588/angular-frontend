@@ -1,12 +1,11 @@
+
+import { UserLogin } from './../../class/user';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { map, retry, catchError } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { Observable} from 'rxjs';
+import { Router } from '@angular/router';
 
-export class User {
-  public status: number
 
-}
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +13,8 @@ export class User {
 export class AuthenticationService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {
   }
   //Http Options
@@ -24,33 +24,29 @@ export class AuthenticationService {
     })
   }
 
-  private baseUrl = 'http://localhost:8080/user/login';
-  authenticate(uname, upass): Observable<any> {
-    // let params = new HttpParams().set('uname',uname).set('upass',upass);
-    return this.http.post<User>(`${this.baseUrl}?uname=${uname}&upass=${upass}`, this.httpOptions).pipe(
-      map(
-        userData => {
-          let user = new User();
-          user = userData;
-          if (user.status === 200) { sessionStorage.setItem('username', uname) }
-          else {
-            sessionStorage.setItem('message', "Tên đăng nhập hoặc mật khẩu sai")
-          }
-          let authString = 'Basic ' + btoa(uname + ':' + upass)
-          sessionStorage.setItem('basicauth', authString)
-          return userData
-        }
-      )
+  private baseUrl = 'http://localhost:8080/user';
+  authenticate(uname, upass) {
+    return this.http.post<UserLogin>(`${this.baseUrl}/login?uname=${uname}&upass=${upass}`, this.httpOptions)
+  }
 
-    );
+  setSessionLoggedIn(data: UserLogin) {
+    sessionStorage.setItem("userID", data.u.userID.toString());
+    sessionStorage.setItem("name", data.ud.name);
+    sessionStorage.setItem("userRoleID", data.u.roleID.toString());
   }
 
   isUserLoggedIn() {
-    let user = sessionStorage.getItem('username')
-    return !(user === null)
+    let userID = sessionStorage.getItem('userID')
+    return !(userID === null)
   }
 
   logOut() {
-    sessionStorage.removeItem('username')
+    sessionStorage.clear()
+  }
+
+  // register
+  register(registerData: any): Observable<any> {
+    // return this.http.get(`${this.baseUrl}/api/cp/places/search`, searchCondition);
+    return this.http.post(`${this.baseUrl}/register `, JSON.stringify(registerData), this.httpOptions)
   }
 }

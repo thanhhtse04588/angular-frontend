@@ -1,6 +1,11 @@
-<div class="main">
-
-    <!-- Sign up form -->
+  <!-- Pre Loader -->
+  <div id="aa-preloader-area">
+    <div class="pulse"></div>
+  </div>
+  <a class="scrollToTop" href="#"><i class="fa fa-angle-double-up"></i></a>
+  
+<!-- <div class="main">
+    <form [formGroup]="form"  (ngSubmit)="register()">
     <section class="signup">
         <div class="container">
             <div class="signup-content">
@@ -8,24 +13,29 @@
                     <h2 class="form-title">Đăng ký</h2>
                     <form method="POST" class="register-form" id="register-form">
                         <div class="form-group">
-                            <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="text" name="name" id="name" placeholder="Tên đăng nhập"/>
+                            <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input formControlName="username" class="form-control" type="text" name="name" id="name" placeholder="Tên đăng nhập"/>
                         </div>
+                        <div class="col alert alert-danger" role="alert"
+                        *ngIf="form.hasError('invalidusername', ['username']) &&
+                          form.get('username').touched">
+                        Tên đăng không hợp lệ!
+                      </div>
                         <div class="form-group">
                             <label for="email"><i class="zmdi zmdi-email"></i></label>
-                            <input type="email" name="email" id="email" placeholder="Email"/>
+                            <input formControlName="email" class="form-control" type="email" name="email" id="email" placeholder="Email"/>
                         </div>
                         <div class="form-group">
-                            <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                            <input type="password" name="pass" id="pass" placeholder="Mật khẩu"/>
+                            <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                            <input formControlName="password" class="form-control" type="password" name="pass" id="pass" placeholder="Mật khẩu"/>
                         </div>
                         <div class="form-group">
-                            <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                            <input type="password" name="re_pass" id="re_pass" placeholder="Nhập lại mật khẩu"/>
+                            <label for="confirmPassword"><i class="zmdi zmdi-lock-outline"></i></label>
+                            <input formControlName="confirmPassword" class="form-control" type="password" name="re_pass" id="re_pass" placeholder="Nhập lại mật khẩu"/>
                         </div>
                         <div class="form-group">
-                            <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-                            <label for="agree-term" class="label-agree-term"><span><span></span></span>Tôi đồng ý với những <a href="#" class="term-service"> điều khoản dịch vụ</a></label>
+                            <input formControlName="agree_term" class="form-control" type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                            <label  for="agree-term" class="label-agree-term"><span><span></span></span>Tôi đồng ý với những <a href="#" class="term-service"> điều khoản dịch vụ</a></label>
                         </div>
                         <div class="form-group form-button">
                             <input type="submit" name="signup" id="signup" class="form-submit" value="Đăng ký"/>
@@ -39,5 +49,61 @@
             </div>
         </div>
     </section>
+</form>
+</div> -->
 
+<!-- main app container -->
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" />
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h2>Đăng ký tài khoản</h2>
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label>Tên <span style="color: red;">*</span></label>                        
+                        <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" placeholder="Nhập tên"/>
+                        <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                            <div *ngIf="f.firstName.errors.required">Vui lòng nhập tên</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Họ <span style="color: red;">*</span></label>
+                        <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" placeholder=" Nhập họ" />
+                        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                            <div *ngIf="f.lastName.errors.required">Vui lòng nhập họ</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tên đăng nhập <span style="color: red;">*</span></label>
+                        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" placeholder="Nhập tên đăng nhập" />
+                        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                            <div *ngIf="f.username.errors.required">Vui lòng nhập tên đăng nhập</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Mật khẩu <span style="color: red;">*</span></label>
+                        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="Mật khẩu từ 6 đến 32 ký tự" />
+                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                            <div *ngIf="f.password.errors.required">Vui lòng nhập mật khẩu</div>
+                            <div *ngIf="f.password.errors.minlength">Mật khẩu phải có ít nhất 6 ký tự</div>
+                            <div *ngIf="f.password.errors.maxlength">Mật khẩu phải có nhiều nhất 32 ký tự</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Nhập lại mật khẩu <span style="color: red;">*</span></label>
+                        <input type="password" formControlName="confirmPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
+                        <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+                            <div *ngIf="f.confirmPassword.errors.required">Nhập lại mật khẩu không được để trống</div>
+                            <div *ngIf="f.confirmPassword.errors.mustMatch">Mật khẩu không khớp</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary">Đăng ký</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

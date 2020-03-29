@@ -1,6 +1,36 @@
 
-@import'../../../assets/template_library/styles-import.css';
-#map {
-    height: 400px;  /* The height is 400 pixels */
-    width: 100%;  /* The width is the width of the web page */
-   }
+@import url("../../../assets/half-page-image-carousel/css/style.min.css");
+
+
+html,
+body,
+header,
+.carousel {
+  height: 80vh;
+}
+
+@media (max-width: 740px) {
+
+  html,
+  body,
+  header,
+  .carousel {
+    height: 100vh;
+  }
+}
+
+@media (min-width: 800px) and (max-width: 850px) {
+
+  html,
+  body,
+  header,
+  .carousel {
+    height: 100vh;
+  }
+}
+
+@media (min-width: 800px) and (max-width: 850px) {
+  .navbar:not(.top-nav-collapse) {
+    background: #929FBA !important;
+  }
+}

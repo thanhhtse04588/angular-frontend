@@ -1,257 +1,80 @@
-<div class="aa-price-range">
-    <!-- Start slider  -->
-    <!-- <section id="aa-slider">
-      <div class="aa-slider-area">
-        <div class="aa-top-slider">
-          <div class="aa-top-slider-single">
-            <img src="../../../assets/template_library/img/slider/3.jpg" alt="img">
-            <div class="aa-top-slider-content">
-              <span class="aa-top-slider-catg">Chung cư cao cấp Star</span>
-              <p class="aa-top-slider-location"><i class="fa fa-map-marker"></i>Nguyễn Trãi, Thanh Xuân, Hà Nội</p>
-              <span class="aa-top-slider-off">30% SALE OFF</span>
-              <p class="aa-top-slider-price">5.000.000VND/1 tháng</p>
-              <a href="details-property.html" class="aa-top-slider-btn">Đọc thêm <span
-                  class="fa fa-angle-double-right"></span></a>
-            </div>
-          </div>
-          <div class="aa-top-slider-single">
-            <img src="../../../assets/template_library/img/slider/2.jpg" alt="img">
-            <div class="aa-top-slider-content">
-              <span class="aa-top-slider-catg">Nhà riêng 5 tầng</span>
-              <p class="aa-top-slider-location"><i class="fa fa-map-marker"></i>Cầu Giấy, Hà Nội</p>
-              <span class="aa-top-slider-off">30% OFF</span>
-              <p class="aa-top-slider-price">7.000.000VND/1 tháng</p>
-              <a href="details-property.html" class="aa-top-slider-btn">Đọc thêm <span
-                  class="fa fa-angle-double-right"></span></a>
-            </div>
-          </div>
-        </div>
+<app-search-bar></app-search-bar>
+<!--Main layout-->
+<main class="pt-5">
+  <div class="container">
+
+    <!--Section: Jumbotron-->
+    <section class="card wow fadeIn"
+      style="background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg);">
+
+      <!-- Content -->
+      <div class="card-body text-white text-center py-5 px-5 my-5">
+
+        <h1 class="mb-4">
+          <strong>Learn Bootstrap 4 with MDB</strong>
+        </h1>
+        <p>
+          <strong>Best & free guide of responsive web design</strong>
+        </p>
+        <p class="mb-4">
+          <strong>The most comprehensive tutorial for the Bootstrap 4. Loved by over 500 000 users. Video and written
+            versions available. Create your own, stunning website.</strong>
+        </p>
+        <a target="_blank" href="https://mdbootstrap.com/education/bootstrap/"
+          class="btn btn-outline-white btn-lg">Start free tutorial
+          <i class="fas fa-graduation-cap ml-2"></i>
+        </a>
+
       </div>
-    </section> -->
-    <!-- End slider  -->
-  
-  <app-search-bar></app-search-bar>
-  
-    <!-- Latest property -->
-    <section id="aa-latest-property">
-      <div class="container">
-        <div class="aa-latest-property-area">
-          <div class="aa-title">
-            <h2>Nhà Đất Nổi Bật</h2>
-            <p>Nhanh tay book cho mình 1 căn ưng ý nhé bạn!</p>
-          </div>
-          <div class="aa-latest-properties-content">
-            <div class="row">
-  
-  
-  
-              <!-- Start content -->
-              <div *ngFor="let place of places | async" class="col-md-4">
-                <article class="aa-properties-item">
-                  <img class="aa-properties-item-img" src="{{place.imageLarge}}" alt="img">
-                  <div class="aa-tag for-rent">
-                    {{place.roleOfPlaceName}}
-                  </div>
-                  <div class="aa-properties-item-content">
-                    <div class="aa-properties-info">
-                      <span>{{place.bedRooms}} phòng ngủ</span>
-                      <span>{{place.toilets}} phòng vệ sinh</span>
-                      <span>{{place.area}} m²</span>
-                    </div>
-                    <div class="aa-properties-about">
-                      <div class="aa-properties-title">{{place.title}}</div>
-                      <div class="aa-properties-address">{{place.district}}</div>
-                    </div>
-                    <div class="aa-properties-detial">
-                      <span class="aa-price">{{place.price}} triệu/tháng</span>
-                      <a class="aa-secondary-btn" (click)="placeDetail(place.placeID)">Xem Chi Tiết</a>
-                    </div>
-                  </div>
-                </article>
-              </div>
-              <!-- End content -->
-  
-            </div>
-          </div>
-        </div>
-      </div>
+      <!-- Content -->
     </section>
-    <!-- About us -->
-    <section id="aa-about-us">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="aa-about-us-area">
-              <div class="row">
-                <div class="col-md-5">
-                  <div class="aa-about-us-left">
-                    <img src="../../../assets/template_library/img/team.jpg" alt="image">
-                  </div>
-                </div>
-                <div class="col-md-7">
-                  <div class="aa-about-us-right">
-                    <div class="aa-title">
-                      <h2>Về Chúng Tôi</h2>
-                      <span></span>
-                    </div>
-                    <p>Nhóm gồm 5 thành viên đến từ Đại học FPT</p>
-                    <ul>
-                      <li><b>Trưởng nhóm: </b>Hoàng Ngọc Nghĩa Trường</li>
-                      <li><b>Thành viên: </b>&nbsp;&nbsp;&nbsp;&nbsp;Trần Huy Đức</li>
-                      <li>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Trần
-                        Thị Thùy Trang</li>
-                      <li>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Đào
-                        Đức Trung</li>
-                      <li>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hoàng
-                        Tiến Thành</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+    <!--Section: Jumbotron-->
+
+    <hr class="my-5">
+
+    <!--Section: Cards-->
+    <section class="text-center">
+
+      <!--Grid row-->
+      <div class="row mb-4 wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-6 mb-4" *ngFor="let place of places | async" >
+
+          <!--Card-->
+          <div class="card">
+
+            <!--Card image-->
+            <div class="view overlay" style="height: 300px;">
+              <div class="card-header"> <h4><span class="badge badge-pill badge-success">{{place.roleOfPlaceName}}</span></h4></div>
+              <img src="{{place.imageLarge}}" class="card-img-top" alt="">
+              <a (click)="placeDetail(place.placeID)" target="_blank">
+                <div class="mask rgba-white-slight"></div>
+              </a>
             </div>
+
+            <!--Card content-->
+            <div class="card-body">
+              <!--Title-->
+              <h4 style="height: 80px;" class="card-title">{{place.title}}</h4>
+              <!--Text-->
+              <p class="card-text">{{place.bedRooms}} phòng ngủ - {{place.toilets}} phòng vệ sinh - {{place.area}} m²</p>
+              <h5 class="card-title"> {{place.district}}</h5>
+              <h4 class="card-title">{{place.price}} vnđ</h4>
+              <a (click)="placeDetail(place.placeID)" class="btn btn-primary btn-md">Xem chi tiết
+                <i class="fas fa-play ml-2"></i>
+              </a>
+            </div>
+
           </div>
+          <!--/.Card-->
         </div>
+        <!--Grid column-->
       </div>
+      <!--Grid row-->
     </section>
-    <!-- / About us -->
-  
-    <!-- Service section -->
-    <section id="aa-service">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="aa-service-area">
-              <div class="aa-title">
-                <h2>Dịch Vụ Của Chúng Tôi</h2>
-                <span></span>
-              </div>
-              <!-- service content -->
-              <div class="aa-service-content">
-                <div class="row">
-                  <div class="col-md-3">
-                    <div class="aa-single-service">
-                      <div class="aa-service-icon">
-                        <span class="fa fa-home"></span>
-                      </div>
-                      <div class="aa-single-service-content">
-                        <h4><a href="#">Bất Động Sản "sạch"</a></h4>
-                        <p>Bất kể bất động sản nào đã được lên sàn của chúng mình người dùng đều có thể tin tưởng!</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="aa-single-service">
-                      <div class="aa-service-icon">
-                        <span class="fa fa-check"></span>
-                      </div>
-                      <div class="aa-single-service-content">
-                        <h4><a href="#">Dịch Vụ Quản Lý BĐS</a></h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto repellendus quasi asperiores
-                          itaque dolorem at.</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="aa-single-service">
-                      <div class="aa-service-icon">
-                        <span class="fa fa-crosshairs"></span>
-                      </div>
-                      <div class="aa-single-service-content">
-                        <h4><a href="#">ABC gì đó 😀😀😀</a></h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto repellendus quasi asperiores
-                          itaque dolorem at.</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="aa-single-service">
-                      <div class="aa-service-icon">
-                        <span class="fa fa-bar-chart-o"></span>
-                      </div>
-                      <div class="aa-single-service-content">
-                        <h4><a href="#">ABC gì đó 😀😀😀</a></h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto repellendus quasi asperiores
-                          itaque dolorem at.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- / Service section -->
-  
-    <!-- Client Testimonial -->
-    <!-- <section id="aa-client-testimonial">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="aa-client-testimonial-area">
-              <div class="aa-title">
-                <h2>Khách Hàng Nói Gì Về Chúng Tôi</h2>
-                <span></span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus eaque quas debitis animi
-                  ipsum,
-                  veritatis!</p>
-              </div>
-              <div class="aa-testimonial-content">
-                <ul class="aa-testimonial-slider">
-                  <li>
-                    <div class="aa-testimonial-single">
-                      <div class="aa-testimonial-img">
-                        <img src="../../../assets/template_library/img/tron_trangttt.png" alt="testimonial img">
-                      </div>
-                      <div class="aa-testimonial-info">
-                        <p>Dịch vụ rất tốt, support khách hàng tận tình!!!</p>
-                      </div>
-                      <div class="aa-testimonial-bio">
-                        <p>Trang béo</p>
-                        <span>Khách hàng đã thuê BĐS</span>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="aa-testimonial-single">
-                      <div class="aa-testimonial-img">
-                        <img src="../../../assets/template_library/img/tron_truonghnn.PNG" alt="testimonial img">
-                      </div>
-                      <div class="aa-testimonial-info">
-                        <p>Dịch vụ đáng giá 5*</p>
-                      </div>
-                      <div class="aa-testimonial-bio">
-                        <p>TrườngHNN</p>
-                        <span>Khách hàng đã mua BĐS</span>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section> -->
-    <!-- Client Testimonial -->
-    
-    <!-- Client brand -->
-    <section id="aa-client-brand">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="aa-client-brand-area">
-              <ul class="aa-client-brand-slider">
-  
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- / Client brand -->
+    <!--Section: Cards-->
+
   </div>
+</main>
+<!--Main layout-->

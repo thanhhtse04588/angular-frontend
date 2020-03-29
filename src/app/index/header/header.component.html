@@ -1,101 +1,244 @@
-
-
-
-<div class="aa-price-range">
-  <!-- Pre Loader -->
-  <div id="aa-preloader-area">
-    <div class="pulse"></div>
-  </div>
-  <!-- SCROLL TOP BUTTON -->
-  <a class="scrollToTop" href="#"><i class="fa fa-angle-double-up"></i></a>
-  <!-- END SCROLL TOP BUTTON -->
-
-
-  <!-- Start header section -->
-  <header id="aa-header"  style="border-bottom: solid 1px rgba(136,136,136,0.5); ">
+<!-- Navbar -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
     <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="aa-header-area">
-            <div class="row">
-              <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 0px">
-                <div class="aa-header-right" style="text-align: left;">
-                  <a href="cb-index.html" target="_blank" class="aa-register" style="color: rgb(85,85,85);"><b>HỆ THỐNG
-                      ĐĂNG TIN</b></a>
-                  <a href="cs-index.html" class="aa-login" style="color: rgb(85,85,85);"><b>HỆ THỐNG QUẢN LÝ NHÀ ĐANG
-                      THUÊ</b></a>
-                  <!--<div class="aa-header-left">
-                  <div class="aa-telephone-no">
-                    <span class="fa fa-phone"></span>
-                    0979401199
-                  </div>
-                  <div class="aa-email hidden-xs">
-                    <span class="fa fa-envelope-o"></span> TrangTTTSE05109@FPT.EDU.VN
-                  </div>
-                </div>   <!-->
-                </div>
-              </div>
-              <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="aa-header-right">
-                  <a *ngIf="!loginService.isUserLoggedIn()" routerLink="/register" class="aa-register" style="color: rgb(85,85,85);"><b>Đăng ký</b></a>
-                  <a *ngIf="!loginService.isUserLoggedIn()" routerLink="/login" class="aa-login" style="color: rgb(85,85,85);"><b>Đăng nhập</b></a>
-                  <a *ngIf="loginService.isUserLoggedIn()" routerLink="/logout" class="aa-login" style="color: rgb(85,85,85);"><b>Đăng xuất</b></a>
-                </div>
-              </div>
-            </div>
-          </div>
+
+        <!-- Brand -->
+        <a class="navbar-brand waves-effect" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
+            <strong class="blue-text">Cyber Place</strong>
+        </a>
+
+        <!-- Collapse -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Links -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <!-- Left -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link waves-effect" href="#">Trang chủ
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link waves-effect" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
+                        Kênh người bán
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link waves-effect"
+                        href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank">
+                        Kênh người mua
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link waves-effect" href="https://mdbootstrap.com/education/bootstrap/"
+                        target="_blank">
+                        <!-- <i class="far fa-bell"></i> -->
+                        Thông báo
+                        <span class="badge badge-danger ml-2">4</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Right -->
+            <ul class="navbar-nav nav-flex-icons">
+                <!-- <li class="nav-item">
+                          <a href="https://www.facebook.com/mdbootstrap" class="nav-link waves-effect" target="_blank">
+                              <i class="fab fa-facebook-f"></i>
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
+                              <i class="fab fa-twitter"></i>
+                          </a>
+                      </li> -->
+                <li class="nav-item" *ngIf="!loginService.isUserLoggedIn()">
+                    <a class="nav-link waves-effect" data-toggle="modal" data-target="#frameSignin"
+                        (click)="frameSignin.show()">
+                        Đăng ký
+                    </a>
+                </li>
+                <li class="nav-item" *ngIf="!loginService.isUserLoggedIn()">
+                    <a class="nav-link waves-effect" data-toggle="modal" data-target="#frameLogin"
+                        (click)="frameLogin.show()">
+                        Đăng nhập
+                    </a>
+
+                </li>
+                <li class="nav-item" *ngIf="loginService.isUserLoggedIn()" routerLink="/logout">
+                    <a class="nav-link waves-effect">
+                        Đăng xuất
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://github.com/mdbootstrap/bootstrap-material-design"
+                        class="nav-link border border-light rounded waves-effect" target="_blank">
+                        <i class="fab fa-github mr-2"></i>Đăng tin rao
+                    </a>
+                </li>
+                <li class="nav-item" *ngIf="loginService.isUserLoggedIn()">
+                    <a class="nav-link" title="{{getNameUser()}}">
+                        Xin chào {{getShortNameUser()}}...
+                    </a>
+                </li>
+            </ul>
+
         </div>
-      </div>
+
     </div>
-  </header>
-  <!-- End header section -->
-  <!-- Start menu section -->
-  <section id="aa-menu-area" style="background-color: white">
-    <nav class="navbar navbar-default main-navbar" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <!-- FOR MOBILE VIEW COLLAPSED BUTTON -->
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-            aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <!-- LOGO -->
-          <!-- Text based logo -->
-          <a class="navbar-brand aa-logo" href="index.html"> Cyber <span>Place</span></a>
-          <!-- Image based logo -->
-          <!-- <a class="navbar-brand aa-logo-img" href="index.html"><img src="img/logo.png" alt="logo"></a> -->
+</nav>
+<!-- Navbar -->
+
+<!-- Login Modal -->
+<div mdbModal [formGroup]="validatingLoginForm" #frameLogin="mdbModal" class="modal fade left" id="frameModalTop"
+    tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Đăng nhập</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frameLogin.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-3">
+                <div class="md-form mb-5">
+                    <mdb-icon fas icon="user" class="prefix grey-text"></mdb-icon>
+                    <input type="text" id="defaultForm-username" formControlName="loginFormModalUsername"
+                        class="form-control" mdbInput mdbValidate>
+                    <label for="defaultForm-username">Tên đăng nhập</label>
+                    <mdb-error
+                        *ngIf="loginFormModalUsername.invalid && (loginFormModalUsername.dirty || loginFormModalUsername.touched)">
+                        Không bỏ trống
+                    </mdb-error>
+                    <mdb-success
+                        *ngIf="loginFormModalUsername.valid && (loginFormModalUsername.dirty || loginFormModalUsername.touched)">
+                        Ok
+                    </mdb-success>
+                </div>
+
+                <div class="md-form mb-4">
+                    <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
+                    <input type="password" id="defaultForm-pass" formControlName="loginFormModalPassword"
+                        class="form-control" mdbInput mdbValidate>
+                    <label for="defaultForm-pass">Mật khẩu</label>
+                    <mdb-error
+                        *ngIf="loginFormModalPassword.invalid && (loginFormModalPassword.dirty || loginFormModalPassword.touched)">
+                        Mật khẩu từ 6 đến 32 ký tự
+                    </mdb-error>
+                    <mdb-success
+                        *ngIf="loginFormModalPassword.valid && (loginFormModalPassword.dirty || loginFormModalPassword.touched)">
+                        Ok
+                    </mdb-success>
+                </div>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button (click)=checkLogin() mdbBtn color="default" class="waves-light" mdbWavesEffect>
+                    Đăng nhập
+                </button>
+            </div>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul id="top-menu" class="nav navbar-nav navbar-right aa-main-nav">
-            <li class="active"><a href="index.html">Trang Chủ</a></li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" href="for-rent.html">Bất động sản cho thuê <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="apartment-for-rent.html">Chung cư cho thuê</a></li>
-                <li><a href="apartment-for-rent.html">Nhà riêng cho thuê</a></li>
-                <li><a href="apartment-for-rent.html">Văn phòng cho thuê</a></li>
-              </ul>
-            </li>
-            <li>
-              <a class="notification" href="notifications.html"><span class="glyphicon glyphicon-bell"></span> Thông
-                báo<span class="badge">99</span> </a></li>
-            <li *ngIf="loginService.isUserLoggedIn()" routerLink="/profile" class="dropdown">
-              <a class="dropdown-toggle"  ><img alt="Doanh thu" style="width: 25px; border-radius: 50%"
-                  src="../../../assets/template_library/img/hinh-anh-chat-ngau-dep.jpg" > {{getNameUser()}} <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Option 1</a></li>
-                <li><a href="#">Option 2</a></li>
-                <li><a href="#">Option 3</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-        <!--/.nav-collapse -->
-      </div>
-    </nav>
-  </section>
-  <!-- End menu section -->
+    </div>
 </div>
+<!-- /Login Modal -->
+
+<!-- Signin Modal -->
+<div mdbModal [formGroup]="validatingSigninForm" #frameSignin="mdbModal" class="modal fade left" id="frameModalTop"
+    tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Tạo tài khoản</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="frameSignin.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-3">
+                <div class="md-form mb-5">
+                    <mdb-icon fas icon="address-book" class="prefix grey-text"></mdb-icon>
+                    <input type="text" id="orangeForm-firstname" class="form-control"
+                        formControlName="firstName" mdbInput mdbValidate>
+                    <label for="orangeForm-firstname">Tên</label>
+                    <mdb-error
+                        *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+                        Không bỏ trống
+                    </mdb-error>
+                    <mdb-success
+                        *ngIf="firstName.valid && (firstName.dirty || firstName.touched)">
+                        Ok
+                    </mdb-success>
+                </div>
+                <div class="md-form mb-5">
+                    <mdb-icon fas icon="address-book" class="prefix grey-text"></mdb-icon>
+                    <input type="text" id="orangeForm-lastname" class="form-control"
+                        formControlName="lastName" mdbInput mdbValidate>
+                    <label for="orangeForm-lastname">Họ</label>
+                </div>
+
+                <div class="md-form mb-5">
+                    <mdb-icon fas icon="user" class="prefix grey-text"></mdb-icon>
+                    <input type="text" id="orangeForm-username" class="form-control"
+                        formControlName="username" mdbInput mdbValidate>
+                    <label for="orangeForm-username">Tên đăng nhập</label>
+                    <mdb-error
+                        *ngIf="username.invalid && (username.dirty || username.touched)">
+                        Không bỏ trống
+                    </mdb-error>
+                    <mdb-success
+                        *ngIf="username.valid && (username.dirty || username.touched)">
+                        Ok
+                    </mdb-success>
+                </div>
+
+                <div class="md-form mb-4">
+                    <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
+                    <input type="password" id="orangeForm-pass" class="form-control"
+                        formControlName="password" mdbInput mdbValidate>
+                    <label for="orangeForm-pass">Mật khẩu</label>
+                    <mdb-error
+                        *ngIf="password.invalid && (password.dirty || password.touched)">
+                        Mật khẩu từ 6 đến 32 ký tự
+                    </mdb-error>
+                    <mdb-success
+                        *ngIf="password.valid && (password.dirty || password.touched)">
+                        Ok
+                    </mdb-success>
+                </div>
+
+                <div class="md-form mb-4">
+                    <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
+                    <input type="password" id="orangeForm-repass" class="form-control"
+                        formControlName="confirmPasswrd" mdbInput mdbValidate>
+                    <label for="orangeForm-repass">Nhập lại mật khẩu</label>
+                    <mdb-error
+                        *ngIf="confirmPasswrd.invalid && (confirmPasswrd.dirty || confirmPasswrd.touched)">
+                        Mật khẩu từ 6 đến 32 ký tự
+                    </mdb-error>
+                    <mdb-success
+                        *ngIf="confirmPasswrd.valid && (confirmPasswrd.dirty || confirmPasswrd.touched)">
+                        Ok
+                    </mdb-success>
+                </div>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button (click)=doSignup() mdbBtn color="deep-orange" class="waves-light" mdbWavesEffect>Đăng
+                    ký</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- /Signin Modal -->
+
+<script type="text/javascript">
+    // Animations initialization
+    new WOW().init();
+
+</script>

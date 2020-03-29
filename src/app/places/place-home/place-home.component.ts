@@ -14,7 +14,6 @@ export class PlaceHomeComponent implements OnInit {
   places: Observable<PlaceQuickView[]>;
   constructor(private placeService: PlaceService,
     private router: Router) { 
-      this.loadScripts();
     }
 
   ngOnInit(): void {
@@ -26,9 +25,7 @@ export class PlaceHomeComponent implements OnInit {
   }
 
   loadScripts() {
-    const dynamicScripts = [
-     '../../../assets/template_library/js/custom.js'
-    ];
+    const dynamicScripts = [];
     for (let i = 0; i < dynamicScripts.length; i++) {
       const node = document.createElement('script');
       node.src = dynamicScripts[i];
