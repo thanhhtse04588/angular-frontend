@@ -1,109 +1,84 @@
-  <!-- Pre Loader -->
-  <div id="aa-preloader-area">
-    <div class="pulse"></div>
-  </div>
-  <a class="scrollToTop" href="#"><i class="fa fa-angle-double-up"></i></a>
-  
-<!-- <div class="main">
-    <form [formGroup]="form"  (ngSubmit)="register()">
-    <section class="signup">
-        <div class="container">
-            <div class="signup-content">
-                <div class="signup-form">
-                    <h2 class="form-title">Đăng ký</h2>
-                    <form method="POST" class="register-form" id="register-form">
-                        <div class="form-group">
-                            <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input formControlName="username" class="form-control" type="text" name="name" id="name" placeholder="Tên đăng nhập"/>
-                        </div>
-                        <div class="col alert alert-danger" role="alert"
-                        *ngIf="form.hasError('invalidusername', ['username']) &&
-                          form.get('username').touched">
-                        Tên đăng không hợp lệ!
-                      </div>
-                        <div class="form-group">
-                            <label for="email"><i class="zmdi zmdi-email"></i></label>
-                            <input formControlName="email" class="form-control" type="email" name="email" id="email" placeholder="Email"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="password"><i class="zmdi zmdi-lock"></i></label>
-                            <input formControlName="password" class="form-control" type="password" name="pass" id="pass" placeholder="Mật khẩu"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="confirmPassword"><i class="zmdi zmdi-lock-outline"></i></label>
-                            <input formControlName="confirmPassword" class="form-control" type="password" name="re_pass" id="re_pass" placeholder="Nhập lại mật khẩu"/>
-                        </div>
-                        <div class="form-group">
-                            <input formControlName="agree_term" class="form-control" type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-                            <label  for="agree-term" class="label-agree-term"><span><span></span></span>Tôi đồng ý với những <a href="#" class="term-service"> điều khoản dịch vụ</a></label>
-                        </div>
-                        <div class="form-group form-button">
-                            <input type="submit" name="signup" id="signup" class="form-submit" value="Đăng ký"/>
-                        </div>
-                    </form>
+<div class="container">
+    <mdb-card class="w-50 mx-auto mt-5 ">
+
+        <form [formGroup]="validatingSigninForm" (ngSubmit)=doSignup() class="text-center border border-light p-5">
+
+            <p class="h4 mb-4">Tạo tài khoản</p>
+
+            <div class="form-row mb-4">
+                <div class="col">
+                    <!-- First name -->
+                    <input type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="Tên"
+                        formControlName="firstName" mdbInput mdbValidate>
+                    <mdb-error *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+                        Không bỏ trống
+                    </mdb-error>
+                    <mdb-success *ngIf="firstName.valid && (firstName.dirty || firstName.touched)">
+                        Ok
+                    </mdb-success>
                 </div>
-                <div class="signup-image">
-                    <figure><img src="../../../assets/login_assets/images/signup-image.jpg" alt="sing up image"></figure>
-                    <a href="#" class="signup-image-link">Tôi đã có tài khoản</a>
+                <div class="col">
+                    <!-- Last name -->
+                    <input type="text" id="defaultRegisterFormLastName" class="form-control" placeholder="Họ"
+                        formControlName="lastName" mdbInput mdbValidate>
                 </div>
             </div>
-        </div>
-    </section>
-</form>
-</div> -->
 
-<!-- main app container -->
-
-<link href="//netdna.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" />
-<div class="jumbotron">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <h2>Đăng ký tài khoản</h2>
-                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                    <div class="form-group">
-                        <label>Tên <span style="color: red;">*</span></label>                        
-                        <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" placeholder="Nhập tên"/>
-                        <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-                            <div *ngIf="f.firstName.errors.required">Vui lòng nhập tên</div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Họ <span style="color: red;">*</span></label>
-                        <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" placeholder=" Nhập họ" />
-                        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-                            <div *ngIf="f.lastName.errors.required">Vui lòng nhập họ</div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Tên đăng nhập <span style="color: red;">*</span></label>
-                        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" placeholder="Nhập tên đăng nhập" />
-                        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                            <div *ngIf="f.username.errors.required">Vui lòng nhập tên đăng nhập</div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Mật khẩu <span style="color: red;">*</span></label>
-                        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="Mật khẩu từ 6 đến 32 ký tự" />
-                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                            <div *ngIf="f.password.errors.required">Vui lòng nhập mật khẩu</div>
-                            <div *ngIf="f.password.errors.minlength">Mật khẩu phải có ít nhất 6 ký tự</div>
-                            <div *ngIf="f.password.errors.maxlength">Mật khẩu phải có nhiều nhất 32 ký tự</div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Nhập lại mật khẩu <span style="color: red;">*</span></label>
-                        <input type="password" formControlName="confirmPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
-                        <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-                            <div *ngIf="f.confirmPassword.errors.required">Nhập lại mật khẩu không được để trống</div>
-                            <div *ngIf="f.confirmPassword.errors.mustMatch">Mật khẩu không khớp</div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary">Đăng ký</button>
-                    </div>
-                </form>
+            <!-- E-mail -->
+            <div class="md-form mb-5">
+                <input type="text" id="defaultRegisterFormEmail" class="form-control mb-4" formControlName="username"
+                    mdbInput mdbValidate placeholder="Tên đăng nhập">
+                <mdb-error *ngIf="username.invalid && (username.dirty || username.touched)">
+                    Không bỏ trống
+                </mdb-error>
+                <mdb-success *ngIf="username.valid && (username.dirty || username.touched)">
+                    Ok
+                </mdb-success>
             </div>
-        </div>
-    </div>
+            <!-- Password -->
+            <div class="md-form mb-4">
+            <input type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="Mật khẩu" formControlName="password" mdbInput mdbValidate
+                aria-describedby="defaultRegisterFormPasswordHelpBlock">
+                <mdb-error
+                *ngIf="password.invalid && (password.dirty || password.touched)">
+                Mật khẩu từ 6 đến 32 ký tự
+            </mdb-error>
+            <mdb-success
+                *ngIf="password.valid && (password.dirty || password.touched)">
+                Ok
+            </mdb-success>
+            </div>
+
+            <!-- Confirm -->
+            <div class="md-form mb-4">
+                <input type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="Mật khẩu" formControlName="confirmPasswrd" mdbInput mdbValidate
+                    aria-describedby="defaultRegisterFormPasswordHelpBlock">
+                    <mdb-error
+                    *ngIf="confirmPasswrd.invalid && (confirmPasswrd.dirty || confirmPasswrd.touched)">
+                    Mật khẩu từ 6 đến 32 ký tự
+                </mdb-error>
+                <mdb-success
+                    *ngIf="confirmPasswrd.valid && (confirmPasswrd.dirty || confirmPasswrd.touched)">
+                    Ok
+                </mdb-success>
+                </div>
+
+            <!-- Sign up button -->
+            <button [disabled]="!validatingSigninForm.valid" class="btn btn-info my-4 btn-block" type="submit">Sign in</button>
+
+            <!-- Social register -->
+            <!-- <p>or sign up with:</p>
+
+            <a href="#" class="mx-2" role="button"><i class="fab fa-facebook-f light-blue-text"></i></a>
+            <a href="#" class="mx-2" role="button"><i class="fab fa-twitter light-blue-text"></i></a>
+            <a href="#" class="mx-2" role="button"><i class="fab fa-linkedin-in light-blue-text"></i></a>
+            <a href="#" class="mx-2" role="button"><i class="fab fa-github light-blue-text"></i></a> -->
+
+            <hr>
+
+            <!-- Terms of service -->
+
+        </form>
+    </mdb-card>
+
 </div>

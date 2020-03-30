@@ -1,12 +1,9 @@
-
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserLogin } from './../../class/user';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthenticationService } from '../service/authentication.service';
 import { Router } from '@angular/router';
-
-// import custom validator to validate that password and confirm password fields match
-import { MustMatch } from './_helpers/must-match.validator';
-
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -14,43 +11,77 @@ import { MustMatch } from './_helpers/must-match.validator';
 })
 
 export class RegisterComponent implements OnInit {
-  registerForm: FormGroup;
-  submitted = false;
 
-  constructor(private formBuilder: FormBuilder, private registerService: AuthenticationService, private router: Router) { }
+  validatingSigninForm: FormGroup
+  validateLogin = false
+  constructor(private _location: Location, private router: Router, public loginService: AuthenticationService, private registerService: AuthenticationService) { }
+  ngOnInit(): void {
+    if (this.loginService.isUserLoggedIn()) {
+      this.router.navigate(["home"])
+    }
 
-  ngOnInit() {
-    this.registerForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      // email: ['', [Validators.required, Validators.email]],
-      username: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(32)]],
-      confirmPassword: ['', Validators.required]
-    }, {
-      validator: MustMatch('password', 'confirmPassword')
+    this.validatingSigninForm = new FormGroup({
+      firstName: new FormControl('', Validators.required),
+      lastName: new FormControl(''),
+      username: new FormControl('', Validators.required),
+      password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(32)]),
+      confirmPasswrd: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(32)])
     });
   }
 
-  // convenience getter for easy access to form fields
-  get f() { return this.registerForm.controls; }
+  doSignup() {
 
-  onSubmit() {
-    this.submitted = true;
-    // stop here if form is invalid
-    if (this.registerForm.invalid) {
+    if (this.validatingSigninForm.invalid) {
+      alert("Thông tin không hợp lệ!")
+      return;
+    } else if (this.password.value !== this.confirmPasswrd.value) {
+      alert("Mật khẩu không khớp!")
       return;
     }
-    let status = this.registerService.register(this.registerForm.value).subscribe(
-      (result: number) => {
-        if (result) {
+
+    this.registerService.register(this.validatingSigninForm.value).subscribe(
+      data => {
+        if (data) {
           alert("Đăng ký tài khoản thành công!")
-          this.router.navigate(['login']);
+          this.router.navigate(["home"])
+          //auto login
+          this.loginService.authenticate(this.username.value, this.password.value).subscribe(
+            (data: UserLogin) => {
+              try {
+                this.loginService.setSessionLoggedIn(data)
+              } catch (error) {
+                console.log(error)
+                this.router.navigate(["error"])
+              }
+            }, error => {
+              console.log(error)
+            })
+
         } else {
           alert("Tên đăng nhập đã tồn tại! Vui lòng nhập lại! ")
         }
+      }, error => {
+        console.log(error)
       }
     )
   }
-}
 
+
+  get firstName() {
+    return this.validatingSigninForm.get('firstName');
+  }
+  get lastName() {
+    return this.validatingSigninForm.get('lastName');
+  }
+
+  get username() {
+    return this.validatingSigninForm.get('username');
+  }
+
+  get password() {
+    return this.validatingSigninForm.get('password');
+  }
+  get confirmPasswrd() {
+    return this.validatingSigninForm.get('confirmPasswrd');
+  }
+}

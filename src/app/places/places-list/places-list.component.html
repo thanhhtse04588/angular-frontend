@@ -107,30 +107,9 @@
   </div>
 </main>
 <!--Main layout-->
+<script>
+  $('li').click(function() {
+  $(this).addClass('active').siblings().removeClass('active');
+});
 
-
-
-<!-- 
-            <div *ngFor="let place of places" class="col-md-4">
-              <article class="aa-properties-item">
-                <img class="aa-properties-item-img" src="{{place.imageLarge}}" alt="img">
-                <div class="aa-tag for-rent">
-                  {{place.roleOfPlaceName}}
-                </div>
-                <div class="aa-properties-item-content">
-                  <div class="aa-properties-info">
-                    <span>{{place.bedRooms}} phòng ngủ</span>
-                    <span>{{place.toilets}} phòng vệ sinh</span>
-                    <span>{{place.area}} m²</span>
-                  </div>
-                  <div class="aa-properties-about">
-                    <div class="aa-properties-title">{{place.title}}</div>
-                    <div class="aa-properties-address">{{place.district}}</div>
-                  </div>
-                  <div class="aa-properties-detial">
-                    <span class="aa-price">{{place.price}} triệu/tháng</span>
-                    <a class="aa-secondary-btn" (click)="placeDetail(place.placeID)">Xem Chi Tiết</a>
-                  </div>
-                </div>
-              </article>
-            </div> -->
+</script>

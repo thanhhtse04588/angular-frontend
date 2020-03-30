@@ -1,0 +1,112 @@
+<form>
+    <h2>Thông tin cơ bản</h2>
+    <div class="md-form">
+      <input mdbInput type="text" id="title" class="form-control">
+      <label for="title">
+        Tiêu đề (*):	
+        </label>
+    </div>
+    <select>
+        <option>Loại nhà đất</option>
+    </select>
+    <select>
+        <option>Quận/huyện</option>
+    </select>
+    <select>
+        <option>Phường/xã	
+        </option>
+    </select>
+    <select>
+        <option>Đường/phố</option>
+    </select>
+    <div class="md-form">
+      <input mdbInput type="text" id="area" class="form-control">
+      <label for="area">Diện tích m²</label>
+    </div>
+    <div class="md-form">
+      <input mdbInput type="text" id="price" class="form-control">
+      <label for="price">Giá</label>
+    </div>
+    <div class="md-form">
+      <textarea type="text" id="addressDetail" class="md-textarea form-control" mdbInput></textarea>
+      <label for="addressDetail">Địa chỉ cụ thể</label>
+    </div>
+    <h2>Thông tin mô tả</h2>
+    <h4>(*) Tối đa 3000 ký tự.</h4>
+    <div class="md-form">
+      <textarea type="text" id="desciption" class="md-textarea form-control" mdbInput></textarea>
+      <label for="desciption">Mô tả chi tiết</label>
+      <p>	
+        Giới thiệu chung về bất động sản của bạn.
+        Ví dụ: Khu nhà có vị trí thuận lợi
+           Gần công viên, gần trường học, . . .
+           Tổng diện tích ...m², đường đi ô tô    tận cửa, ...</p>
+    </div>
+    <h2>Thông tin khác</h2>
+<p>Quý vị nên điền đầy đủ thông tin vào các mục dưới đây để đăng tin có hiệu quả hơn.</p>
+<div class="md-form">
+  <input mdbInput type="text" id="frontispiece" class="form-control">
+  <label for="frontispiece">
+    Mặt tiền m²</label>
+</div>
+<div class="md-form">
+  <input mdbInput type="text" id="homeDirection" class="form-control">
+  <label for="homeDirection">Đường vào</label>
+</div>
+<select>
+    <option>Hướng nhà</option>
+</select>
+<div class="md-form">
+  <input mdbInput type="text" id="bedRooms" class="form-control">
+  <label for="bedRooms">Số phòng ngủ</label>
+</div>
+<div class="md-form">
+    <input mdbInput type="text" id="toilets" class="form-control">
+    <label for="toilets">Số toilet</label>
+  </div>
+  <div class="md-form">
+    <textarea type="text" id="equiment" class="md-textarea form-control" mdbInput></textarea>
+    <label for="equipment">Thông tin nội thất (tên thiết bị,số lượng ,đơn giá...)</label>
+  </div>
+  <h2>Hình ảnh và video</h2>
+  <div class="md-form">
+    <input mdbInput type="file" id="imageLarge" class="form-control">
+    <label for="imageLarge">Ảnh đại diện</label>
+  </div>
+  <div class="md-form">
+    <input mdbInput type="file" id="images" class="form-control">
+    <label for="images">Ảnh mô tả</label>
+  </div>
+  <div class="md-form">
+    <input mdbInput type="file" id="video" class="form-control">
+    <label for="video">Video mô tả</label>
+  </div>
+  <h2>Bản đồ</h2>
+  <p>Để tăng độ tin cậy và tin rao được nhiều người quan tâm hơn, hãy sửa vị trí tin rao của bạn trên bản đồ bằng cách Chọn lại vị trí bản đồ</p>
+  <p>Có thể dữ liệu bản đồ không chính xác. Vì vậy nếu có bất kỳ sai xót nào xin bạn hãy báo cho chúng tôi để khắc phục kịp thời.</p>
+  <mdb-frame></mdb-frame>
+
+  <h2>Liên hệ xem nhà</h2>
+  <div class="md-form">
+    <input mdbInput type="text" id="contactName" class="form-control">
+    <label for="contactName">Tên liên hệ</label>
+  </div>
+  <div class="md-form">
+    <input mdbInput type="text" id="contactAddress" class="form-control">
+    <label for="contactAddress">Địa chỉ</label>
+  </div>
+  <div class="md-form">
+    <input mdbInput type="text" id="contactPhone" class="form-control">
+    <label for="contactPhone">Số điện thoại</label>
+  </div>
+  <div class="md-form">
+    <input mdbInput type="text" id="contactEmail" class="form-control">
+    <label for="contactEmail">Email</label>
+  </div>
+  <div class="md-form">
+    <input mdbInput type="date" id="contactDate" class="form-control">
+    <label for="contactDate">Ngày xem nhà</label>
+  </div>
+  <button type="button" mdbBtn color="primary" mdbWavesEffect> Yêu cầu đăng tin</button>
+  <button type="button" mdbBtn color="danger" [routerLink]="['/home']" routerLinkActive="router-link-active"  mdbWavesEffect>Hủy</button>
+</form>

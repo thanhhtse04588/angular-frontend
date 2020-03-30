@@ -1,3 +1,4 @@
+import { PlaceService } from './../service/place.service';
 import { SearchBarService } from './../../index/service/search-bar.service';
 import { SearchCondition } from './../../class/search-condition';
 import { Component, OnInit } from '@angular/core';
@@ -15,13 +16,18 @@ export class PlacesListComponent implements OnInit {
   places: Observable<PlaceQuickView[]>
   searchCondition: SearchCondition
   size=0
+  PAGE_AMOUNT = 9
+  PAGE_DEFAULT = 1
 
   constructor(private searchService: SearchBarService,
     private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    
     this.searchCondition = new SearchCondition();
+    this.searchCondition.page = this.PAGE_DEFAULT
+    this.searchCondition.amount = this.PAGE_AMOUNT
     this.searchCondition.title = this.route.snapshot.params['title'];
     this.searchCondition.roleOfPlaceID = this.route.snapshot.params['roleOfPlaceID'];
     this.searchCondition.districtID = this.route.snapshot.params['districtID'];
@@ -36,10 +42,24 @@ export class PlacesListComponent implements OnInit {
       }, error => console.log(error));
 
   }
+  gotoPage(pageCurrent){
+      this.searchCondition.page = pageCurrent
+      this.searchService.getPlacesBySearchCondition(this.searchCondition).subscribe(
+        data => {
+          this.places = data;
+        }, error => console.log(error));
+  }
+  reloadCurrentRoute(currentUrl: string, data: any) {
+    // let currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl, data])
+    })
+  }
 
   placeDetail(id: number) {
     this.router.navigate(['detail', id]);
   }
+
 
   // loadScripts() {
   //   const dynamicScripts = [];

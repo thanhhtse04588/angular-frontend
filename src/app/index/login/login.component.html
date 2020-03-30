@@ -1,50 +1,71 @@
-  <!-- Pre Loader -->
-  <div id="aa-preloader-area">
-    <div class="pulse"></div>
-  </div>
-  <a class="scrollToTop" href="#"><i class="fa fa-angle-double-up"></i></a>
-  
-<div class="main">
+<div class="container">
+  <mdb-card class="w-50 mx-auto mt-5 ">
+    <!-- Default form login -->
+    <form [formGroup]="validatingLoginForm" (ngSubmit)="checkLogin()" class="text-center border border-light p-5">
 
-  <!-- Sign in  Form -->
-  <section class="sign-in">
-    <div class="container">
-      <div class="signin-content">
-        <div class="signin-image">
-          <figure><img src="../../../assets/login_assets/images/signin-image.jpg" alt="sing up image"></figure>
-          <a href="#" class="signup-image-link">Tạo tài khoản</a>
+      <p class="h4 mb-4">Đăng nhập</p>
+
+      <!-- Username -->
+      <div class="md-form mb-5">
+        <input type="text" id="defaultForm-username" formControlName="loginFormModalUsername" mdbInput mdbValidate
+          class="form-control mb-4" placeholder="Tên đăng nhập">
+        <mdb-error
+          *ngIf="loginFormModalUsername.invalid && (loginFormModalUsername.dirty || loginFormModalUsername.touched)">
+          Không bỏ trống
+        </mdb-error>
+        <mdb-success
+          *ngIf="loginFormModalUsername.valid && (loginFormModalUsername.dirty || loginFormModalUsername.touched)">
+          Ok
+        </mdb-success>
+      </div>
+
+      <!-- Password -->
+      <div class="md-form mb-4">
+        <input type="password" id="defaultForm-pass" formControlName="loginFormModalPassword" mdbInput mdbValidate
+          class="form-control mb-4" placeholder="Mật khẩu">
+        <mdb-error
+          *ngIf="loginFormModalPassword.invalid && (loginFormModalPassword.dirty || loginFormModalPassword.touched)">
+          Mật khẩu từ 6 đến 32 ký tự
+        </mdb-error>
+        <mdb-success
+          *ngIf="loginFormModalPassword.valid && (loginFormModalPassword.dirty || loginFormModalPassword.touched)">
+          Ok
+        </mdb-success>
+      </div>
+
+      <div class="d-flex justify-content-around">
+        <div>
+          <!-- Remember me -->
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
+            <label class="custom-control-label" for="defaultLoginFormRemember">Nhớ tài khoản</label>
+          </div>
         </div>
-
-        <div class="signin-form">
-          <h2 class="form-title">Đăng nhập</h2>
-          <form method="POST" class="register-form" id="login-form">
-            <div class="form-group">
-              <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-              <input type="text" name="username" [(ngModel)]="username" placeholder="Tên đăng nhập" />
-            </div>
-            <div class="form-group">
-              <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
-              <input type="password" name="password" [(ngModel)]="password" id="your_pass" placeholder="Mật khẩu" />
-            </div>
-            <div class="form-group">
-              <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
-              <label for="remember-me" class="label-agree-term"><span><span></span></span>Nhớ tài khoản</label>
-            </div>
-            <div class="form-group form-button">
-              <input (click)=checkLogin() type="submit" name="signin" id="signin" class="form-submit" value="Đăng nhập" />
-            </div>
-          </form>
-          <!-- <div class="social-login">
-            <span class="social-label">Or login with</span>
-            <ul class="socials">
-              <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
-              <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
-              <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
-            </ul>
-          </div> -->
+        <div>
+          <!-- Forgot password -->
+          <!-- <a href="">Forgot password?</a> -->
         </div>
       </div>
-    </div>
-  </section>
+
+      <!-- Sign in button -->
+      <button class="btn btn-info btn-block my-4" [disabled]="!validatingLoginForm.valid" type="submit"
+        mdbWavesEffect>Đăng nhập</button>
+
+      <!-- Register -->
+      <p>Bạn chưa có tài khoản?
+        <a [routerLink]="['/register']" routerLinkActive="router-link-active">Đăng ký</a>
+      </p>
+
+      <!-- Social login -->
+      <!-- <p>Đang nhập với</p>
+
+  <a href="#" class="mx-2" role="button"><i class="fab fa-facebook-f light-blue-text"></i></a>
+  <a href="#" class="mx-2" role="button"><i class="fab fa-twitter light-blue-text"></i></a>
+  <a href="#" class="mx-2" role="button"><i class="fab fa-linkedin-in light-blue-text"></i></a>
+  <a href="#" class="mx-2" role="button"><i class="fab fa-github light-blue-text"></i></a> -->
+
+    </form>
+    <!-- Default form login -->
+  </mdb-card>
 
 </div>

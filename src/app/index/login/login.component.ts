@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { UserLogin } from './../../class/user';
+import { Component, OnInit} from '@angular/core';
 import { AuthenticationService } from '../service/authentication.service';
+import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -8,30 +11,48 @@ import { AuthenticationService } from '../service/authentication.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  validatingLoginForm: FormGroup
+  validateLogin = false
 
-  username = ''
-  password = ''
-  invalidLogin = false
+  constructor(private _location: Location,private router: Router, public loginService: AuthenticationService) { }
 
-  constructor(private router: Router,
-    private loginservice: AuthenticationService) { }
-
-  ngOnInit() {
+  ngOnInit(): void {
+    if(this.loginService.isUserLoggedIn()){
+      this.router.navigate(['home'])
+    }
+    this.validatingLoginForm = new FormGroup({
+      loginFormModalUsername: new FormControl('', Validators.required),
+      loginFormModalPassword: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(32)]),
+    });
   }
 
   checkLogin() {
-    (this.loginservice.authenticate(this.username, this.password).subscribe(
-      data => {
-        this.router.navigate([''])
-        this.invalidLogin = false
+    this.loginService.authenticate(this.loginFormModalUsername.value, this.loginFormModalPassword.value).subscribe(
+      (data: UserLogin) => {
+        if (data.message === "401") {
+          alert("Tên đăng nhập hoặc mật khẩu không chính xác!")
+          return
+        }
+        try {
+          this.loginService.setSessionLoggedIn(data)
+        } catch (error) {
+          console.log(error)
+          this.router.navigate(["error"])
+        }
+        this._location.back()
       },
       error => {
-        this.invalidLogin = true
-
+        console.log(error)
       }
     )
-    );
+  }
 
+  get loginFormModalUsername() {
+    return this.validatingLoginForm.get('loginFormModalUsername');
+  }
+
+  get loginFormModalPassword() {
+    return this.validatingLoginForm.get('loginFormModalPassword');
   }
 
 }

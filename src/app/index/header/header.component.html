@@ -75,8 +75,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://github.com/mdbootstrap/bootstrap-material-design"
-                        class="nav-link border border-light rounded waves-effect" target="_blank">
+                    <a routerLink="/post"
+                        class="nav-link border border-light rounded waves-effect" >
                         <i class="fab fa-github mr-2"></i>Đăng tin rao
                     </a>
                 </li>
@@ -94,7 +94,8 @@
 <!-- Navbar -->
 
 <!-- Login Modal -->
-<div mdbModal [formGroup]="validatingLoginForm" #frameLogin="mdbModal" class="modal fade left" id="frameModalTop"
+<form [formGroup]="validatingLoginForm" (ngSubmit)="checkLogin()">
+<div mdbModal  #frameLogin="mdbModal" class="modal fade left" id="frameModalTop"
     tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -137,17 +138,19 @@
 
             </div>
             <div class="modal-footer d-flex justify-content-center">
-                <button (click)=checkLogin() mdbBtn color="default" class="waves-light" mdbWavesEffect>
+                <button  mdbBtn color="default" [disabled]="!validatingLoginForm.valid" class="waves-light" mdbWavesEffect>
                     Đăng nhập
                 </button>
             </div>
         </div>
     </div>
 </div>
+</form>
 <!-- /Login Modal -->
 
 <!-- Signin Modal -->
-<div mdbModal [formGroup]="validatingSigninForm" #frameSignin="mdbModal" class="modal fade left" id="frameModalTop"
+<form [formGroup]="validatingSigninForm" (ngSubmit)=doSignup()>
+<div mdbModal  #frameSignin="mdbModal" class="modal fade left" id="frameModalTop"
     tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -227,12 +230,13 @@
 
             </div>
             <div class="modal-footer d-flex justify-content-center">
-                <button (click)=doSignup() mdbBtn color="deep-orange" class="waves-light" mdbWavesEffect>Đăng
+                <button mdbBtn color="deep-orange" [disabled]="!validatingSigninForm.valid" class="waves-light" mdbWavesEffect>Đăng
                     ký</button>
             </div>
         </div>
     </div>
 </div>
+</form>
 
 
 <!-- /Signin Modal -->

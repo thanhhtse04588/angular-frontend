@@ -1,3 +1,5 @@
+import { RegisterComponent } from './index/register/register.component';
+import { LoginComponent } from './index/login/login.component';
 import { NotFoundComponent } from './index/errors/404/not-found/not-found.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, ErrorHandler } from '@angular/core';
@@ -16,7 +18,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LogoutComponent } from './index/logout/logout.component';
 import { BasicAuthHtppInterceptorService } from './index/service/basic-auth-htpp-interceptor.service';
 import { UserOrderComponent } from './user/user-order/user-order.component';
-import { GlobalErrorHandler } from './global-error-handler';
+import { PlacePostComponent } from './places/place-post/place-post.component';
+// import { GlobalErrorHandler } from './global-error-handler';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 // import { ServerErrorInterceptor } from './server-error.interceptor';
 
@@ -41,6 +44,9 @@ import { ErrorPageComponent } from './index/errors/error/error-page/error-page.c
     UserOrderComponent,
     ErrorPageComponent,
     NotFoundComponent,
+    PlacePostComponent,
+    LoginComponent,
+    RegisterComponent
     
   ],
   imports: [

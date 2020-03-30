@@ -24,23 +24,24 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/@fortawesome/fontawesome-free/css/all.css",
               "src/assets/css/bootstrap.min.css",
               "src/assets/css/mdb.min.css",
               "src/assets/css/style.min.css",
 
               "node_modules/animate.css/animate.css",
-              "node_modules/@fortawesome/fontawesome-free/css/all.css",
+
               "src/styles.css"
             ],
             "scripts": [
               "src/assets/js/jquery-3.4.1.min.js",
+              "src/assets/js/popper.min.js",
               "src/assets/js/bootstrap.min.js",
+              "src/assets/js/mdb.min.js",
 
               "node_modules/chart.js/dist/Chart.js",
-              "node_modules/hammerjs/hammer.min.js",
+              "node_modules/hammerjs/hammer.min.js"
 
-              "src/assets/js/mdb.min.js",
-              "src/assets/js/popper.min.js"
             ]
           },
           "configurations": {

@@ -11,10 +11,11 @@ export class PlaceDetail {
     latitude: number;
     roleOfPlace: string;
     counterView: number;
-    frontispiece:number
+    frontispiece:number;
     homeDirection: string;
     bedRooms:number;
     toilets:number;
     description: string;
     imageLarge: string;
 }
+

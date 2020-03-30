@@ -1,6 +1,6 @@
 import { ModalDirective } from 'angular-bootstrap-md';
 import { AuthenticationService } from './../../index/service/authentication.service';
-import { InsertedOrderForm } from './../../class/inserted-order-form';
+import { InsertedOrderForm } from '../../class/inserted-order-form';
 import { UserService } from './../../user/service/user.service';
 import { Observable } from 'rxjs';
 import { PlaceDetail } from './../../class/place-detail';
@@ -28,7 +28,7 @@ export class PlaceDetailComponent implements OnInit {
     private router: Router,
     private placeService: PlaceService,
     private userService: UserService,
-    public loginService: AuthenticationService) {
+    public loginService: AuthenticationService, ) {
   }
 
   ngOnInit() {
@@ -76,16 +76,21 @@ export class PlaceDetailComponent implements OnInit {
       data => {
         if (data) {
           alert("Liên hệ thành công , chúng tôi sẽ phản hổi sớm.")
-          this.frameOrder.hide()
-        }else{
-          this.router.navigate(["error"])
+        } else {
+          alert("Nhà không có sẵn")
+          this.router.navigate(["home"])
         }
+        this.frameOrder.hide()
       }, error => {
         this.router.navigate(["error"])
         console.log(error)
       }
     );
   }
+
+
+
+
   get name() {
     return this.requestOrderForm.get('name');
   }
@@ -105,7 +110,6 @@ export class PlaceDetailComponent implements OnInit {
   get mess() {
     return this.requestOrderForm.get('mess');
   }
-
 
   // Load js file 
   loadScripts() {
