@@ -38,6 +38,7 @@
               "src/assets/js/popper.min.js",
               "src/assets/js/bootstrap.min.js",
               "src/assets/js/mdb.min.js",
+              "src/assets/js/custom.js",
 
               "node_modules/chart.js/dist/Chart.js",
               "node_modules/hammerjs/hammer.min.js"

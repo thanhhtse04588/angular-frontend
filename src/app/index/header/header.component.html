@@ -3,7 +3,8 @@
     <div class="container">
 
         <!-- Brand -->
-        <a class="navbar-brand waves-effect" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
+        <a class="navbar-brand waves-effect" [routerLink]="['home']"
+        routerLinkActive="router-link-active">
             <strong class="blue-text">Cyber Place</strong>
         </a>
 
@@ -19,24 +20,21 @@
             <!-- Left -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link waves-effect" href="#">Trang chủ
+                    <a class="nav-link waves-effect" >Trang chủ
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link waves-effect" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
-                        Kênh người bán
+                    <a class="nav-link waves-effect" >
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link waves-effect"
-                        href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank">
+                    <a class="nav-link waves-effect">
                         Kênh người mua
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link waves-effect" href="https://mdbootstrap.com/education/bootstrap/"
-                        target="_blank">
+                <li *ngIf="loginService.isUserLoggedIn()" class="nav-item">
+                    <a class="nav-link waves-effect" >
                         <!-- <i class="far fa-bell"></i> -->
                         Thông báo
                         <span class="badge badge-danger ml-2">4</span>
@@ -46,16 +44,6 @@
 
             <!-- Right -->
             <ul class="navbar-nav nav-flex-icons">
-                <!-- <li class="nav-item">
-                          <a href="https://www.facebook.com/mdbootstrap" class="nav-link waves-effect" target="_blank">
-                              <i class="fab fa-facebook-f"></i>
-                          </a>
-                      </li>
-                      <li class="nav-item">
-                          <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
-                              <i class="fab fa-twitter"></i>
-                          </a>
-                      </li> -->
                 <li class="nav-item" *ngIf="!loginService.isUserLoggedIn()">
                     <a class="nav-link waves-effect" data-toggle="modal" data-target="#frameSignin"
                         (click)="frameSignin.show()">
@@ -75,10 +63,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a routerLink="/post"
-                        class="nav-link border border-light rounded waves-effect" >
-                        <i class="fab fa-github mr-2"></i>Đăng tin rao
-                    </a>
+                    <button routerLink="/post"  mdbBtn type="button" color="dark-green" size="sm" mdbWavesEffect>
+                        <strong>Đăng tin rao</strong></button>
                 </li>
                 <li class="nav-item" *ngIf="loginService.isUserLoggedIn()">
                     <a class="nav-link" title="{{getNameUser()}}">
@@ -110,14 +96,14 @@
                     <mdb-icon fas icon="user" class="prefix grey-text"></mdb-icon>
                     <input type="text" id="defaultForm-username" formControlName="loginFormModalUsername"
                         class="form-control" mdbInput mdbValidate>
-                    <label for="defaultForm-username">Tên đăng nhập</label>
+                    <label for="defaultForm-username">Tên đăng nhập<span class="text-danger">*</span></label>
                     <mdb-error
                         *ngIf="loginFormModalUsername.invalid && (loginFormModalUsername.dirty || loginFormModalUsername.touched)">
                         Không bỏ trống
                     </mdb-error>
                     <mdb-success
                         *ngIf="loginFormModalUsername.valid && (loginFormModalUsername.dirty || loginFormModalUsername.touched)">
-                        Ok
+                        <i class="fas fa-check"></i>
                     </mdb-success>
                 </div>
 
@@ -125,21 +111,21 @@
                     <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
                     <input type="password" id="defaultForm-pass" formControlName="loginFormModalPassword"
                         class="form-control" mdbInput mdbValidate>
-                    <label for="defaultForm-pass">Mật khẩu</label>
+                    <label for="defaultForm-pass">Mật khẩu<span class="text-danger">*</span></label>
                     <mdb-error
                         *ngIf="loginFormModalPassword.invalid && (loginFormModalPassword.dirty || loginFormModalPassword.touched)">
                         Mật khẩu từ 6 đến 32 ký tự
                     </mdb-error>
                     <mdb-success
                         *ngIf="loginFormModalPassword.valid && (loginFormModalPassword.dirty || loginFormModalPassword.touched)">
-                        Ok
+                        <i class="fas fa-check"></i>
                     </mdb-success>
                 </div>
 
             </div>
             <div class="modal-footer d-flex justify-content-center">
-                <button  mdbBtn color="default" [disabled]="!validatingLoginForm.valid" class="waves-light" mdbWavesEffect>
-                    Đăng nhập
+                <button  [disabled]="!validatingLoginForm.valid"  class="btn btn-primary my-4 btn-block" mdbWavesEffect>
+                    <strong>Đăng nhập</strong>
                 </button>
             </div>
         </div>
@@ -166,14 +152,14 @@
                     <mdb-icon fas icon="address-book" class="prefix grey-text"></mdb-icon>
                     <input type="text" id="orangeForm-firstname" class="form-control"
                         formControlName="firstName" mdbInput mdbValidate>
-                    <label for="orangeForm-firstname">Tên</label>
+                    <label for="orangeForm-firstname">Tên<span class="text-danger">*</span></label>
                     <mdb-error
                         *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
                         Không bỏ trống
                     </mdb-error>
                     <mdb-success
                         *ngIf="firstName.valid && (firstName.dirty || firstName.touched)">
-                        Ok
+                        <i class="fas fa-check"></i>
                     </mdb-success>
                 </div>
                 <div class="md-form mb-5">
@@ -187,14 +173,14 @@
                     <mdb-icon fas icon="user" class="prefix grey-text"></mdb-icon>
                     <input type="text" id="orangeForm-username" class="form-control"
                         formControlName="username" mdbInput mdbValidate>
-                    <label for="orangeForm-username">Tên đăng nhập</label>
+                    <label for="orangeForm-username">Tên đăng nhập<span class="text-danger">*</span></label>
                     <mdb-error
                         *ngIf="username.invalid && (username.dirty || username.touched)">
                         Không bỏ trống
                     </mdb-error>
                     <mdb-success
                         *ngIf="username.valid && (username.dirty || username.touched)">
-                        Ok
+                        <i class="fas fa-check"></i>
                     </mdb-success>
                 </div>
 
@@ -202,14 +188,14 @@
                     <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
                     <input type="password" id="orangeForm-pass" class="form-control"
                         formControlName="password" mdbInput mdbValidate>
-                    <label for="orangeForm-pass">Mật khẩu</label>
+                    <label for="orangeForm-pass">Mật khẩu<span class="text-danger">*</span></label>
                     <mdb-error
                         *ngIf="password.invalid && (password.dirty || password.touched)">
                         Mật khẩu từ 6 đến 32 ký tự
                     </mdb-error>
                     <mdb-success
                         *ngIf="password.valid && (password.dirty || password.touched)">
-                        Ok
+                        <i class="fas fa-check"></i>
                     </mdb-success>
                 </div>
 
@@ -217,21 +203,21 @@
                     <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
                     <input type="password" id="orangeForm-repass" class="form-control"
                         formControlName="confirmPasswrd" mdbInput mdbValidate>
-                    <label for="orangeForm-repass">Nhập lại mật khẩu</label>
+                    <label for="orangeForm-repass">Nhập lại mật khẩu<span class="text-danger">*</span></label>
                     <mdb-error
                         *ngIf="confirmPasswrd.invalid && (confirmPasswrd.dirty || confirmPasswrd.touched)">
                         Mật khẩu từ 6 đến 32 ký tự
                     </mdb-error>
                     <mdb-success
                         *ngIf="confirmPasswrd.valid && (confirmPasswrd.dirty || confirmPasswrd.touched)">
-                        Ok
+                        <i class="fas fa-check"></i>
                     </mdb-success>
                 </div>
 
             </div>
             <div class="modal-footer d-flex justify-content-center">
-                <button mdbBtn color="deep-orange" [disabled]="!validatingSigninForm.valid" class="waves-light" mdbWavesEffect>Đăng
-                    ký</button>
+                <button  class="btn btn-warning my-4 btn-block" [disabled]="!validatingSigninForm.valid"  mdbWavesEffect>
+                    <strong> Đăng ký</strong> </button>
             </div>
         </div>
     </div>

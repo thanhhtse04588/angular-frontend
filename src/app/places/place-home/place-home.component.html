@@ -1,91 +1,203 @@
-<app-search-bar></app-search-bar>
-<!--Main layout-->
-<main class="pt-5">
-  <div class="container">
+<!--Carousel Wrapper-->
+<div style="margin-top: -50px;" id="carousel-example-1z" class="carousel slide carousel-fade pt-4" data-ride="carousel">
 
-    <!--Section: Jumbotron-->
-    <section class="card wow fadeIn"
-      style="background-image: url(../../../assets/img/bricks-texture-wall.jpg);background-size: cover;">
+  <!--Indicators-->
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-example-1z" data-slide-to="1"></li>
+    <li data-target="#carousel-example-1z" data-slide-to="2"></li>
+  </ol>
+  <!--/.Indicators-->
 
-      <!-- Content -->
-      <div class="card-body text-white text-center py-5 px-5 my-5">
+  <!--Slides-->
+  <div class="carousel-inner" role="listbox">
 
-        <h1 class="mb-4" >
-          <strong>Bất động sản sạch</strong>
-        </h1>
+    <!--First slide-->
+    <div class="carousel-item active">
+      <div class="view"
+        style="background-image: url('../../assets/img/house/white-single-story-houses-beside-body-of-water-1438832.jpg'); background-repeat: no-repeat; background-size: cover;">
 
-      </div>
-      <!-- Content -->
-    </section>
-    <!--Section: Jumbotron-->
+        <!-- Mask & flexbox options-->
+        <div class="mask rgba-black-strong d-flex justify-content-center align-items-center">
 
-    <hr class="my-5">
-
-    <!--Section: Cards-->
-    <section class="text-center">
-
-      <!--Grid row-->
-      <div class="row mb-4 wow fadeIn">
-
-        <!--Grid column-->
-        <div class="col-lg-4 col-md-6 mb-4" *ngFor="let place of places | async">
-
-          <!--Card-->
-          <div class="card">
-
-            <!--Card image-->
-            <div class="view overlay" style="height: 300px;">
-              <div class="card-header">
-                <h4><span class="badge badge-pill badge-success">{{place.roleOfPlaceName}}</span></h4>
-              </div>
-              <img src="{{place.imageLarge}}" class="card-img-top" alt="">
-              <a (click)="placeDetail(place.placeID)" target="_blank">
-                <div class="mask rgba-white-slight"></div>
-              </a>
-            </div>
-
-            <!--Card content-->
-            <div class="card-body">
-              <!--Title-->
-              <h4 style="height: 80px;" class="card-title">{{place.title}}</h4>
-              <!--Text-->
-              <p class="card-text">{{place.bedRooms}} phòng ngủ - {{place.toilets}} phòng vệ sinh - {{place.area}} m²
-              </p>
-              <h5 class="card-title"> {{place.district}}</h5>
-              <h4 class="card-title">{{place.price}} vnđ</h4>
-              <a (click)="placeDetail(place.placeID)" class="btn btn-primary btn-md">Xem chi tiết
-                <i class="fas fa-play ml-2"></i>
-              </a>
-            </div>
-
+          <!-- Content -->
+          <div class="text-center white-text mx-5 wow fadeIn">
+            <h1 class="mb-4">
+              <strong>Bất động sản sạch</strong>
+            </h1>
+            <p>
+              <strong>Đáp ứng mọi tiêu chí của người mua lẫn người bán</strong>
+            </p>
+            <p class="mb-4 d-none d-md-block">
+              <strong>Hãy trở thành khách hàng của chúng tôi để nhận được những dịch vụ tốt nhất.</strong>
+            </p>
+            <!-- <a target="_blank" href="https://mdbootstrap.com/education/bootstrap/"
+                class="btn btn-outline-white btn-lg">Start
+                free tutorial
+                <i class="fas fa-graduation-cap ml-2"></i>
+              </a> -->
           </div>
-          <!--/.Card-->
+          <!-- Content -->
+
         </div>
-        <!--Grid column-->
+        <!-- Mask & flexbox options-->
+
       </div>
-      <!--Grid row-->
-    </section>
-    <!--Section: Cards-->
-    <hr class="my-5">
+    </div>
+    <!--/First slide-->
 
+    <!--Second slide-->
+    <div class="carousel-item">
+      <div class="view"
+        style="background-image: url('../../assets/img/house/architecture-beautiful-home-building-class-280229.jpg'); background-repeat: no-repeat; background-size: cover;">
 
-    <!--Section: Main info-->
-    <section class="mt-5 wow fadeIn">
-
-      <!--Grid row-->
-      <div class="row">
-
-        <!--Grid column-->
-        <div class="col-md-6 mb-4">
-
-          <img src="../../../assets/img/team.jpg" class="img-fluid z-depth-1-half" alt="">
+        <!-- Mask & flexbox options-->
+        <div class="mask rgba-black-strong d-flex justify-content-center align-items-center">
+          <!-- Content -->
+          <div class="text-center white-text mx-5 wow fadeIn">
+            <h1 class="mb-4">
+              <strong>Bất động sản sạch</strong>
+            </h1>
+            <p>
+              <strong>Đáp ứng mọi tiêu chí của người mua lẫn người bán</strong>
+            </p>
+            <p class="mb-4 d-none d-md-block">
+              <strong>Hãy trở thành khách hàng của chúng tôi để nhận được những dịch vụ tốt nhất.</strong>
+            </p>
+            <!-- <a target="_blank" href="https://mdbootstrap.com/education/bootstrap/"
+                class="btn btn-outline-white btn-lg">Start
+                free tutorial
+                <i class="fas fa-graduation-cap ml-2"></i>
+              </a> -->
+          </div>
+          <!-- Content -->
 
         </div>
-        <!--Grid column-->
+        <!-- Mask & flexbox options-->
 
-        <!--Grid column-->
-        <div class="col-md-6 mb-4">
+      </div>
+    </div>
+    <!--/Second slide-->
 
+    <!--Third slide-->
+    <div class="carousel-item">
+      <div class="view"
+        style="background-image: url('../../assets/img/house/white-and-red-wooden-house-with-fence-1029599.jpg'); background-repeat: no-repeat; background-size: cover;">
+
+        <!-- Mask & flexbox options-->
+        <div class="mask rgba-black-strong d-flex justify-content-center align-items-center">
+
+          <!-- Content -->
+          <div class="text-center white-text mx-5 wow fadeIn">
+            <h1 class="mb-4">
+              <strong>Bất động sản sạch</strong>
+            </h1>
+            <p>
+              <strong>Đáp ứng mọi tiêu chí của người mua lẫn người bán</strong>
+            </p>
+            <p class="mb-4 d-none d-md-block">
+              <strong>Hãy trở thành khách hàng của chúng tôi để nhận được những dịch vụ tốt nhất.</strong>
+            </p>
+            <!-- <a target="_blank" href="https://mdbootstrap.com/education/bootstrap/"
+                class="btn btn-outline-white btn-lg">Start
+                free tutorial
+                <i class="fas fa-graduation-cap ml-2"></i>
+              </a> -->
+          </div>
+          <!-- Content -->
+
+        </div>
+        <!-- Mask & flexbox options-->
+
+      </div>
+    </div>
+    <!--/Third slide-->
+
+  </div>
+  <!--/.Slides-->
+
+  <!--Controls-->
+  <a class="carousel-control-prev"role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next"role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+  <!--/.Controls-->
+
+</div>
+<!--/.Carousel Wrapper-->
+<div class="container">
+  <app-search-bar></app-search-bar>
+  <hr class="my-3">
+  <!--Section: Cards-->
+  <section class="text-center">
+
+    <!--Grid row-->
+    <div class="row mb-4 wow fadeIn">
+
+      <!--Grid column-->
+      <div class="col-lg-4 col-md-6 mb-4" *ngFor="let place of places | async">
+
+        <!--Card-->
+        <div class="card">
+
+          <!--Card image-->
+          <div class="view overlay" style="height: 300px;">
+            <div class="card-header">
+              <button mdbBtn type="button" color="light-green" size="sm"
+                mdbWavesEffect><strong>{{place.roleOfPlaceName}}</strong></button>
+            </div>
+            <img src="{{place.imageLarge}}" class="card-img-top" alt="">
+            <a (click)="placeDetail(place.placeID)" target="_blank">
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+
+          <!--Card content-->
+          <div class="card-body">
+            <!--Title-->
+            <h4 style="height: 80px;" class="card-title">{{shortTitle(place.title)}}...</h4>
+            <!--Text-->
+            <p class="card-text">{{place.bedRooms}} phòng ngủ - {{place.toilets}} phòng vệ sinh - {{place.area}} m²
+            </p>
+            <h5 class="card-title"> {{place.district}}</h5>
+            <h4 class="card-title">{{place.price| number}} vnđ</h4>
+            <a (click)="placeDetail(place.placeID)" class="btn btn-primary btn-md">Xem chi tiết
+              <i class="fas fa-play ml-2"></i>
+            </a>
+          </div>
+
+        </div>
+        <!--/.Card-->
+      </div>
+      <!--Grid column-->
+    </div>
+    <!--Grid row-->
+  </section>
+  <!--Section: Cards-->
+  <hr class="my-5">
+
+
+  <!--Section: Main info-->
+  <section class="mt-5 wow fadeIn">
+
+    <!--Grid row-->
+    <div class="row">
+
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+
+        <img src="../../../assets/img/team.jpg" class="img-fluid z-depth-1-half" alt="">
+
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+        <div class="view overlay rounded z-depth-1 p-5">
           <!-- Main heading -->
           <h3 class="h3 mb-3">Về Chúng Tôi</h3>
           <hr>
@@ -100,20 +212,18 @@
           <!-- Main heading -->
 
           <hr>
-
         </div>
-        <!--Grid column-->
 
       </div>
-      <!--Grid row-->
+      <!--Grid column-->
 
-    </section>
-    <!--Section: Main info-->
+    </div>
+    <!--Grid row-->
 
-    <hr class="my-5">
+  </section>
+  <!--Section: Main info-->
 
+  <hr class="my-5">
+</div>
 
-  </div>
-
-</main>
 <!--Main layout-->

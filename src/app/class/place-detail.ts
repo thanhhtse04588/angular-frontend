@@ -16,6 +16,5 @@ export class PlaceDetail {
     bedRooms:number;
     toilets:number;
     description: string;
-    imageLarge: string;
 }
-
+ 

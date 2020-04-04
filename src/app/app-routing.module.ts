@@ -1,3 +1,4 @@
+import { TestComponent } from './places/test/test.component';
 import { RegisterComponent } from './index/register/register.component';
 import { LoginComponent } from './index/login/login.component';
 import { PlaceHomeComponent } from './places/place-home/place-home.component';
@@ -15,6 +16,7 @@ import { PlacePostComponent } from './places/place-post/place-post.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: PlaceHomeComponent},
+  { path: 'test', component: TestComponent},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
   { path: 'search', component: PlacesListComponent},

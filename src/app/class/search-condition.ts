@@ -9,3 +9,11 @@ export class SearchCondition {
     page: number
     amount: number
 }
+
+export class Paging{
+    countResult: number
+    pageAmount: number
+    currentPage: number
+    pages: number
+  
+  }

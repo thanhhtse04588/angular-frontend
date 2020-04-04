@@ -1,3 +1,4 @@
+import { TestComponent } from './places/test/test.component';
 import { RegisterComponent } from './index/register/register.component';
 import { LoginComponent } from './index/login/login.component';
 import { NotFoundComponent } from './index/errors/404/not-found/not-found.component';
@@ -16,12 +17,13 @@ import { SearchBarComponent } from './index/search-bar/search-bar.component';
 import { PlaceHomeComponent } from './places/place-home/place-home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LogoutComponent } from './index/logout/logout.component';
-import { BasicAuthHtppInterceptorService } from './index/service/basic-auth-htpp-interceptor.service';
+// import { BasicAuthHtppInterceptorService } from './index/service/basic-auth-htpp-interceptor.service';
 import { UserOrderComponent } from './user/user-order/user-order.component';
 import { PlacePostComponent } from './places/place-post/place-post.component';
-// import { GlobalErrorHandler } from './global-error-handler';
+import { GlobalErrorHandler } from './global-error-handler';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-// import { ServerErrorInterceptor } from './server-error.interceptor';
+import { ServerErrorInterceptor } from './server-error.interceptor';
+import { AgmCoreModule } from '@agm/core';
 
 /* Angular material */
 import { AngularMaterialModule } from './angular-material.module';
@@ -46,7 +48,8 @@ import { ErrorPageComponent } from './index/errors/error/error-page/error-page.c
     NotFoundComponent,
     PlacePostComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    TestComponent
     
   ],
   imports: [
@@ -61,16 +64,21 @@ import { ErrorPageComponent } from './index/errors/error/error-page/error-page.c
     AngularMaterialModule,
     
     ModalModule, WavesModule, InputsModule, ButtonsModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBHJYZBS-Vig1M-fizCBelDmmqymJ96tXM',
+      libraries: ["places", "geometry"]
+  })
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true
-    },
     // {
-    //   provide: ErrorHandler, useClass: GlobalErrorHandler
+    //   provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true
     // },
-    // { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true }
+    {
+      provide: ErrorHandler, useClass: GlobalErrorHandler
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

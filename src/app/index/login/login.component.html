@@ -1,5 +1,5 @@
 <div class="container">
-  <mdb-card class="w-50 mx-auto mt-5 ">
+  <mdb-card class="w-50 mx-auto mt-5 " style="min-width: 400px;">
     <!-- Default form login -->
     <form [formGroup]="validatingLoginForm" (ngSubmit)="checkLogin()" class="text-center border border-light p-5">
 
@@ -15,7 +15,7 @@
         </mdb-error>
         <mdb-success
           *ngIf="loginFormModalUsername.valid && (loginFormModalUsername.dirty || loginFormModalUsername.touched)">
-          Ok
+          <i class="fas fa-check"></i>
         </mdb-success>
       </div>
 
@@ -29,7 +29,7 @@
         </mdb-error>
         <mdb-success
           *ngIf="loginFormModalPassword.valid && (loginFormModalPassword.dirty || loginFormModalPassword.touched)">
-          Ok
+          <i class="fas fa-check"></i>
         </mdb-success>
       </div>
 
@@ -48,8 +48,8 @@
       </div>
 
       <!-- Sign in button -->
-      <button class="btn btn-info btn-block my-4" [disabled]="!validatingLoginForm.valid" type="submit"
-        mdbWavesEffect>Đăng nhập</button>
+      <button class="btn btn-primary btn-block my-4" [disabled]="!validatingLoginForm.valid" type="submit"
+        mdbWavesEffect><strong>Đăng nhập</strong></button>
 
       <!-- Register -->
       <p>Bạn chưa có tài khoản?

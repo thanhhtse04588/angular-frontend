@@ -30,6 +30,6 @@ export class GlobalErrorHandler implements ErrorHandler {
     // Always log errors
     logger.logError(message, stackTrace);
     console.error(error);
-    this.router.navigate(['error'])
+    // this.router.navigate(['error'])
   }
 }

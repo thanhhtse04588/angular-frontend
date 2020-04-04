@@ -1,112 +1,440 @@
-<form>
-    <h2>Thông tin cơ bản</h2>
-    <div class="md-form">
-      <input mdbInput type="text" id="title" class="form-control">
-      <label for="title">
-        Tiêu đề (*):	
-        </label>
-    </div>
-    <select>
-        <option>Loại nhà đất</option>
-    </select>
-    <select>
-        <option>Quận/huyện</option>
-    </select>
-    <select>
-        <option>Phường/xã	
-        </option>
-    </select>
-    <select>
-        <option>Đường/phố</option>
-    </select>
-    <div class="md-form">
-      <input mdbInput type="text" id="area" class="form-control">
-      <label for="area">Diện tích m²</label>
-    </div>
-    <div class="md-form">
-      <input mdbInput type="text" id="price" class="form-control">
-      <label for="price">Giá</label>
-    </div>
-    <div class="md-form">
-      <textarea type="text" id="addressDetail" class="md-textarea form-control" mdbInput></textarea>
-      <label for="addressDetail">Địa chỉ cụ thể</label>
-    </div>
-    <h2>Thông tin mô tả</h2>
-    <h4>(*) Tối đa 3000 ký tự.</h4>
-    <div class="md-form">
-      <textarea type="text" id="desciption" class="md-textarea form-control" mdbInput></textarea>
-      <label for="desciption">Mô tả chi tiết</label>
-      <p>	
-        Giới thiệu chung về bất động sản của bạn.
-        Ví dụ: Khu nhà có vị trí thuận lợi
-           Gần công viên, gần trường học, . . .
-           Tổng diện tích ...m², đường đi ô tô    tận cửa, ...</p>
-    </div>
-    <h2>Thông tin khác</h2>
-<p>Quý vị nên điền đầy đủ thông tin vào các mục dưới đây để đăng tin có hiệu quả hơn.</p>
-<div class="md-form">
-  <input mdbInput type="text" id="frontispiece" class="form-control">
-  <label for="frontispiece">
-    Mặt tiền m²</label>
-</div>
-<div class="md-form">
-  <input mdbInput type="text" id="homeDirection" class="form-control">
-  <label for="homeDirection">Đường vào</label>
-</div>
-<select>
-    <option>Hướng nhà</option>
-</select>
-<div class="md-form">
-  <input mdbInput type="text" id="bedRooms" class="form-control">
-  <label for="bedRooms">Số phòng ngủ</label>
-</div>
-<div class="md-form">
-    <input mdbInput type="text" id="toilets" class="form-control">
-    <label for="toilets">Số toilet</label>
-  </div>
-  <div class="md-form">
-    <textarea type="text" id="equiment" class="md-textarea form-control" mdbInput></textarea>
-    <label for="equipment">Thông tin nội thất (tên thiết bị,số lượng ,đơn giá...)</label>
-  </div>
-  <h2>Hình ảnh và video</h2>
-  <div class="md-form">
-    <input mdbInput type="file" id="imageLarge" class="form-control">
-    <label for="imageLarge">Ảnh đại diện</label>
-  </div>
-  <div class="md-form">
-    <input mdbInput type="file" id="images" class="form-control">
-    <label for="images">Ảnh mô tả</label>
-  </div>
-  <div class="md-form">
-    <input mdbInput type="file" id="video" class="form-control">
-    <label for="video">Video mô tả</label>
-  </div>
-  <h2>Bản đồ</h2>
-  <p>Để tăng độ tin cậy và tin rao được nhiều người quan tâm hơn, hãy sửa vị trí tin rao của bạn trên bản đồ bằng cách Chọn lại vị trí bản đồ</p>
-  <p>Có thể dữ liệu bản đồ không chính xác. Vì vậy nếu có bất kỳ sai xót nào xin bạn hãy báo cho chúng tôi để khắc phục kịp thời.</p>
-  <mdb-frame></mdb-frame>
+<body class="grey lighten-3">
+  <div class="container wow fadeIn">
+    <div class="row py-5">
+      <!--Grid column-->
+      <div class="col-md-3 ">
+        <!-- Cart -->
+        <ul class="list-group mb-3 z-depth-1 text-center">
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0">Đăng tin</h6>
+            </div>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0">Quản lý tin đã đăng</h6>
+            </div>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0">Nhà đang trên trang</h6>
+            </div>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0">Nhà đang cho thuê</h6>
+            </div>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0">Doanh thu</h6>
+            </div>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0">Thông báo</h6>
+            </div>
+          </li>
+        </ul>
 
-  <h2>Liên hệ xem nhà</h2>
-  <div class="md-form">
-    <input mdbInput type="text" id="contactName" class="form-control">
-    <label for="contactName">Tên liên hệ</label>
+      </div>
+      <!--Grid column-->
+
+      <div class="col-md-9">
+
+        <div class="text-center">
+
+          <div class="h3 text-center">ĐĂNG TIN RAO BÁN, CHO THUÊ NHÀ ĐẤT</div>
+          <p>(Quý vị nhập thông tin nhà đất cần bán hoặc cho thuê vào các mục dưới đây)</p>
+          <div *ngIf="!loginService.isUserLoggedIn()" class="alert alert-warning" role="alert">
+            Bạn cần <strong style="cursor: pointer;" title="Đăng nhập ở góc trên bên phải màn hình">đăng nhập</strong>
+            để
+            thực hiện chức năng này
+          </div>
+        </div>
+        <form [formGroup]="form" (ngSubmit)="postPlace()">
+
+          <!-- page 1 -->
+          <mdb-card class="mb-3">
+            <mdb-card-header>
+              <div class="h4">Thông tin cơ bản</div>
+            </mdb-card-header>
+            <mdb-card-body>
+              <!-- title -->
+              <div class="md-form mb-5">
+                <input mdbInput type="text" id="title" formControlName="title" class="form-control" mdbInput
+                  mdbValidate>
+                <label for="title">
+                  Tiêu đề<span class="text-danger">*</span>
+                </label>
+                <mdb-error *ngIf="title.invalid && (title.dirty || title.touched)">
+                  Yêu cầu từ 10-100 ký tự
+                </mdb-error>
+                <mdb-success *ngIf="title.valid && (title.dirty || title.touched)">
+                  <i class="fas fa-check"></i>
+                </mdb-success>
+              </div>
+              <!--Grid row-->
+              <div class="row">
+                <!-- districtID -->
+                <div class="col-lg-4 col-md-12 mb-4">
+                  <label for="districtID">Quận/Huyện <span class="text-danger">*</span></label>
+                  <select class="custom-select d-block w-100 form-control" formControlName="districtID"
+                    (change)="onDistrictChange()" required>
+                    <option *ngFor="let item of districts | async" [ngValue]="item">{{item.district}}</option>
+                  </select>
+                </div>
+
+                <!-- wardID -->
+                <div class="col-lg-4 col-md-12 mb-4">
+                  <label for="wardID">Phường/Xã<span class="text-danger">*</span></label>
+                  <select class="custom-select d-block w-100 form-control" formControlName="wardID"
+                    (change)="onWardChange()" required>
+                    <option *ngFor="let item of wards" [ngValue]="item">{{item.wardName}}</option>
+                  </select>
+                </div>
+
+                <!-- streetID -->
+                <div class="col-lg-4 col-md-12 mb-4">
+                  <label for="streetID">Đường/phố<span class="text-danger">*</span></label>
+                  <select class="custom-select d-block w-100 form-control" formControlName="streetID" required>
+                    <option *ngFor="let item of streets" [ngValue]="item">{{item.streetName}}</option>
+                  </select>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <!-- roleOfPlaceID -->
+                <div class="col-lg-4 col-md-12 mb-4">
+                  <label for="country">Loại nhà đất <span class="text-danger">*</span></label>
+                  <select class="custom-select d-block w-100 form-control" formControlName="roleOfPlaceID" required>
+                    <option *ngFor="let item of roleOfPlaces | async" [ngValue]="item.roleOfPlaceID">{{item.roleName}}
+                    </option>
+                  </select>
+                </div>
+
+                <!-- area -->
+                <div class="col-lg-4 col-md-12 md-form mb-4">
+                  <label class="pl-3" for="area">Diện tích m²<span class="text-danger">*</span></label>
+                  <input mdbInput type="number" id="area" formControlName="area" class="form-control" mdbInput
+                    mdbValidate>
+                  <mdb-error class="pl-3" *ngIf="area.invalid && (area.dirty || area.touched)">
+                    Không bỏ trống
+                  </mdb-error>
+                  <mdb-success class="pl-3" *ngIf="area.valid && (area.dirty || area.touched)">
+                    <i class="fas fa-check"></i>
+                  </mdb-success>
+                </div>
+
+                <!-- price -->
+                <div class="col-lg-4 col-md-12 md-form mb-4">
+                  <label class="pl-3" for="price">Giá (vnđ/tháng)<span class="text-danger">*</span></label>
+                  <input mdbInput type="number" [ngModel]="formatPrice" (ngModelChange)="formatPrice=$event" id="price"
+                    formControlName="price" class="form-control" mdbInput mdbValidate>
+                  <p>{{formatPrice | currency:' ':'symbol':'2.0'}} </p>
+                  <mdb-error class="pl-3" *ngIf="price.invalid && (price.dirty || price.touched)">
+                    Không bỏ trống
+                  </mdb-error>
+                  <mdb-success class="pl-3" *ngIf="price.valid && (price.dirty || price.touched)">
+                    <i class="fas fa-check"></i>
+                  </mdb-success>
+                </div>
+
+              </div>
+              <!-- addressDetail -->
+              <div class="md-form mb-5">
+                <input type="text" id="addressDetail" formControlName="addressDetail" class="form-control" mdbValidate>
+                <label  for="addressDetail" class="">Địa chỉ<span class="text-danger">*</span></label>
+                <mdb-error *ngIf="addressDetail.invalid && (addressDetail.dirty || addressDetail.touched)">
+                  Không bỏ trống,tối đa 100 ký tự
+                </mdb-error>
+                <mdb-success *ngIf="addressDetail.valid && (addressDetail.dirty || addressDetail.touched)">
+                  <i class="fas fa-check"></i>
+                </mdb-success>
+              </div>
+              <hr>
+            </mdb-card-body>
+          </mdb-card>
+
+          <!-- page2 -->
+          <mdb-card class="mb-3">
+            <mdb-card-header>
+              <div class="h3">Thông tin mô tả</div>
+            </mdb-card-header>
+            <mdb-card-body>
+              <mdb-card-title>Tối đa 3000 ký tự.<span class="text-danger">*</span></mdb-card-title>
+              <!-- descriptions -->
+              <div class="md-form">
+                <textarea type="text" id="descriptions" formControlName="descriptions" class="md-textarea form-control"
+                  mdbInput></textarea>
+                <mdb-error *ngIf="descriptions.invalid && (descriptions.dirty || descriptions.touched)">
+                  Vui lòng nhập tiêu đề tin đăng của bạn. Tối thiểu là 30 ký tự và tối đa là 3000 ký tự.
+                </mdb-error>
+                <label for="descriptions">Mô tả chi tiết</label>
+                <p>
+                  Giới thiệu chung về bất động sản của bạn. Ví dụ: Khu nhà có vị trí thuận lợi: Gần công viên, gần
+                  trường học ... Tổng diện tích 52m2, đường đi ô tô vào tận cửa.</p>
+                <p class="text-danger">Lưu ý: tin rao chỉ để mệnh giá tiền Việt Nam Đồng.</p>
+              </div>
+              <hr>
+            </mdb-card-body>
+          </mdb-card>
+          <!-- page 3 -->
+          <mdb-card class="mb-3">
+            <mdb-card-header>
+              <div class="h3">Thông tin khác</div>
+            </mdb-card-header>
+            <mdb-card-body>
+              <p>Quý vị nên điền đầy đủ thông tin vào các mục dưới đây để đăng tin có hiệu quả hơn.</p>
+              <div class="row">
+                <!-- homeDirection -->
+                <div class="col-lg-4 col-md-12 mb-4">
+                  <label for="homeDirection">Hướng nhà</label>
+                  <select class="custom-select d-block w-100 form-control" formControlName="homeDirection">
+                    <option *ngFor="let item of homeDirections" [ngValue]="item">{{item}}</option>
+                  </select>
+                </div>
+
+                <!-- frontispiece -->
+                <div class="col-lg-4 col-md-12 md-form mb-4">
+                  <label class="pl-3" for="frontispiece">Mặt tiền m²</label>
+                  <input mdbInput type="number"  pattern="[0-9]" id="frontispiece" formControlName="frontispiece" class="form-control"
+                    mdbValidate>
+                    <mdb-error class="pl-3" *ngIf="frontispiece.invalid && (frontispiece.dirty || frontispiece.touched)">
+                      Không hợp lệ
+                    </mdb-error>
+                </div>
+              </div>
+
+              <div class="row">
+                <!-- numberFloors -->
+                <div class="col-lg-4 col-md-12 md-form mb-4">
+                  <label class="pl-3" for="numberFloors">Số tầng</label>
+                  <input mdbInput type="number" id="numberFloors" formControlName="numberFloors" class="form-control"
+                  mdbValidate>
+                  <mdb-error class="pl-3" *ngIf="numberFloors.invalid && (numberFloors.dirty || numberFloors.touched)">
+                    Không hợp lệ
+                  </mdb-error>
+                </div>
+                <!-- numberBedrooms -->
+                <div class="col-lg-4 col-md-12 md-form mb-4">
+                  <label class="pl-3" for="numberBedrooms">Số phòng ngủ</label>
+                  <input mdbInput type="number" id="numberBedrooms" formControlName="numberBedrooms"
+                    class="form-control"  mdbValidate>
+                    <mdb-error class="pl-3" *ngIf="numberBedrooms.invalid && (numberBedrooms.dirty || numberBedrooms.touched)">
+                      Không hợp lệ
+                    </mdb-error>
+                </div>
+                <!-- numberToilets -->
+                <div class="col-lg-4 col-md-12 md-form mb-4">
+                  <label class="pl-3" for="numberToilets">Số phòng vệ sinh</label>
+                  <input mdbInput type="number" id="numberToilets" formControlName="numberToilets" class="form-control"
+                  mdbValidate>
+                  <mdb-error class="pl-3" *ngIf="numberToilets.invalid && (numberToilets.dirty || numberToilets.touched)">
+                    Không hợp lệ
+                  </mdb-error>
+                </div>
+              </div>
+              <hr>
+            </mdb-card-body>
+          </mdb-card>
+          <!-- page 4 -->
+          <mdb-card class="mb-3">
+            <mdb-card-header>
+              <div class="h3">Thông tin nội thất</div>
+            </mdb-card-header>
+            <mdb-card-body>
+              <!-- listEquip -->
+              <form [formGroup]="eqmTable">
+                <table mdbTable bordered="true" small="true">
+                  <thead class="text-nowrap">
+                    <th scope="col">Tên<span class="text-danger">*</span></th>
+                    <th scope="col">Số lượng<span class="text-danger">*</span></th>
+                    <th scope="col">Giá trị(vnđ)<span class="text-danger">*</span></th>
+                    <th scope="col">Độ mới(%)</th>
+                    <th scope="col">Mô tả</th>
+                    <th scope="col"></th>
+                  </thead>
+                  <tbody>
+                    <ng-container formArrayName="tableRows"
+                      *ngFor="let group of getFormControls.controls ; let i=index">
+                      <tr mdbTableCol *ngIf="group.get('isEditable').value" [formGroupName]="i">
+                        <td>
+                          <input matInput type="text" id="name" class="form-control" formControlName="name" required>
+                        </td>
+                        <td>
+                          <input matInput type="number" id="quantity" class="form-control" formControlName="quantity"
+                          required>
+                        </td>
+                        <td>
+                          <input matInput type="number" id="price" class="form-control" formControlName="price" required>
+                        </td>
+                        <td>
+                          <input matInput type="number" id="likeNew" class="form-control" formControlName="likeNew">
+                        </td>
+                        <td>
+                          <textarea matInput type="text" formControlName="equipmentDescrible" id="equipmentDescrible"
+                            class="md-textarea form-control"></textarea>
+                          <!-- <input mdbInput matInput type="text" id="equipmentDescrible" class="form-control" formControlName="equipmentDescrible"> -->
+                        </td>
+                        <td>
+                          <button mdbBtn class="btn-danger" size="sm" (click)="deleteRow(i)" mdbWavesEffect>Xóa</button>
+                          <button mdbBtn class="btn-primary" size="sm" [disabled]="eqmTable.invalid"
+                            (click)="doneRow(group)" mdbWavesEffect>Lưu</button>
+                        </td>
+                      </tr>
+                      <tr *ngIf="!group.get('isEditable').value">
+                        <td>
+                          {{group.get('name').value}}
+                        </td>
+                        <td>
+                          {{group.get('quantity').value}}
+                        </td>
+                        <td>
+                          {{group.get('price').value}}
+                        </td>
+                        <td>
+                          {{group.get('likeNew').value}}
+                        </td>
+                        <td>
+                          {{group.get('equipmentDescrible').value}}
+                        </td>
+                        <td>
+                          <button mdbBtn class="btn-warning" size="sm" (click)="editRow(group)"
+                            mdbWavesEffect>Sửa</button>
+                        </td>
+                      </tr>
+                    </ng-container>
+                  </tbody>
+                </table>
+                <div class="action-container">
+                  <button mdbBtn class="btn-success mx-auto" size="sm" [disabled]="eqmTable.invalid" (click)="addRow()"
+                    mdbWavesEffect>Thêm</button>
+                </div>
+              </form>
+              <hr>
+            </mdb-card-body>
+          </mdb-card>
+          <!-- page 5 -->
+          <mdb-card class="mb-3">
+            <mdb-card-header>
+              <div class="h3">Hình ảnh liên quan</div>
+            </mdb-card-header>
+            <mdb-card-body>
+              <p>Tin rao có ảnh sẽ được xem nhiều hơn gấp 10 lần và được nhiều người gọi gấp 5 lần so với tin rao không
+                có ảnh. Hãy đăng ảnh để được giao dịch nhanh chóng!</p>
+              <!-- listImageLink -->
+              <div class="md-form mb-5">
+                <input mdbInput type="file" id="customFile" (change)="selectFile($event)"
+                  formControlName="listImageLink" class="form-control">
+              </div>
+              <hr>
+            </mdb-card-body>
+          </mdb-card>
+          <!-- page 6 -->
+          <mdb-card class="mb-3">
+            <mdb-card-header>
+              <div class="h3">Bản đồ</div>
+            </mdb-card-header>
+            <mdb-card-body>
+              <p>Để tăng độ tin cậy và tin rao được nhiều người quan tâm hơn, hãy sửa vị trí tin rao của bạn trên bản đồ
+                bằng
+                cách
+                Chọn lại vị trí bản đồ</p>
+              <div class="form-group ">
+                <label>Kiểm tra lại địa chỉ</label>
+                <input type="text" id="map" class="form-control" (keydown.enter)="$event.preventDefault()"
+                  autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+              </div>
+
+              <agm-map (mapReady)="mapReady($event)"  [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                  (dragEnd)="markerDragEnd($event)">
+                </agm-marker>
+              </agm-map>
+
+              <p>Có thể dữ liệu bản đồ không chính xác. Vì vậy nếu có bất kỳ sai xót nào xin bạn hãy báo cho chúng tôi
+                để
+                khắc
+                phục kịp thời.</p>
+              <hr>
+            </mdb-card-body>
+          </mdb-card>
+
+          <!-- page 7 -->
+          <mdb-card class="mb-3">
+            <mdb-card-header>
+              <div class="h3">Liên hệ xem nhà</div>
+            </mdb-card-header>
+            <mdb-card-body>
+              <div class="row">
+                <!-- contactName -->
+                <div class="col-lg-4 col-md-12 md-form mb-4">
+                  <label class="pl-3" for="contactName">Tên liên hệ<span class="text-danger">*</span></label>
+                  <input mdbInput type="text" id="contactName" formControlName="contactName" class="form-control"
+                    mdbInput mdbValidate>
+                  <mdb-error class="pl-3" *ngIf="contactName.invalid && (contactName.dirty || contactName.touched)">
+                    Không bỏ trống
+                  </mdb-error>
+                  <mdb-success class="pl-3" *ngIf="contactName.valid && (contactName.dirty || contactName.touched)">
+                    <i class="fas fa-check"></i>
+                  </mdb-success>
+                </div>
+
+                <!-- contactAddress -->
+                <div class="col-lg-4 col-md-12 md-form mb-4">
+                  <label class="pl-3" for="contactAddress">Địa chỉ liên hệ</label>
+                  <input mdbInput type="text" id="contactAddress" formControlName="contactAddress" class="form-control">
+                </div>
+
+                <!-- phoneNumber -->
+                <div class="col-lg-4 col-md-12 md-form mb-4">
+                  <label class="pl-3" for="phoneNumber">Số điện thoại liên hệ<span class="text-danger">*</span></label>
+                  <input mdbInput type="number" id="phoneNumber" formControlName="phoneNumber" class="form-control"
+                    mdbValidate>
+                  <mdb-error class="pl-3" *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)">
+                    Không bỏ trống
+                  </mdb-error>
+                  <mdb-success class="pl-3" *ngIf="phoneNumber.valid && (phoneNumber.dirty || phoneNumber.touched)">
+                    <i class="fas fa-check"></i>
+                  </mdb-success>
+                </div>
+              </div>
+              <div class="row">
+                <!-- email -->
+                <div class="col-lg-4 col-md-12 md-form mb-4">
+                  <label class="pl-3" for="email">Email</label>
+                  <input mdbInput type="email" id="email" formControlName="email" class="form-control" mdbValidate>
+                  <mdb-error class="pl-3" *ngIf="email.invalid && (email.dirty || email.touched)">
+                    Không đúng định dạng email
+                  </mdb-error>
+                </div>
+
+                <!-- checkingDate -->
+                <div class="col-lg-4 col-md-12  mb-4">
+                  <label for="checkingDate">Ngày xem nhà</label>
+                  <input mdbInput type="date" id="checkingDate" formControlName="checkingDate" class="form-control" mdbValidate>
+                  <mdb-error class="pl-3 pt-5" *ngIf="checkingDate.invalid && (checkingDate.dirty || checkingDate.touched)">
+                    Ngày không hợp lệ
+                  </mdb-error>
+                </div>
+              </div>
+            </mdb-card-body>
+            <mdb-card-footer>
+              <div *ngIf="!form.valid || !loginService.isUserLoggedIn() || !selectedFiles" class="alert alert-warning"
+                role="alert">
+                Vui lòng điền thông tin đầy đủ theo yêu cầu
+              </div>
+              <button type="submit" mdbBtn color="primary" size="md"
+                [disabled]="!form.valid || !loginService.isUserLoggedIn() || !selectedFiles" mdbWavesEffect> Yêu cầu
+                đăng tin</button>
+              <button type="button" mdbBtn color="danger" size="md" [routerLink]="['/home']"
+                routerLinkActive="router-link-active" mdbWavesEffect>Hủy</button>
+            </mdb-card-footer>
+          </mdb-card>
+        </form>
+      </div>
+    </div>
   </div>
-  <div class="md-form">
-    <input mdbInput type="text" id="contactAddress" class="form-control">
-    <label for="contactAddress">Địa chỉ</label>
-  </div>
-  <div class="md-form">
-    <input mdbInput type="text" id="contactPhone" class="form-control">
-    <label for="contactPhone">Số điện thoại</label>
-  </div>
-  <div class="md-form">
-    <input mdbInput type="text" id="contactEmail" class="form-control">
-    <label for="contactEmail">Email</label>
-  </div>
-  <div class="md-form">
-    <input mdbInput type="date" id="contactDate" class="form-control">
-    <label for="contactDate">Ngày xem nhà</label>
-  </div>
-  <button type="button" mdbBtn color="primary" mdbWavesEffect> Yêu cầu đăng tin</button>
-  <button type="button" mdbBtn color="danger" [routerLink]="['/home']" routerLinkActive="router-link-active"  mdbWavesEffect>Hủy</button>
-</form>
+</body>

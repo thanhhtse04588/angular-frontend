@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { SearchCondition } from './../../class/search-condition';
 
 import { Injectable } from '@angular/core';
@@ -11,7 +12,8 @@ import { retry, catchError } from 'rxjs/operators';
 export class SearchBarService {
   private baseUrl = 'http://localhost:8080';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private router: Router) { }
 
   //Http Options
   httpOptions = {
@@ -25,17 +27,25 @@ export class SearchBarService {
   }
 
   getAllStatistic(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/districtdb/getall`);
+    return this.http.get(`${this.baseUrl}/districtdb/getalldistrict`);
   }
 
   getPlacesBySearchCondition(searchCondition): Observable<any>{
-    // return this.http.get(`${this.baseUrl}/api/cp/places/search`, searchCondition);
-    return this.http.post<SearchCondition>(`${this.baseUrl}/api/cp/places/search`, JSON.stringify(searchCondition), this.httpOptions)
+    return this.http.post(`${this.baseUrl}/api/cp/places/search-page`, JSON.stringify(searchCondition), this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
     )
   }
+
+  getCountSearch(searchCondition): Observable<number>{
+    return this.http.post<number>(`${this.baseUrl}/api/cp/places/count-search-result`, JSON.stringify(searchCondition), this.httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    )
+  }
+
 
   // getPlacesBySearchCondition(title: string,
   //   role_id: number,
@@ -59,6 +69,7 @@ export class SearchBarService {
         errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
       }
       window.alert(errorMessage);
+      this.router.navigate["home"]
       return throwError(errorMessage);
    }
 }

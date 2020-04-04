@@ -2,11 +2,11 @@ import { SearchCondition } from './../../class/search-condition';
 import { SearchBarService } from './../service/search-bar.service';
 import { DistrictDB } from './../../class/district-db';
 import { RoleOfPlace } from './../../class/role-of-place';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Observable } from "rxjs";
 import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
-declare var $: any;
+
 
 
 @Component({
@@ -38,22 +38,25 @@ export class SearchBarComponent implements OnInit {
   ]
 
   priceRanges = [{
-    priceMin: 0, priceMax: 99999, text: "Khoảng giá"
+    priceMin: 0, priceMax: 999999999, text: "Khoảng giá"
   },
   {
-    priceMin: 0, priceMax: 5, text: "< 5 triệu/tháng"
+    priceMin: 0, priceMax: 2000000, text: "< 2 triệu/tháng"
   },
   {
-    priceMin: 5, priceMax: 10, text: "5-10 triệu/tháng"
+    priceMin: 2000000, priceMax: 5000000, text: "2- 5 triệu/tháng"
   },
   {
-    priceMin: 10, priceMax: 15, text: "10-15 triệu/tháng"
+    priceMin: 5000000, priceMax: 10000000, text: "5-10 triệu/tháng"
   },
   {
-    priceMin: 15, priceMax: 20, text: "15-20 triệu/tháng"
+    priceMin: 10000000, priceMax: 15000000, text: "10-15 triệu/tháng"
   },
   {
-    priceMin: 25, priceMax: 99999, text: ">25 triệu/tháng"
+    priceMin: 15000000, priceMax: 20000000, text: "15-20 triệu/tháng"
+  },
+  {
+    priceMin: 25000000, priceMax: 999999999, text: ">25 triệu/tháng"
   },
   ]
 

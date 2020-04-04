@@ -50,6 +50,7 @@ export class HeaderComponent implements OnInit {
       data => {
         if (data) {
           alert("Đăng ký tài khoản thành công!")
+          this.router.navigate(["home"])
           this.frameSignin.hide()
           //auto login
           this.loginService.authenticate(this.username.value, this.password.value).subscribe(

@@ -1,7 +1,5 @@
 
 @import url("../../../assets/half-page-image-carousel/css/style.min.css");
-
-
 html,
 body,
 header,
@@ -28,9 +26,9 @@ header,
     height: 100vh;
   }
 }
-
-@media (min-width: 800px) and (max-width: 850px) {
-  .navbar:not(.top-nav-collapse) {
-    background: #929FBA !important;
-  }
+span{
+  padding-left: 15px;
+}
+mdb-card div{
+  margin: 10px 0;
 }

@@ -24,6 +24,10 @@ export class PlaceHomeComponent implements OnInit {
     this.router.navigate(['detail', id]);
   }
 
+  shortTitle(title) {
+    return title.substring(0,65);
+  }
+
   loadScripts() {
     const dynamicScripts = [];
     for (let i = 0; i < dynamicScripts.length; i++) {

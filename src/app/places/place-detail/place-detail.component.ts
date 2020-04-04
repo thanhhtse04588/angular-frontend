@@ -1,3 +1,4 @@
+import { PaymentService } from './../service/payment.service';
 import { ModalDirective } from 'angular-bootstrap-md';
 import { AuthenticationService } from './../../index/service/authentication.service';
 import { InsertedOrderForm } from '../../class/inserted-order-form';
@@ -5,10 +6,12 @@ import { UserService } from './../../user/service/user.service';
 import { Observable } from 'rxjs';
 import { PlaceDetail } from './../../class/place-detail';
 import { PlaceService } from './../service/place.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { formatDate } from "@angular/common";
+
+declare var paypal;
 
 
 @Component({
@@ -18,21 +21,32 @@ import { formatDate } from "@angular/common";
 })
 export class PlaceDetailComponent implements OnInit {
   @ViewChild('frameOrder', { static: true }) frameOrder: ModalDirective;
+  @ViewChild('frameDeposit', { static: true }) frameDeposit: ModalDirective;
+  @ViewChild('frameDepositSuccess', { static: true }) frameDepositSuccess: ModalDirective;
   id: number
   place: PlaceDetail
   images: Observable<any>
   orderForm: InsertedOrderForm
   requestOrderForm: FormGroup
+  //payment
+  @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
+  product = {
+    price: 100,
+    description: 'Đặt cọc tiền giữ nhà',
+    img: 'assets/couch.jpg'
+  };
+  paidFor = false;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
     private placeService: PlaceService,
     private userService: UserService,
-    public loginService: AuthenticationService, ) {
+    public loginService: AuthenticationService,
+    private payment: PaymentService) {
   }
 
   ngOnInit() {
-
+    this.paypalOnInit()
     this.ngOnInitOrderForm()
 
     this.place = new PlaceDetail()
@@ -48,18 +62,52 @@ export class PlaceDetailComponent implements OnInit {
       .subscribe(data => {
         this.place = data
       }, error => console.log(error));
+    //map
   }
 
+  paypalOnInit() {
+    paypal
+      .Buttons({
+        createOrder: (data, actions) => {
+          return actions.order.create({
+            purchase_units: [
+              {
+                description: this.product.description,
+                amount: {
+                  currency_code: 'USD',
+                  value: this.product.price
+                }
+              }
+            ]
+          });
+        },
+        onApprove: async (data, actions) => {
+          const order = await actions.order.capture();
+          this.paidFor = true;
+          console.log(order);
+          this.frameDeposit.hide()
+          this.frameDepositSuccess.show()
+        },
+        onError: err => {
+          console.log(err);
+        }
+      })
+      .render(this.paypalElement.nativeElement);
+  }
   // Liên hệ ngay
   ngOnInitOrderForm() {
     this.requestOrderForm = new FormGroup({
       name: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.email, Validators.required]),
-      phoneNumber: new FormControl('', Validators.required),
-      dateTime: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.email, Validators.required,Validators.maxLength(100)]),
+      phoneNumber: new FormControl('', [Validators.required,Validators.maxLength(12)]),
+      dateTime: new FormControl('', [Validators.required,this.date]),
       mess: new FormControl('')
     });
   }
+  date(c: AbstractControl): { [key: string]: boolean } {
+    let value = new Date(c.value);
+    return isNaN(value.getTime()) || value <= new Date() ? {'invalid': true} : undefined;
+ }
 
   onSubmitOrder() {
     this.orderForm = new InsertedOrderForm()
@@ -77,7 +125,7 @@ export class PlaceDetailComponent implements OnInit {
         if (data) {
           alert("Liên hệ thành công , chúng tôi sẽ phản hổi sớm.")
         } else {
-          alert("Nhà không có sẵn")
+          alert("Ôi, mặt hàng không còn tồn tại")
           this.router.navigate(["home"])
         }
         this.frameOrder.hide()
@@ -87,8 +135,6 @@ export class PlaceDetailComponent implements OnInit {
       }
     );
   }
-
-
 
 
   get name() {

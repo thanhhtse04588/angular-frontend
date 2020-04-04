@@ -1,5 +1,5 @@
 <div class="container">
-    <mdb-card class="w-50 mx-auto mt-5 ">
+    <mdb-card class="w-50 mx-auto mt-5 " style="min-width: 400px;">
 
         <form [formGroup]="validatingSigninForm" (ngSubmit)=doSignup() class="text-center border border-light p-5">
 
@@ -14,7 +14,7 @@
                         Không bỏ trống
                     </mdb-error>
                     <mdb-success *ngIf="firstName.valid && (firstName.dirty || firstName.touched)">
-                        Ok
+                        <i class="fas fa-check"></i>
                     </mdb-success>
                 </div>
                 <div class="col">
@@ -32,7 +32,7 @@
                     Không bỏ trống
                 </mdb-error>
                 <mdb-success *ngIf="username.valid && (username.dirty || username.touched)">
-                    Ok
+                    <i class="fas fa-check"></i>
                 </mdb-success>
             </div>
             <!-- Password -->
@@ -45,13 +45,13 @@
             </mdb-error>
             <mdb-success
                 *ngIf="password.valid && (password.dirty || password.touched)">
-                Ok
+                <i class="fas fa-check"></i>
             </mdb-success>
             </div>
 
             <!-- Confirm -->
             <div class="md-form mb-4">
-                <input type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="Mật khẩu" formControlName="confirmPasswrd" mdbInput mdbValidate
+                <input type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="Nhập lại mật khẩu" formControlName="confirmPasswrd" mdbInput mdbValidate
                     aria-describedby="defaultRegisterFormPasswordHelpBlock">
                     <mdb-error
                     *ngIf="confirmPasswrd.invalid && (confirmPasswrd.dirty || confirmPasswrd.touched)">
@@ -59,12 +59,12 @@
                 </mdb-error>
                 <mdb-success
                     *ngIf="confirmPasswrd.valid && (confirmPasswrd.dirty || confirmPasswrd.touched)">
-                    Ok
+                    <i class="fas fa-check"></i>
                 </mdb-success>
                 </div>
 
             <!-- Sign up button -->
-            <button [disabled]="!validatingSigninForm.valid" class="btn btn-info my-4 btn-block" type="submit">Sign in</button>
+            <button [disabled]="!validatingSigninForm.valid" class="btn btn-warning my-4 btn-block" type="submit"><strong>Đăng ký</strong></button>
 
             <!-- Social register -->
             <!-- <p>or sign up with:</p>
