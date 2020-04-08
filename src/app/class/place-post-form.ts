@@ -1,39 +1,72 @@
 export class PlacePostForm {
     // page 1
     userID: number
-    title: String
+    title: string
     roleOfPlaceID: number
     districtID: number
     wardID: number
     streetID: number
     area: number
     price: number
-    addressDetail: String
+    addressDetail: string
     // page 2
-    descriptions: String
+    descriptions: string
     // page3
     frontispiece: number
-    homeDirection: String
+    homeDirection: string
     numberFloors: number
     numberBedrooms: number
     numberToilets: number
     // page 4
     listEquip: Array<EquipmentListForm>
     // page5
-    listImageLink: Array<String>
+    listImageLink: Array<string>
     // page6
     longtitude: number
     latitude: number
     // page 7
-    contactName: String
-    contactAddress: String
-    phoneNumber: String
-    email: String
-    checkingDate: String
+    contactName: string
+    contactAddress: string
+    phoneNumber: string
+    email: string
+    checkingDate: string
+}
+export class UpdatePostForm {
+    // page 1
+    placeID: number
+    title: string
+    roleOfPlaceID: number
+    districtID: number
+    wardID: number
+    streetID: number
+    area: number
+    price: number
+    addressDetail: string
+    // page 2
+    descriptions: string
+    // page3
+    frontispiece: number
+    homeDirection: string
+    numberFloors: number
+    numberBedrooms: number
+    numberToilets: number
+    // page 4
+    listEquip: Array<EquipmentListForm>
+    // page5
+    listImageLink: Array<string>
+    // page6
+    longtitude: number
+    latitude: number
+    // page 7
+    contactName: string
+    contactAddress: string
+    phoneNumber: string
+    email: string
+    checkingDate: string
 }
 
 export class EquipmentListForm {
-    name: String
+    name: string
     quantity: number
     price: number
     likeNew: number

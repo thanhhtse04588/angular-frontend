@@ -13,9 +13,6 @@
                     <mdb-error *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
                         Không bỏ trống
                     </mdb-error>
-                    <mdb-success *ngIf="firstName.valid && (firstName.dirty || firstName.touched)">
-                        <i class="fas fa-check"></i>
-                    </mdb-success>
                 </div>
                 <div class="col">
                     <!-- Last name -->
@@ -31,9 +28,6 @@
                 <mdb-error *ngIf="username.invalid && (username.dirty || username.touched)">
                     Không bỏ trống
                 </mdb-error>
-                <mdb-success *ngIf="username.valid && (username.dirty || username.touched)">
-                    <i class="fas fa-check"></i>
-                </mdb-success>
             </div>
             <!-- Password -->
             <div class="md-form mb-4">
@@ -43,10 +37,6 @@
                 *ngIf="password.invalid && (password.dirty || password.touched)">
                 Mật khẩu từ 6 đến 32 ký tự
             </mdb-error>
-            <mdb-success
-                *ngIf="password.valid && (password.dirty || password.touched)">
-                <i class="fas fa-check"></i>
-            </mdb-success>
             </div>
 
             <!-- Confirm -->
@@ -57,10 +47,6 @@
                     *ngIf="confirmPasswrd.invalid && (confirmPasswrd.dirty || confirmPasswrd.touched)">
                     Mật khẩu từ 6 đến 32 ký tự
                 </mdb-error>
-                <mdb-success
-                    *ngIf="confirmPasswrd.valid && (confirmPasswrd.dirty || confirmPasswrd.touched)">
-                    <i class="fas fa-check"></i>
-                </mdb-success>
                 </div>
 
             <!-- Sign up button -->

@@ -9,7 +9,7 @@
           <input formControlName="title" class="form-control" type="text" placeholder="Nhập từ khóa">
         </div>
 
-        <div class="col-md-2">
+        <div class="col-md-2 text-center">
           <select formControlName="roleOfPlaceID" class="form-control">
             <option value="-1">Loại nhà đất</option>
             <option *ngFor="let item of roleOfPlaces | async" [ngValue]="item.roleOfPlaceID">{{item.roleName}}
@@ -34,7 +34,7 @@
           </select>
         </div>
         <div class="col-md-2 " style="margin-top: -10px;">
-          <button type="submit" mdbBtn type="button" color="success" rounded="true" mdbWavesEffect>
+          <button type="submit" mdbBtn color="success" rounded="true" mdbWavesEffect>
             <strong>Tìm kiếm</strong>
           </button>
         </div>

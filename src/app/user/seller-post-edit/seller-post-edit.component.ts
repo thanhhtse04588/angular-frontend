@@ -1,27 +1,31 @@
-
+import { PlaceService } from './../../places/service/place.service';
+import { UserService } from './../service/user.service';
+import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from './../../index/service/authentication.service';
-import { PlacePostForm } from './../../class/place-post-form';
+import {UpdatePostForm, PlacePostForm } from './../../class/place-post-form';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray, AbstractControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { DistrictDB, WardDB, StreetDB } from './../../class/district-db';
 import { RoleOfPlace } from './../../class/role-of-place';
 import { Router } from '@angular/router';
-import { PlaceService } from './../service/place.service';
 import { SearchBarService } from 'src/app/index/service/search-bar.service';
 import { Component, OnInit, ViewChild, ElementRef, NgZone, AfterViewInit } from '@angular/core';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
+
 @Component({
-  selector: 'app-place-post',
-  templateUrl: './place-post.component.html',
-  styleUrls: ['./place-post.component.css']
+  selector: 'app-seller-post-edit',
+  templateUrl: './seller-post-edit.component.html',
+  styleUrls: ['./seller-post-edit.component.css']
 })
-export class PlacePostComponent implements OnInit, AfterViewInit {
+export class SellerPostEditComponent implements OnInit, AfterViewInit {
+  placeID: number
   roleOfPlaces: Observable<RoleOfPlace>
   districts: Observable<DistrictDB>
-  postPlaceForm: PlacePostForm
+  postPlaceForm = new PlacePostForm()
+  updatePlaceForm = new UpdatePostForm()
   form: FormGroup
   wards: Observable<WardDB>
   streets: Observable<StreetDB>
@@ -50,18 +54,27 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
   private geoCoder;
 
   homeDirections = ["Bắc", "Đông Bắc", "Đông", "Đông Nam", "Nam", "Tây Nam", "Tây", "Tây Bắc"]
-
-  constructor(private fb: FormBuilder,
+  constructor(private route: ActivatedRoute,
+    private userService: UserService,
+    private fb: FormBuilder,
     private placeService: PlaceService,
     private router: Router,
     private searchService: SearchBarService,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
-    public loginService: AuthenticationService) { }
+    public loginService: AuthenticationService,) { }
 
-  ngOnInit(): void {
-
-    this.postPlaceForm = new PlacePostForm()
+  ngOnInit() {
+    this.placeID = this.route.snapshot.params['id']; 
+    // this.placeID = 67;
+    //67,68,69
+    this.userService.getPostForm(this.placeID).subscribe(
+      data => {
+        this.postPlaceForm = data;
+        this.setDefaultData();
+      }
+    )
+    // form
     this.roleOfPlaces = this.searchService.getAllRole()
     this.searchService.getAllStatistic().subscribe(
       data => this.districts = data
@@ -75,8 +88,8 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
       wardID: new FormControl('', [Validators.required]),
       streetID: new FormControl('', [Validators.required]),
       area: new FormControl('', [Validators.required]),
-      price: new FormControl('', [Validators.required]),
-      descriptions: new FormControl('', [Validators.required,Validators.minLength(30), Validators.maxLength(3000)]),
+      pricePlace: new FormControl('', [Validators.required]),
+      descriptions: new FormControl('', [Validators.required, Validators.minLength(30), Validators.maxLength(3000)]),
       frontispiece: new FormControl(''),
       homeDirection: new FormControl(''),
       numberFloors: new FormControl(''),
@@ -85,9 +98,39 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
       contactName: new FormControl('', [Validators.required]),
       contactAddress: new FormControl('', Validators.maxLength(100)),
       phoneNumber: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.email]),
+      email: new FormControl(''),
       checkingDate: new FormControl('', [this.date]),
     })
+  }
+
+  ngAfterViewInit(): void {
+    this.loadPlacesAutoComplete()
+  }
+
+  setDefaultData() {
+    this.title.setValue(this.postPlaceForm.title)
+    this.roleOfPlaceID.setValue(this.postPlaceForm.roleOfPlaceID)
+    this.area.setValue(this.postPlaceForm.area)
+    this.pricePlace.setValue(this.postPlaceForm.price)
+    this.descriptions.setValue(this.postPlaceForm.descriptions)
+    this.frontispiece.setValue(this.postPlaceForm.frontispiece)
+    this.homeDirection.setValue(this.postPlaceForm.homeDirection)
+    this.numberFloors.setValue(this.postPlaceForm.numberFloors)
+    this.numberBedrooms.setValue(this.postPlaceForm.numberBedrooms)
+    this.numberToilets.setValue(this.postPlaceForm.numberToilets)
+    this.searchElementRef.nativeElement.value = this.postPlaceForm.addressDetail
+    this.contactName.setValue(this.postPlaceForm.contactName)
+    this.contactAddress.setValue(this.postPlaceForm.contactAddress)
+    this.phoneNumber.setValue(+this.postPlaceForm.phoneNumber)
+    this.email.setValue(this.postPlaceForm.email)
+    this.checkingDate.setValue(this.postPlaceForm.checkingDate)
+    this.longitude = this.postPlaceForm.longtitude
+    this.latitude = this.postPlaceForm.latitude
+// ListEqu handle
+    let arr = []
+    this.postPlaceForm.listEquip.forEach(element => arr.push(element))
+    arr.forEach((element)=> element.isEditable=false)
+    this.eqmTable.get('tableRows').setValue(arr)
   }
 
   date(c: AbstractControl): { [key: string]: boolean } {
@@ -95,9 +138,6 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
     return isNaN(value.getTime()) || value <= new Date() ? { 'invalid': true } : undefined;
   }
 
-  ngAfterViewInit(): void {
-    this.loadPlacesAutoComplete()
-  }
 
   mapReady($event: any) {
     this.zoom = 17
@@ -108,7 +148,6 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         this.longitude = result.geometry.location.lng()
         this.latitude = result.geometry.location.lat()
-        console.log(this.longitude + this.latitude)
       }
     });
   }
@@ -195,7 +234,6 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
         return of(`${file.data.name} upload failed.`);
       })).subscribe((event: any) => {
         if (typeof (event) === 'object') {
-          console.log(event.body);
         }
       });
   }
@@ -244,7 +282,7 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
     return this.fb.group({
       name: ['', Validators.required],
       quantity: ['', [Validators.required]],
-      priceEq: ['', [Validators.required]],
+      price: ['', [Validators.required]],
       likeNew: [''],
       equipmentDescrible: ['', [Validators.maxLength(100)]],
       isEditable: [true]
@@ -286,7 +324,6 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
   submitForm() {
     const control = this.eqmTable.get('tableRows') as FormArray;
     this.touchedRows = control.controls.filter(row => row.touched).map(row => row.value);
-    console.log(this.touchedRows);
   }
 
   toggleTheme() {
@@ -295,43 +332,44 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
 
   // main fucntion
   postPlace() {
-    this.postPlaceForm.userID = +sessionStorage.getItem("userID")
-    this.postPlaceForm.title = this.title.value
-    this.postPlaceForm.roleOfPlaceID = this.roleOfPlaceID.value
-    this.postPlaceForm.districtID = this.districtID.value.id
-    this.postPlaceForm.wardID = this.wardID.value.id
-    this.postPlaceForm.streetID = this.streetID.value.id
-    this.postPlaceForm.area = this.area.value
-    this.postPlaceForm.price = this.price.value
-    this.postPlaceForm.addressDetail = this.searchElementRef.nativeElement.value
+    this.updatePlaceForm.placeID = this.placeID
+    this.updatePlaceForm.title = this.title.value
+    this.updatePlaceForm.roleOfPlaceID = this.roleOfPlaceID.value
+    this.updatePlaceForm.districtID = this.districtID.value.id
+    this.updatePlaceForm.wardID = this.wardID.value.id
+    this.updatePlaceForm.streetID = this.streetID.value.id
+    this.updatePlaceForm.area = this.area.value
+    this.updatePlaceForm.price = this.pricePlace.value
+    this.updatePlaceForm.addressDetail = this.searchElementRef.nativeElement.value
 
-    this.postPlaceForm.latitude = this.latitude
-    this.postPlaceForm.longtitude = this.longitude
+    this.updatePlaceForm.latitude = this.latitude
+    this.updatePlaceForm.longtitude = this.longitude
 
-    this.postPlaceForm.descriptions = this.descriptions.value
-    this.postPlaceForm.frontispiece = this.frontispiece.value
-    this.postPlaceForm.homeDirection = this.homeDirection.value
-    this.postPlaceForm.numberFloors = this.numberFloors.value
-    this.postPlaceForm.numberBedrooms = this.numberBedrooms.value
-    this.postPlaceForm.numberToilets = this.numberToilets.value
+    this.updatePlaceForm.descriptions = this.descriptions.value
+    this.updatePlaceForm.frontispiece = this.frontispiece.value
+    this.updatePlaceForm.homeDirection = this.homeDirection.value
+    this.updatePlaceForm.numberFloors = this.numberFloors.value
+    this.updatePlaceForm.numberBedrooms = this.numberBedrooms.value
+    this.updatePlaceForm.numberToilets = this.numberToilets.value
 
-    this.postPlaceForm.listEquip = this.eqmTable.get('tableRows').value
+    this.updatePlaceForm.listEquip = this.eqmTable.get('tableRows').value
 
-    this.postPlaceForm.listImageLink = this.imageUploaded
+    this.updatePlaceForm.listImageLink = this.imageUploaded
 
-    this.postPlaceForm.contactName = this.contactName.value
-    this.postPlaceForm.contactAddress = this.contactAddress.value
-    this.postPlaceForm.phoneNumber = this.phoneNumber.value.toString()
-    this.postPlaceForm.email = this.email.value
-    this.postPlaceForm.checkingDate = this.checkingDate.value
-    this.placeService.insertPlace(this.postPlaceForm).subscribe(
+    this.updatePlaceForm.contactName = this.contactName.value
+    this.updatePlaceForm.contactAddress = this.contactAddress.value
+    this.updatePlaceForm.phoneNumber = this.phoneNumber.value.toString()
+    this.updatePlaceForm.email = this.email.value
+    this.updatePlaceForm.checkingDate = this.checkingDate.value
+    console.log(this.updatePlaceForm)
+
+    this.userService.updatePlace(this.updatePlaceForm).subscribe(
       data => {
         console.log(data)
         if (data) {
-          this.router.navigate(["home"])
-          alert("Yêu cầu đăng tin thành công, chúng tôi sẽ sớm liên hệ với bạn !")
+          alert("Chỉnh sửa thông tin thành công !")
         }
-        else { alert("Đã có lỗi xảy ra! Yêu cầu đăng tin không thành công") }
+        else { alert("Đã có lỗi xảy ra! Chỉnh sửa thông tin không thành công") }
       }
     )
   }
@@ -341,7 +379,6 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
     this.setwardID([])
     this.streets = null
     this.setStreetID([])
-    console.log(this.districtID)
     this.latitude = +this.districtID.value.districtLatitude
     this.longitude = +this.districtID.value.districtLongitude
     this.zoom = 17;
@@ -357,7 +394,7 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
     )
   }
 
-  onWardChange(){
+  onWardChange() {
     this.latitude = +this.wardID.value.wardLatitude
     this.longitude = +this.wardID.value.wardLongtitude
     this.zoom = 17;
@@ -366,8 +403,8 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
   updateAddress() {
     this.searchElementRef.nativeElement.value =
       (this.streetID.value.streetName == null ? "" : this.streetID.value.streetName.trim()) +
-        " " + (this.wardID.value.wardName == null ? "" : this.wardID.value.wardName.trim()) +
-          " " + (this.districtID.value.district == null ? "" : this.districtID.value.district.trim())
+      " " + (this.wardID.value.wardName == null ? "" : this.wardID.value.wardName.trim()) +
+      " " + (this.districtID.value.district == null ? "" : this.districtID.value.district.trim())
   }
 
   get title() {
@@ -388,8 +425,8 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
   get area() {
     return this.form.get('area');
   }
-  get price() {
-    return this.form.get('price');
+  get pricePlace() {
+    return this.form.get('pricePlace');
   }
   get descriptions() {
     return this.form.get('descriptions');
@@ -434,6 +471,5 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
   setStreetID(param) {
     this.form.patchValue({ "streetID": param })
   }
-
 
 }

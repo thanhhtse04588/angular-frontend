@@ -13,10 +13,6 @@
           *ngIf="loginFormModalUsername.invalid && (loginFormModalUsername.dirty || loginFormModalUsername.touched)">
           Không bỏ trống
         </mdb-error>
-        <mdb-success
-          *ngIf="loginFormModalUsername.valid && (loginFormModalUsername.dirty || loginFormModalUsername.touched)">
-          <i class="fas fa-check"></i>
-        </mdb-success>
       </div>
 
       <!-- Password -->
@@ -25,12 +21,8 @@
           class="form-control mb-4" placeholder="Mật khẩu">
         <mdb-error
           *ngIf="loginFormModalPassword.invalid && (loginFormModalPassword.dirty || loginFormModalPassword.touched)">
-          Mật khẩu từ 6 đến 32 ký tự
+          Không bỏ trống
         </mdb-error>
-        <mdb-success
-          *ngIf="loginFormModalPassword.valid && (loginFormModalPassword.dirty || loginFormModalPassword.touched)">
-          <i class="fas fa-check"></i>
-        </mdb-success>
       </div>
 
       <div class="d-flex justify-content-around">

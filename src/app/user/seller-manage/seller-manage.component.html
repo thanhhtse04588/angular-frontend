@@ -1,0 +1,112 @@
+<body class="grey lighten-3 min-vh-100">
+  <div class="container wow fadeIn">
+    <div class="row py-5">
+      <!--Grid column-->
+      <div class="col-md-3 ">
+        <app-seller-menu></app-seller-menu>
+      </div>
+      <!--Grid column-->
+      <div class="col-md-9 ">
+
+        <div class="text-center mb-3 ">
+          <div class="h3 text-center">DANH SÁCH TIN ĐÃ ĐĂNG</div>
+          <p>(Quý vị có thể quản lý, tìm kiếm tin đã đăng ở đây)</p>
+          <div *ngIf="!posts" class="alert alert-warning" role="alert">
+            Bạn chưa có bài đăng nào
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <select class="browser-default custom-select" [(ngModel)]="statusSelected">
+            <option *ngFor="let item of statusSelects" [value]="item.id">{{item.name}}</option>
+          </select>
+        </div>
+        <div *ngFor="let item of posts">
+          <mdb-card *ngIf="isStatusShow(item.statusID)" class="mb-3">
+            <div class="row">
+              <img class="col-md-5" style="height: 236px;" [src]="item.imageLarge"/>
+              <mdb-card-body class="col-md-7">
+                <div class="row">
+                  <div class="col-md-9" style="height: 130px;">
+                    <mdb-card-title>
+                      <h5>{{item.title}}</h5>
+                    </mdb-card-title>
+                    <mdb-card-text>
+                      <p><strong>Địa chỉ: </strong>{{item.address}}</p>
+                      <p><strong>Ngày đăng: </strong> {{item.datePost}}</p>
+                    </mdb-card-text>
+                  </div>
+                  <div class="col-md-3">
+                    <button *ngIf="isViewShow(item.statusID)" (click)="placeDetail(item.id)"  style="width: 110px;" class=" float-right" size="sm" mdbBtn
+                    color="success" mdbWavesEffect> Xem </button>
+                    <button *ngIf="isCancelShow(item.statusID)" (click)="comfirmCancel.show()"
+                      (click)="placeID = item.id" style="width: 110px;" class=" float-right" size="sm" mdbBtn
+                      color="danger" mdbWavesEffect> Hủy </button>
+                    <button *ngIf="isEditShow(item.statusID)" (click)="comfirmEdit.show()" (click)="placeID =item.id"
+                      style="width: 110px;" class=" float-right" size="sm" mdbBtn color="warning" mdbWavesEffect>Chỉnh
+                      sửa</button>
+                  </div>
+                </div>
+                <hr>
+
+                <span class="h5">Giá: {{item.price| number}} vnđ</span>
+                <span class="float-right h5 pr-2">
+                  <mdb-badge [color]="statusColor(item.statusID)">{{item.status}}</mdb-badge>
+                </span>
+
+              </mdb-card-body>
+            </div>
+          </mdb-card>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cancel comfirm -->
+  <div mdbModal #comfirmCancel="mdbModal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="myBasicModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-danger" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <p class="heading lead">Xác nhận</p>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="comfirmCancel.hide()">
+            <span aria-hidden="true" class="white-text">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h5>Bạn có chắc chắn muốn HỦY</h5>
+        </div>
+        <div class="modal-footer">
+          <a type="button" mdbBtn color="danger" class="waves-effect" (click)="comfirmCancel.hide()" (click)="cancel()"
+            mdbWavesEffect>Đồng ý </a>
+          <a type="button" mdbBtn color="danger" outline="true" class="waves-effect" (click)="comfirmCancel.hide()"
+            mdbWavesEffect>Bỏ qua</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit comfirm -->
+  <div mdbModal #comfirmEdit="mdbModal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="myBasicModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-warning" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <p class="heading lead">Xác nhận</p>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="comfirmEdit.hide()">
+            <span aria-hidden="true" class="white-text">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h5>Bạn có chắc chắn muốn CHỈNH SỬA</h5>
+        </div>
+        <div class="modal-footer">
+          <a type="button" mdbBtn color="warning" class="waves-effect" (click)="comfirmEdit.hide()" (click)="edit()"
+            mdbWavesEffect>Đồng ý </a>
+          <a type="button" mdbBtn color="warning" outline="true" class="waves-effect" (click)="comfirmEdit.hide()"
+            mdbWavesEffect>Bỏ qua</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>

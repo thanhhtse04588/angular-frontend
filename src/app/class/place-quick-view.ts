@@ -9,3 +9,14 @@ export class PlaceQuickView {
     bedRooms: number
     toilets: number
 }
+
+export class ManagePostForm {
+    id: number
+    imageLarge: string;
+    title: string;
+    address: string;
+    datePost: string;
+    price: number;
+    status: string;
+    statusID: number;
+}

@@ -1,3 +1,5 @@
+import { SellerPostEditComponent } from './user/seller-post-edit/seller-post-edit.component';
+import { SellerMenuComponent } from './user/seller-menu/seller-menu.component';
 import { TestComponent } from './places/test/test.component';
 import { RegisterComponent } from './index/register/register.component';
 import { LoginComponent } from './index/login/login.component';
@@ -18,7 +20,6 @@ import { PlaceHomeComponent } from './places/place-home/place-home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LogoutComponent } from './index/logout/logout.component';
 // import { BasicAuthHtppInterceptorService } from './index/service/basic-auth-htpp-interceptor.service';
-import { UserOrderComponent } from './user/user-order/user-order.component';
 import { PlacePostComponent } from './places/place-post/place-post.component';
 import { GlobalErrorHandler } from './global-error-handler';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -31,6 +32,8 @@ import { AngularMaterialModule } from './angular-material.module';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { ModalModule, WavesModule, InputsModule, ButtonsModule } from 'angular-bootstrap-md'
 import { ErrorPageComponent } from './index/errors/error/error-page/error-page.component';
+import { SellerManageComponent } from './user/seller-manage/seller-manage.component';
+
 
 
 @NgModule({
@@ -43,13 +46,16 @@ import { ErrorPageComponent } from './index/errors/error/error-page/error-page.c
     SearchBarComponent,
     PlaceHomeComponent,
     LogoutComponent,
-    UserOrderComponent,
     ErrorPageComponent,
     NotFoundComponent,
     PlacePostComponent,
     LoginComponent,
     RegisterComponent,
-    TestComponent
+    TestComponent,
+    SellerMenuComponent,
+    SellerManageComponent,
+    SellerPostEditComponent,
+    
     
   ],
   imports: [

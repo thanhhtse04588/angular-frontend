@@ -15,13 +15,10 @@ export class PaymentService {
       'Content-Type': 'application/json'
     })
   }  
-  makePayment(price): Observable<any> {
-    return this.http.post(this.baseUrl + '/pay?price=' + price, this.httpOptions,{responseType: 'text'})
-  }
 
-  completePayment(paymentId, payerId) {
-    return this.http.post(this.baseUrl + '/pay/success?paymentId=' + paymentId + '&payerId=' + payerId, {}).pipe(
-      map((response: Response) => response.json()));
+
+  completePayment(payment) {
+    return this.http.post(this.baseUrl + '/pay',JSON.stringify(payment),this.httpOptions)
   }
 
 }

@@ -81,6 +81,7 @@ export class SearchBarComponent implements OnInit {
   });
 
   searchForm() {
+    console.log(this.searchCondition)
     if (this.form.get('title').value === null) {
       this.searchCondition.title = ""
     } else {
@@ -93,14 +94,13 @@ export class SearchBarComponent implements OnInit {
     this.searchCondition.areaMin = this.form.get('areaRange').value.areaMin
     this.searchCondition.priceMax = this.form.get('priceRange').value.priceMax
     this.searchCondition.priceMin = this.form.get('priceRange').value.priceMin
-
     this.reloadCurrentRoute('search', this.searchCondition)
   }
 
   reloadCurrentRoute(currentUrl: string, data: any) {
     // let currentUrl = this.router.url;
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentUrl, data])
+      this.router.navigate([currentUrl,data],{skipLocationChange: true})
     })
   }
 

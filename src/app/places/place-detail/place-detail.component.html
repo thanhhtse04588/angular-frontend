@@ -1,8 +1,8 @@
 <!--Main layout-->
-<main *ngIf="place">
+<main>
   <div class="container">
     <!--Section: Main info-->
-    <section class="mt-5 wow fadeIn">
+    <section class="mt-5">
       <!--Grid row-->
       <div class="row">
         <!--Grid column-->
@@ -21,33 +21,80 @@
                 </h5>
                 <div class="mx-auto ">
 
-                  <button [disabled]="!loginService.isUserLoggedIn()" mdbBtn class="btn btn-warning btn-lg"
-                    data-toggle="modal" data-target="#frameDeposit" (click)="frameDeposit.show()"
-                    mdbWavesEffect>
-                    <strong>Đặt lịch xem</strong>
+                  <button mdbBtn [disabled]="!loginService.isUserLoggedIn() || paidFor"
+                    [innerHTML]="!paidFor ? 'Đặt lịch xem' : 'Đã đặt lịch xem'"
+                    [color]="!paidFor ? 'danger' : 'success'" class="btn-lg" data-toggle="modal"
+                    data-target="#frameDeposit" (click)="frameDeposit.show()" mdbWavesEffect>
+                    <!-- <strong>Đặt lịch xem</strong> -->
                   </button>
 
                 </div>
                 <div *ngIf="!loginService.isUserLoggedIn()" class="alert alert-warning" role="alert">
                   Bạn cần <a routerLink="/login" routerLinkActive="active">đăng nhập</a> để sử dụng
                 </div>
-              </mdb-card-title>
-              <mdb-card-text class="pl-5">
                 <h4><strong>Thông tin chi tiết</strong></h4>
-                <h5><strong>Địa chỉ:</strong></h5>
-                <p>{{place.address}}</p>
-                <h5><strong>Tiện ích:</strong></h5>
-                <ul>
-                  <li>Phòng ngủ :{{place.bedRooms}} phòng</li>
-                  <li>Vệ sinh :{{place.toilets}} phòng </li>
-                  <li>Tầm nhìn :{{place.counterView}} </li>
-                  <li>Mặt đường :{{place.frontispiece}} m2 </li>
-                  <li>Hướng nhà :{{place.homeDirection}} </li>
-                </ul>
+              </mdb-card-title>
+              <div class="row">
+                <mdb-card-text class="col-md">
+                  <h5><strong>Địa chỉ:</strong></h5>
+                  <p>{{place.address}}</p>
+                  <h5><strong>Tiện ích:</strong></h5>
+                  <ul>
+                    <li>Phòng ngủ :{{place.bedRooms}} phòng</li>
+                    <li>Vệ sinh :{{place.toilets}} phòng </li>
+                    <li>Tầm nhìn :{{place.counterView}} </li>
+                    <li>Mặt đường :{{place.frontispiece}} m2 </li>
+                    <li>Hướng nhà :{{place.homeDirection}} </li>
+                  </ul>
+                </mdb-card-text>
+                <mdb-card-text class="col-md">
+                  <h5><strong>Thông tin mô tả</strong></h5>
+                  <p>{{place.description}}</p>
+                </mdb-card-text>
 
-                <hr>
-                <p>{{place.description}}</p>
-              </mdb-card-text>
+              </div>
+              <mdb-card-text>
+                <h5><strong>Thông tin nội thất</strong></h5>
+              <div mdbTable bordered="true" hover="true" >
+                <table mat-table [dataSource]="dataSource">
+
+                  <!-- Position Column -->
+                  <ng-container matColumnDef="name">
+                    <th *matHeaderCellDef> Tên nội thất  </th>
+                    <td *matCellDef="let element"> {{element.name}} </td>
+                  </ng-container>
+
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="quantity">
+                    <th *matHeaderCellDef> Số lượng</th>
+                    <td *matCellDef="let element"> {{element.quantity}} </td>
+                  </ng-container>
+
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="price">
+                    <th *matHeaderCellDef> Giá </th>
+                    <td *matCellDef="let element"> {{element.price}} </td>
+                  </ng-container>
+
+                  <!-- Symbol Column -->
+                  <ng-container matColumnDef="likeNew">
+                    <th *matHeaderCellDef> Độ mới</th>
+                    <td *matCellDef="let element"> {{element.likeNew}} </td>
+                  </ng-container>
+
+                  <!-- Symbol Column -->
+                  <ng-container matColumnDef="equipmentDescrible">
+                    <th *matHeaderCellDef> Mô tả </th>
+                    <td *matCellDef="let element"> {{element.equipmentDescrible}} </td>
+                  </ng-container>
+
+                  <tr mdbTableCol mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mdbTableCol mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+              </div>
+            </mdb-card-text>
+
             </mdb-card-body>
             <!--Grid column-->
           </mdb-card>
@@ -61,40 +108,32 @@
             <h5 class="my-3"><strong>Hình ảnh mô tả</strong></h5>
             <!--Carousel Wrapper-->
             <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
-
-              <!--Indicators-->
-              <ol class="carousel-indicators">
-                <li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
-                <li *ngFor="let img of images" data-target="#carousel-example-1z" data-slide-to="1"></li>
-              </ol>
-              <!--/.Indicators-->
-
               <!--Slides-->
               <div class="carousel-inner" role="listbox">
-                <!--Foreach slide-->
-                <div *ngFor="let img of images" class="carousel-item">
+                <!--First slide-->
+                <div class="carousel-item active">
                   <div class="view"
-                    style="background-image: url({{img}}); background-repeat: no-repeat; background-size: cover;">
-
-                    <!-- Mask & flexbox options-->
+                    style="background-image: url({{place.imageLarge}}); background-repeat: no-repeat; background-size: cover;">
                     <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
-
                     </div>
-                    <!-- Mask & flexbox options-->
-
                   </div>
                 </div>
-                <!--/Foreach slide-->
+                <!--/First slide-->
 
+                <div *ngFor="let img of place.listImage" class="carousel-item">
+                  <div class="view"
+                    style="background-image: url({{img}}); background-repeat: no-repeat; background-size: cover;">
+                  </div>
+                </div>
               </div>
-              <!--/.Slides-->
 
+              <!--/.Slides-->
               <!--Controls-->
-              <a class="carousel-control-prev" role="button" data-slide="prev">
+              <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
               </a>
-              <a class="carousel-control-next" role="button" data-slide="next">
+              <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
               </a>
@@ -120,10 +159,10 @@
 </main>
 
 
-<!-- OrderModal -->
+<!-- frameOrder -->
 <form (ngSubmit)="onSubmitOrder()" [formGroup]="requestOrderForm">
   <div mdbModal #frameOrder="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
-    aria-labelledby="myModalLabel" aria-hidden="true">
+    aria-labelledby="myModalLabel" aria-hidden="true" [config]="{backdrop: true, ignoreBackdropClick: true}">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header text-center">
@@ -133,55 +172,52 @@
 
           <div class="md-form mb-5">
             <mdb-icon fas icon="user" class="prefix grey-text"></mdb-icon>
-            <input type="text" id="form34" class="form-control" mdbInput mdbValidate formControlName="name">
-            <label for="form34">Nhập Tên<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" mdbInput mdbValidate formControlName="name">
+            <label>Nhập Tên<span class="text-danger">*</span></label>
             <mdb-error *ngIf="name.invalid && (name.dirty || name.touched)">
               Không hợp lệ
             </mdb-error>
-            <mdb-success *ngIf="name.valid && (name.dirty || name.touched)">
-              <i class="fas fa-check"></i>
-            </mdb-success>
           </div>
 
           <div class="md-form mb-5">
             <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
-            <input type="text"  id="form34" class="form-control" mdbInput mdbValidate formControlName="email">
-            <label for="form34">Nhập Email<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" mdbInput mdbValidate formControlName="email">
+            <label>Nhập Email<span class="text-danger">*</span></label>
             <mdb-error *ngIf="email.invalid && (email.dirty || email.touched)">
               Không hợp lệ
             </mdb-error>
-            <mdb-success *ngIf="email.valid && (email.dirty || email.touched)">
-              <i class="fas fa-check"></i>
-            </mdb-success>
           </div>
 
           <div class="md-form mb-5">
             <mdb-icon fas icon="phone" class="prefix grey-text"></mdb-icon>
 
-            <input type="number" id="form29" class="form-control" mdbInput mdbValidate
-              formControlName="phoneNumber">
+            <input type="number" id="form29" class="form-control" mdbInput mdbValidate formControlName="phoneNumber">
             <label for="form29">Nhập số điện thoại<span class="text-danger">*</span></label>
             <mdb-error *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)">
               Không hợp lệ
             </mdb-error>
-            <mdb-success *ngIf="phoneNumber.valid && (phoneNumber.dirty || phoneNumber.touched)">
-              <i class="fas fa-check"></i>
-            </mdb-success>
           </div>
 
-          <div class="md-form mb-5">
-            <mdb-icon fas icon="calendar" class="prefix grey-text"></mdb-icon>
-            <input type="date" id="form32" class="form-control" mdbInput mdbValidate formControlName="dateTime">
-            <label for="form32">Chọn ngày<span class="text-danger">*</span></label>
-            <mdb-error *ngIf="dateTime.invalid && (dateTime.dirty || dateTime.touched)">
-              Không hợp lệ
-            </mdb-error>
-            <mdb-success *ngIf="dateTime.valid && (dateTime.dirty || dateTime.touched)">
-              <i class="fas fa-check"></i>
-            </mdb-success>
+          <div class="md-form row">
+
+            <div class="col-lg-8 col-md-12 md-form">
+              <mdb-icon fas icon="calendar" class="prefix grey-text"></mdb-icon>
+              <input type="date" id="form32" class="form-control" mdbInput mdbValidate formControlName="date">
+              <span style="color: red;" *ngIf="date.invalid && (date.dirty || date.touched)">
+                <small>Ngày không hợp lệ</small>
+              </span>
+            </div>
+
+            <div class="col-lg-4 col-md-12 md-form">
+              <select formControlName="time" class="custom-select text-center form-control" label="Giờ">
+                <option value=-1 disabled="true" selected="true">Giờ</option>
+                <option *ngFor="let hour of hours" [ngValue]="hour"> {{hour}}</option>
+              </select>
+            </div>
+
           </div>
 
-          <div class="md-form">
+          <div class="md-form" style="margin-top: -20px;">
             <mdb-icon fas icon="pencil-alt" class="prefix grey-text"></mdb-icon>
             <textarea type="text" id="form8" class="md-textarea form-control" rows="1" mdbInput mdbValidate
               formControlName="mess"></textarea>
@@ -189,14 +225,15 @@
             <mdb-error *ngIf="mess.invalid && (mess.dirty || mess.touched)">
               Không hợp lệ
             </mdb-error>
-            <mdb-success *ngIf="mess.valid && (mess.dirty || mess.touched)">
+            <!-- <mdb-success *ngIf="mess.valid && (mess.dirty || mess.touched)">
               <i class="fas fa-check"></i>
-            </mdb-success>
+            </mdb-success> -->
           </div>
 
         </div>
-        <div class=" row modal-footer d-flex justify-content-center">
-          <button type="submit" mdbBtn class="btn btn-danger  my-4" [disabled]="!requestOrderForm.valid" mdbWavesEffect>
+        <div class="d-flex mx-auto mb-3 w-50">
+          <button type="submit" mdbBtn class="btn btn-danger btn-block" [disabled]="!requestOrderForm.valid"
+            mdbWavesEffect>
             <strong>Gửi</strong>
             <mdb-icon far icon="paper-plane" class="ml-1"></mdb-icon>
           </button>
@@ -208,7 +245,7 @@
 
 
 <div mdbModal #frameDeposit="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
-  aria-labelledby="myModalLabel" aria-hidden="true">
+  aria-labelledby="myModalLabel" aria-hidden="true" (open)="onOpenFrameDeposit($event)" (close)="onCloseFrameDeposit()">
   <div class="modal-dialog modal-notify modal-warning" role="document">
     <!--Content-->
     <div class="modal-content">
@@ -225,15 +262,13 @@
       <div class="modal-body">
         <div class="text-center">
           <mdb-icon fas icon="check" size="4x" class="mb-3 animated rotateIn"></mdb-icon>
-          <p>Bạn cần mất một khoản phí là <strong>100$</strong> để đặt trước giữ nhà,bạn có thể thanh toán ở bằng tài khoản paypal</p>
+          <p>Bạn cần mất một khoản phí là <strong>100$</strong> để đặt trước giữ nhà,bạn có thể thanh toán ở bằng tài
+            khoản paypal</p>
         </div>
       </div>
 
       <!--Footer-->
-      <div class="modal-footer justify-content-center">
-        <div #paypal></div>
-        <a type="button" mdbBtn color="warning" outline="true" class="waves-effect" mdbWavesEffect
-          (click)="frameDeposit.hide()">No, thanks</a>
+      <div #paypal class="modal-footer justify-content-center">
       </div>
     </div>
     <!--/.Content-->
@@ -242,7 +277,7 @@
 
 
 <div mdbModal #frameDepositSuccess="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
-  aria-labelledby="myModalLabel" aria-hidden="true">
+  aria-labelledby="myModalLabel" aria-hidden="true" [config]="{backdrop: true, ignoreBackdropClick: true}">
 
   <div *ngIf=paidFor class="modal-dialog modal-notify modal-success" role="document">
     <!--Content-->
@@ -251,7 +286,7 @@
       <div class="modal-header">
         <p class="heading lead">Thanh toán thành công</p>
       </div>
-  
+
       <!--Body-->
       <div class="modal-body">
         <div class="text-center">
@@ -259,16 +294,18 @@
           <p>Đặt cọc xem nhà thanh công, để tiếp tục quá trình đặt lịch xem nhà, bấm <strong>Tiếp tục</strong></p>
         </div>
       </div>
-  
+
       <!--Footer-->
       <div class="modal-footer justify-content-center">
         <div #paypal></div>
-        <a type="button" (click)="frameOrder.show()" mdbBtn color="success" outline="true"  class="waves-effect" mdbWavesEffect
-          (click)="frameDepositSuccess.hide()">Tiếp tục</a>
+        <a type="button" data-toggle="modal" data-target="#frameOrder" (click)="frameOrder.show()" mdbBtn
+          color="success" outline="true" class="waves-effect" mdbWavesEffect (click)="frameDepositSuccess.hide()">Tiếp
+          tục</a>
       </div>
     </div>
     <!--/.Content-->
-  </div></div>
+  </div>
+</div>
 
 
 

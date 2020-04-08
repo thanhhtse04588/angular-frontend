@@ -10,7 +10,7 @@
 
         <div class="text-center">
 
-          <div class="h3 text-center">ĐĂNG TIN RAO BÁN, CHO THUÊ NHÀ ĐẤT</div>
+          <div class="h3 text-center">CHỈNH SỬA TIN ĐĂNG</div>
           <p>(Quý vị nhập thông tin nhà đất cần bán hoặc cho thuê vào các mục dưới đây)</p>
           <div *ngIf="!loginService.isUserLoggedIn()" class="alert alert-warning" role="alert">
             Bạn cần <strong style="cursor: pointer;" title="Đăng nhập ở góc trên bên phải màn hình">đăng nhập</strong>
@@ -106,11 +106,11 @@
 
                 <!-- price -->
                 <div class="col-lg-4 col-md-12 md-form mb-4">
-                  <label class="pl-3" for="price">Giá (vnđ/tháng)<span class="text-danger">*</span></label>
-                  <input mdbInput type="number" id="price" formControlName="price" class="form-control" mdbInput
+                  <label class="pl-3" for="pricePlace">Giá (vnđ/tháng)<span class="text-danger">*</span></label>
+                  <input mdbInput type="number" id="pricePlace" formControlName="pricePlace" class="form-control" mdbInput
                     mdbValidate>
-                  <p>{{price.value | currency:' ':'symbol':'2.0'}} </p>
-                  <mdb-error class="pl-3" *ngIf="price.invalid && (price.dirty || price.touched)">
+                  <p>{{pricePlace.value | currency:' ':'symbol':'2.0'}} </p>
+                  <mdb-error class="pl-3" *ngIf="pricePlace.invalid && (pricePlace.dirty || pricePlace.touched)">
                     Không bỏ trống
                   </mdb-error>
                 </div>
@@ -230,7 +230,7 @@
                             >
                         </td>
                         <td>
-                          <input matInput type="number" id="priceEq" class="form-control" formControlName="priceEq">
+                          <input matInput type="number" id="price" class="form-control" formControlName="price">
                         </td>
                         <td>
                           <input matInput type="number" id="likeNew" class="form-control" formControlName="likeNew">
@@ -254,7 +254,7 @@
                           {{group.get('quantity').value}}
                         </td>
                         <td>
-                          {{group.get('priceEq').value}}
+                          {{group.get('price').value}}
                         </td>
                         <td>
                           {{group.get('likeNew').value}}
@@ -382,9 +382,6 @@
                 <div class="col-lg-4 col-md-12 md-form mb-4">
                   <label class="pl-3" for="email">Email</label>
                   <input mdbInput type="email" id="email" formControlName="email" class="form-control" mdbValidate>
-                  <mdb-error class="pl-3" *ngIf="email.invalid && (email.dirty || email.touched)">
-                    Không đúng định dạng email
-                  </mdb-error>
                 </div>
 
                 <!-- checkingDate -->
@@ -408,7 +405,7 @@
                 {{wardID.valid}}
                 {{streetID.valid}}
                 {{area.valid}}
-                {{price.valid}}
+                {{pricePlace.valid}}
                 {{descriptions.valid}}
                 {{frontispiece.valid}}
                 {{homeDirection.valid}}
@@ -421,11 +418,12 @@
                 {{email.valid}}
                 {{checkingDate.valid}} -->
               </div>
+              <!-- <p>{{updatePlaceForm | json}}</p> -->
               <button type="submit" mdbBtn color="primary" size="md"
                 [disabled]="!form.valid || !loginService.isUserLoggedIn() || !isDoneUpload" mdbWavesEffect> Yêu cầu
                 đăng tin</button>
-              <button type="button" mdbBtn color="danger" size="md" [routerLink]="['/home']"
-                routerLinkActive="router-link-active" mdbWavesEffect>Hủy</button>
+              <button type="button" mdbBtn color="danger" size="md" routerLink="/seller/post-manage"
+                mdbWavesEffect>Hủy</button>
             </mdb-card-footer>
           </mdb-card>
         </form>

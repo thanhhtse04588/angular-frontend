@@ -55,22 +55,20 @@ export class PlaceService {
       )
   }
 
-  getStreetIDByWardID(id): Observable<any> {
-    return this.http.get(`${this.verybaseUrl}/street/getstreetbyward?wardid=${id}`)
+  getStreetIDByDistrictID(id): Observable<any> {
+    return this.http.get(`${this.verybaseUrl}/street/getstreetbydistrict?districtid=${id}`)
       .pipe(
         retry(1)
       )
   }
 
-  pushFileToStorage(file: File): Observable<HttpEvent<{}>> {
-    const data: FormData = new FormData();
-    data.append('file', file);
-    const newRequest = new HttpRequest('POST', 'http://localhost:8080/savefile', data, {
-      reportProgress: true,
-      responseType: 'text'
-    });
-    return this.http.request(newRequest);
+  public upload(formData) {
+    return this.http.post("http://localhost:8080/imagelink/upload", formData, {  
+        responseType: 'text'  
+      });  
   }
+
+
 
   //Http Options
   httpOptions = {

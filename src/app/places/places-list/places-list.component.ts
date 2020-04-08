@@ -77,7 +77,7 @@ export class PlacesListComponent implements OnInit {
   }
 
   placeDetail(id: number) {
-    this.router.navigate(['detail', id]);
+    this.router.navigate(['detail', id],{skipLocationChange: true});
   }
 
 

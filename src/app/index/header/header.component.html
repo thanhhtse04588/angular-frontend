@@ -3,8 +3,7 @@
     <div class="container">
 
         <!-- Brand -->
-        <a class="navbar-brand waves-effect" [routerLink]="['home']"
-        routerLinkActive="router-link-active">
+        <a class="navbar-brand waves-effect" routerLink="/home">
             <strong class="blue-text">Cyber Place</strong>
         </a>
 
@@ -19,7 +18,8 @@
 
             <!-- Left -->
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item" routerLink="/home"
+                routerLinkActive="active">
                     <a class="nav-link waves-effect" >Trang chủ
                         <span class="sr-only">(current)</span>
                     </a>
@@ -31,6 +31,12 @@
                 <li class="nav-item">
                     <a class="nav-link waves-effect">
                         Kênh người mua
+                    </a>
+                </li>
+                <li class="nav-item" routerLink="/seller"
+                routerLinkActive="active">
+                    <a class="nav-link waves-effect">
+                        Kênh người bán
                     </a>
                 </li>
                 <li *ngIf="loginService.isUserLoggedIn()" class="nav-item">
@@ -63,7 +69,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <button routerLink="/post"  mdbBtn type="button" color="dark-green" size="sm" mdbWavesEffect>
+                    <button routerLink="seller/post"  mdbBtn type="button" color="dark-green" size="sm" mdbWavesEffect>
                         <strong>Đăng tin rao</strong></button>
                 </li>
                 <li class="nav-item" *ngIf="loginService.isUserLoggedIn()">
@@ -101,10 +107,6 @@
                         *ngIf="loginFormModalUsername.invalid && (loginFormModalUsername.dirty || loginFormModalUsername.touched)">
                         Không bỏ trống
                     </mdb-error>
-                    <mdb-success
-                        *ngIf="loginFormModalUsername.valid && (loginFormModalUsername.dirty || loginFormModalUsername.touched)">
-                        <i class="fas fa-check"></i>
-                    </mdb-success>
                 </div>
 
                 <div class="md-form mb-4">
@@ -114,12 +116,8 @@
                     <label for="defaultForm-pass">Mật khẩu<span class="text-danger">*</span></label>
                     <mdb-error
                         *ngIf="loginFormModalPassword.invalid && (loginFormModalPassword.dirty || loginFormModalPassword.touched)">
-                        Mật khẩu từ 6 đến 32 ký tự
+                        Không bỏ trống
                     </mdb-error>
-                    <mdb-success
-                        *ngIf="loginFormModalPassword.valid && (loginFormModalPassword.dirty || loginFormModalPassword.touched)">
-                        <i class="fas fa-check"></i>
-                    </mdb-success>
                 </div>
 
             </div>
@@ -157,10 +155,6 @@
                         *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
                         Không bỏ trống
                     </mdb-error>
-                    <mdb-success
-                        *ngIf="firstName.valid && (firstName.dirty || firstName.touched)">
-                        <i class="fas fa-check"></i>
-                    </mdb-success>
                 </div>
                 <div class="md-form mb-5">
                     <mdb-icon fas icon="address-book" class="prefix grey-text"></mdb-icon>
@@ -178,10 +172,6 @@
                         *ngIf="username.invalid && (username.dirty || username.touched)">
                         Không bỏ trống
                     </mdb-error>
-                    <mdb-success
-                        *ngIf="username.valid && (username.dirty || username.touched)">
-                        <i class="fas fa-check"></i>
-                    </mdb-success>
                 </div>
 
                 <div class="md-form mb-4">
@@ -193,10 +183,6 @@
                         *ngIf="password.invalid && (password.dirty || password.touched)">
                         Mật khẩu từ 6 đến 32 ký tự
                     </mdb-error>
-                    <mdb-success
-                        *ngIf="password.valid && (password.dirty || password.touched)">
-                        <i class="fas fa-check"></i>
-                    </mdb-success>
                 </div>
 
                 <div class="md-form mb-4">
@@ -208,10 +194,6 @@
                         *ngIf="confirmPasswrd.invalid && (confirmPasswrd.dirty || confirmPasswrd.touched)">
                         Mật khẩu từ 6 đến 32 ký tự
                     </mdb-error>
-                    <mdb-success
-                        *ngIf="confirmPasswrd.valid && (confirmPasswrd.dirty || confirmPasswrd.touched)">
-                        <i class="fas fa-check"></i>
-                    </mdb-success>
                 </div>
 
             </div>

@@ -7,8 +7,8 @@ export class PlaceDetail {
     ward:string;
     street:string;
     address:string;
-    longtitude: number;
-    latitude: number;
+    longtitude: string;
+    latitude: string;
     roleOfPlace: string;
     counterView: number;
     frontispiece:number;
@@ -16,5 +16,16 @@ export class PlaceDetail {
     bedRooms:number;
     toilets:number;
     description: string;
+    imageLarge:string;
+    listImage: Array<string>;
+    listEquip: Array<EquipmentListForm>;
+}
+
+export class EquipmentListForm{
+    name:string;
+	quantity:number;
+	price:number;
+    likeNew:number;
+    equipmentDescrible: string;
 }
  
