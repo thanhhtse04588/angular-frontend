@@ -21,7 +21,7 @@ export class PlaceHomeComponent implements OnInit {
   }
 
   placeDetail(id: number) {
-    this.router.navigate(['detail', id],{skipLocationChange: true});
+    this.router.navigate(['places/detail', id],{skipLocationChange: true});
   }
 
   shortTitle(title) {

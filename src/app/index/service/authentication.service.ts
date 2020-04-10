@@ -30,14 +30,22 @@ export class AuthenticationService {
   }
 
   setSessionLoggedIn(data: UserLogin) {
-    sessionStorage.setItem("userID", data.u.userID.toString());
-    sessionStorage.setItem("name", data.ud.name);
-    sessionStorage.setItem("role", data.u.roleID.toString());
+    try {
+      sessionStorage.setItem("userID", data.u.userID.toString());
+      sessionStorage.setItem("name", (data.ud.name == null)? 'unknown':data.ud.name);
+      sessionStorage.setItem("role", data.u.roleID.toString());
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   isUserLoggedIn() {
     let userID = sessionStorage.getItem('userID')
     return !(userID === null)
+  }
+
+  isAdmin() {
+    return +sessionStorage.getItem('role') == 1 // Admin roleID = 1
   }
 
   logOut() {

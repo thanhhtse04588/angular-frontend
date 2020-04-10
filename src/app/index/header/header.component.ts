@@ -50,17 +50,12 @@ export class HeaderComponent implements OnInit {
       data => {
         if (data) {
           alert("Đăng ký tài khoản thành công!")
-          this.router.navigate(["home"])
+          this.router.navigate(["places"])
           this.frameSignin.hide()
           //auto login
           this.loginService.authenticate(this.username.value, this.password.value).subscribe(
             (data: UserLogin) => {
-              try {
                 this.loginService.setSessionLoggedIn(data)
-              } catch (error) {
-                console.log(error)
-                this.router.navigate(["error"])
-              }
             }, error => {
               console.log(error)
             })
@@ -84,6 +79,7 @@ export class HeaderComponent implements OnInit {
         }
         try {
           this.loginService.setSessionLoggedIn(data)
+          if (this.loginService.isAdmin()) this.router.navigate(["admin"])
         } catch (error) {
           console.log(error)
           this.router.navigate(["error"])

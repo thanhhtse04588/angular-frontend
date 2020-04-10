@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
   constructor(private _location: Location, private router: Router, public loginService: AuthenticationService, private registerService: AuthenticationService) { }
   ngOnInit(): void {
     if (this.loginService.isUserLoggedIn()) {
-      this.router.navigate(["home"])
+      this.router.navigate(["places"])
     }
 
     this.validatingSigninForm = new FormGroup({
@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
       data => {
         if (data) {
           alert("Đăng ký tài khoản thành công!")
-          this.router.navigate(["home"])
+          this.router.navigate(["places"])
           //auto login
           this.loginService.authenticate(this.username.value, this.password.value).subscribe(
             (data: UserLogin) => {

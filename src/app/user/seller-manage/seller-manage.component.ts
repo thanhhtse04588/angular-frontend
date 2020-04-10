@@ -68,12 +68,12 @@ export class SellerManageComponent implements OnInit {
     }
   }
   placeDetail(id: number) {
-    this.router.navigate(['detail', id],{skipLocationChange: true});
+    this.router.navigate(['places/detail', id],{skipLocationChange: true});
   }
 
   edit() {  
     console.log(this.placeID)
-    this.router.navigate(["seller/post-edit",{id:this.placeID}], {skipLocationChange: true})
+    this.router.navigate(["user/seller/post-edit",{id:this.placeID}], {skipLocationChange: true})
   }
   cancel() {
     this.userService.updateStatusPlace(this.placeID, this.pl.CANCEL).subscribe(

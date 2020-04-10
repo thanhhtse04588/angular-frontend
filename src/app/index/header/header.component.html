@@ -1,11 +1,9 @@
-
-
 <!-- Navbar -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
     <div class="container">
 
         <!-- Brand -->
-        <a class="navbar-brand waves-effect" routerLink="/home">
+        <a class="navbar-brand waves-effect" routerLink="/places/home">
             <strong class="blue-text">Cyber Place</strong>
         </a>
 
@@ -20,14 +18,13 @@
 
             <!-- Left -->
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item" routerLink="/home"
-                routerLinkActive="active">
-                    <a class="nav-link waves-effect" >Trang chủ
+                <li class="nav-item" routerLink="/places/home" routerLinkActive="active">
+                    <a class="nav-link waves-effect">Trang chủ
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link waves-effect" >
+                    <a class="nav-link waves-effect">
                     </a>
                 </li>
                 <li class="nav-item">
@@ -35,14 +32,13 @@
                         Kênh người mua
                     </a>
                 </li>
-                <li class="nav-item" routerLink="/seller"
-                routerLinkActive="active">
+                <li class="nav-item" routerLink="/user/seller" routerLinkActive="active">
                     <a class="nav-link waves-effect">
                         Kênh người bán
                     </a>
                 </li>
                 <li *ngIf="loginService.isUserLoggedIn()" class="nav-item">
-                    <a class="nav-link waves-effect" >
+                    <a class="nav-link waves-effect">
                         <!-- <i class="far fa-bell"></i> -->
                         Thông báo
                         <span class="badge badge-danger ml-2">4</span>
@@ -65,15 +61,24 @@
                     </a>
 
                 </li>
-                <li class="nav-item" *ngIf="loginService.isUserLoggedIn()" routerLink="/logout">
+                <li class="nav-item" *ngIf="loginService.isUserLoggedIn()" routerLink="/user/logout">
                     <a class="nav-link waves-effect">
                         Đăng xuất
                     </a>
                 </li>
-                <li class="nav-item">
-                    <button routerLink="seller/post"  mdbBtn type="button" color="dark-green" size="sm" mdbWavesEffect>
-                        <strong>Đăng tin rao</strong></button>
+
+                <li *ngIf="loginService.isAdmin();else post" class="nav-item">
+                    <button routerLink="/admin" mdbBtn type="button" color="warning" size="sm" mdbWavesEffect>
+                        <strong>Admin</strong></button>
                 </li>
+                <ng-template #post>
+                    <li class="nav-item">
+                        <button routerLink="/user/seller/post" mdbBtn type="button" color="dark-green" size="sm"
+                            mdbWavesEffect>
+                            <strong>Đăng tin rao</strong></button>
+                    </li>
+                </ng-template>
+
                 <li class="nav-item" *ngIf="loginService.isUserLoggedIn()">
                     <a class="nav-link" title="{{getNameUser()}}">
                         Xin chào {{getShortNameUser()}}...
@@ -89,123 +94,122 @@
 
 <!-- Login Modal -->
 <form [formGroup]="validatingLoginForm" (ngSubmit)="checkLogin()">
-<div mdbModal  #frameLogin="mdbModal" class="modal fade left" id="frameModalTop"
-    tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold">Đăng nhập</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frameLogin.hide()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body mx-3">
-                <div class="md-form mb-5">
-                    <mdb-icon fas icon="user" class="prefix grey-text"></mdb-icon>
-                    <input type="text" id="defaultForm-username" formControlName="loginFormModalUsername"
-                        class="form-control" mdbInput mdbValidate>
-                    <label for="defaultForm-username">Tên đăng nhập<span class="text-danger">*</span></label>
-                    <mdb-error
-                        *ngIf="loginFormModalUsername.invalid && (loginFormModalUsername.dirty || loginFormModalUsername.touched)">
-                        Không bỏ trống
-                    </mdb-error>
+    <div mdbModal #frameLogin="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Đăng nhập</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        (click)="frameLogin.hide()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                        <mdb-icon fas icon="user" class="prefix grey-text"></mdb-icon>
+                        <input type="text" id="defaultForm-username" formControlName="loginFormModalUsername"
+                            class="form-control" mdbInput mdbValidate>
+                        <label for="defaultForm-username">Tên đăng nhập<span class="text-danger">*</span></label>
+                        <mdb-error
+                            *ngIf="loginFormModalUsername.invalid && (loginFormModalUsername.dirty || loginFormModalUsername.touched)">
+                            Không bỏ trống
+                        </mdb-error>
+                    </div>
 
-                <div class="md-form mb-4">
-                    <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
-                    <input type="password" id="defaultForm-pass" formControlName="loginFormModalPassword"
-                        class="form-control" mdbInput mdbValidate>
-                    <label for="defaultForm-pass">Mật khẩu<span class="text-danger">*</span></label>
-                    <mdb-error
-                        *ngIf="loginFormModalPassword.invalid && (loginFormModalPassword.dirty || loginFormModalPassword.touched)">
-                        Không bỏ trống
-                    </mdb-error>
+                    <div class="md-form mb-4">
+                        <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
+                        <input type="password" id="defaultForm-pass" formControlName="loginFormModalPassword"
+                            class="form-control" mdbInput mdbValidate>
+                        <label for="defaultForm-pass">Mật khẩu<span class="text-danger">*</span></label>
+                        <mdb-error
+                            *ngIf="loginFormModalPassword.invalid && (loginFormModalPassword.dirty || loginFormModalPassword.touched)">
+                            Không bỏ trống
+                        </mdb-error>
+                    </div>
+
                 </div>
-
-            </div>
-            <div class="modal-footer d-flex justify-content-center">
-                <button  [disabled]="!validatingLoginForm.valid"  class="btn btn-primary my-4 btn-block" mdbWavesEffect>
-                    <strong>Đăng nhập</strong>
-                </button>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button [disabled]="!validatingLoginForm.valid" class="btn btn-primary my-4 btn-block"
+                        mdbWavesEffect>
+                        <strong>Đăng nhập</strong>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </form>
 <!-- /Login Modal -->
 
 <!-- Signin Modal -->
 <form [formGroup]="validatingSigninForm" (ngSubmit)=doSignup()>
-<div mdbModal  #frameSignin="mdbModal" class="modal fade left" id="frameModalTop"
-    tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold">Tạo tài khoản</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                    (click)="frameSignin.hide()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body mx-3">
-                <div class="md-form mb-5">
-                    <mdb-icon fas icon="address-book" class="prefix grey-text"></mdb-icon>
-                    <input type="text" id="orangeForm-firstname" class="form-control"
-                        formControlName="firstName" mdbInput mdbValidate>
-                    <label for="orangeForm-firstname">Tên<span class="text-danger">*</span></label>
-                    <mdb-error
-                        *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
-                        Không bỏ trống
-                    </mdb-error>
+    <div mdbModal #frameSignin="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Tạo tài khoản</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        (click)="frameSignin.hide()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="md-form mb-5">
-                    <mdb-icon fas icon="address-book" class="prefix grey-text"></mdb-icon>
-                    <input type="text" id="orangeForm-lastname" class="form-control"
-                        formControlName="lastName" mdbInput mdbValidate>
-                    <label for="orangeForm-lastname">Họ</label>
-                </div>
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                        <mdb-icon fas icon="address-book" class="prefix grey-text"></mdb-icon>
+                        <input type="text" id="orangeForm-firstname" class="form-control" formControlName="firstName"
+                            mdbInput mdbValidate>
+                        <label for="orangeForm-firstname">Tên<span class="text-danger">*</span></label>
+                        <mdb-error *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+                            Không bỏ trống
+                        </mdb-error>
+                    </div>
+                    <div class="md-form mb-5">
+                        <mdb-icon fas icon="address-book" class="prefix grey-text"></mdb-icon>
+                        <input type="text" id="orangeForm-lastname" class="form-control" formControlName="lastName"
+                            mdbInput mdbValidate>
+                        <label for="orangeForm-lastname">Họ</label>
+                    </div>
 
-                <div class="md-form mb-5">
-                    <mdb-icon fas icon="user" class="prefix grey-text"></mdb-icon>
-                    <input type="text" id="orangeForm-username" class="form-control"
-                        formControlName="username" mdbInput mdbValidate>
-                    <label for="orangeForm-username">Tên đăng nhập<span class="text-danger">*</span></label>
-                    <mdb-error
-                        *ngIf="username.invalid && (username.dirty || username.touched)">
-                        Không bỏ trống
-                    </mdb-error>
-                </div>
+                    <div class="md-form mb-5">
+                        <mdb-icon fas icon="user" class="prefix grey-text"></mdb-icon>
+                        <input type="text" id="orangeForm-username" class="form-control" formControlName="username"
+                            mdbInput mdbValidate>
+                        <label for="orangeForm-username">Tên đăng nhập<span class="text-danger">*</span></label>
+                        <mdb-error *ngIf="username.invalid && (username.dirty || username.touched)">
+                            Không bỏ trống
+                        </mdb-error>
+                    </div>
 
-                <div class="md-form mb-4">
-                    <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
-                    <input type="password" id="orangeForm-pass" class="form-control"
-                        formControlName="password" mdbInput mdbValidate>
-                    <label for="orangeForm-pass">Mật khẩu<span class="text-danger">*</span></label>
-                    <mdb-error
-                        *ngIf="password.invalid && (password.dirty || password.touched)">
-                        Mật khẩu từ 6 đến 32 ký tự
-                    </mdb-error>
-                </div>
+                    <div class="md-form mb-4">
+                        <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
+                        <input type="password" id="orangeForm-pass" class="form-control" formControlName="password"
+                            mdbInput mdbValidate>
+                        <label for="orangeForm-pass">Mật khẩu<span class="text-danger">*</span></label>
+                        <mdb-error *ngIf="password.invalid && (password.dirty || password.touched)">
+                            Mật khẩu từ 6 đến 32 ký tự
+                        </mdb-error>
+                    </div>
 
-                <div class="md-form mb-4">
-                    <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
-                    <input type="password" id="orangeForm-repass" class="form-control"
-                        formControlName="confirmPasswrd" mdbInput mdbValidate>
-                    <label for="orangeForm-repass">Nhập lại mật khẩu<span class="text-danger">*</span></label>
-                    <mdb-error
-                        *ngIf="confirmPasswrd.invalid && (confirmPasswrd.dirty || confirmPasswrd.touched)">
-                        Mật khẩu từ 6 đến 32 ký tự
-                    </mdb-error>
-                </div>
+                    <div class="md-form mb-4">
+                        <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
+                        <input type="password" id="orangeForm-repass" class="form-control"
+                            formControlName="confirmPasswrd" mdbInput mdbValidate>
+                        <label for="orangeForm-repass">Nhập lại mật khẩu<span class="text-danger">*</span></label>
+                        <mdb-error *ngIf="confirmPasswrd.invalid && (confirmPasswrd.dirty || confirmPasswrd.touched)">
+                            Mật khẩu từ 6 đến 32 ký tự
+                        </mdb-error>
+                    </div>
 
-            </div>
-            <div class="modal-footer d-flex justify-content-center">
-                <button  class="btn btn-warning my-4 btn-block" [disabled]="!validatingSigninForm.valid"  mdbWavesEffect>
-                    <strong> Đăng ký</strong> </button>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn btn-warning my-4 btn-block" [disabled]="!validatingSigninForm.valid"
+                        mdbWavesEffect>
+                        <strong> Đăng ký</strong> </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </form>
 
 

@@ -328,7 +328,7 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
       data => {
         console.log(data)
         if (data) {
-          this.router.navigate(["home"])
+          this.router.navigate(["places"])
           alert("Yêu cầu đăng tin thành công, chúng tôi sẽ sớm liên hệ với bạn !")
         }
         else { alert("Đã có lỗi xảy ra! Yêu cầu đăng tin không thành công") }

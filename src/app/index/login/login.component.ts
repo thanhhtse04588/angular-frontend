@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.loginService.isUserLoggedIn()){
-      this.router.navigate(['home'])
+      this.router.navigate(['places'])
     }
     this.validatingLoginForm = new FormGroup({
       loginFormModalUsername: new FormControl('', Validators.required),

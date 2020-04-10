@@ -1,0 +1,132 @@
+<div class="container-fluid mt-5">
+  <!-- Heading -->
+  <div class="card mb-4 wow fadeIn">
+
+    <!--Card content-->
+    <div class="card-body d-sm-flex justify-content-between">
+
+      <h4 class="mb-2 mb-sm-0 pt-1">
+        <a href="https://mdbootstrap.com/docs/jquery/" target="_blank">Admin</a>
+        <span>/</span>
+        <span>Booking List</span>
+      </h4>
+
+      <form class="d-flex justify-content-center">
+        <!-- Default input -->
+        <input type="search" placeholder="Type your query" aria-label="Search" class="form-control">
+        <button class="btn btn-primary btn-sm my-0 p" type="submit">
+          <i class="fas fa-search"></i>
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+  <!-- Heading -->
+
+  <div class="card mb-5 wow fadeIn">
+    <div class="card-header text-center  h5"><strong>Danh sách Booking</strong></div>
+    <div class="card-body">
+        <div class="md-form">
+          <input matInput mdbInput type="text" id="form1" class="form-control" (keyup)="applyFilter($event)">
+          <label for="form1">Lọc</label>
+        </div>
+      <div mdbTable bordered="true" hover="true">
+        <table mat-table matSort [dataSource]="dataSource" class="w-100">
+
+          <ng-container matColumnDef="checkingID">
+            <th *matHeaderCellDef mat-sort-header>Code</th>
+            <td *matCellDef="let element"> {{element.checkingID}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="placeID">
+            <th *matHeaderCellDef mat-sort-header>Mã nhà</th>
+            <td *matCellDef="let element"> {{element.placeID}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="userName">
+            <th *matHeaderCellDef mat-sort-header>Người dùng </th>
+            <td *matCellDef="let element"> {{element.userName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="title">
+            <th *matHeaderCellDef mat-sort-header>Tiêu đề</th>
+            <td *matCellDef="let element"> {{element.title}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="dateTime">
+            <th *matHeaderCellDef mat-sort-header>Thời gian</th>
+            <td *matCellDef="let element"> {{element.dateTime}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="phoneNumber">
+            <th *matHeaderCellDef mat-sort-header>Số điện thoại</th>
+            <td *matCellDef="let element"> {{element.phoneNumber}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="contactName">
+            <th *matHeaderCellDef mat-sort-header>Tên liên hệ</th>
+            <td *matCellDef="let element"> {{element.contactName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th *matHeaderCellDef mat-sort-header>Trạng thái</th>
+            <td *matCellDef="let element"> {{element.status}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="void">
+            <th *matHeaderCellDef></th>
+            <td *matCellDef="let element">
+              <button type="button" mdbBtn color="success" size="sm" (click)="comfirmApprove.show()"
+                mdbWavesEffect><i class="fas fa-check"></i></button>
+              <button type="button" mdbBtn color="danger" size="sm" (click)="comfirmCancel.show()"
+                mdbWavesEffect><i class="fas fa-ban"></i></button>
+            </td>
+          </ng-container>
+
+          <tr mdbTableCol mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mdbTableCol mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Cancel comfirm -->
+<div mdbModal #comfirmCancel="mdbModal" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-danger modal-sm  text-center" role="document">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <h5>Bạn có chắc chắn muốn HỦY</h5>
+      </div>
+      <div class="modal-footer justify-content-center ">
+        <a type="button" mdbBtn color="danger" class="waves-effect" (click)="comfirmCancel.hide()" mdbWavesEffect>
+          <i class="fas fa-check"></i>
+        </a>
+        <a type="button" mdbBtn color="danger" outline="true" class="waves-effect" (click)="comfirmCancel.hide()"
+          mdbWavesEffect><i class="fas fa-minus"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mdbModal #comfirmApprove="mdbModal" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-success modal-sm  text-center" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h5>Bạn có chắc chắn muốn DUYỆT</h5>
+      </div>
+      <div class="modal-footer justify-content-center ">
+        <a type="button" mdbBtn color="success" class="waves-effect" (click)="comfirmApprove.hide()" mdbWavesEffect>
+          <i class="fas fa-check"></i></a>
+        <a type="button" mdbBtn color="success" outline="true" class="waves-effect" (click)="comfirmApprove.hide()"
+          mdbWavesEffect><i class="fas fa-minus"></i></a>
+      </div>
+    </div>
+  </div>
+</div>

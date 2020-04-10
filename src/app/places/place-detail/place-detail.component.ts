@@ -179,7 +179,7 @@ export class PlaceDetailComponent implements OnInit{
           alert("Liên hệ thành công , chúng tôi sẽ phản hổi sớm.")
         } else {
           alert("Ôi, mặt hàng không còn tồn tại")
-          this.router.navigate(["home"])
+          this.router.navigate(["places"])
         }
         this.frameOrder.hide()
       }, error => {

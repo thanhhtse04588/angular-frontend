@@ -1,4 +1,9 @@
-import { NavigationComponent } from './admin/main-layout/navigation/navigation.component';
+import { OrderListComponent } from './admin/order-list/order-list.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { CheckingListComponent } from './admin/checking-list/checking-list.component';
+
+import { UserComponent } from './user/user.component';
+import { PlacesComponent } from './places/places.component';
 import { AdminComponent } from './admin/admin.component';
 import { SellerPostEditComponent } from './user/seller-post-edit/seller-post-edit.component';
 import { SellerMenuComponent } from './user/seller-menu/seller-menu.component';
@@ -39,28 +44,33 @@ import { SellerManageComponent } from './user/seller-manage/seller-manage.compon
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PlacesListComponent,
-    FooterComponent,
-    HeaderComponent,
-    PlaceDetailComponent,
-    SearchBarComponent,
-    PlaceHomeComponent,
-    LogoutComponent,
-    ErrorPageComponent,
-    NotFoundComponent,
-    PlacePostComponent,
-    LoginComponent,
-    RegisterComponent,
-    TestComponent,
-    SellerMenuComponent,
-    SellerManageComponent,
-    SellerPostEditComponent,
-    AdminComponent,
-    NavigationComponent
+   declarations: [
+      AppComponent,
+      PlacesListComponent,
+      FooterComponent,
+      HeaderComponent,
+      PlaceDetailComponent,
+      SearchBarComponent,
+      PlaceHomeComponent,
+      LogoutComponent,
+      ErrorPageComponent,
+      NotFoundComponent,
+      PlacePostComponent,
+      LoginComponent,
+      RegisterComponent,
+      TestComponent,
+      SellerMenuComponent,
+      SellerManageComponent,
+      SellerPostEditComponent,
+      PlacesComponent,
+      UserComponent,
+      AdminComponent,
+      CheckingListComponent,
+      DashboardComponent,
+      OrderListComponent
+
     
-    
+
   ],
   imports: [
     BrowserModule,
