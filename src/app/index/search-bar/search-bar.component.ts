@@ -2,9 +2,9 @@ import { SearchCondition } from './../../class/search-condition';
 import { SearchBarService } from './../service/search-bar.service';
 import { DistrictDB } from './../../class/district-db';
 import { RoleOfPlace } from './../../class/role-of-place';
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, EventEmitter ,Output} from '@angular/core';
 import { Observable } from "rxjs";
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 
 
@@ -15,8 +15,10 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./search-bar.component.css']
 })
 export class SearchBarComponent implements OnInit {
+  @Output() onSearch: EventEmitter<SearchCondition>;
   roleOfPlaces: Observable<RoleOfPlace>
   districts: Observable<DistrictDB>
+  form: any
   areaRanges = [{
     areaMin: 0, areaMax: 99999, text: "Diện tích"
   },
@@ -60,49 +62,48 @@ export class SearchBarComponent implements OnInit {
   },
   ]
 
-  constructor(private searchService: SearchBarService,
-    private router: Router
-  ) { }
+  constructor(private searchService: SearchBarService
+  ) {
+    this.onSearch = new EventEmitter()
+   }
 
   ngOnInit(): void {
-    this.roleOfPlaces = this.searchService.getAllRole()
-    this.districts = this.searchService.getAllStatistic()
+    this.searchService.getAllRole().subscribe(
+      data => this.roleOfPlaces = data
+    )
+    this.searchService.getAllStatistic().subscribe(
+      data => this.districts = data
+    )
+    // SearchCondition
+    this.form = new FormGroup({
+      title: new FormControl(''),
+      roleOfPlaceID: new FormControl(-1),
+      districtID: new FormControl(-1),
+      areaRange: new FormControl(this.areaRanges[0]),
+      priceRange: new FormControl(this.priceRanges[0]),
+    });
+    
   }
 
-  // SearchCondition
-  private searchCondition = new SearchCondition();
-
-  form = new FormGroup({
-    title: new FormControl(),
-    roleOfPlaceID: new FormControl(-1),
-    districtID: new FormControl(-1),
-    areaRange: new FormControl(this.areaRanges[0]),
-    priceRange: new FormControl(this.priceRanges[0]),
-  });
 
   searchForm() {
-    console.log(this.searchCondition)
-    if (this.form.get('title').value === null) {
-      this.searchCondition.title = ""
-    } else {
-      this.searchCondition.title = this.form.get('title').value
-    }
+    const condition = new SearchCondition()
+    condition.title = this.form.get('title').value
+    condition.roleOfPlaceID = this.form.get('roleOfPlaceID').value
+    condition.districtID = this.form.get('districtID').value
+    condition.areaMax = this.form.get('areaRange').value.areaMax
+    condition.areaMin = this.form.get('areaRange').value.areaMin
+    condition.priceMax = this.form.get('priceRange').value.priceMax
+    condition.priceMin = this.form.get('priceRange').value.priceMin
 
-    this.searchCondition.roleOfPlaceID = this.form.get('roleOfPlaceID').value
-    this.searchCondition.districtID = this.form.get('districtID').value
-    this.searchCondition.areaMax = this.form.get('areaRange').value.areaMax
-    this.searchCondition.areaMin = this.form.get('areaRange').value.areaMin
-    this.searchCondition.priceMax = this.form.get('priceRange').value.priceMax
-    this.searchCondition.priceMin = this.form.get('priceRange').value.priceMin
-    this.reloadCurrentRoute('search', this.searchCondition)
+    this.onSearch.next(condition)
   }
 
-  reloadCurrentRoute(currentUrl: string, data: any) {
-    // let currentUrl = this.router.url;
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentUrl,data],{skipLocationChange: true})
-    })
-  }
+  // reloadCurrentRoute(currentUrl: string, data: any) {
+  //   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+  //     this.router.navigate([currentUrl, data])
+  //   })
+  // }
 
 
 }

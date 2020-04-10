@@ -1,16 +1,13 @@
-<!-- <button mdbBtn floating="true" size="lg" color="red" class="waves-light" mdbPageScroll href="#top-section"
-    mdbWavesEffect style="right:35px; bottom:35px;" [pageScrollDuration]="750">
-    <mdb-icon fas icon="arrow-up"></mdb-icon>
-</button> -->
-<!-- header -->
-<div >
-<app-header></app-header>
-<div style="height: 60px;"></div>
-<!-- routes will be rendered here -->
-<router-outlet class="min-vh-100"></router-outlet>
-<!-- footer -->
+<div style="height: 60px;">
+  <app-header></app-header>
+</div>
+<div class="min-vh-100">
+  <router-outlet></router-outlet>
+</div>
 <app-footer></app-footer>
+
+<!-- 
 <div id="aa-preloader-area">
     <div class="pulse"></div>
   </div>
-</div>
+</div> -->

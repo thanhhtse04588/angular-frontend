@@ -46,6 +46,8 @@ export class PlaceDetailComponent implements OnInit{
   paidFor = false;
   payment: Payment
 
+  location: Location
+
   constructor(private route: ActivatedRoute,
     private router: Router,
     private placeService: PlaceService,
@@ -55,6 +57,16 @@ export class PlaceDetailComponent implements OnInit{
   }
 
   ngOnInit() {
+
+    this.location = {
+      latitude: -28.68352,
+      longitude: -147.20785,
+      zoom: 17,
+      marker: {
+          lat: -28.68352,
+          lng: -147.20785
+      }
+  }
     this.paypalOnInit()
     this.ngOnInitOrderForm()
 
@@ -66,6 +78,15 @@ export class PlaceDetailComponent implements OnInit{
       .subscribe(data => {
         console.log(data)
         this.place = data
+        this.location = {
+          latitude: +this.place.latitude,
+          longitude: +this.place.longtitude,
+          zoom: 17,
+          marker: {
+              lat: +this.place.latitude,
+              lng: +this.place.longtitude
+          }
+      }
         this.dataSource = new MatTableDataSource<EquipmentListForm>(this.place.listEquip);
         this.dataSource.paginator = this.paginator;
       }, error => console.log(error));
@@ -194,16 +215,27 @@ export class PlaceDetailComponent implements OnInit{
   }
 
   // Load js file 
-  loadScripts() {
-    const dynamicScripts = [];
-    for (let i = 0; i < dynamicScripts.length; i++) {
-      const node = document.createElement('script')
-      node.src = dynamicScripts[i]
-      node.type = 'text/javascript'
-      node.async = false;
-      node.charset = 'utf-8'
-      document.getElementsByTagName('head')[0].appendChild(node)
-    }
-  }
+  // loadScripts() {
+  //   const dynamicScripts = [];
+  //   for (let i = 0; i < dynamicScripts.length; i++) {
+  //     const node = document.createElement('script')
+  //     node.src = dynamicScripts[i]
+  //     node.type = 'text/javascript'
+  //     node.async = false;
+  //     node.charset = 'utf-8'
+  //     document.getElementsByTagName('head')[0].appendChild(node)
+  //   }
+  // }
 
+}
+interface Marker {
+  lat: number;
+  lng: number;
+}
+
+interface Location {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  marker: Marker;
 }

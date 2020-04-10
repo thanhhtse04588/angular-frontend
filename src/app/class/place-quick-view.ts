@@ -6,6 +6,8 @@ export class PlaceQuickView {
     price: number;
     roleOfPlaceName: string;
     imageLarge: string;
+    latitude: string;
+    longtitude: string;
     bedRooms: number
     toilets: number
 }

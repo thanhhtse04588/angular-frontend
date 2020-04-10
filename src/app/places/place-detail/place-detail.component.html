@@ -105,7 +105,7 @@
       <div class="row">
         <div class="col-md-6 mb-4">
           <div class="view overlay rounded z-depth-1 text-center">
-            <h5 class="my-3"><strong>Hình ảnh mô tả</strong></h5>
+            <h5 class="my-3" ><strong>Hình ảnh mô tả</strong></h5>
             <!--Carousel Wrapper-->
             <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
               <!--Slides-->
@@ -146,8 +146,8 @@
         <div class="col-md-6 mb-4">
           <div class="view overlay rounded z-depth-1 text-center">
             <h5 class="my-3"><strong>Vị trí bất động sản trên bản đồ</strong></h5>
-            <agm-map style="height: 577px;" [latitude]="place.longtitude" [longitude]="place.latitude" [zoom]="15">
-              <agm-marker [latitude]="place.longtitude" [longitude]="place.latitude" label="Vị trí bất động sản">
+            <agm-map style="height: 577px;" [longitude]="location.longitude" [latitude]="location.latitude" [zoom]="location.zoom">
+              <agm-marker [longitude]="location.marker.lng" [latitude]="location.marker.lat">
               </agm-marker>
             </agm-map>
           </div>

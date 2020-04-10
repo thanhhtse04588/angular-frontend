@@ -32,7 +32,7 @@ export class AuthenticationService {
   setSessionLoggedIn(data: UserLogin) {
     sessionStorage.setItem("userID", data.u.userID.toString());
     sessionStorage.setItem("name", data.ud.name);
-    sessionStorage.setItem("userRoleID", data.u.roleID.toString());
+    sessionStorage.setItem("role", data.u.roleID.toString());
   }
 
   isUserLoggedIn() {

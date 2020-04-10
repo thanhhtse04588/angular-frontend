@@ -1,3 +1,4 @@
+import { AdminComponent } from './admin/admin.component';
 import { SellerPostEditComponent } from './user/seller-post-edit/seller-post-edit.component';
 import { TestComponent } from './places/test/test.component';
 import { RegisterComponent } from './index/register/register.component';
@@ -5,7 +6,6 @@ import { LoginComponent } from './index/login/login.component';
 import { PlaceHomeComponent } from './places/place-home/place-home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PlacesListComponent } from './places/places-list/places-list.component';
 import { PlaceDetailComponent } from './places/place-detail/place-detail.component';
 import { LogoutComponent } from './index/logout/logout.component';
 import { AuthGaurdService } from './index/service/auth-gaurd.service';
@@ -21,7 +21,6 @@ const routes: Routes = [
   { path: 'test', component: TestComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'search', component: PlacesListComponent },
   { path: 'detail/:id', component: PlaceDetailComponent, },
   { path: 'logout', component: LogoutComponent, canActivate: [AuthGaurdService] },
   { path: 'error', component: ErrorPageComponent },
@@ -34,6 +33,7 @@ const routes: Routes = [
       { path: 'post-edit', component: SellerPostEditComponent, canActivate: [AuthGaurdService] }
     ]
   },
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGaurdService]},
   { path: '**', component: NotFoundComponent },
 ];
 

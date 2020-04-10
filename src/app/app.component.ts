@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import * as $ from '../assets/js/jquery-3.4.1.min.js';
+
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,12 @@ import * as $ from '../assets/js/jquery-3.4.1.min.js';
 })
 export class AppComponent {
   title = 'angular-frontend';
-
+  isAdmin: boolean
+constructor(
+  private router: Router
+) {
+}
   ngOnInit(){
-    // do rest of your stuff here.
 }
 
   

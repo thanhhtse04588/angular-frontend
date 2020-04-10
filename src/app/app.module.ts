@@ -1,3 +1,5 @@
+import { NavigationComponent } from './admin/main-layout/navigation/navigation.component';
+import { AdminComponent } from './admin/admin.component';
 import { SellerPostEditComponent } from './user/seller-post-edit/seller-post-edit.component';
 import { SellerMenuComponent } from './user/seller-menu/seller-menu.component';
 import { TestComponent } from './places/test/test.component';
@@ -55,6 +57,8 @@ import { SellerManageComponent } from './user/seller-manage/seller-manage.compon
     SellerMenuComponent,
     SellerManageComponent,
     SellerPostEditComponent,
+    AdminComponent,
+    NavigationComponent
     
     
   ],
