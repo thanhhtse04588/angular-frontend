@@ -36,13 +36,8 @@
         <table mat-table matSort [dataSource]="dataSource" class="w-100">
 
           <ng-container matColumnDef="checkingID">
-            <th *matHeaderCellDef mat-sort-header>Code</th>
-            <td *matCellDef="let element"> {{element.checkingID}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="placeID">
-            <th *matHeaderCellDef mat-sort-header>Mã nhà</th>
-            <td *matCellDef="let element"> {{element.placeID}} </td>
+            <th *matHeaderCellDef mat-sort-header>Id</th>
+            <td *matCellDef="let element">{{element.checkingID}} </td>
           </ng-container>
 
           <ng-container matColumnDef="userName">
@@ -70,18 +65,26 @@
             <td *matCellDef="let element"> {{element.contactName}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="status">
-            <th *matHeaderCellDef mat-sort-header>Trạng thái</th>
-            <td *matCellDef="let element"> {{element.status}} </td>
+          <ng-container matColumnDef="statusPlace">
+            <th *matHeaderCellDef mat-sort-header>Trạng thái nhà</th>
+            <td *matCellDef="let element" [ngClass]='colorStatusPlace(element.statusPlaceID)'> {{element.statusPlace}}</td>
           </ng-container>
 
+          <!-- <ng-container matColumnDef="status">
+            <th *matHeaderCellDef mat-sort-header>Trạng thái đơn</th>
+            <td *matCellDef="let element"> {{element.status}} </td>
+          </ng-container> -->
+
           <ng-container matColumnDef="void">
-            <th *matHeaderCellDef></th>
+            <th *matHeaderCellDef> Trạng thái đơn</th>
             <td *matCellDef="let element">
-              <button type="button" mdbBtn color="success" size="sm" (click)="comfirmApprove.show()"
-                mdbWavesEffect><i class="fas fa-check"></i></button>
-              <button type="button" mdbBtn color="danger" size="sm" (click)="comfirmCancel.show()"
-                mdbWavesEffect><i class="fas fa-ban"></i></button>
+              <ng-container *ngIf="isShowButton(element.statusPlaceID);else status" >
+                <button type="button" (click)='item = element' mdbBtn color="success" size="sm" 
+                (click)="comfirmApprove.show()" mdbWavesEffect><i class="fas fa-check"></i></button>
+              <button type="button" (click)='item = element' mdbBtn color="danger" size="sm"
+              (click)="comfirmReject.show()" mdbWavesEffect><i class="fas fa-ban"></i></button>
+              </ng-container>
+             <ng-template #status><strong>{{element.status}}</strong></ng-template> 
             </td>
           </ng-container>
 
@@ -95,8 +98,8 @@
   </div>
 </div>
 
-<!-- Cancel comfirm -->
-<div mdbModal #comfirmCancel="mdbModal" class="modal fade" tabindex="-1" role="dialog"
+<!-- Reject comfirm -->
+<div mdbModal #comfirmReject="mdbModal" class="modal fade" tabindex="-1" role="dialog"
   aria-labelledby="myBasicModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-notify modal-danger modal-sm  text-center" role="document">
     <div class="modal-content">
@@ -104,10 +107,10 @@
         <h5>Bạn có chắc chắn muốn HỦY</h5>
       </div>
       <div class="modal-footer justify-content-center ">
-        <a type="button" mdbBtn color="danger" class="waves-effect" (click)="comfirmCancel.hide()" mdbWavesEffect>
+        <a type="button" mdbBtn color="danger" class="waves-effect"  (click)='onReject()' (click)="comfirmReject.hide()" mdbWavesEffect>
           <i class="fas fa-check"></i>
         </a>
-        <a type="button" mdbBtn color="danger" outline="true" class="waves-effect" (click)="comfirmCancel.hide()"
+        <a type="button" mdbBtn color="danger" outline="true" class="waves-effect" (click)="comfirmReject.hide()"
           mdbWavesEffect><i class="fas fa-minus"></i></a>
       </div>
     </div>
@@ -122,7 +125,7 @@
         <h5>Bạn có chắc chắn muốn DUYỆT</h5>
       </div>
       <div class="modal-footer justify-content-center ">
-        <a type="button" mdbBtn color="success" class="waves-effect" (click)="comfirmApprove.hide()" mdbWavesEffect>
+        <a type="button" mdbBtn color="success" class="waves-effect" (click)="comfirmApprove.hide()" (click)='onApprove()' mdbWavesEffect>
           <i class="fas fa-check"></i></a>
         <a type="button" mdbBtn color="success" outline="true" class="waves-effect" (click)="comfirmApprove.hide()"
           mdbWavesEffect><i class="fas fa-minus"></i></a>

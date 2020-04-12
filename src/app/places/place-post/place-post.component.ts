@@ -10,9 +10,6 @@ import { PlaceService } from './../service/place.service';
 import { SearchBarService } from 'src/app/index/service/search-bar.service';
 import { Component, OnInit, ViewChild, ElementRef, NgZone, AfterViewInit } from '@angular/core';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
-import { of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-place-post',
   templateUrl: './place-post.component.html',
@@ -35,10 +32,7 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
   public searchElementRef: ElementRef;
 
   //upload img
-  @ViewChild("fileUpload", { static: false }) fileUpload: ElementRef;
-  files = [];
-  imageUploaded = ["https://specials-images.forbesimg.com/imageserve/1026205392/960x0.jpg?fit=scale"
-    , "https://freshome.com/wp-content/uploads/2018/09/contemporary-exterior.jpg", "https://www.thebluepenguincompany.com/wp-content/uploads/2019/08/pexels-photo-106399.jpg"]
+  imageUploaded = []
   isDoneUpload = false
 
   //g map
@@ -84,8 +78,8 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
       numberToilets: new FormControl(''),
       contactName: new FormControl('', [Validators.required]),
       contactAddress: new FormControl('', Validators.maxLength(100)),
-      phoneNumber: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.email]),
+      phoneNumber: new FormControl('', [Validators.required,Validators.pattern("((\\+91-?)|0)?[0-9]*")]),
+      email: new FormControl('', [Validators.email,Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]),
       checkingDate: new FormControl('', [this.date]),
     })
   }
@@ -181,59 +175,13 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // upload img
-  uploadFile(file) {
-    const formData = new FormData();
-    formData.append('file', file.data);
-    file.inProgress = true;
-    this.placeService.upload(formData).pipe(
-      map(imgLink => {
-        this.imageUploaded.push(imgLink)
-      }),
-      catchError((error: HttpErrorResponse) => {
-        file.inProgress = false;
-        return of(`${file.data.name} upload failed.`);
-      })).subscribe((event: any) => {
-        if (typeof (event) === 'object') {
-          console.log(event.body);
-        }
-      });
+  //upload img
+  uploadHandler(event){
+    if(event !== null){
+      this.imageUploaded = event.imageUploaded
+      this.isDoneUpload = event.isDoneUpload
+    }
   }
-
-  private uploadFiles(callback) {
-    this.fileUpload.nativeElement.value = '';
-    this.files.forEach(file => {
-      this.uploadFile(file);
-    });
-    callback()
-  }
-
-  onClick() {
-    const fileUpload = this.fileUpload.nativeElement;
-    fileUpload.onchange = () => {
-      for (let index = 0; index < fileUpload.files.length; index++) {
-        const file = fileUpload.files[index];
-        if (file.type.match('image.*')) {
-          var size = file.size;
-          if (size > 2000000) {
-            alert("Tệp ảnh không quá 2 MB");
-          }
-          else {
-            this.files.push({ data: file, inProgress: false });
-          }
-        } else {
-          alert('Tệp phải là định dạng hình ảnh');
-        }
-      }
-      this.uploadFiles(() => {
-        this.isDoneUpload = true
-      });
-    };
-    fileUpload.click();
-  }
-
-
-
 
   // table equiment
   ngAfterOnInit() {
@@ -324,11 +272,12 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
     this.postPlaceForm.phoneNumber = this.phoneNumber.value.toString()
     this.postPlaceForm.email = this.email.value
     this.postPlaceForm.checkingDate = this.checkingDate.value
+    console.log(this.postPlaceForm)
     this.placeService.insertPlace(this.postPlaceForm).subscribe(
       data => {
         console.log(data)
         if (data) {
-          this.router.navigate(["places"])
+          this.router.navigate(["user/seller/post-manage"])
           alert("Yêu cầu đăng tin thành công, chúng tôi sẽ sớm liên hệ với bạn !")
         }
         else { alert("Đã có lỗi xảy ra! Yêu cầu đăng tin không thành công") }

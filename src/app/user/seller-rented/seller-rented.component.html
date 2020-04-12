@@ -1,0 +1,42 @@
+<body class="grey lighten-3 min-vh-100">
+  <div class="container wow fadeIn">
+    <div class="row py-5">
+      <!--Grid column-->
+      <div class="col-md-3 ">
+        <app-seller-menu></app-seller-menu>
+      </div>
+      <!--Grid column-->
+      <div class="col-md-9 ">
+
+        <div class="text-center mb-3 ">
+          <div class="h3 text-center">DANH SÁCH NHÀ ĐÃ ĐƯỢC THUÊ</div>
+          <p>(Quý vị có thể quản lý, tìm kiếm nhà đã được thuê ở đây)</p>
+        </div>
+
+        <div *ngFor="let item of posts">
+          <mdb-card *ngIf="isRented(item.statusID)" class="mb-3">
+            <div class="row">
+              <img class="col-md-5" style="height: 236px;" [src]="item.imageLarge"/>
+              <mdb-card-body class="col-md-7">
+                <div class="row">
+                  <div class="col-md-9" style="height: 130px;">
+                    <mdb-card-title>
+                      <h5>{{item.title}}</h5>
+                    </mdb-card-title>
+                    <mdb-card-text>
+                      <p><strong>Địa chỉ: </strong>{{item.address}}</p>
+                    </mdb-card-text>
+                  </div>
+                  <div class="col-md-3">
+                  </div>
+                </div>
+                <hr>
+                <span class="h5">Giá: {{item.price| number}} vnđ</span>
+              </mdb-card-body>
+            </div>
+          </mdb-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

@@ -1,3 +1,4 @@
+import { Common } from './../../class/common';
 
 import { UserLogin } from './../../class/user';
 import { Injectable } from '@angular/core';
@@ -32,7 +33,7 @@ export class AuthenticationService {
   setSessionLoggedIn(data: UserLogin) {
     try {
       sessionStorage.setItem("userID", data.u.userID.toString());
-      sessionStorage.setItem("name", (data.ud.name == null)? 'unknown':data.ud.name);
+      sessionStorage.setItem("name", data?.ud?.name || "unknow");
       sessionStorage.setItem("role", data.u.roleID.toString());
     } catch (error) {
       console.log(error)
@@ -45,7 +46,7 @@ export class AuthenticationService {
   }
 
   isAdmin() {
-    return +sessionStorage.getItem('role') == 1 // Admin roleID = 1
+    return +sessionStorage.getItem('role') == Common.roleAdmin
   }
 
   logOut() {

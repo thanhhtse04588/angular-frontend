@@ -1,3 +1,4 @@
+import { SellerRentedComponent } from './user/seller-rented/seller-rented.component';
 import { OrderListComponent } from './admin/order-list/order-list.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { CheckingListComponent } from './admin/checking-list/checking-list.component';
@@ -19,6 +20,7 @@ import { ErrorPageComponent } from './index/errors/error/error-page/error-page.c
 import { NotFoundComponent } from './index/errors/404/not-found/not-found.component';
 import { PlacePostComponent } from './places/place-post/place-post.component';
 import { SellerManageComponent } from './user/seller-manage/seller-manage.component';
+import { OrderComponent } from './places/place-detail/order/order.component';
 
 
 const routes: Routes = [
@@ -28,7 +30,8 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: PlaceHomeComponent },
-      { path: 'detail/:id', component: PlaceDetailComponent, },
+      { path: 'detail/:id', component: PlaceDetailComponent },
+      { path: 'order/:id', component: OrderComponent },
     ]
   },
   {
@@ -45,7 +48,8 @@ const routes: Routes = [
           { path: '', redirectTo: 'post-manage', pathMatch: 'full' },
           { path: 'post', component: PlacePostComponent },
           { path: 'post-manage', component: SellerManageComponent, canActivate: [AuthGaurdService] },
-          { path: 'post-edit', component: SellerPostEditComponent, canActivate: [AuthGaurdService] }
+          { path: 'post-edit', component: SellerPostEditComponent, canActivate: [AuthGaurdService] },
+          { path: 'rented', component: SellerRentedComponent, canActivate: [AuthGaurdService] },
         ]
       }
     ]

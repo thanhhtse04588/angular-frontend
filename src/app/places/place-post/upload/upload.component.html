@@ -1,0 +1,35 @@
+<mdb-card class="mb-3">
+  <mdb-card-header>
+    <div class="h3">Hình ảnh liên quan</div>
+  </mdb-card-header>
+  <mdb-card-body>
+    <p>Tin rao có ảnh sẽ được xem nhiều hơn gấp 10 lần và được nhiều người gọi gấp 5 lần so với tin rao không
+      có ảnh. Hãy đăng ảnh để được giao dịch nhanh chóng!</p>
+    <!-- listImageLink -->
+    <div class="md-form mb-5">
+      <mat-card style="margin-top:10px; width: 50%;">
+        <mat-card-content>
+          <ul>
+            <li>
+              <span id="file-label">
+                Tải lên: {{imageUploaded.length}}/{{files.length}}
+              </span>
+            </li>
+          </ul>
+        </mat-card-content>
+        <mat-card-actions>
+          <button type="button" mat-button color="warn" (click)="onClick()">
+            <mat-icon>file_upload</mat-icon>
+            Tải lên
+          </button>
+        </mat-card-actions>
+        <mdb-error *ngIf="!isDoneUpload">
+          Yêu cầu cung cấp 1 hoặc nhiều hình ảnh.
+        </mdb-error>
+        <input type="file" #fileUpload id="fileUpload" name="fileUpload" multiple="multiple"
+        accept="image/*" style="display:none;" />
+      </mat-card>
+    </div>
+    <hr>
+  </mdb-card-body>
+</mdb-card>

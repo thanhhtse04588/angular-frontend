@@ -55,7 +55,7 @@ export class HeaderComponent implements OnInit {
           //auto login
           this.loginService.authenticate(this.username.value, this.password.value).subscribe(
             (data: UserLogin) => {
-                this.loginService.setSessionLoggedIn(data)
+              this.loginService.setSessionLoggedIn(data)
             }, error => {
               console.log(error)
             })
@@ -76,15 +76,16 @@ export class HeaderComponent implements OnInit {
         if (data.message === "401") {
           alert("Tên đăng nhập hoặc mật khẩu không chính xác!")
           return
-        }
-        try {
-          this.loginService.setSessionLoggedIn(data)
-          if (this.loginService.isAdmin()) this.router.navigate(["admin"])
-        } catch (error) {
-          console.log(error)
-          this.router.navigate(["error"])
-        } finally {
-          this.frameLogin.hide()
+        } else {
+          try {
+            this.loginService.setSessionLoggedIn(data)
+            if (this.loginService.isAdmin()) this.router.navigate(["admin"])
+          } catch (error) {
+            console.log(error)
+            this.router.navigate(["error"])
+          } finally {
+            this.frameLogin.hide()
+          }
         }
       },
       error => {
@@ -123,7 +124,7 @@ export class HeaderComponent implements OnInit {
     return sessionStorage.getItem("name");
   }
   getShortNameUser() {
-    return sessionStorage.getItem("name").substring(0, 4);
+    return sessionStorage.getItem("name").substring(0, 8);
   }
 
   get loginFormModalUsername() {

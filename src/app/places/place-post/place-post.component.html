@@ -1,4 +1,4 @@
-<body class="grey lighten-3 min-vh-100">
+<body class="grey lighten-3">
   <div class="container wow fadeIn">
     <div class="row py-5">
       <!--Grid column-->
@@ -279,41 +279,9 @@
             </mdb-card-body>
           </mdb-card>
           <!-- page 5 -->
-          <mdb-card class="mb-3">
-            <mdb-card-header>
-              <div class="h3">Hình ảnh liên quan</div>
-            </mdb-card-header>
-            <mdb-card-body>
-              <p>Tin rao có ảnh sẽ được xem nhiều hơn gấp 10 lần và được nhiều người gọi gấp 5 lần so với tin rao không
-                có ảnh. Hãy đăng ảnh để được giao dịch nhanh chóng!</p>
-              <!-- listImageLink -->
-              <div class="md-form mb-5">
-                <mat-card style="margin-top:10px; width: 50%;">
-                  <mat-card-content>
-                    <ul>
-                      <li>
-                        <span id="file-label">
-                          Tải lên: {{imageUploaded.length}}/{{files.length}}
-                        </span>
-                      </li>
-                    </ul>
-                    <!-- <img *ngFor="let item of imageUploaded" [src]="item"/> -->
-                  </mat-card-content>
-                  <mat-card-actions>
-                    <button type="button" mat-button color="warn" (click)="onClick()">
-                      <mat-icon>file_upload</mat-icon>
-                      Tải lên
-                    </button>
-                  </mat-card-actions>
-                  <mdb-error *ngIf="!isDoneUpload">
-                    Yêu cầu cung cấp 1 hoặc nhiều hình ảnh.
-                  </mdb-error>
-                </mat-card><input type="file" #fileUpload id="fileUpload" name="fileUpload" multiple="multiple"
-                  accept="image/*" style="display:none;" />
-              </div>
-              <hr>
-            </mdb-card-body>
-          </mdb-card>
+
+          <app-upload (onUpload)='uploadHandler($event)'></app-upload>
+
           <!-- page 6 -->
           <mdb-card class="mb-3">
             <mdb-card-header>
@@ -345,7 +313,7 @@
           </mdb-card>
 
           <!-- page 7 -->
-          <mdb-card class="mb-3">
+          <mdb-card>
             <mdb-card-header>
               <div class="h3">Liên hệ xem nhà</div>
             </mdb-card-header>
@@ -370,10 +338,10 @@
                 <!-- phoneNumber -->
                 <div class="col-lg-4 col-md-12 md-form mb-4">
                   <label class="pl-3" for="phoneNumber">Số điện thoại liên hệ<span class="text-danger">*</span></label>
-                  <input mdbInput type="number" id="phoneNumber" formControlName="phoneNumber" class="form-control"
+                  <input mdbInput type="text" id="phoneNumber" formControlName="phoneNumber" class="form-control"
                     mdbValidate>
                   <mdb-error class="pl-3" *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)">
-                    Không bỏ trống
+                    Không hợp lệ
                   </mdb-error>
                 </div>
               </div>
@@ -383,7 +351,7 @@
                   <label class="pl-3" for="email">Email</label>
                   <input mdbInput type="email" id="email" formControlName="email" class="form-control" mdbValidate>
                   <mdb-error class="pl-3" *ngIf="email.invalid && (email.dirty || email.touched)">
-                    Không đúng định dạng email
+                    Email không hợp lệ
                   </mdb-error>
                 </div>
 
@@ -424,8 +392,7 @@
               <button type="submit" mdbBtn color="primary" size="md"
                 [disabled]="!form.valid || !loginService.isUserLoggedIn() || !isDoneUpload" mdbWavesEffect> Yêu cầu
                 đăng tin</button>
-              <button type="button" mdbBtn color="danger" size="md" [routerLink]="['/places/home']"
-                routerLinkActive="router-link-active" mdbWavesEffect>Hủy</button>
+              <button type="button" mdbBtn color="danger" size="md" [routerLink]="['/places/home']" mdbWavesEffect>Hủy</button>
             </mdb-card-footer>
           </mdb-card>
         </form>

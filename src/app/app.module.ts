@@ -1,3 +1,6 @@
+
+import { UploadComponent } from './places/place-post/upload/upload.component';
+import { SellerRentedComponent } from './user/seller-rented/seller-rented.component';
 import { OrderListComponent } from './admin/order-list/order-list.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { CheckingListComponent } from './admin/checking-list/checking-list.component';
@@ -41,6 +44,16 @@ import { ModalModule, WavesModule, InputsModule, ButtonsModule } from 'angular-b
 import { ErrorPageComponent } from './index/errors/error/error-page/error-page.component';
 import { SellerManageComponent } from './user/seller-manage/seller-manage.component';
 
+// Angular FireBase
+import { AngularFireModule } from "@angular/fire";
+import { environment } from "../environments/environment";
+import {
+  AngularFireStorageModule,
+  AngularFireStorageReference,
+  AngularFireUploadTask
+} from "@angular/fire/storage";
+import { OrderComponent } from './places/place-detail/order/order.component';
+
 
 
 @NgModule({
@@ -50,24 +63,28 @@ import { SellerManageComponent } from './user/seller-manage/seller-manage.compon
       FooterComponent,
       HeaderComponent,
       PlaceDetailComponent,
+      OrderComponent,
       SearchBarComponent,
       PlaceHomeComponent,
       LogoutComponent,
       ErrorPageComponent,
       NotFoundComponent,
       PlacePostComponent,
+      UploadComponent,
       LoginComponent,
       RegisterComponent,
       TestComponent,
       SellerMenuComponent,
       SellerManageComponent,
       SellerPostEditComponent,
+      SellerRentedComponent,
       PlacesComponent,
       UserComponent,
       AdminComponent,
       CheckingListComponent,
       DashboardComponent,
-      OrderListComponent
+      OrderListComponent,
+      
 
     
 
@@ -82,10 +99,12 @@ import { SellerManageComponent } from './user/seller-manage/seller-manage.compon
     MatSnackBarModule,
 
     AngularMaterialModule,
-    
     ModalModule, WavesModule, InputsModule, ButtonsModule,
     MDBBootstrapModule.forRoot(),
 
+    AngularFireStorageModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig, "cloud"),
+    
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBHJYZBS-Vig1M-fizCBelDmmqymJ96tXM',
       libraries: ["places", "geometry"]
