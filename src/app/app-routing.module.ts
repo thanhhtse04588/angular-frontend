@@ -33,7 +33,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: PlaceHomeComponent },
       { path: 'detail', component: PlaceDetailComponent },
-      { path: 'order', component: OrderComponent },
+      { path: 'order', component: OrderComponent, canActivate: [AuthGaurdService] },
     ]
   },
   {
