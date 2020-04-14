@@ -1,3 +1,4 @@
+
 import { PlaceStatus } from './../../class/common';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
@@ -30,11 +31,11 @@ export class SellerManageComponent implements OnInit, OnDestroy {
     }
     
   ngOnInit() {
-    this.userID = +sessionStorage.getItem("userID")
+    this.userID = +sessionStorage.getItem("userID");
 
     this.subs.add(this.userService.getAllPost(this.userID).subscribe(
       data => this.posts = data
-    ))
+    ));
   }
 
   isStatusShow(id) {
@@ -66,11 +67,11 @@ export class SellerManageComponent implements OnInit, OnDestroy {
     }
   }
   placeDetail(id: number) {
-    this.router.navigate(['places/detail', id], { skipLocationChange: true });
+    sessionStorage.setItem("placeID",id.toString())
+    this.router.navigate(['places/detail']);
   }
 
   edit() {
-    console.log(this.placeID)
     this.router.navigate(["user/seller/post-edit", { id: this.placeID }], { skipLocationChange: true })
   }
   cancel() {

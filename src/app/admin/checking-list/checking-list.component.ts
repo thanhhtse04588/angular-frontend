@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { PlaceStatus, BookingStatus } from './../../class/common';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from './../admin.service';
@@ -22,7 +23,12 @@ export class CheckingListComponent implements OnInit, OnDestroy {
   checkingList: any
   item: Checking
   updateStatus: UpdateStatus
-  constructor(private adminService: AdminService) {
+  constructor(private adminService: AdminService, private router: Router) {
+  }
+
+  placeDetail(id: number) {
+    sessionStorage.setItem("placeID",id.toString())
+    this.router.navigate(['places/detail']);
   }
 
   ngOnInit() {

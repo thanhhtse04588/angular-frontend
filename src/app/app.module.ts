@@ -1,3 +1,6 @@
+import { RenterOrderComponent } from './user/renter-order/renter-order.component';
+import { RenterMenuComponent } from './user/renter-menu/renter-menu.component';
+import { PlaceManageComponent } from './admin/place-manage/place-manage.component';
 
 import { UploadComponent } from './places/place-post/upload/upload.component';
 import { SellerRentedComponent } from './user/seller-rented/seller-rented.component';
@@ -40,7 +43,6 @@ import { AgmCoreModule } from '@agm/core';
 import { AngularMaterialModule } from './angular-material.module';
 // MDBootstrap
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import { ModalModule, WavesModule, InputsModule, ButtonsModule } from 'angular-bootstrap-md'
 import { ErrorPageComponent } from './index/errors/error/error-page/error-page.component';
 import { SellerManageComponent } from './user/seller-manage/seller-manage.component';
 
@@ -78,9 +80,12 @@ import { OrderComponent } from './places/place-detail/order/order.component';
       SellerManageComponent,
       SellerPostEditComponent,
       SellerRentedComponent,
+      RenterMenuComponent,
+      RenterOrderComponent,
       PlacesComponent,
       UserComponent,
       AdminComponent,
+      PlaceManageComponent,
       CheckingListComponent,
       DashboardComponent,
       OrderListComponent,
@@ -99,7 +104,6 @@ import { OrderComponent } from './places/place-detail/order/order.component';
     MatSnackBarModule,
 
     AngularMaterialModule,
-    ModalModule, WavesModule, InputsModule, ButtonsModule,
     MDBBootstrapModule.forRoot(),
 
     AngularFireStorageModule,

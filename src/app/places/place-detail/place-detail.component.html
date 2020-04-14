@@ -14,10 +14,11 @@
                   <span>Khu vực: <strong>{{place.district}}</strong></span>
                 </h5>
                 <div class="mx-auto ">
-                  <button mdbBtn [disabled]="!loginService.isUserLoggedIn()"
-                    color="danger" class="btn-lg"  mdbWavesEffect (click)='toOrder(place.placeID)'>
+                  <button mdbBtn [routerLink]="['/places/order']"  [disabled]="!loginService.isUserLoggedIn()"
+                    color="danger" class="btn-lg"  mdbWavesEffect>
                     Đặt lịch xem nhà
                   </button>
+                  <p class="text-danger">Hiện tại đang có <strong>{{orderCount|| '0'}}</strong> người đăng ký xem nhà này</p>
                 </div>
                 <div *ngIf="!loginService.isUserLoggedIn()" class="alert alert-warning" role="alert">
                   Bạn cần <a routerLink="/user/login" routerLinkActive="active">đăng nhập</a> để sử dụng
@@ -30,11 +31,11 @@
                   <p>{{place.address}}</p>
                   <h5><strong>Tiện ích:</strong></h5>
                   <ul>
-                    <li>Phòng ngủ :{{place.bedRooms}} phòng</li>
-                    <li>Vệ sinh :{{place.toilets}} phòng </li>
-                    <li>Tầm nhìn :{{place.counterView}} </li>
-                    <li>Mặt đường :{{place.frontispiece}} m2 </li>
-                    <li>Hướng nhà :{{place.homeDirection}} </li>
+                    <li>Phòng ngủ :{{place.bedRooms|| ""}} phòng</li>
+                    <li>Vệ sinh :{{place.toilets|| ""}} phòng </li>
+                    <li>Tầm nhìn :{{place.counterView|| ""}} </li>
+                    <li>Mặt đường :{{place.frontispiece|| ""}} m2 </li>
+                    <li>Hướng nhà :{{place.homeDirection|| ""}} </li>
                   </ul>
                 </mdb-card-text>
                 <mdb-card-text class="col-md">
@@ -51,31 +52,31 @@
                   <!-- Position Column -->
                   <ng-container matColumnDef="name">
                     <th *matHeaderCellDef> Tên nội thất  </th>
-                    <td *matCellDef="let element"> {{element.name}} </td>
+                    <td *matCellDef="let element"> {{element.name|| ""}} </td>
                   </ng-container>
 
                   <!-- Name Column -->
                   <ng-container matColumnDef="quantity">
                     <th *matHeaderCellDef> Số lượng</th>
-                    <td *matCellDef="let element"> {{element.quantity}} </td>
+                    <td *matCellDef="let element"> {{element.quantity|| ""}} </td>
                   </ng-container>
 
                   <!-- Weight Column -->
                   <ng-container matColumnDef="price">
                     <th *matHeaderCellDef> Giá </th>
-                    <td *matCellDef="let element"> {{element.price}} </td>
+                    <td *matCellDef="let element"> {{element.price|| ""}} </td>
                   </ng-container>
 
                   <!-- Symbol Column -->
                   <ng-container matColumnDef="likeNew">
                     <th *matHeaderCellDef> Độ mới</th>
-                    <td *matCellDef="let element"> {{element.likeNew}} </td>
+                    <td *matCellDef="let element"> {{element.likeNew|| ""}} </td>
                   </ng-container>
 
                   <!-- Symbol Column -->
                   <ng-container matColumnDef="equipmentDescrible">
                     <th *matHeaderCellDef> Mô tả </th>
-                    <td *matCellDef="let element"> {{element.equipmentDescrible}} </td>
+                    <td *matCellDef="let element"> {{element.equipmentDescrible|| ""}} </td>
                   </ng-container>
 
                   <tr mdbTableCol mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -133,8 +134,8 @@
         <div class="col-md-6">
           <div class="view overlay rounded z-depth-1 text-center">
             <h5 class="my-3"><strong>Vị trí bất động sản trên bản đồ</strong></h5>
-            <agm-map style="height: 600px;" [longitude]="location.longitude" [latitude]="location.latitude" [zoom]="location.zoom">
-              <agm-marker [longitude]="location.marker.lng" [latitude]="location.marker.lat">
+            <agm-map style="height: 600px;" [longitude]="location?.longitude" [latitude]="location?.latitude" [zoom]="location.zoom">
+              <agm-marker [longitude]="location?.marker?.lng" [latitude]="location?.marker?.lat">
               </agm-marker>
             </agm-map>
           </div>

@@ -17,9 +17,9 @@ export class OrderListComponent  implements OnInit,OnDestroy {
   dataSource: any;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-  orderList: any
-  item: Order
-  updateStatus: UpdateStatus
+  orderList: any;
+  item: Order;
+  updateStatus: UpdateStatus;
   constructor(private adminService: AdminService) { }
 
   ngOnInit() {
@@ -67,6 +67,7 @@ export class OrderListComponent  implements OnInit,OnDestroy {
   }
 
   onReject() {
+    console.log(" onreject ")
     this.subs.add(this.adminService.changeStatusChecking(
       this.updateStatus = {
         orderID: this.item.orderID,

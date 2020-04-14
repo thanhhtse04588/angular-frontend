@@ -65,11 +65,11 @@
     <ng-template #map>
       <agm-map style="height: 600px;" [latitude]="location.latitude" [longitude]="location.longitude"
         [zoom]="location.zoom">
-        <agm-marker *ngFor="let marker of location.markers" [latitude]="marker.lat" [longitude]="marker.lng">
+        <agm-marker *ngFor="let marker of location?.markers" [latitude]="marker?.lat" [longitude]="marker?.lng">
           <agm-info-window>
             <a (click)="placeDetail(marker.id)">
               <h4 class="card-title">{{shortTitle(marker.title)}}...</h4>
-              <p class="card-text">{{marker.bedRooms}} phòng ngủ - {{marker.toilets}} phòng vệ sinh - {{marker.area}} m²
+              <p class="card-text">{{marker.bedRooms|| '?'}} phòng ngủ - {{marker.toilets|| '?'}} phòng vệ sinh - {{marker.area}} m²
               </p>
               <h4 class="card-title">{{marker.price| number}} vnđ</h4>
             </a>

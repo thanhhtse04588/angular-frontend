@@ -4,7 +4,6 @@ import { DistrictDB } from './../../class/district-db';
 import { RoleOfPlace } from './../../class/role-of-place';
 import { Component, OnInit, EventEmitter ,Output} from '@angular/core';
 import { Observable } from "rxjs";
-import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 
 
@@ -20,7 +19,7 @@ export class SearchBarComponent implements OnInit {
   districts: Observable<DistrictDB>
   form: any
   areaRanges = [{
-    areaMin: 0, areaMax: 99999, text: "Diện tích"
+    areaMin: 0, areaMax: 999999999, text: "Diện tích"
   },
   {
     areaMin: 0, areaMax: 30, text: "< 30m²"
@@ -35,7 +34,7 @@ export class SearchBarComponent implements OnInit {
     areaMin: 80, areaMax: 100, text: "80 - 100m²"
   },
   {
-    areaMin: 100, areaMax: 99999, text: "> 100m²"
+    areaMin: 100, areaMax: 999999999, text: "> 100m²"
   },
   ]
 
@@ -58,7 +57,7 @@ export class SearchBarComponent implements OnInit {
     priceMin: 15000000, priceMax: 20000000, text: "15-20 triệu/tháng"
   },
   {
-    priceMin: 25000000, priceMax: 999999999, text: ">25 triệu/tháng"
+    priceMin: 20000000, priceMax: 999999999, text: ">20 triệu/tháng"
   },
   ]
 
@@ -95,6 +94,7 @@ export class SearchBarComponent implements OnInit {
     condition.areaMin = this.form.get('areaRange').value.areaMin
     condition.priceMax = this.form.get('priceRange').value.priceMax
     condition.priceMin = this.form.get('priceRange').value.priceMin
+
 
     this.onSearch.next(condition)
   }

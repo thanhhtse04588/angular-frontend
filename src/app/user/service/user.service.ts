@@ -1,3 +1,4 @@
+import { Common } from './../../class/common';
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -8,9 +9,6 @@ import { retry, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class UserService {
-
-  private baseUrl = 'http://localhost:8080';
-
   constructor(private http: HttpClient) { }
 
   //Http Options
@@ -22,27 +20,31 @@ export class UserService {
 
 
   insertOrder(insertForm: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/orderlist/insert-order`, JSON.stringify(insertForm), this.httpOptions)
+    return this.http.post(`${Common.urlBase}/orderlist/insert-order`, JSON.stringify(insertForm), this.httpOptions)
       .pipe(
         retry(1)
       )
   }
 
   getAllPost(userid): Observable<any> {
-    return this.http.get(this.baseUrl + "/managepost/getallpost?userid=" + userid, this.httpOptions)
+    return this.http.get(Common.urlBase + "/managepost/getallpost?userid=" + userid, this.httpOptions)
+  }
+
+  getListOrderByUserID(userID): Observable<any> {
+    return this.http.get(Common.urlBase + "/orderlist/get-order-by-userid?userID=" + userID, this.httpOptions)
   }
 
 
   updateStatusPlace(placeID, statusID) {
-    return this.http.post(this.baseUrl + "/managepost/change-status-place" + "?placeID=" + placeID + "&statusPlaceID=" + statusID, this.httpOptions)
+    return this.http.post(Common.urlBase + "/managepost/change-status-place" + "?placeID=" + placeID + "&statusPlaceID=" + statusID, this.httpOptions)
   }
 
   getPostForm(placeID): Observable<any>{
-    return this.http.get(`${this.baseUrl}/api/cp/places/fillupdate?placeid=${placeID}`,this.httpOptions)
+    return this.http.get(`${Common.urlBase}/api/cp/places/fillupdate?placeid=${placeID}`,this.httpOptions)
   }
 
   updatePlace(form): Observable<any> {
-    return this.http.post(`${this.baseUrl}/api/cp/places/update`,JSON.stringify(form),this.httpOptions)
+    return this.http.post(`${Common.urlBase}/api/cp/places/update`,JSON.stringify(form),this.httpOptions)
   }
 
 }

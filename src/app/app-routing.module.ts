@@ -1,3 +1,5 @@
+import { RenterOrderComponent } from './user/renter-order/renter-order.component';
+import { PlaceManageComponent } from './admin/place-manage/place-manage.component';
 import { SellerRentedComponent } from './user/seller-rented/seller-rented.component';
 import { OrderListComponent } from './admin/order-list/order-list.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
@@ -30,8 +32,8 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: PlaceHomeComponent },
-      { path: 'detail/:id', component: PlaceDetailComponent },
-      { path: 'order/:id', component: OrderComponent },
+      { path: 'detail', component: PlaceDetailComponent },
+      { path: 'order', component: OrderComponent },
     ]
   },
   {
@@ -51,6 +53,13 @@ const routes: Routes = [
           { path: 'post-edit', component: SellerPostEditComponent, canActivate: [AuthGaurdService] },
           { path: 'rented', component: SellerRentedComponent, canActivate: [AuthGaurdService] },
         ]
+      },
+      {
+        path: 'renter',
+        children: [
+          { path: '', redirectTo: 'order', pathMatch: 'full' },
+          { path: 'order', component: RenterOrderComponent, canActivate: [AuthGaurdService] },
+        ]
       }
     ]
   },
@@ -63,6 +72,7 @@ const routes: Routes = [
       { path: "dashboard", component: DashboardComponent, canActivate: [AuthAdminService] },
       { path: "checking-list", component: CheckingListComponent, canActivate: [AuthAdminService] },
       { path: "order-list", component: OrderListComponent, canActivate: [AuthAdminService] },
+      { path: "place-manage", component: PlaceManageComponent, canActivate: [AuthAdminService] },
     ]
   },
   { path: '**', component: NotFoundComponent },

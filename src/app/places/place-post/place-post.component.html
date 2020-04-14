@@ -28,10 +28,9 @@
             <mdb-card-body>
               <!-- title -->
               <div class="md-form mb-5">
-                <input mdbInput type="text" id="title" formControlName="title" class="form-control" mdbInput
-                  mdbValidate>
+                <input mdbInput mdbValidate type="text" id="title" formControlName="title" class="form-control" >
                 <label for="title">
-                  Tiêu đề<span class="text-danger">*</span>
+                  Tiêu đề<span class="text-danger ">*</span>
                 </label>
                 <mdb-error *ngIf="title.invalid && (title.dirty || title.touched)">
                   Yêu cầu từ 10-100 ký tự

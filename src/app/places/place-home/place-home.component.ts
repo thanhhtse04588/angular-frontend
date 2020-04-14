@@ -1,4 +1,5 @@
 
+
 import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs";
 import { PlaceService } from "../service/place.service";
@@ -21,7 +22,8 @@ export class PlaceHomeComponent implements OnInit {
   }
 
   placeDetail(id: number) {
-    this.router.navigate(['places/detail', id]);
+    sessionStorage.setItem("placeID",id.toString())
+    this.router.navigate(['places/detail']);
   }
 
   shortTitle(title) {

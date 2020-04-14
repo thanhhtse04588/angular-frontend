@@ -33,7 +33,7 @@
                  </a>
              </li>
              <li class="nav-item">
-                 <a class="nav-link waves-effect">
+                 <a class="nav-link waves-effect" routerLink="/user/renter" routerLinkActive="active">
                      Kênh người mua
                  </a>
              </li>
@@ -85,6 +85,10 @@
         <a [routerLink]="['order-list']" routerLinkActive="active"
           class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-money-bill-alt mr-3"></i>Order List</a>
+
+          <a [routerLink]="['place-manage']" routerLinkActive="active"
+          class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-money-bill-alt mr-3"></i>Place Manage</a>
 
       </div>
 

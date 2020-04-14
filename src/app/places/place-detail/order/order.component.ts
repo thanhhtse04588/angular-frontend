@@ -1,3 +1,4 @@
+
 import { Common } from './../../../class/common';
 import { PaymentService } from './../../service/payment.service';
 import { AuthenticationService } from './../../../index/service/authentication.service';
@@ -6,7 +7,7 @@ import { UserService } from './../../../user/service/user.service';
 import { Observable, Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
-import { formatDate } from "@angular/common";
+import { formatDate, Location } from "@angular/common";
 import { Payment } from 'src/app/class/Payment';
 import { ElementRef, Component, OnInit, ViewChild, OnDestroy, Input } from '@angular/core';
 
@@ -18,36 +19,34 @@ declare var paypal;
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit, OnDestroy {
-  id : number;
+  id: number;
   private subs = new Subscription();
   orderForm: InsertedOrderForm
   requestOrderForm: FormGroup
   //payment
   @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
   product;
-  paidFor;
+  paidFor = false;
   payment: Payment
 
-  location: Location
-
   constructor(private route: ActivatedRoute,
-    private router: Router,
     private userService: UserService,
     public loginService: AuthenticationService,
-    private paymentService: PaymentService) {
-      this.product = {
-        price: Common.PRICEORDER,
-        description: 'Đặt cọc tiền giữ nhà',
-        img: ''
-      };
-      this.paidFor = false;
+    private paymentService: PaymentService,
+    private _location: Location) {
   }
 
   ngOnInit() {
-    if(!this.paidFor)
+    this.product = {
+      price: Common.PRICEORDER,
+      description: 'Đặt cọc tiền giữ nhà',
+      img: ''
+    };
+
     this.paypalOnInit();
     this.ngOnInitOrderForm();
-    this.id = this.route.snapshot.params['id'];
+
+this.id = +sessionStorage.getItem("placeID");
   }
 
   paypalOnInit() {
@@ -75,7 +74,7 @@ export class OrderComponent implements OnInit, OnDestroy {
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
           this.paidFor = true;
-
+          alert("Thanh toán phí dịch vụ thành công! Mời bạn tiếp tục")
           console.log(data);
           console.log(order);
           this.payment = new Payment()
@@ -135,7 +134,8 @@ export class OrderComponent implements OnInit, OnDestroy {
         } else {
           alert("Ôi, mặt hàng không còn tồn tại")
         }
-      },()=> this.router.navigate(["places"])
+      }, (error) => console.log(error),
+      () => this._location.back()
     ))
   }
   ngOnDestroy() {

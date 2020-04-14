@@ -1,9 +1,10 @@
+import { Common } from './../../class/common';
 
 
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpEvent, HttpRequest } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { Observable} from 'rxjs';
+import { retry} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,15 @@ import { retry, catchError } from 'rxjs/operators';
 export class PlaceService {
 
   private baseUrl = 'http://localhost:8080/api/cp/places';
-  private verybaseUrl = 'http://localhost:8080/';
 
   constructor(private http: HttpClient) { }
-
+  //Http Options
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
+  
   getPlacesTop6List(): Observable<any> {
     return this.http.get(`${this.baseUrl}/top6`)
       .pipe(
@@ -49,32 +55,24 @@ export class PlaceService {
   }
 
   getWardIDByDistrictID(id): Observable<any> {
-    return this.http.get(`${this.verybaseUrl}/warddb/getallwardbydistrict?districtid=${id}`)
+    return this.http.get(`${Common.urlBase}/warddb/getallwardbydistrict?districtid=${id}`)
       .pipe(
         retry(1)
       )
   }
 
   getStreetIDByDistrictID(id): Observable<any> {
-    return this.http.get(`${this.verybaseUrl}/street/getstreetbydistrict?districtid=${id}`)
+    return this.http.get(`${Common.urlBase}/street/getstreetbydistrict?districtid=${id}`)
       .pipe(
         retry(1)
       )
   }
 
-  public upload(formData) {
-    return this.http.post("http://localhost:8080/imagelink/upload", formData, {  
-        responseType: 'text'  
-      });  
+  getCountOrderPendingByPlaceID(id): Observable<any>{
+    return this.http.get(`${Common.urlBase}/manageorder/count-order-pending?placeID=${id}`)
   }
 
 
 
-  //Http Options
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  }
 
 }

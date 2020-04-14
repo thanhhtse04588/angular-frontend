@@ -13,9 +13,11 @@ httpOptions = {
     'Content-Type': 'application/json'
   })
 }
+
 getAllChecking(): Observable<any>{
   return this.http.get(`${Common.urlBase}/managechecking/get-all-checking`)
 }
+
 changeStatusChecking(data): Observable<any>{
   console.log(JSON.stringify(data))
   return this.http.post(`${Common.urlBase}/checkinglist/change-status-checking`,JSON.stringify(data),this.httpOptions)
@@ -29,4 +31,9 @@ changeStatusOrder(data): Observable<any>{
 getAllOrder(): Observable<any>{
   return this.http.get(`${Common.urlBase}/manageorder/get-all-order`)
 }
+
+getAllPlace(): Observable<any>{
+  return this.http.get(`${Common.urlBase}/manageplace/get-all-place`)
+}
+
 }

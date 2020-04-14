@@ -44,7 +44,7 @@
               Không hợp lệ
             </mdb-error> -->
           </div>
-          <p>Thanh toán phí dịch vụ 50$ ở cổng paypal để hoàn thành mẫu đăng ký</p>
+          <p [innerHTML]='paidFor? "Bạn đã thanh toán phí dịch vụ, hoàn thành mẫu và gửi": "Thanh toán phí dịch vụ 50$ ở cổng paypal để hoàn thành mẫu đăng ký" '></p>
           <div #paypal></div>
           <div class="mx-auto">
             <button *ngIf="paidFor" type="submit" mdbBtn class="btn btn-danger btn-block"

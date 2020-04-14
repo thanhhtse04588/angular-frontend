@@ -8,7 +8,7 @@
       <h4 class="mb-2 mb-sm-0 pt-1">
         <a href="https://mdbootstrap.com/docs/jquery/" target="_blank">Admin</a>
         <span>/</span>
-        <span>Booking List</span>
+        <span>Place Manage</span>
       </h4>
 
       <form class="d-flex justify-content-center">
@@ -35,56 +35,46 @@
       <div mdbTable bordered="true" hover="true">
         <table mat-table matSort [dataSource]="dataSource" class="w-100">
 
-          <ng-container matColumnDef="checkingID">
+          <ng-container matColumnDef="id">
             <th *matHeaderCellDef mat-sort-header>Id</th>
-            <td *matCellDef="let element">{{element.checkingID}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="userName">
-            <th *matHeaderCellDef mat-sort-header>Người dùng </th>
-            <td *matCellDef="let element"> {{element.userName}} </td>
+            <td *matCellDef="let element">{{element.id}} </td>
           </ng-container>
 
           <ng-container matColumnDef="title">
             <th *matHeaderCellDef mat-sort-header>Tiêu đề</th>
-            <td *matCellDef="let element"><a (click)='placeDetail(element.placeID)'>{{element.title}} </a> </td>
+            <td *matCellDef="let element"><a (click)="placeDetail(element.id)">{{element.title}} </a> </td>
           </ng-container>
 
-          <ng-container matColumnDef="dateTime">
-            <th *matHeaderCellDef mat-sort-header>Thời gian</th>
-            <td *matCellDef="let element"> {{element.dateTime}} </td>
+          <ng-container matColumnDef="address">
+            <th *matHeaderCellDef mat-sort-header>Địa chỉ</th>
+            <td *matCellDef="let element"> {{element.address}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="phoneNumber">
-            <th *matHeaderCellDef mat-sort-header>Số điện thoại</th>
-            <td *matCellDef="let element"> {{element.phoneNumber}} </td>
+          <ng-container matColumnDef="datePost">
+            <th *matHeaderCellDef mat-sort-header>Ngày đăng</th>
+            <td *matCellDef="let element"> {{element.datePost}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="contactName">
-            <th *matHeaderCellDef mat-sort-header>Tên liên hệ</th>
-            <td *matCellDef="let element"> {{element.contactName}} </td>
+          <ng-container matColumnDef="price">
+            <th *matHeaderCellDef mat-sort-header>Giá thuê</th>
+            <td *matCellDef="let element"> {{element.price}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="statusPlace">
-            <th *matHeaderCellDef mat-sort-header>Trạng thái nhà</th>
-            <td *matCellDef="let element" [ngClass]='colorStatusPlace(element.statusPlaceID)'> {{element.statusPlace}}</td>
-          </ng-container>
-
-          <!-- <ng-container matColumnDef="status">
-            <th *matHeaderCellDef mat-sort-header>Trạng thái đơn</th>
+          <ng-container matColumnDef="status">
+            <th *matHeaderCellDef mat-sort-header>Trạng thái</th>
             <td *matCellDef="let element"> {{element.status}} </td>
-          </ng-container> -->
+          </ng-container>
 
-          <ng-container matColumnDef="void">
-            <th *matHeaderCellDef> Trạng thái đơn</th>
+          <ng-container matColumnDef="void" >
+            <th *matHeaderCellDef></th>
             <td *matCellDef="let element">
-              <ng-container *ngIf="isShowButton(element.statusPlaceID);else status" >
-                <button type="button" (click)='item = element' mdbBtn color="success" size="sm" 
-                (click)="comfirmApprove.show()" mdbWavesEffect><i class="fas fa-check"></i></button>
-              <button type="button" (click)='item = element' mdbBtn color="danger" size="sm"
-              (click)="comfirmReject.show()" mdbWavesEffect><i class="fas fa-ban"></i></button>
+              <ng-container *ngIf="isShowButton(element.statusID);else status" >
+                <button type="button" *ngIf="isDeactivePlace(element.statusID)" (click)='id = element.id' mdbBtn color="success" size="sm" 
+                (click)="comfirmApprove.show()" mdbWavesEffect>Đưa lên trang</button>
+              <button type="button" *ngIf="isActivePlace(element.statusID)" (click)='id = element.id' mdbBtn color="danger" size="sm"
+              (click)="comfirmReject.show()" mdbWavesEffect>Gỡ khỏi trang</button>
               </ng-container>
-             <ng-template #status><strong>{{element.status}}</strong></ng-template> 
+             <ng-template #status class="text-center"> <strong >{{element.status}}</strong></ng-template> 
             </td>
           </ng-container>
 
@@ -98,16 +88,16 @@
   </div>
 </div>
 
-<!-- Reject comfirm -->
+<!-- To Deactive comfirm -->
 <div mdbModal #comfirmReject="mdbModal" class="modal fade" tabindex="-1" role="dialog"
   aria-labelledby="myBasicModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-notify modal-danger modal-sm  text-center" role="document">
     <div class="modal-content">
       <div class="modal-body text-center">
-        <h5>Bạn có chắc chắn muốn HỦY</h5>
+        <h5>Bạn có chắc chắn muốn gỡ nhà xuống</h5>
       </div>
       <div class="modal-footer justify-content-center ">
-        <a type="button" mdbBtn color="danger" class="waves-effect"  (click)='onReject()' (click)="comfirmReject.hide()" mdbWavesEffect>
+        <a type="button" mdbBtn color="danger" class="waves-effect"  (click)='toDeactive()' (click)="comfirmReject.hide()" mdbWavesEffect>
           <i class="fas fa-check"></i>
         </a>
         <a type="button" mdbBtn color="danger" outline="true" class="waves-effect" (click)="comfirmReject.hide()"
@@ -117,15 +107,16 @@
   </div>
 </div>
 
+<!-- To ACtive comfirm -->
 <div mdbModal #comfirmApprove="mdbModal" class="modal fade" tabindex="-1" role="dialog"
   aria-labelledby="myBasicModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-notify modal-success modal-sm  text-center" role="document">
     <div class="modal-content">
       <div class="modal-body">
-        <h5>Bạn có chắc chắn muốn DUYỆT</h5>
+        <h5>Bạn có chắc chắn muốn đưa lại nhà lên trang</h5>
       </div>
       <div class="modal-footer justify-content-center ">
-        <a type="button" mdbBtn color="success" class="waves-effect" (click)="comfirmApprove.hide()" (click)='onApprove()' mdbWavesEffect>
+        <a type="button" mdbBtn color="success" class="waves-effect" (click)="comfirmApprove.hide()" (click)='toActive()' mdbWavesEffect>
           <i class="fas fa-check"></i></a>
         <a type="button" mdbBtn color="success" outline="true" class="waves-effect" (click)="comfirmApprove.hide()"
           mdbWavesEffect><i class="fas fa-minus"></i></a>
