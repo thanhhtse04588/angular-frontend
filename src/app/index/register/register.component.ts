@@ -50,18 +50,13 @@ export class RegisterComponent implements OnInit {
               try {
                 this.loginService.setSessionLoggedIn(data)
               } catch (error) {
-                console.log(error)
                 this.router.navigate(["error"])
               }
-            }, error => {
-              console.log(error)
             })
 
         } else {
           alert("Tên đăng nhập đã tồn tại! Vui lòng nhập lại! ")
         }
-      }, error => {
-        console.log(error)
       }
     )
   }

@@ -19,12 +19,10 @@ getAllChecking(): Observable<any>{
 }
 
 changeStatusChecking(data): Observable<any>{
-  console.log(JSON.stringify(data))
   return this.http.post(`${Common.urlBase}/checkinglist/change-status-checking`,JSON.stringify(data),this.httpOptions)
 }
 
 changeStatusOrder(data): Observable<any>{
-  console.log(JSON.stringify(data))
   return this.http.post(`${Common.urlBase}/orderlist/change-status-order`,JSON.stringify(data),this.httpOptions)
 }
 
@@ -34,6 +32,10 @@ getAllOrder(): Observable<any>{
 
 getAllPlace(): Observable<any>{
   return this.http.get(`${Common.urlBase}/manageplace/get-all-place`)
+}
+
+createContract(data): Observable<any>{
+return this.http.post(`${Common.urlBase}/contract/insert`,JSON.stringify(data),this.httpOptions)
 }
 
 }

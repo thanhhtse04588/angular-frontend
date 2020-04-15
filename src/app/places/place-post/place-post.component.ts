@@ -102,7 +102,6 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         this.longitude = result.geometry.location.lng()
         this.latitude = result.geometry.location.lat()
-        console.log(this.longitude + this.latitude)
       }
     });
   }
@@ -234,7 +233,6 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
   submitForm() {
     const control = this.eqmTable.get('tableRows') as FormArray;
     this.touchedRows = control.controls.filter(row => row.touched).map(row => row.value);
-    console.log(this.touchedRows);
   }
 
   toggleTheme() {
@@ -272,10 +270,8 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
     this.postPlaceForm.phoneNumber = this.phoneNumber.value.toString()
     this.postPlaceForm.email = this.email.value
     this.postPlaceForm.checkingDate = this.checkingDate.value
-    console.log(this.postPlaceForm)
     this.placeService.insertPlace(this.postPlaceForm).subscribe(
       data => {
-        console.log(data)
         if (data) {
           this.router.navigate(["user/seller/post-manage"])
           alert("Yêu cầu đăng tin thành công, chúng tôi sẽ sớm liên hệ với bạn !")
@@ -290,7 +286,6 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
     this.setwardID([])
     this.streets = null
     this.setStreetID([])
-    console.log(this.districtID)
     this.latitude = +this.districtID.value.districtLatitude
     this.longitude = +this.districtID.value.districtLongitude
     this.zoom = 17;

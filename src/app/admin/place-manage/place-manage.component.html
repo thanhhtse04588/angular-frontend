@@ -8,7 +8,7 @@
       <h4 class="mb-2 mb-sm-0 pt-1">
         <a href="https://mdbootstrap.com/docs/jquery/" target="_blank">Admin</a>
         <span>/</span>
-        <span>Place Manage</span>
+        <span>Quản lý nhà trên trang</span>
       </h4>
 
       <form class="d-flex justify-content-center">
@@ -36,8 +36,10 @@
         <table mat-table matSort [dataSource]="dataSource" class="w-100">
 
           <ng-container matColumnDef="id">
-            <th *matHeaderCellDef mat-sort-header>Id</th>
-            <td *matCellDef="let element">{{element.id}} </td>
+            <th *matHeaderCellDef mat-sort-header>Chi tiết nhà</th>
+            <td *matCellDef="let element">
+              <a type="button" mdbBtn color="info" size='sm' (click)="placeDetail(element.placeID)" mdbWavesEffect><i class="fas fa-info"></i></a>
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="title">
@@ -65,16 +67,16 @@
             <td *matCellDef="let element"> {{element.status}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="void" >
+          <ng-container matColumnDef="void">
             <th *matHeaderCellDef></th>
             <td *matCellDef="let element">
               <ng-container *ngIf="isShowButton(element.statusID);else status" >
                 <button type="button" *ngIf="isDeactivePlace(element.statusID)" (click)='id = element.id' mdbBtn color="success" size="sm" 
-                (click)="comfirmApprove.show()" mdbWavesEffect>Đưa lên trang</button>
+                (click)="comfirmApprove.show()" mdbWavesEffect>Đăng</button>
               <button type="button" *ngIf="isActivePlace(element.statusID)" (click)='id = element.id' mdbBtn color="danger" size="sm"
-              (click)="comfirmReject.show()" mdbWavesEffect>Gỡ khỏi trang</button>
+              (click)="comfirmReject.show()" mdbWavesEffect>Gỡ</button>
               </ng-container>
-             <ng-template #status class="text-center"> <strong >{{element.status}}</strong></ng-template> 
+             <ng-template #status> <strong>{{element.status}}</strong></ng-template> 
             </td>
           </ng-container>
 

@@ -19,6 +19,8 @@ export class PlaceDetail {
     imageLarge:string;
     listImage: Array<string>;
     listEquip: Array<EquipmentListForm>;
+    statusPlace: string;
+	statusPlaceID: number;
 }
 
 export class EquipmentListForm{

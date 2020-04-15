@@ -30,6 +30,7 @@ export class PlaceManageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.reload()
   }
+  
   placeDetail(id: number) {
     sessionStorage.setItem("placeID",id.toString())
     this.router.navigate(['places/detail']);
@@ -37,7 +38,6 @@ export class PlaceManageComponent implements OnInit, OnDestroy {
   reload() {
     this.subs.add(this.adminService.getAllPlace().subscribe(
       data => {
-        console.log(data)
         this.places = data
         this.dataSource = new MatTableDataSource<Place>(this.places);
 

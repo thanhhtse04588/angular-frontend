@@ -13,28 +13,33 @@
         </div>
 
         <div *ngFor="let order of orders">
-          <mdb-card>
+          <mdb-card class="mb-3">
             <mdb-card-header>
-              <div class="h5">Nhà ma Thanh Xuân Hà Nội</div>
+              <div class="h5">{{order.title}}</div>
             </mdb-card-header>
             <mdb-card-body class="px-5">
               <mdb-card-text>
                 <div class="row">
                   <div class="col">
                     <p><strong>Họ tên: </strong>{{order.name}}</p>
-                    <p><strong>Số điện thoại: </strong>{{order.phone_number}}</p>
+                    <p><strong>Số điện thoại: </strong>{{order.phoneNumber}}</p>
                     <p><strong>Lời nhắn: </strong>{{order.message}}</p>
                   </div>
                   <div class="col">
                     <p><strong>Email: </strong>{{order.email}}</p>
                     <p><strong>Ngày xem nhà: </strong>{{order.dateTime}}</p>
-                    <p><strong>Trạng thái: </strong> Đang chờ</p>
+                    <p><strong>Trạng thái nhà: </strong>{{order.placeStatus}}</p>
+
                   </div>
                   <div class="col">
-                      <a (click)="item = order" (click)='comfirmCancel.show()' style="width: 110px;" class=" float-right" size="sm" mdbBtn
-                      color="danger" mdbWavesEffect> Hủy </a>
-                    <a (click)="item = order" style="width: 110px;" class=" float-right" size="sm" mdbBtn
-                      color="warning" mdbWavesEffect> Sửa </a>
+                    <h6 *ngIf="!isOrderPending(order.orderStatusID);else button"><strong>Trạng thái đơn:
+                      </strong>{{order.orderStatus}}</h6>
+                    <ng-template #button>
+                      <a (click)="item = order" (click)='comfirmCancel.show()' style="width: 110px;"
+                        class=" float-right" size="sm" mdbBtn color="danger" mdbWavesEffect> Hủy </a>
+                      <a (click)="onEdit(order)" (click)='comfirmEdit.show()' style="width: 110px;" class=" float-right"
+                        size="sm" mdbBtn color="warning" mdbWavesEffect> Sửa </a>
+                    </ng-template>
                   </div>
                 </div>
               </mdb-card-text>
@@ -47,20 +52,93 @@
 
 </body>
 
-  <!-- Cancel comfirm -->
-  <div mdbModal #comfirmCancel="mdbModal" class="modal fade" tabindex="-1" role="dialog"
-    aria-labelledby="myBasicModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-notify modal-danger" role="document">
-      <div class="modal-content">
-        <div class="modal-body">
-          <h5>Bạn có chắc chắn muốn HỦY</h5>
-        </div>
-        <div class="modal-footer">
-          <a type="button" mdbBtn color="danger" class="waves-effect" (click)="comfirmCancel.hide()" (click)="onReject()"
-            mdbWavesEffect>Đồng ý </a>
-          <a type="button" mdbBtn color="danger" outline="true" class="waves-effect" (click)="comfirmCancel.hide()"
-            mdbWavesEffect>Bỏ qua</a>
-        </div>
+<!-- Cancel comfirm -->
+<div mdbModal #comfirmCancel="mdbModal" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-danger" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h5>Bạn có chắc chắn muốn HỦY</h5>
+      </div>
+      <div class="modal-footer">
+        <a type="button" mdbBtn color="danger" class="waves-effect" (click)="comfirmCancel.hide()" (click)="onReject()"
+          mdbWavesEffect>Đồng ý </a>
+        <a type="button" mdbBtn color="danger" outline="true" class="waves-effect" (click)="comfirmCancel.hide()"
+          mdbWavesEffect>Bỏ qua</a>
       </div>
     </div>
   </div>
+</div>
+<!-- Edit comfirm -->
+<div mdbModal #comfirmEdit="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-danger" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h5>Bạn có chắc chắn muốn CHỈNH SỬA</h5>
+      </div>
+      <div class="modal-footer">
+        <a type="button" mdbBtn color="danger" (click)="editModal.show()" class="waves-effect"
+          (click)="comfirmEdit.hide()" mdbWavesEffect>Đồng ý </a>
+        <a type="button" mdbBtn color="warning" outline="true" class="waves-effect" (click)="comfirmEdit.hide()"
+          mdbWavesEffect>Bỏ qua</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mdbModal #editModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <form (ngSubmit)="onSave(editOrderForm)" [formGroup]="editOrderForm">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <mdb-card>
+          <mdb-card-header>
+            <div class="h4 text-center">Mẫu đăng ký đặt lịch xem nhà</div>
+          </mdb-card-header>
+          <mdb-card-body class="p-5">
+            <div class="row mb-3">
+              <div class="col md-form">
+                <label class="pl-3">Nhập Tên<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" mdbInput formControlName="name">
+                <!-- <mdb-error *ngIf="name.invalid && (name.dirty || name.touched)">
+                      Không hợp lệ
+                    </mdb-error> -->
+              </div>
+
+              <div class="col md-form">
+                <input type="text" class="form-control" mdbInput  formControlName="email">
+                <label class="pl-3">Nhập Email<span class="text-danger">*</span></label>
+                <!-- <mdb-error *ngIf="email.invalid && (email.dirty || email.touched)">
+                      Không hợp lệ
+                    </mdb-error> -->
+              </div>
+            </div>
+            <div class="md-form mb-5">
+              <input type="text" class="form-control" mdbInput formControlName="phoneNumber">
+              <label>Số điện thoại<span class="text-danger">*</span></label>
+              <!-- <mdb-error *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)">
+                      Không hợp lệ
+                    </mdb-error> -->
+            </div>
+            <div class="md-form mb-3">
+              <input type="text" class="form-control" mdbInput mdbValidate formControlName="dateTime">
+            </div>
+
+            <div class="md-form">
+              <textarea type="text" class="md-textarea form-control" rows="1" mdbInput mdbValidate
+                formControlName="message"></textarea>
+              <label for="form8">Lời nhắn</label>
+              <!-- <mdb-error *ngIf="mess.invalid && (mess.dirty || mess.touched)">
+                    Không hợp lệ
+                  </mdb-error> -->
+            </div>
+            <button type="submit" mdbBtn color="warning" class="relative waves-light" (click)="editModal.hide()"
+            mdbWavesEffect>Lưu</button>
+            <button type="button" mdbBtn color="primary" class="waves-light" aria-label="Close"
+              (click)="editModal.hide()" mdbWavesEffect>Đóng</button>
+          </mdb-card-body>
+        </mdb-card>
+      </div>
+    </div>
+  </form>
+</div>

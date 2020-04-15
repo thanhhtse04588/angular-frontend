@@ -1,7 +1,8 @@
+import { Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { AdminService } from './../../admin/admin.service';
-
 import { PlaceStatus, OrderStatus } from './../../class/common';
-import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '../service/user.service';
@@ -17,28 +18,40 @@ export class RenterOrderComponent implements OnInit, OnDestroy {
   private userID: number;
   item: Order;
   updateStatus: UpdateStatus;
+  //edit
+  editOrderForm: FormGroup;
   constructor(private userService: UserService,
     private adminService: AdminService) { }
+
+  ngOnInit() {
+    this.reload();
+
+    this.editOrderForm = new FormGroup({
+      orderID: new FormControl(''),
+      name: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.email, Validators.required]),
+      phoneNumber: new FormControl('', [Validators.required]),
+      dateTime: new FormControl('', [Validators.required]),
+      message: new FormControl('')
+    });
+  }
   isShowButton(id) {
     return id == PlaceStatus.ACTIVE;
   }
-
   reload() {
     this.userID = +sessionStorage.getItem("userID");
     this.subs.add(this.userService.getListOrderByUserID(this.userID).subscribe(
       data => {
-        this.orders = data
-        console.log(this.orders)
+        this.orders = data;
       }));
   }
 
-  ngOnInit() {
-    this.reload();
+  isOrderPending(status: number) {
+    return status == OrderStatus.PENDING;
   }
 
   onReject() {
-    console.log(" onreject ")
-    this.subs.add(this.adminService.changeStatusChecking(
+    this.subs.add(this.adminService.changeStatusOrder(
       this.updateStatus = {
         orderID: this.item.orderID,
         placeID: this.item.placeID,
@@ -50,10 +63,34 @@ export class RenterOrderComponent implements OnInit, OnDestroy {
         () => this.reload()
       ))
   }
+
+  //edit order
+  creatEditOrder(order: Order) {
+    this.editOrderForm = new FormGroup({
+      orderID: new FormControl(order.orderID),
+      name: new FormControl(order.name, Validators.required),
+      email: new FormControl(order.email, [Validators.email, Validators.required]),
+      phoneNumber: new FormControl(order.phoneNumber, [Validators.required]),
+      dateTime: new FormControl(order.dateTime, [Validators.required]),
+      message: new FormControl(order.message)
+    });
+  }
+
+  onEdit(order: Order) {
+    this.creatEditOrder(order);
+  }
+
+  onSave(event) {
+    this.subs.add(this.userService.editOrder(event.value).subscribe(
+      data => data ? alert("Chỉnh sửa thành công") : alert("Chỉnh sửa thất bại") ));
+    this.reload();
+  }
+
   ngOnDestroy() {
     this.subs.unsubscribe();
   }
 }
+
 interface Order {
   orderID: number;
   placeID: number;
@@ -61,7 +98,7 @@ interface Order {
   dateTime: Date;
   name: string;
   email: string;
-  phone_number: string;
+  phoneNumber: string;
   message: string;
 
   title: string;

@@ -1,3 +1,4 @@
+import { PlaceStatus } from './../../class/common';
 
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -45,7 +46,7 @@ export class PlaceDetailComponent implements OnInit, OnDestroy {
       }
     }
 
-this.getData()
+    this.getData()
 
   }
   getData() {
@@ -64,10 +65,12 @@ this.getData()
         }
         this.dataSource = new MatTableDataSource<EquipmentListForm>(this.place.listEquip);
         this.dataSource.paginator = this.paginator;
-      }, error => console.log(error)))
+      }))
   }
 
-
+  isActive(id: number) {
+    return id == PlaceStatus.ACTIVE;
+  }
   ngOnDestroy() {
     this.subs.unsubscribe();
   }

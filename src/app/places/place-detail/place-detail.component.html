@@ -14,11 +14,18 @@
                   <span>Khu vực: <strong>{{place.district}}</strong></span>
                 </h5>
                 <div class="mx-auto ">
-                  <button mdbBtn [routerLink]="['/places/order']"  [disabled]="!loginService.isUserLoggedIn()"
-                    color="danger" class="btn-lg"  mdbWavesEffect>
+                  <div *ngIf="isActive(place.statusPlaceID);else statusPlace">
+                    <button mdbBtn [routerLink]="['/places/order']"  [disabled]="!loginService.isUserLoggedIn()"
+                     color="danger" class="btn-lg"  mdbWavesEffect>
                     Đặt lịch xem nhà
                   </button>
-                  <p class="text-danger">Hiện tại đang có <strong>{{orderCount|| '0'}}</strong> người đăng ký xem nhà này</p>
+                    <p class="text-danger">Hiện tại đang có <strong>{{orderCount|| '0'}}</strong> người đăng ký xem nhà này</p>
+                  </div>
+                  
+                  <ng-template #statusPlace>
+                    <h4>Trạng thái: <strong class="text-danger">{{place.statusPlace}}</strong></h4>
+                  </ng-template>
+
                 </div>
                 <div *ngIf="!loginService.isUserLoggedIn()" class="alert alert-warning" role="alert">
                   Bạn cần <a routerLink="/user/login" routerLinkActive="active">đăng nhập</a> để sử dụng
@@ -103,8 +110,6 @@
                 <div class="carousel-item active">
                   <div style="height: 600px;" class="view "
                     style="background-image: url({{place.imageLarge}}); background-repeat: no-repeat; background-size: cover;">
-                    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
-                    </div>
                   </div>
                 </div>
                 <!--/First slide-->

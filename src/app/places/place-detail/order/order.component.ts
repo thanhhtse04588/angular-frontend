@@ -75,8 +75,6 @@ this.id = +sessionStorage.getItem("placeID");
           const order = await actions.order.capture();
           this.paidFor = true;
           alert("Thanh toán phí dịch vụ thành công! Mời bạn tiếp tục")
-          console.log(data);
-          console.log(order);
           this.payment = new Payment()
           this.payment.placeID = this.id
           this.payment.userID = +sessionStorage.getItem("userID")
@@ -94,12 +92,7 @@ this.id = +sessionStorage.getItem("placeID");
       })
       .render(this.paypalElement.nativeElement);
   }
-
-  onOpenFrameDeposit(event) {
-  }
-
-  onCloseFrameDeposit() {
-  }
+  
   // Liên hệ ngay
   ngOnInitOrderForm() {
     this.requestOrderForm = new FormGroup({
@@ -126,7 +119,6 @@ this.id = +sessionStorage.getItem("placeID");
     this.orderForm.email = this.email.value;
     this.orderForm.dateTime = formatDate(this.datetime.value, 'yyyy-MM-dd HH:mm:ss', 'en-US');
     this.orderForm.message = this.mess.value;
-    console.log(this.orderForm);
     this.subs.add(this.userService.insertOrder(this.orderForm).subscribe(
       data => {
         if (data) {

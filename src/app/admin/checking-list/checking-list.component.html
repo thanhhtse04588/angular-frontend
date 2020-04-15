@@ -36,15 +36,11 @@
         <table mat-table matSort [dataSource]="dataSource" class="w-100">
 
           <ng-container matColumnDef="checkingID">
-            <th *matHeaderCellDef mat-sort-header>Id</th>
-            <td *matCellDef="let element">{{element.checkingID}} </td>
+            <th *matHeaderCellDef mat-sort-header>Chi tiết nhà</th>
+            <td *matCellDef="let element">
+              <a type="button" mdbBtn color="info" size='sm' (click)="placeDetail(element.placeID)" mdbWavesEffect><i class="fas fa-info"></i></a>
+            </td>
           </ng-container>
-
-          <ng-container matColumnDef="userName">
-            <th *matHeaderCellDef mat-sort-header>Người dùng </th>
-            <td *matCellDef="let element"> {{element.userName}} </td>
-          </ng-container>
-
           <ng-container matColumnDef="title">
             <th *matHeaderCellDef mat-sort-header>Tiêu đề</th>
             <td *matCellDef="let element"><a (click)='placeDetail(element.placeID)'>{{element.title}} </a> </td>

@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from "rxjs";
@@ -20,10 +19,12 @@ export class PlacesListComponent implements OnInit {
   PAGE_AMOUNT = 6;
   PAGE_DEFAULT = 0;
   showMap = false;
-  location: Location
+  location: Location;
+  zoom = 20;
+  previous;
 
   constructor(private searchService: SearchBarService,
-    private router: Router, private route: ActivatedRoute,) {
+    private router: Router, private route: ActivatedRoute, ) {
     this.paging = new Paging();
   }
 
@@ -31,7 +32,7 @@ export class PlacesListComponent implements OnInit {
     this.location = {
       latitude: -28.68352,
       longitude: -147.20785,
-      zoom: 15,
+      zoom: this.zoom,
       markers: []
     }
   }
@@ -43,48 +44,46 @@ export class PlacesListComponent implements OnInit {
     this.searchCondition.amount = this.PAGE_AMOUNT;
     this.getCountSearch();
   }
-  addMarker(lat: number, lng: number, title: string, price: number, id: number,
-    area: number,
-    bedRooms: number,
-    toilets: number) {
-    this.location.markers.push({
-      lat, lng, title, price, id, area, bedRooms, toilets
-    })
-  }
 
 
   getCountSearch() {
     this.searchService.getCountSearch(this.searchCondition).subscribe(
       (data: number) => {
         this.paging.countResult = data;
-        console.log(data)
-        if(data == 0 ) return; // No result
+        if (data == 0) { // No result
+          this.places = undefined;
+          return;
+        }
         this.paging.pages = Math.ceil(data / this.PAGE_AMOUNT);
-        this.gotoPage(this.PAGE_DEFAULT);        
+        this.gotoPage(this.PAGE_DEFAULT);
       }
     )
   }
 
   gotoPage(currentPage: number) {
-    console.log("Page:" + currentPage)
     this.searchCondition.page = currentPage
     this.paging.currentPage = currentPage
-    console.log(JSON.stringify(this.searchCondition));
     this.searchService.getPlacesBySearchCondition(this.searchCondition).subscribe(
       data => {
         this.places = data;
         this.location = {
           latitude: +this.places[0]?.latitude,
           longitude: +this.places[0]?.longtitude,
-          zoom: 17,
+          zoom: this.zoom,
           markers: []
         }
-        this.places?.forEach(place => this.addMarker(+place.latitude, +place.longtitude, place.title, place.price,
-          place.placeID, place.area, place.bedRooms, place.toilets))
-        // this.reloadCurrentRoute('search', this.searchCondition)
+        // make Maker Gmap
+        this.places?.forEach(place => this.location.markers.push(place))
       });
 
   }
+
+  clickedMarker(infowindow) {
+    if (this.previous) {
+        this.previous.close();
+    }
+    this.previous = infowindow;
+ }
 
   shortTitle(title) {
     return title.substring(0, 65);
@@ -97,25 +96,14 @@ export class PlacesListComponent implements OnInit {
   }
 
   placeDetail(id: number) {
-    sessionStorage.setItem("placeID",id.toString())
+    sessionStorage.setItem("placeID", id.toString())
     this.router.navigate(['places/detail']);
   }
-}
-interface Marker {
-  id: number;
-  title: string;
-  price: number;
-  area: number;
-  bedRooms: number;
-  toilets: number;
-
-  lat: number;
-  lng: number;
 }
 
 interface Location {
   latitude: number;
   longitude: number;
   zoom: number;
-  markers: Array<Marker>;
+  markers: Array<PlaceQuickView>;
 }

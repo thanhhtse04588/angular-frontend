@@ -14,7 +14,7 @@ import { MatSort } from '@angular/material/sort';
 })
 export class CheckingListComponent implements OnInit, OnDestroy {
   private subs = new Subscription();
-  displayedColumns: string[] = ['checkingID', 'userName', 'title', 'dateTime', 'phoneNumber', 'contactName', 'statusPlace',
+  displayedColumns: string[] = ['checkingID', 'title', 'dateTime', 'phoneNumber', 'contactName', 'statusPlace',
     // 'status',
     'void'];
   dataSource: any;
@@ -38,7 +38,6 @@ export class CheckingListComponent implements OnInit, OnDestroy {
   reload() {
     this.subs.add(this.adminService.getAllChecking().subscribe(
       data => {
-        console.log(data)
         this.checkingList = data
         this.dataSource = new MatTableDataSource<Checking>(this.checkingList);
 

@@ -18,7 +18,9 @@ export class PlaceHomeComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.places = this.placeService.getPlacesTop6List();
+    this.placeService.getPlacesTop6List().subscribe(
+      data=> this.places=data
+    );
   }
 
   placeDetail(id: number) {

@@ -56,15 +56,11 @@ export class HeaderComponent implements OnInit {
           this.loginService.authenticate(this.username.value, this.password.value).subscribe(
             (data: UserLogin) => {
               this.loginService.setSessionLoggedIn(data)
-            }, error => {
-              console.log(error)
             })
 
         } else {
           alert("Tên đăng nhập đã tồn tại! Vui lòng nhập lại! ")
         }
-      }, error => {
-        console.log(error)
       }
     )
   }
@@ -81,15 +77,11 @@ export class HeaderComponent implements OnInit {
             this.loginService.setSessionLoggedIn(data)
             if (this.loginService.isAdmin()) this.router.navigate(["admin"])
           } catch (error) {
-            console.log(error)
             this.router.navigate(["error"])
           } finally {
             this.frameLogin.hide()
           }
         }
-      },
-      error => {
-        console.log(error)
       }
     )
   }

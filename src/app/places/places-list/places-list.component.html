@@ -21,37 +21,30 @@
       <div class="row wow fadeIn">
 
         <!--Grid column-->
-        <div class="col-lg-4 col-md-6 mb-4" *ngFor="let place of places">
+        <div class="col-lg-4 col-md-6 mb-4" *ngFor="let place of places ">
 
           <!--Card-->
           <div class="card">
-
-            <!--Card image-->
-            <div class="view overlay" style="height: 300px;">
-              <div class="card-header">
-                <button mdbBtn type="button" color="light-green" size="sm"
-                  mdbWavesEffect><strong>{{place.roleOfPlaceName}}</strong></button>
+            <a (click)="placeDetail(place.placeID)">
+              <!--Card image-->
+              <div class="view overlay" style="height: 250px;">
+                <div class="view "
+                  style="background-image: url({{place.imageLarge}}); background-repeat: no-repeat; background-size: cover;">
+                </div>
               </div>
-              <img src="{{place.imageLarge}}" class="card-img-top" alt="">
-              <a (click)="placeDetail(place.placeID)" target="_blank">
-                <div class="mask rgba-white-slight"></div>
-              </a>
-            </div>
-
-            <!--Card content-->
-            <div class="card-body">
-              <!--Title-->
-              <h4 style="height: 80px;" class="card-title">{{shortTitle(place.title)}}...</h4>
-              <!--Text-->
-              <p class="card-text">{{place.bedRooms}} phòng ngủ - {{place.toilets}} phòng vệ sinh - {{place.area}} m²
-              </p>
-              <h5 class="card-title"> {{place.district}}</h5>
-              <h4 class="card-title">{{place.price| number}} vnđ</h4>
-              <a (click)="placeDetail(place.placeID)" class="btn btn-primary btn-md">Xem chi tiết
-                <i class="fas fa-play ml-2"></i>
-              </a>
-            </div>
-
+              <!--Card content-->
+              <div class="card-body">
+                <!--Title-->
+                <h4 class="card-title">{{shortTitle(place.title)}}...</h4>
+                <!--Text-->
+                <h5 class="card-title">{{place.roleOfPlaceName}}</h5>
+                <p class="card-text">{{place.bedRooms|| '?'}} phòng ngủ - {{place.toilets|| '?'}} phòng vệ sinh -
+                  {{place.area|| '?'}} m²
+                </p>
+                <h5 class="card-title"> {{place.district}}</h5>
+                <h4 class="card-title">{{place.price| number}} vnđ</h4>
+              </div>
+            </a>
           </div>
           <!--/.Card-->
         </div>
@@ -65,14 +58,33 @@
     <ng-template #map>
       <agm-map style="height: 600px;" [latitude]="location.latitude" [longitude]="location.longitude"
         [zoom]="location.zoom">
-        <agm-marker *ngFor="let marker of location?.markers" [latitude]="marker?.lat" [longitude]="marker?.lng">
-          <agm-info-window>
-            <a (click)="placeDetail(marker.id)">
-              <h4 class="card-title">{{shortTitle(marker.title)}}...</h4>
-              <p class="card-text">{{marker.bedRooms|| '?'}} phòng ngủ - {{marker.toilets|| '?'}} phòng vệ sinh - {{marker.area}} m²
-              </p>
-              <h4 class="card-title">{{marker.price| number}} vnđ</h4>
-            </a>
+        <agm-marker (markerClick)="clickedMarker(infowindow)" *ngFor="let place of location?.markers"
+          [latitude]="place?.latitude" [longitude]="place?.longtitude">
+          <agm-info-window #infowindow>
+            <!--Card-->
+            <div class="card" style="width: 300px;">
+              <a (click)="placeDetail(place.placeID)">
+                <!--Card image-->
+                <div class="view overlay" style="height: 200px;">
+                  <div class="view "
+                    style="background-image: url({{place.imageLarge}}); background-repeat: no-repeat; background-size: cover;">
+                  </div>
+                </div>
+                <!--Card content-->
+                <div class="card-body">
+                  <!--Title-->
+                  <h5 class="card-title">{{shortTitle(place.title)}}...</h5>
+                  <!--Text-->
+                  <h6 class="card-title">{{place.roleOfPlaceName}}</h6>
+                  <p class="card-text">{{place.bedRooms|| '?'}} phòng ngủ - {{place.toilets|| '?'}} phòng vệ sinh -
+                    {{place.area|| '?'}} m²
+                  </p>
+                  <h6 class="card-title"> {{place.district}}</h6>
+                  <h5 class="card-title">{{place.price| number}} vnđ</h5>
+                </div>
+              </a>
+            </div>
+            <!--/.Card-->
           </agm-info-window>
         </agm-marker>
       </agm-map>

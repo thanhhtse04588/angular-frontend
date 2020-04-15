@@ -36,13 +36,9 @@ export class LoginComponent implements OnInit {
         try {
           this.loginService.setSessionLoggedIn(data)
         } catch (error) {
-          console.log(error)
           this.router.navigate(["error"])
         }
         this._location.back()
-      },
-      error => {
-        console.log(error)
       }
     )
   }

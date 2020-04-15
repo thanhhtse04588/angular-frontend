@@ -3,7 +3,8 @@ import { Common } from './../../class/common';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { retry, catchError, map } from 'rxjs/operators';
+// import 'rxjs/add/operator/toPromise'
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,10 @@ export class UserService {
       .pipe(
         retry(1)
       )
+  }
+
+  editOrder(form) : Observable<any> {
+    return this.http.post(`${Common.urlBase}/orderlist/update-order`, JSON.stringify(form), this.httpOptions)
   }
 
   getAllPost(userid): Observable<any> {
@@ -47,4 +52,9 @@ export class UserService {
     return this.http.post(`${Common.urlBase}/api/cp/places/update`,JSON.stringify(form),this.httpOptions)
   }
 
+  // public upload(formData) {
+  //   return this.httpClient.post(this.SERVER_URL, formData, {  
+  //       responseType: 'text'  
+  //     });  
+  // }
 }

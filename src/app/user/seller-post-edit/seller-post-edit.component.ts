@@ -310,11 +310,9 @@ export class SellerPostEditComponent implements OnInit, AfterViewInit {
     this.updatePlaceForm.phoneNumber = this.phoneNumber.value.toString()
     this.updatePlaceForm.email = this.email.value
     this.updatePlaceForm.checkingDate = this.checkingDate.value
-    console.log(this.updatePlaceForm)
 
     this.userService.updatePlace(this.updatePlaceForm).subscribe(
       data => {
-        console.log(data)
         if (data) {
           alert("Chỉnh sửa thông tin thành công !")
         }

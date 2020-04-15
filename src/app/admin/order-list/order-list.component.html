@@ -36,18 +36,15 @@
         <table mat-table matSort [dataSource]="dataSource" class="w-100">
 
           <ng-container matColumnDef="orderID">
-            <th *matHeaderCellDef mat-sort-header>Code</th>
-            <td *matCellDef="let element"> {{element.orderID}} </td>
+            <th *matHeaderCellDef mat-sort-header>Chi tiết nhà</th>
+            <td *matCellDef="let element">
+              <a type="button" mdbBtn color="info" size='sm' (click)="placeDetail(element.placeID)" mdbWavesEffect><i class="fas fa-info"></i></a>
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="contactName">
             <th *matHeaderCellDef mat-sort-header>Tên</th>
             <td *matCellDef="let element"> {{element.contactName}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="name">
-            <th *matHeaderCellDef mat-sort-header>Người dùng </th>
-            <td *matCellDef="let element"> {{element.name}} </td>
           </ng-container>
 
           <ng-container matColumnDef="email">
@@ -80,16 +77,29 @@
             <td *matCellDef="let element" [ngClass]='colorStatusPlace(element.statusPlaceID)'> {{element.statusPlace}} </td>
           </ng-container>
 
+          <ng-container matColumnDef="status">
+            <th *matHeaderCellDef mat-sort-header>Trạng thái đơn</th>
+            <td *matCellDef="let element" ><strong>{{element.status}}</strong> </td>
+          </ng-container>
+
           <ng-container matColumnDef="void">
             <th *matHeaderCellDef></th>
             <td *matCellDef="let element">
-              <ng-container *ngIf="isPending(element.orderStatusID);else status">
-                <button type="button" mdbBtn color="success" size="sm" (click)='item= element' (click)="comfirmApprove.show()"
+              <ng-container *ngIf="isInProcess(element.orderStatusID)">
+
+                <button *ngIf="!isConsiderStatus(element.orderStatusID);else dealButton"
+                type="button" mdbBtn color="success" size="sm" 
+                (click)='item= element' (click)="comfirmApprove.show()"
                 mdbWavesEffect><i class="fas fa-check"></i></button>
+                <ng-template #dealButton>
+                  <button type="button" mdbBtn color="warning" size="sm" 
+                  (click)='item= element' (click)="dealForm.show()"
+                  mdbWavesEffect><i class="fas fa-check"></i></button>
+                </ng-template>
+
               <button type="button" mdbBtn color="danger" size="sm" (click)='item= element' (click)="comfirmReject.show()"
                 mdbWavesEffect><i class="fas fa-ban"></i></button>
               </ng-container>
-              <ng-template #status><strong>{{element.status}}</strong></ng-template>
             </td>
           </ng-container>
 
@@ -136,5 +146,41 @@
           mdbWavesEffect><i class="fas fa-minus"></i></a>
       </div>
     </div>
+  </div>
+</div>
+
+ <!-- DealForm -->
+<div mdbModal #dealForm="mdbModal" class="modal fade right" id="frameModalTop" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form (ngSubmit)='sendDeal(form.value)' #form='ngForm'>
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Thời gian thuê</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="dealForm.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <mdb-icon fas icon="calendar" class="prefix grey-text"> Từ ngày: </mdb-icon>
+          <input type="date" ngModel name='from'
+                 mdbInput required>
+        </div>
+
+        <div class="md-form mb-4">
+          <mdb-icon fas icon="calendar" class="prefix grey-text">Đến ngày: </mdb-icon>
+          <input type="date" ngModel name="to"
+                 mdbInput required>
+        </div>
+
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button mdbBtn color="warning" type="submit" [disabled]='form.invalid' (click)="dealForm.hide()" class="waves-light" mdbWavesEffect>Gửi
+          <mdb-icon far icon="paper-plane" class="ml-1"></mdb-icon>
+        </button>
+      </div>
+    </div>
+  </form>
   </div>
 </div>
