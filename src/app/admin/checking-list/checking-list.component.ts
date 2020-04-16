@@ -1,3 +1,4 @@
+import { SharedService } from './../../shared/shared.service';
 import { Router } from '@angular/router';
 import { PlaceStatus, BookingStatus } from './../../class/common';
 import { MatTableDataSource } from '@angular/material/table';
@@ -23,12 +24,7 @@ export class CheckingListComponent implements OnInit, OnDestroy {
   checkingList: any
   item: Checking
   updateStatus: UpdateStatus
-  constructor(private adminService: AdminService, private router: Router) {
-  }
-
-  placeDetail(id: number) {
-    sessionStorage.setItem("placeID",id.toString())
-    this.router.navigate(['places/detail']);
+  constructor(private adminService: AdminService, public sharedService:SharedService) {
   }
 
   ngOnInit() {

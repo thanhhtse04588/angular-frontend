@@ -1,0 +1,54 @@
+<body class="grey lighten-3 min-vh-100">
+  <div class="container wow fadeIn">
+    <div class="row py-5">
+
+      <div class="col-md-3 ">
+        <app-renter-menu></app-renter-menu>
+      </div>
+
+      <div class="col-md-9 ">
+        <div class="text-center mb-3 ">
+          <div class="h3 text-center">DANH SÁCH HỢP ĐỒNG THUÊ NHÀ</div>
+          <p>(Quý vị có thể quản lý, tìm kiếm ở đây)</p>
+        </div>
+        <div *ngFor="let contract of contracts">
+          <mdb-card class="mb-3">
+            <mdb-card-header>
+              <div class="h5">{{contract.titlePlace}}</div>
+            </mdb-card-header>
+            <mdb-card-body class="px-5">
+              <mdb-card-text>
+                <div class="row">
+                  <div class="col">
+                    <p><strong>Mã hợp đồng: </strong>{{contract.contractID}}</p>
+                    <p><strong>Chủ nhà: </strong>{{contract.ownerID}}</p>
+                    <p><strong>Người thuê: </strong>{{contract.renterID}}</p>
+                  </div>
+                  <div class="col">
+                    <p><strong>Bắt đầu thuê : </strong>{{contract.startDate}}</p>
+                    <p><strong>Kết thúc thuê: </strong>{{contract.endDate}}</p>
+                    <p><strong>Số tiền đặt cọc: </strong>{{contract.fee | number}}VND/{{vndToUsd(contract.fee) | number}}USD</p>
+                  </div>
+                  <div class="col">
+                    <p><strong>Thông tin nhà: </strong><a (click)='sharedService.placeDetail(contract.placeID)'>Xem</a>
+                    </p>
+                    <div><strong>Trạng thái nhà: </strong><h6>{{contract.placeStatus}}</h6></div>
+                  </div>
+                </div>
+                  <app-paypal-button *ngIf="isContractPending(contract.contractStatusID)" [pay]='getPay(contract)'
+                    (onPayResult)='getPayResult($event)'></app-paypal-button>
+                <span class="float-right h5 pr-2">
+                  <mdb-badge [color]="statusContractColor(contract.contractStatusID)">{{contract.statusContract}}
+                  </mdb-badge>
+                </span>
+              </mdb-card-text>
+            </mdb-card-body>
+
+          </mdb-card>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</body>

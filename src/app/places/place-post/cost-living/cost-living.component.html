@@ -1,0 +1,55 @@
+          <!-- page 4 -->
+          <mdb-card class="mb-3">
+            <mdb-card-header>
+              <div class="h3">Thông tin gía dịch vụ sinh hoạt</div>
+            </mdb-card-header>
+            <mdb-card-body>
+              <!-- listEquip -->
+              <form [formGroup]="eqmTable">
+                <table mdbTable bordered="true" small="true">
+                  <thead class="text-nowrap">
+                    <th scope="col">Tên dịch vụ<span class="text-danger">*</span></th>
+                    <th scope="col">Đơn giá<span class="text-danger">*</span></th>
+                    <th scope="col"></th>
+                  </thead>
+                  <tbody>
+                    <ng-container formArrayName="tableRows"
+                      *ngFor="let group of getFormControls.controls ; let i=index">
+                      <tr mdbTableCol *ngIf="group.get('isEditable').value" [formGroupName]="i">
+                        <td>
+                          <input matInput type="text" id="costName" class="form-control" formControlName="costName">
+                        </td>
+                        <td>
+                          <input matInput type="number" id="costPrice" class="form-control" formControlName="costPrice"
+                            >
+                        </td>
+                        <td>
+                          <button mdbBtn class="btn-danger" size="sm" (click)="deleteRow(i)" mdbWavesEffect>Xóa</button>
+                          <button mdbBtn class="btn-primary" size="sm" [disabled]="eqmTable.invalid"
+                            (click)="doneRow(group)" mdbWavesEffect>Lưu</button>
+                        </td>
+                      </tr>
+                      <tr *ngIf="!group.get('isEditable').value">
+                        <td>
+                          {{group.get('costName').value}}
+                        </td>
+                        <td>
+                          {{group.get('costPrice').value}}
+                        </td>
+                        <td>
+                          <button mdbBtn class="btn-warning" size="sm" (click)="editRow(group)"
+                            mdbWavesEffect>Sửa</button>
+                        </td>
+                      </tr>
+                    </ng-container>
+                  </tbody>
+                </table>
+                <div class="action-container">
+                  <button mdbBtn class="btn-success mx-auto" size="sm" [disabled]="eqmTable.invalid" (click)="addRow()"
+                    mdbWavesEffect>Thêm</button>
+                </div>
+              </form>
+              <hr>
+            </mdb-card-body>
+          </mdb-card>
+          <!-- page 5 -->

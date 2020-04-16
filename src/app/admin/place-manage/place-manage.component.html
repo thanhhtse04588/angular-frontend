@@ -38,13 +38,13 @@
           <ng-container matColumnDef="id">
             <th *matHeaderCellDef mat-sort-header>Chi tiết nhà</th>
             <td *matCellDef="let element">
-              <a type="button" mdbBtn color="info" size='sm' (click)="placeDetail(element.placeID)" mdbWavesEffect><i class="fas fa-info"></i></a>
+              <a type="button" mdbBtn color="info" size='sm' (click)="sharedService.placeDetail(element.placeID)" mdbWavesEffect><i class="fas fa-info"></i></a>
             </td>
           </ng-container>
 
           <ng-container matColumnDef="title">
             <th *matHeaderCellDef mat-sort-header>Tiêu đề</th>
-            <td *matCellDef="let element"><a (click)="placeDetail(element.id)">{{element.title}} </a> </td>
+            <td *matCellDef="let element"><a (click)="sharedService.placeDetail(element.id)">{{element.title}} </a> </td>
           </ng-container>
 
           <ng-container matColumnDef="address">

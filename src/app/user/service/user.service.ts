@@ -52,6 +52,18 @@ export class UserService {
     return this.http.post(`${Common.urlBase}/api/cp/places/update`,JSON.stringify(form),this.httpOptions)
   }
 
+  getContractByRenterID(id): Observable<any> {
+    return this.http.get(`${Common.urlBase}/managecontract/get-all-contract-renterID?renterID=${id}`)
+  }
+
+  getContractByOwnerID(id): Observable<any> {
+    return this.http.get(`${Common.urlBase}/managecontract/get-all-contract-ownerID?ownerID=${id}`)
+  }
+
+  updateStatusContract(id: number,status: number): Observable<any>{
+    return this.http.post(`${Common.urlBase}/contract/change-status?contractID=${id}&contractStatusID=${status}`,this.httpOptions)
+  }
+
   // public upload(formData) {
   //   return this.httpClient.post(this.SERVER_URL, formData, {  
   //       responseType: 'text'  

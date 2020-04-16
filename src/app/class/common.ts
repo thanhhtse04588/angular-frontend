@@ -3,6 +3,8 @@ export class Common {
     public static roleAdmin = 1;
     public static PRICEORDER = 50;
     public static FEE = 2; // x2 PlacePrice
+    public static ZOOM = 20;
+    public static USDtoVND = 23442;
 }
 
 export class PlaceStatus {

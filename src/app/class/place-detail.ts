@@ -19,6 +19,7 @@ export class PlaceDetail {
     imageLarge:string;
     listImage: Array<string>;
     listEquip: Array<EquipmentListForm>;
+    listCost: Array<CostOfPlaceForm>;
     statusPlace: string;
 	statusPlaceID: number;
 }
@@ -29,5 +30,10 @@ export class EquipmentListForm{
 	price:number;
     likeNew:number;
     equipmentDescrible: string;
+}
+
+export class CostOfPlaceForm{
+    costName:string;
+    costPrice:number
 }
  

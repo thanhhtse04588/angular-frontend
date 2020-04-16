@@ -19,6 +19,7 @@ export class PlacePostForm {
     numberToilets: number
     // page 4
     listEquip: Array<EquipmentListForm>
+    listCost: Array<CostOfPlaceForm> ;
     // page5
     listImageLink: Array<string>
     // page6
@@ -65,9 +66,13 @@ export class UpdatePostForm {
     checkingDate: string
 }
 
-export class EquipmentListForm {
+class EquipmentListForm {
     name: string
     quantity: number
     price: number
     likeNew: number
+}
+class CostOfPlaceForm {
+    costName:number;
+	costPrice: string;
 }

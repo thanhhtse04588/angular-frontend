@@ -1,3 +1,4 @@
+
 import { Component, OnInit, ViewChild, ElementRef, EventEmitter, Output } from '@angular/core';
 import { AngularFireStorage } from "@angular/fire/storage";
 import { map, finalize } from "rxjs/operators";
@@ -10,13 +11,13 @@ import { Observable } from "rxjs";
 })
 export class UploadComponent implements OnInit {
     //upload img
+    @Output() onUpload: EventEmitter<{imageUploaded: Array<String>, isDoneUpload: boolean}>;
     @ViewChild("fileUpload", { static: false }) fileUpload: ElementRef;
     files =[];
     imageUploaded = [];
     isDoneUpload = false;
     title = "cloudsSorage";
     downloadURL: Observable<string>;
-    @Output() onUpload: EventEmitter<{imageUploaded: Array<String>, isDoneUpload: boolean}>;
 
   constructor( private storage: AngularFireStorage) { 
     this.onUpload = new EventEmitter(); 

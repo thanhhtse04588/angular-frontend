@@ -1,3 +1,4 @@
+import { SharedService } from './../../shared/shared.service';
 import { Router } from '@angular/router';
 import { PlaceStatus, OrderStatus, ContractStatus, Common } from './../../class/common';
 import { MatTableDataSource } from '@angular/material/table';
@@ -26,7 +27,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
   from;
   to;
   constructor(private adminService: AdminService,
-    private router: Router, ) { }
+    public sharedService:SharedService) { }
 
   ngOnInit() {
     this.reload()
@@ -50,11 +51,6 @@ export class OrderListComponent implements OnInit, OnDestroy {
       case PlaceStatus.ACTIVE: return 'text-success'
       default: return 'text-muted'
     }
-  }
-
-  placeDetail(id: number) {
-    sessionStorage.setItem("placeID", id.toString())
-    this.router.navigate(['places/detail']);
   }
   isInProcess(id: number) {
     return [OrderStatus.PENDING, OrderStatus.CONSIDER].includes(id);
@@ -86,6 +82,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
       ownerID: this.item.ownerID,
       renterID: this.item.ordererID,
       placeID: this.item.placeID,
+      orderID: this.item.orderID,
       startDate: form.from,
       endDate: form.to,
       fee: this.item.price * Common.FEE,
@@ -143,7 +140,7 @@ interface Contract {
   ownerID: number;
   renterID: number;
   placeID: number;
-
+  orderID: number;
   startDate: string;
   endDate: string;
   fee: number;

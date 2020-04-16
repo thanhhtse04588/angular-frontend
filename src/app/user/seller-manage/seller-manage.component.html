@@ -35,7 +35,7 @@
                     </mdb-card-text>
                   </div>
                   <div class="col-md-3">
-                    <button *ngIf="isViewShow(item.statusID)" (click)="placeDetail(item.id)"  style="width: 110px;" class=" float-right" size="sm" mdbBtn
+                    <button *ngIf="isViewShow(item.statusID)" (click)="sharedService.placeDetail(item.id)"  style="width: 110px;" class=" float-right" size="sm" mdbBtn
                     color="success" mdbWavesEffect> Xem </button>
                     <button *ngIf="isCancelShow(item.statusID)" (click)="comfirmCancel.show()"
                       (click)="placeID = item.id" style="width: 110px;" class=" float-right" size="sm" mdbBtn

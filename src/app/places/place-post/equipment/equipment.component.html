@@ -1,0 +1,76 @@
+<mdb-card class="mb-3">
+  <mdb-card-header>
+    <div class="h3">Thông tin nội thất</div>
+  </mdb-card-header>
+  <mdb-card-body>
+    <!-- listEquip -->
+    <form [formGroup]="eqmTable">
+      <table mdbTable bordered="true" small="true">
+        <thead class="text-nowrap">
+          <th scope="col">Tên<span class="text-danger">*</span></th>
+          <th scope="col">Số lượng<span class="text-danger">*</span></th>
+          <th scope="col">Giá trị(vnđ)<span class="text-danger">*</span></th>
+          <th scope="col">Độ mới(%)</th>
+          <th scope="col">Mô tả</th>
+          <th scope="col"></th>
+        </thead>
+        <tbody>
+          <ng-container formArrayName="tableRows"
+            *ngFor="let group of getFormControls.controls ; let i=index">
+            <tr mdbTableCol *ngIf="group.get('isEditable').value" [formGroupName]="i">
+              <td>
+                <input matInput type="text" id="name" class="form-control" formControlName="name">
+              </td>
+              <td>
+                <input matInput type="number" id="quantity" class="form-control" formControlName="quantity"
+                  >
+              </td>
+              <td>
+                <input matInput type="number" id="priceEq" class="form-control" formControlName="priceEq">
+              </td>
+              <td>
+                <input matInput type="number" id="likeNew" class="form-control" formControlName="likeNew">
+              </td>
+              <td>
+                <textarea matInput type="text" formControlName="equipmentDescrible" id="equipmentDescrible"
+                  class="md-textarea form-control"></textarea>
+                <!-- <input mdbInput matInput type="text" id="equipmentDescrible" class="form-control" formControlName="equipmentDescrible"> -->
+              </td>
+              <td>
+                <button mdbBtn class="btn-danger" size="sm" (click)="deleteRow(i)" mdbWavesEffect>Xóa</button>
+                <button mdbBtn class="btn-primary" size="sm" [disabled]="eqmTable.invalid"
+                  (click)="doneRow(group)" mdbWavesEffect>Lưu</button>
+              </td>
+            </tr>
+            <tr *ngIf="!group.get('isEditable').value">
+              <td>
+                {{group.get('name').value}}
+              </td>
+              <td>
+                {{group.get('quantity').value}}
+              </td>
+              <td>
+                {{group.get('priceEq').value}}
+              </td>
+              <td>
+                {{group.get('likeNew').value}}
+              </td>
+              <td>
+                {{group.get('equipmentDescrible').value}}
+              </td>
+              <td>
+                <button mdbBtn class="btn-warning" size="sm" (click)="editRow(group)"
+                  mdbWavesEffect>Sửa</button>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+      <div class="action-container">
+        <button mdbBtn class="btn-success mx-auto" size="sm" [disabled]="eqmTable.invalid" (click)="addRow()"
+          mdbWavesEffect>Thêm</button>
+      </div>
+    </form>
+    <hr>
+  </mdb-card-body>
+</mdb-card>

@@ -1,3 +1,4 @@
+import { Common } from './../../class/common';
 import { PlaceService } from './../../places/service/place.service';
 import { UserService } from './../service/user.service';
 import { ActivatedRoute } from '@angular/router';
@@ -132,7 +133,7 @@ export class SellerPostEditComponent implements OnInit, AfterViewInit {
 
 
   mapReady($event: any) {
-    this.zoom = 17
+    this.zoom = Common.ZOOM
     let placeService = new google.maps.places.PlacesService($event);
     placeService.getDetails({
       placeId: "ChIJbcDqcsCrNTER1efSKj4epwA"
@@ -173,7 +174,7 @@ export class SellerPostEditComponent implements OnInit, AfterViewInit {
           //set latitude, longitude and zoom
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
-          this.zoom = 17;
+          this.zoom = Common.ZOOM;
         });
       });
     });
@@ -185,7 +186,7 @@ export class SellerPostEditComponent implements OnInit, AfterViewInit {
   //     navigator.geolocation.getCurrentPosition((position) => {
   //       this.latitude = position.coords.latitude;
   //       this.longitude = position.coords.longitude;
-  //       this.zoom = 17;
+  //       this.zoom = Common.ZOOM;
   //     });
   //   }
   // }
@@ -199,7 +200,7 @@ export class SellerPostEditComponent implements OnInit, AfterViewInit {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
       if (status === 'OK') {
         if (results[0]) {
-          this.zoom = 17;
+          this.zoom = Common.ZOOM;
           this.address = results[0].formatted_address
           this.searchElementRef.nativeElement.value = this.address
         } else {
@@ -328,7 +329,7 @@ export class SellerPostEditComponent implements OnInit, AfterViewInit {
     this.setStreetID([])
     this.latitude = +this.districtID.value.districtLatitude
     this.longitude = +this.districtID.value.districtLongitude
-    this.zoom = 17;
+    this.zoom = Common.ZOOM;
     this.placeService.getWardIDByDistrictID(this.districtID.value.id).subscribe(
       data => {
         this.wards = data
@@ -344,7 +345,7 @@ export class SellerPostEditComponent implements OnInit, AfterViewInit {
   onWardChange() {
     this.latitude = +this.wardID.value.wardLatitude
     this.longitude = +this.wardID.value.wardLongtitude
-    this.zoom = 17;
+    this.zoom = Common.ZOOM;
   }
 
   updateAddress() {

@@ -25,7 +25,7 @@
 
           <!--Card-->
           <div class="card">
-            <a (click)="placeDetail(place.placeID)">
+            <a (click)="sharedService.placeDetail(place.placeID)">
               <!--Card image-->
               <div class="view overlay" style="height: 250px;">
                 <div class="view "
@@ -58,12 +58,13 @@
     <ng-template #map>
       <agm-map style="height: 600px;" [latitude]="location.latitude" [longitude]="location.longitude"
         [zoom]="location.zoom">
-        <agm-marker (markerClick)="clickedMarker(infowindow)" *ngFor="let place of location?.markers"
+        <ng-container *ngFor="let place of location?.markers">
+          <agm-marker (markerClick)="clickedMarker(infowindow)" 
           [latitude]="place?.latitude" [longitude]="place?.longtitude">
           <agm-info-window #infowindow>
             <!--Card-->
             <div class="card" style="width: 300px;">
-              <a (click)="placeDetail(place.placeID)">
+              <a (click)="sharedService.placeDetail(place.placeID)">
                 <!--Card image-->
                 <div class="view overlay" style="height: 200px;">
                   <div class="view "
@@ -87,6 +88,7 @@
             <!--/.Card-->
           </agm-info-window>
         </agm-marker>
+        </ng-container>
       </agm-map>
 
     </ng-template>
@@ -123,5 +125,4 @@
   $('li').click(function () {
     $(this).addClass('active').siblings().removeClass('active');
   });
-
 </script>

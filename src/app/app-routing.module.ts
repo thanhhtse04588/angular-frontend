@@ -1,3 +1,4 @@
+import { RenterContractComponent } from './user/renter-contract/renter-contract.component';
 import { RenterOrderComponent } from './user/renter-order/renter-order.component';
 import { PlaceManageComponent } from './admin/place-manage/place-manage.component';
 import { SellerRentedComponent } from './user/seller-rented/seller-rented.component';
@@ -59,6 +60,7 @@ const routes: Routes = [
         children: [
           { path: '', redirectTo: 'order', pathMatch: 'full' },
           { path: 'order', component: RenterOrderComponent, canActivate: [AuthGaurdService] },
+          { path: 'contract', component: RenterContractComponent, canActivate: [AuthGaurdService] },
         ]
       }
     ]

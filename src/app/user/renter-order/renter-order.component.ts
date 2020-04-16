@@ -1,3 +1,4 @@
+import { SharedService } from './../../shared/shared.service';
 import { Validators } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
@@ -21,7 +22,7 @@ export class RenterOrderComponent implements OnInit, OnDestroy {
   //edit
   editOrderForm: FormGroup;
   constructor(private userService: UserService,
-    private adminService: AdminService) { }
+    private adminService: AdminService,public sharedService:SharedService) { }
 
   ngOnInit() {
     this.reload();
@@ -45,9 +46,36 @@ export class RenterOrderComponent implements OnInit, OnDestroy {
         this.orders = data;
       }));
   }
+  statusOrderColor(id){
+    switch (id) {
+      case OrderStatus.DEAL: return "orange";
+      case OrderStatus.CONSIDER: return "purple";
+      case OrderStatus.PENDING: return "cyan";
+      case OrderStatus.REJECT: return "grey";
+      case OrderStatus.APPROVE: return "green";
+      default: return "grey";
+    }
+  }
 
-  isOrderPending(status: number) {
-    return status == OrderStatus.PENDING;
+  isInProcess(status: number){
+    return [OrderStatus.PENDING,OrderStatus.CONSIDER].includes(status);
+  }
+  isDeal(status: number) {
+    return status == OrderStatus.DEAL;
+  }
+
+  // statusPlaceColor(id) {
+  //   switch (id) {
+  //     case PlaceStatus.ACTIVE: return "green";
+  //     case PlaceStatus.PENDING: return "orange";
+  //     case PlaceStatus.CHECKING: return "cyan";
+  //     case PlaceStatus.CANCEL: return "grey";
+  //     default: return "grey";
+  //   }
+  // }
+  
+  onDeal(){
+
   }
 
   onReject() {
@@ -100,7 +128,6 @@ interface Order {
   email: string;
   phoneNumber: string;
   message: string;
-
   title: string;
   placeStatus: string;
   orderStatus: string;

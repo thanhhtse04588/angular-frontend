@@ -1,3 +1,4 @@
+import { SharedService } from './../../shared/shared.service';
 
 
 import { Component, OnInit } from '@angular/core';
@@ -13,19 +14,13 @@ import { Router } from '@angular/router';
 })
 export class PlaceHomeComponent implements OnInit {
   places: Observable<PlaceQuickView[]>;
-  constructor(private placeService: PlaceService,
-    private router: Router) { 
+  constructor(private placeService: PlaceService,public sharedService: SharedService) { 
     }
 
   ngOnInit(): void {
     this.placeService.getPlacesTop6List().subscribe(
       data=> this.places=data
     );
-  }
-
-  placeDetail(id: number) {
-    sessionStorage.setItem("placeID",id.toString())
-    this.router.navigate(['places/detail']);
   }
 
   shortTitle(title) {

@@ -2,11 +2,11 @@
   <div class="container">
         <div class="row mb-4">
           <mdb-card>
-            <mdb-card-body class="p-5">
+            <mdb-card-header class="text-center">
+              <div class="h3">{{place.title}}</div>
+            </mdb-card-header>
+            <mdb-card-body class="px-5 pb-5">
               <mdb-card-title class="text-center">
-                <h3>
-                  <strong>{{place.title}}</strong>
-                </h3>
                 <h5>
                   <span>Loại: <strong>{{place.roleOfPlace}}</strong></span>
                   <span>Giá: <strong>{{place.price| number}} vnđ/tháng</strong></span>
@@ -23,7 +23,7 @@
                   </div>
                   
                   <ng-template #statusPlace>
-                    <h4>Trạng thái: <strong class="text-danger">{{place.statusPlace}}</strong></h4>
+                    <h4 class="my-3">Trạng thái: <strong class="text-danger">{{place.statusPlace}}</strong></h4>
                   </ng-template>
 
                 </div>
@@ -92,6 +92,31 @@
                 <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
               </div>
             </mdb-card-text>
+
+            <mdb-card-text>
+              <h5><strong>Thông tin phí dịch vụ sinh hoạt</strong></h5>
+            <div mdbTable bordered="true" hover="true" >
+              <table mat-table [dataSource]="dataCost">
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="costName">
+                  <th *matHeaderCellDef> Tên dịch vụ  </th>
+                  <td *matCellDef="let element"> {{element.costName|| ""}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="costPrice">
+                  <th *matHeaderCellDef> Đơn giá</th>
+                  <td *matCellDef="let element"> {{element.costPrice|| ""}} </td>
+                </ng-container>
+
+
+                <tr mdbTableCol mat-header-row *matHeaderRowDef="costColumns"></tr>
+                <tr mdbTableCol mat-row *matRowDef="let row; columns: costColumns;"></tr>
+              </table>
+              <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+            </div>
+          </mdb-card-text>
 
             </mdb-card-body>
           </mdb-card>

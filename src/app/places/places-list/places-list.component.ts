@@ -1,3 +1,5 @@
+import { SharedService } from './../../shared/shared.service';
+import { Common } from './../../class/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from "rxjs";
@@ -20,11 +22,11 @@ export class PlacesListComponent implements OnInit {
   PAGE_DEFAULT = 0;
   showMap = false;
   location: Location;
-  zoom = 20;
+  zoom = Common.ZOOM;
   previous;
 
   constructor(private searchService: SearchBarService,
-    private router: Router, private route: ActivatedRoute, ) {
+    private router: Router,public sharedService:SharedService ) {
     this.paging = new Paging();
   }
 
@@ -89,16 +91,11 @@ export class PlacesListComponent implements OnInit {
     return title.substring(0, 65);
   }
 
-  reloadCurrentRoute(currentUrl: string, data: any) {
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentUrl, data])
-    })
-  }
-
-  placeDetail(id: number) {
-    sessionStorage.setItem("placeID", id.toString())
-    this.router.navigate(['places/detail']);
-  }
+  // reloadCurrentRoute(currentUrl: string, data: any) {
+  //   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+  //     this.router.navigate([currentUrl, data])
+  //   })
+  // }
 }
 
 interface Location {

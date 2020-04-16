@@ -1,3 +1,7 @@
+import { EquipmentComponent } from './places/place-post/equipment/equipment.component';
+import { CostLivingComponent } from './places/place-post/cost-living/cost-living.component';
+import { PaypalButtonComponent } from './shared/paypal-button/paypal-button.component';
+import { RenterContractComponent } from './user/renter-contract/renter-contract.component';
 import { RenterOrderComponent } from './user/renter-order/renter-order.component';
 import { RenterMenuComponent } from './user/renter-menu/renter-menu.component';
 import { PlaceManageComponent } from './admin/place-manage/place-manage.component';
@@ -72,6 +76,8 @@ import { OrderComponent } from './places/place-detail/order/order.component';
       ErrorPageComponent,
       NotFoundComponent,
       PlacePostComponent,
+      CostLivingComponent,
+      EquipmentComponent,
       UploadComponent,
       LoginComponent,
       RegisterComponent,
@@ -82,6 +88,7 @@ import { OrderComponent } from './places/place-detail/order/order.component';
       SellerRentedComponent,
       RenterMenuComponent,
       RenterOrderComponent,
+      RenterContractComponent,
       PlacesComponent,
       UserComponent,
       AdminComponent,
@@ -89,6 +96,7 @@ import { OrderComponent } from './places/place-detail/order/order.component';
       CheckingListComponent,
       DashboardComponent,
       OrderListComponent,
+      PaypalButtonComponent
       
 
     

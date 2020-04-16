@@ -1,3 +1,4 @@
+import { SharedService } from './../../shared/shared.service';
 
 import { PlaceStatus } from './../../class/common';
 import { Router } from '@angular/router';
@@ -26,7 +27,7 @@ export class SellerManageComponent implements OnInit, OnDestroy {
   statusSelected: any;
 
   constructor(private userService: UserService,
-    private router: Router) { 
+    private router: Router, public sharedService: SharedService) { 
       this.statusSelected=  this.statusSelects[0].id;
     }
     
@@ -65,10 +66,6 @@ export class SellerManageComponent implements OnInit, OnDestroy {
       case PlaceStatus.CANCEL: return "grey";
       default: return "grey";
     }
-  }
-  placeDetail(id: number) {
-    sessionStorage.setItem("placeID",id.toString())
-    this.router.navigate(['places/detail']);
   }
 
   edit() {

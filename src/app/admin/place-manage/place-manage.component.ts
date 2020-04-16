@@ -1,3 +1,4 @@
+import { SharedService } from './../../shared/shared.service';
 import { Router } from '@angular/router';
 import { UserService } from './../../user/service/user.service';
 import { PlaceStatus, BookingStatus } from './../../class/common';
@@ -24,17 +25,13 @@ export class PlaceManageComponent implements OnInit, OnDestroy {
   id: number;
   constructor(private adminService: AdminService,
      private userService: UserService,
-     private router: Router) {
+     public sharedService:SharedService) {
   }
 
   ngOnInit() {
     this.reload()
   }
   
-  placeDetail(id: number) {
-    sessionStorage.setItem("placeID",id.toString())
-    this.router.navigate(['places/detail']);
-  }
   reload() {
     this.subs.add(this.adminService.getAllPlace().subscribe(
       data => {

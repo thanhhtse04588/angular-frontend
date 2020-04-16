@@ -4,13 +4,12 @@ import { PaymentService } from './../../service/payment.service';
 import { AuthenticationService } from './../../../index/service/authentication.service';
 import { InsertedOrderForm } from '../../../class/inserted-order-form';
 import { UserService } from './../../../user/service/user.service';
-import { Observable, Subscription } from 'rxjs';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { formatDate, Location } from "@angular/common";
 import { Payment } from 'src/app/class/Payment';
 import { ElementRef, Component, OnInit, ViewChild, OnDestroy, Input } from '@angular/core';
-
 declare var paypal;
 
 @Component({
@@ -19,7 +18,6 @@ declare var paypal;
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit, OnDestroy {
-  id: number;
   private subs = new Subscription();
   orderForm: InsertedOrderForm
   requestOrderForm: FormGroup
@@ -27,7 +25,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
   product;
   paidFor = false;
-  payment: Payment
+  payment: Payment;
 
   constructor(private route: ActivatedRoute,
     private userService: UserService,
@@ -45,8 +43,6 @@ export class OrderComponent implements OnInit, OnDestroy {
 
     this.paypalOnInit();
     this.ngOnInitOrderForm();
-
-this.id = +sessionStorage.getItem("placeID");
   }
 
   paypalOnInit() {
@@ -76,7 +72,7 @@ this.id = +sessionStorage.getItem("placeID");
           this.paidFor = true;
           alert("Thanh toán phí dịch vụ thành công! Mời bạn tiếp tục")
           this.payment = new Payment()
-          this.payment.placeID = this.id
+          this.payment.placeID = +sessionStorage.getItem("placeID");
           this.payment.userID = +sessionStorage.getItem("userID")
           this.payment.orderID = data.orderID
           this.payment.payerID = data.payerID
@@ -92,7 +88,7 @@ this.id = +sessionStorage.getItem("placeID");
       })
       .render(this.paypalElement.nativeElement);
   }
-  
+
   // Liên hệ ngay
   ngOnInitOrderForm() {
     this.requestOrderForm = new FormGroup({
@@ -113,7 +109,7 @@ this.id = +sessionStorage.getItem("placeID");
     this.orderForm = new InsertedOrderForm()
 
     this.orderForm.ordererID = + sessionStorage.getItem("userID");
-    this.orderForm.placeID = this.id;
+    this.orderForm.placeID = +sessionStorage.getItem("placeID");
     this.orderForm.name = this.name.value;
     this.orderForm.phoneNumber = this.phoneNumber.value;
     this.orderForm.email = this.email.value;

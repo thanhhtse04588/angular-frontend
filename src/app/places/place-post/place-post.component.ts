@@ -1,21 +1,25 @@
+import { EquipmentComponent } from './equipment/equipment.component';
+import { CostLivingComponent } from './cost-living/cost-living.component';
+import { Common } from './../../class/common';
 
 import { AuthenticationService } from './../../index/service/authentication.service';
 import { PlacePostForm } from './../../class/place-post-form';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray, AbstractControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { DistrictDB, WardDB, StreetDB } from './../../class/district-db';
 import { RoleOfPlace } from './../../class/role-of-place';
 import { Router } from '@angular/router';
 import { PlaceService } from './../service/place.service';
 import { SearchBarService } from 'src/app/index/service/search-bar.service';
-import { Component, OnInit, ViewChild, ElementRef, NgZone, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, AfterViewInit, OnDestroy } from '@angular/core';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 @Component({
   selector: 'app-place-post',
   templateUrl: './place-post.component.html',
   styleUrls: ['./place-post.component.css']
 })
-export class PlacePostComponent implements OnInit, AfterViewInit {
+export class PlacePostComponent implements OnInit, AfterViewInit,OnDestroy {
+  private subs = new Subscription();
   roleOfPlaces: Observable<RoleOfPlace>
   districts: Observable<DistrictDB>
   postPlaceForm: PlacePostForm
@@ -23,11 +27,13 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
   wards: Observable<WardDB>
   streets: Observable<StreetDB>
   formatPrice: any
-  // table edit
-  eqmTable: FormGroup;
-  control: FormArray;
-  mode: boolean;
-  touchedRows: any;
+    // Equipment
+    @ViewChild(EquipmentComponent)
+    private equipComponent: EquipmentComponent;
+  // cost of living
+  @ViewChild(CostLivingComponent)
+  private costComponent: CostLivingComponent;
+
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
@@ -57,11 +63,10 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
 
     this.postPlaceForm = new PlacePostForm()
     this.roleOfPlaces = this.searchService.getAllRole()
-    this.searchService.getAllStatistic().subscribe(
+    this.subs.add(this.searchService.getAllStatistic().subscribe(
       data => this.districts = data
-    )
+    ))
 
-    this.ngTableOnInit()
     this.form = new FormGroup({
       title: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]),
       roleOfPlaceID: new FormControl('', [Validators.required]),
@@ -70,7 +75,7 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
       streetID: new FormControl('', [Validators.required]),
       area: new FormControl('', [Validators.required]),
       price: new FormControl('', [Validators.required]),
-      descriptions: new FormControl('', [Validators.required,Validators.minLength(30), Validators.maxLength(3000)]),
+      descriptions: new FormControl('', [Validators.required, Validators.minLength(30), Validators.maxLength(3000)]),
       frontispiece: new FormControl(''),
       homeDirection: new FormControl(''),
       numberFloors: new FormControl(''),
@@ -78,8 +83,8 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
       numberToilets: new FormControl(''),
       contactName: new FormControl('', [Validators.required]),
       contactAddress: new FormControl('', Validators.maxLength(100)),
-      phoneNumber: new FormControl('', [Validators.required,Validators.pattern("((\\+91-?)|0)?[0-9]*")]),
-      email: new FormControl('', [Validators.email,Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]),
+      phoneNumber: new FormControl('', [Validators.required, Validators.pattern("((\\+91-?)|0)?[0-9]*")]),
+      email: new FormControl('', [Validators.email, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]),
       checkingDate: new FormControl('', [this.date]),
     })
   }
@@ -94,7 +99,7 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
   }
 
   mapReady($event: any) {
-    this.zoom = 17
+    this.zoom = Common.ZOOM
     let placeService = new google.maps.places.PlacesService($event);
     placeService.getDetails({
       placeId: "ChIJbcDqcsCrNTER1efSKj4epwA"
@@ -135,7 +140,7 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
           //set latitude, longitude and zoom
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
-          this.zoom = 17;
+          this.zoom = Common.ZOOM;
         });
       });
     });
@@ -161,7 +166,7 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
       if (status === 'OK') {
         if (results[0]) {
-          this.zoom = 17;
+          this.zoom = Common.ZOOM;
           this.address = results[0].formatted_address
           this.searchElementRef.nativeElement.value = this.address
         } else {
@@ -175,69 +180,13 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
   }
 
   //upload img
-  uploadHandler(event){
-    if(event !== null){
+  uploadHandler(event) {
+    if (event !== null) {
       this.imageUploaded = event.imageUploaded
       this.isDoneUpload = event.isDoneUpload
     }
   }
 
-  // table equiment
-  ngAfterOnInit() {
-    this.control = this.eqmTable.get('tableRows') as FormArray;
-  }
-
-  initiateForm(): FormGroup {
-    return this.fb.group({
-      name: ['', Validators.required],
-      quantity: ['', [Validators.required]],
-      priceEq: ['', [Validators.required]],
-      likeNew: [''],
-      equipmentDescrible: ['', [Validators.maxLength(100)]],
-      isEditable: [true]
-    });
-  }
-
-
-  ngTableOnInit(): void {
-    this.touchedRows = [];
-    this.eqmTable = this.fb.group({
-      tableRows: this.fb.array([])
-    });
-    this.addRow();
-  }
-
-  addRow() {
-    const control = this.eqmTable.get('tableRows') as FormArray;
-    control.push(this.initiateForm());
-  }
-
-  deleteRow(index: number) {
-    const control = this.eqmTable.get('tableRows') as FormArray;
-    control.removeAt(index);
-  }
-
-  editRow(group: FormGroup) {
-    group.get('isEditable').setValue(true);
-  }
-
-  doneRow(group: FormGroup) {
-    group.get('isEditable').setValue(false);
-  }
-
-  get getFormControls() {
-    const control = this.eqmTable.get('tableRows') as FormArray;
-    return control;
-  }
-
-  submitForm() {
-    const control = this.eqmTable.get('tableRows') as FormArray;
-    this.touchedRows = control.controls.filter(row => row.touched).map(row => row.value);
-  }
-
-  toggleTheme() {
-    this.mode = !this.mode;
-  }
 
   // main fucntion
   postPlace() {
@@ -261,8 +210,8 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
     this.postPlaceForm.numberBedrooms = this.numberBedrooms.value
     this.postPlaceForm.numberToilets = this.numberToilets.value
 
-    this.postPlaceForm.listEquip = this.eqmTable.get('tableRows').value
-
+    this.postPlaceForm.listEquip = this.equipComponent.getEquipTable()
+    this.postPlaceForm.listCost = this.costComponent.getCostOfLivingTable()
     this.postPlaceForm.listImageLink = this.imageUploaded
 
     this.postPlaceForm.contactName = this.contactName.value
@@ -270,15 +219,15 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
     this.postPlaceForm.phoneNumber = this.phoneNumber.value.toString()
     this.postPlaceForm.email = this.email.value
     this.postPlaceForm.checkingDate = this.checkingDate.value
-    this.placeService.insertPlace(this.postPlaceForm).subscribe(
+    this.subs.add(this.placeService.insertPlace(this.postPlaceForm).subscribe(
       data => {
         if (data) {
-          this.router.navigate(["user/seller/post-manage"])
-          alert("Yêu cầu đăng tin thành công, chúng tôi sẽ sớm liên hệ với bạn !")
+          this.router.navigate(["user/seller/post-manage"]);
+          alert("Yêu cầu đăng tin thành công, chúng tôi sẽ sớm liên hệ với bạn !");
         }
         else { alert("Đã có lỗi xảy ra! Yêu cầu đăng tin không thành công") }
       }
-    )
+    ))
   }
 
   onDistrictChange() {
@@ -288,30 +237,30 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
     this.setStreetID([])
     this.latitude = +this.districtID.value.districtLatitude
     this.longitude = +this.districtID.value.districtLongitude
-    this.zoom = 17;
-    this.placeService.getWardIDByDistrictID(this.districtID.value.id).subscribe(
+    this.zoom = Common.ZOOM;
+    this.subs.add(this.placeService.getWardIDByDistrictID(this.districtID.value.id).subscribe(
       data => {
         this.wards = data
       }
-    )
-    this.placeService.getStreetIDByDistrictID(this.districtID.value.id).subscribe(
+    ))
+    this.subs.add(this.placeService.getStreetIDByDistrictID(this.districtID.value.id).subscribe(
       data => {
         this.streets = data
       }
-    )
+    ))
   }
 
-  onWardChange(){
+  onWardChange() {
     this.latitude = +this.wardID.value.wardLatitude
     this.longitude = +this.wardID.value.wardLongtitude
-    this.zoom = 17;
+    this.zoom = Common.ZOOM;
   }
 
   updateAddress() {
     this.searchElementRef.nativeElement.value =
       (this.streetID.value.streetName == null ? "" : this.streetID.value.streetName.trim()) +
-        " " + (this.wardID.value.wardName == null ? "" : this.wardID.value.wardName.trim()) +
-          " " + (this.districtID.value.district == null ? "" : this.districtID.value.district.trim())
+      " " + (this.wardID.value.wardName == null ? "" : this.wardID.value.wardName.trim()) +
+      " " + (this.districtID.value.district == null ? "" : this.districtID.value.district.trim())
   }
 
   get title() {
@@ -379,5 +328,7 @@ export class PlacePostComponent implements OnInit, AfterViewInit {
     this.form.patchValue({ "streetID": param })
   }
 
-
+ngOnDestroy(){
+  this.subs.unsubscribe();
+}
 }
