@@ -1,107 +1,157 @@
 <!--Main layout-->
-  <div class="container">
+<div class="container">
+  <div class="row mb-4">
+    <mdb-card>
+      <mdb-card-header class="text-center">
+        <div class="h3">{{place.title}}</div>
+      </mdb-card-header>
+      <mdb-card-body class="px-5 pb-5">
+        <mdb-card-title class="text-center">
+          <h5>
+            <span>Loại: <strong>{{place.roleOfPlace}}</strong></span>
+            <span>Giá: <strong>{{place.price| number}} vnđ/tháng</strong></span>
+            <span>Diện tích: <strong>{{place.area}} m²</strong></span>
+            <span>Khu vực: <strong>{{place.district}}</strong></span>
+          </h5>
+          <div class="mx-auto ">
+            <div *ngIf="isActive(place.statusPlaceID);else statusPlace">
+              <button mdbBtn [routerLink]="['/places/order']" [disabled]="!loginService.isUserLoggedIn()" color="danger"
+                class="btn-lg" mdbWavesEffect>
+                Đặt lịch xem nhà
+              </button>
+              <p class="text-danger">Hiện tại đang có <strong>{{orderCount|| '0'}}</strong> người đăng ký xem nhà này
+              </p>
+            </div>
+
+            <ng-template #statusPlace>
+              <h4 class="my-3">Trạng thái: <strong class="text-danger">{{place.statusPlace}}</strong></h4>
+            </ng-template>
+
+          </div>
+          <div *ngIf="!loginService.isUserLoggedIn()" class="alert alert-warning" role="alert">
+            Bạn cần <a routerLink="/user/login" routerLinkActive="active">đăng nhập</a> để sử dụng
+          </div>
+          <h4><strong>Thông tin chi tiết</strong></h4>
+        </mdb-card-title>
+        <div class="row">
+          <mdb-card-text class="col-md">
+            <h5><strong>Địa chỉ:</strong></h5>
+            <p>{{place.address}}</p>
+            <h5><strong>Tiện ích:</strong></h5>
+            <ul>
+              <li>Phòng ngủ :{{place.bedRooms|| ""}} phòng</li>
+              <li>Vệ sinh :{{place.toilets|| ""}} phòng </li>
+              <li>Tầm nhìn :{{place.counterView|| ""}} </li>
+              <li>Mặt đường :{{place.frontispiece|| ""}} m2 </li>
+              <li>Hướng nhà :{{place.homeDirection|| ""}} </li>
+            </ul>
+          </mdb-card-text>
+          <mdb-card-text class="col-md">
+            <h5><strong>Thông tin mô tả</strong></h5>
+            <p>{{place.description}}</p>
+          </mdb-card-text>
+        </div>
+
         <div class="row mb-4">
-          <mdb-card>
-            <mdb-card-header class="text-center">
-              <div class="h3">{{place.title}}</div>
-            </mdb-card-header>
-            <mdb-card-body class="px-5 pb-5">
-              <mdb-card-title class="text-center">
-                <h5>
-                  <span>Loại: <strong>{{place.roleOfPlace}}</strong></span>
-                  <span>Giá: <strong>{{place.price| number}} vnđ/tháng</strong></span>
-                  <span>Diện tích: <strong>{{place.area}} m²</strong></span>
-                  <span>Khu vực: <strong>{{place.district}}</strong></span>
-                </h5>
-                <div class="mx-auto ">
-                  <div *ngIf="isActive(place.statusPlaceID);else statusPlace">
-                    <button mdbBtn [routerLink]="['/places/order']"  [disabled]="!loginService.isUserLoggedIn()"
-                     color="danger" class="btn-lg"  mdbWavesEffect>
-                    Đặt lịch xem nhà
-                  </button>
-                    <p class="text-danger">Hiện tại đang có <strong>{{orderCount|| '0'}}</strong> người đăng ký xem nhà này</p>
+          <div class="col-md-12">
+            <mdb-card>
+              <div class="container mt-3">
+                <ul class="nav nav-tabs">
+                  <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#imagesPlace"> <h6><strong>Hình ảnh mô tả</strong></h6></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#onMap"> <h6><strong>Vị trí bất động sản trên bản đồ</strong></h6></a>
+                  </li>
+                </ul>
+                <div class="tab-content ">
+                  <div id="imagesPlace" class="container tab-pane active"  style="height: 620px;">
+                      <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel" style="height: 620px;">
+                        <div class="carousel-inner" role="listbox">
+                          <div class="carousel-item active">
+                            <div class="view">
+                              <img style="height: 600px" class="d-block mx-auto" src="{{place.imageLarge}}">
+                            </div>
+                          </div>
+                          <div *ngFor="let img of place.listImage" class="carousel-item">
+                            <img style="height: 600px" class="d-block mx-auto" src="{{img}}">
+                          </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Next</span>
+                        </a>
+                      </div>
                   </div>
-                  
-                  <ng-template #statusPlace>
-                    <h4 class="my-3">Trạng thái: <strong class="text-danger">{{place.statusPlace}}</strong></h4>
-                  </ng-template>
 
+                  <div id="onMap" class="container tab-pane fade" style="height: 620px;">
+                    <agm-map style="height: 600px;" [longitude]="location?.longitude" [latitude]="location?.latitude" [zoom]="location.zoom">
+                      <agm-marker [longitude]="location?.marker?.lng" [latitude]="location?.marker?.lat">
+                      </agm-marker>
+                    </agm-map>
+                  </div>
                 </div>
-                <div *ngIf="!loginService.isUserLoggedIn()" class="alert alert-warning" role="alert">
-                  Bạn cần <a routerLink="/user/login" routerLinkActive="active">đăng nhập</a> để sử dụng
-                </div>
-                <h4><strong>Thông tin chi tiết</strong></h4>
-              </mdb-card-title>
-              <div class="row">
-                <mdb-card-text class="col-md">
-                  <h5><strong>Địa chỉ:</strong></h5>
-                  <p>{{place.address}}</p>
-                  <h5><strong>Tiện ích:</strong></h5>
-                  <ul>
-                    <li>Phòng ngủ :{{place.bedRooms|| ""}} phòng</li>
-                    <li>Vệ sinh :{{place.toilets|| ""}} phòng </li>
-                    <li>Tầm nhìn :{{place.counterView|| ""}} </li>
-                    <li>Mặt đường :{{place.frontispiece|| ""}} m2 </li>
-                    <li>Hướng nhà :{{place.homeDirection|| ""}} </li>
-                  </ul>
-                </mdb-card-text>
-                <mdb-card-text class="col-md">
-                  <h5><strong>Thông tin mô tả</strong></h5>
-                  <p>{{place.description}}</p>
-                </mdb-card-text>
               </div>
+            </mdb-card>
+          </div>
+        </div>
 
+        <div class="row">
 
-              <mdb-card-text *ngIf="place.listEquip?.length>0">
-                <h5><strong>Thông tin nội thất</strong></h5>
-              <div mdbTable bordered="true" hover="true" >
-                <table mat-table [dataSource]="dataSource">
+          <mdb-card-text class="col" *ngIf="place.listEquip?.length>0">
+            <h5><strong>Thông tin nội thất</strong></h5>
+            <div mdbTable bordered="true" hover="true">
+              <table mat-table [dataSource]="dataSource">
 
-                  <!-- Position Column -->
-                  <ng-container matColumnDef="name">
-                    <th *matHeaderCellDef> Tên nội thất  </th>
-                    <td *matCellDef="let element"> {{element.name}} </td>
-                  </ng-container>
+                <!-- Position Column -->
+                <ng-container matColumnDef="name">
+                  <th *matHeaderCellDef> Tên nội thất </th>
+                  <td *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
 
-                  <!-- Name Column -->
-                  <ng-container matColumnDef="quantity">
-                    <th *matHeaderCellDef> Số lượng</th>
-                    <td *matCellDef="let element"> {{element.quantity}} </td>
-                  </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="quantity">
+                  <th *matHeaderCellDef> Số lượng</th>
+                  <td *matCellDef="let element"> {{element.quantity}} </td>
+                </ng-container>
 
-                  <!-- Weight Column -->
-                  <ng-container matColumnDef="price">
-                    <th *matHeaderCellDef> Giá(vnđ) </th>
-                    <td *matCellDef="let element"> {{element.price}} </td>
-                  </ng-container>
+                <!-- Weight Column -->
+                <ng-container matColumnDef="price">
+                  <th *matHeaderCellDef> Giá(vnđ) </th>
+                  <td *matCellDef="let element"> {{element.price}} </td>
+                </ng-container>
 
-                  <!-- Symbol Column -->
-                  <ng-container matColumnDef="likeNew">
-                    <th *matHeaderCellDef> Độ mới</th>
-                    <td *matCellDef="let element"> {{element.likeNew}} </td>
-                  </ng-container>
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="likeNew">
+                  <th *matHeaderCellDef> Độ mới</th>
+                  <td *matCellDef="let element"> {{element.likeNew}} </td>
+                </ng-container>
 
-                  <!-- Symbol Column -->
-                  <ng-container matColumnDef="equipmentDescrible">
-                    <th *matHeaderCellDef> Mô tả </th>
-                    <td *matCellDef="let element"> {{element.equipmentDescrible}} </td>
-                  </ng-container>
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="equipmentDescrible">
+                  <th *matHeaderCellDef> Mô tả </th>
+                  <td *matCellDef="let element"> {{element.equipmentDescrible}} </td>
+                </ng-container>
 
-                  <tr mdbTableCol mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                  <tr mdbTableCol mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
-                <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
-              </div>
-            </mdb-card-text>
+                <tr mdbTableCol mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mdbTableCol mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+              <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+            </div>
+          </mdb-card-text>
 
-            <mdb-card-text *ngIf="place.listCost?.length>0">
-              <h5><strong>Thông tin phí dịch vụ sinh hoạt</strong></h5>
-            <div mdbTable bordered="true" hover="true" >
+          <mdb-card-text class="col" *ngIf="place.listCost?.length>0">
+            <h5><strong>Thông tin phí dịch vụ sinh hoạt</strong></h5>
+            <div mdbTable bordered="true" hover="true">
               <table mat-table [dataSource]="dataCost">
 
                 <!-- Position Column -->
                 <ng-container matColumnDef="costName">
-                  <th *matHeaderCellDef> Tên dịch vụ  </th>
+                  <th *matHeaderCellDef> Tên dịch vụ </th>
                   <td *matCellDef="let element"> {{element.costName}} </td>
                 </ng-container>
 
@@ -119,60 +169,54 @@
             </div>
           </mdb-card-text>
 
-            </mdb-card-body>
-          </mdb-card>
         </div>
 
-      <!--Grid row-->
-      <div class="row">
-        <div class="col-md-6 ">
-          <div class="view overlay rounded z-depth-1 text-center">
-            <h5 class="my-3" ><strong>Hình ảnh mô tả</strong></h5>
-            <!--Carousel Wrapper-->
-            <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
-              <!--Slides-->
-              <div class="carousel-inner" role="listbox">
-                <!--First slide-->
-                <div class="carousel-item active">
-                  <div style="height: 600px;" class="view "
-                    style="background-image: url({{place.imageLarge}}); background-repeat: no-repeat; background-size: cover;">
-                  </div>
-                </div>
-                <!--/First slide-->
+      </mdb-card-body>
+    </mdb-card>
+  </div>
 
-                <div *ngFor="let img of place.listImage" class="carousel-item">
-                  <div class="view"
-                    style="background-image: url({{img}}); background-repeat: no-repeat; background-size: cover;">
-                  </div>
-                </div>
+  <!-- <div class="row">
+    <div class="col-md-6 ">
+      <div class="view overlay rounded z-depth-1 text-center">
+        <h5 class="my-3"><strong>Hình ảnh mô tả</strong></h5>
+        <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+          <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+              <div style="height: 600px;" class="view "
+                style="background-image: url({{place.imageLarge}}); background-repeat: no-repeat; background-size: cover;">
               </div>
+            </div>
 
-              <!--/.Slides-->
-              <!--Controls-->
-              <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
-              <!--/.Controls-->
+            <div *ngFor="let img of place.listImage" class="carousel-item">
+              <div class="view"
+                style="background-image: url({{img}}); background-repeat: no-repeat; background-size: cover;">
+              </div>
             </div>
           </div>
-          <!--/.Carousel Wrapper-->
-        </div>
-        <div class="col-md-6">
-          <div class="view overlay rounded z-depth-1 text-center">
-            <h5 class="my-3"><strong>Vị trí bất động sản trên bản đồ</strong></h5>
-            <agm-map style="height: 600px;" [longitude]="location?.longitude" [latitude]="location?.latitude" [zoom]="location.zoom">
-              <agm-marker [longitude]="location?.marker?.lng" [latitude]="location?.marker?.lat">
-              </agm-marker>
-            </agm-map>
-          </div>
+
+          <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
         </div>
       </div>
-  </div>
+    </div>
+    <div class="col-md-6">
+      <div class="view overlay rounded z-depth-1 text-center">
+        <h5 class="my-3"><strong>Vị trí bất động sản trên bản đồ</strong></h5>
+        <agm-map style="height: 600px;" [longitude]="location?.longitude" [latitude]="location?.latitude"
+          [zoom]="location.zoom">
+          <agm-marker [longitude]="location?.marker?.lng" [latitude]="location?.marker?.lat">
+          </agm-marker>
+        </agm-map>
+      </div>
+    </div>
+  </div> -->
+</div>
 
 
 
