@@ -94,7 +94,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
   }
 
   onReject() {
-    this.subs.add(this.adminService.changeStatusChecking(
+    this.subs.add(this.adminService.changeStatusOrder(
       this.updateStatus = {
         orderID: this.item.orderID,
         placeID: this.item.placeID,
@@ -103,6 +103,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
       }).subscribe(
         data => data ? this.reload() : alert("Thao tác không thành công!")
       ))
+      
   }
 
   ngOnDestroy() {

@@ -1,5 +1,6 @@
+import { SharedService } from './../../shared/shared.service';
 import { PlaceStatus } from './../../class/common';
-import { Router } from '@angular/router';
+
 import { Observable, Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '../service/user.service';
@@ -15,7 +16,7 @@ export class SellerRentedComponent implements OnInit,OnDestroy {
   userID: number;
   posts: Observable<ManagePostForm>;
   constructor(private userService: UserService,
-    private router: Router) { }
+    public sharedService:SharedService ) { }
 
   ngOnInit() {
     this.userID = +sessionStorage.getItem("userID")

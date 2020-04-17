@@ -33,4 +33,5 @@ export class ContractStatus{
     public static DEACTIVE =0;
     public static ACTIVE =1;
     public static PENDING =2;
+    public static CANCEL =3;
 }

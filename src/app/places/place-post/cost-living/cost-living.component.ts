@@ -64,7 +64,9 @@ export class CostLivingComponent implements OnInit {
   }
 
   getCostOfLivingTable(){
-    return this.eqmTable.get('tableRows').value
+    const control = this.eqmTable.get('tableRows') as FormArray;
+    const savedRows = control.controls.filter(row => row.value.isEditable == false).map(row => row.value); // only Aprove row have been saved
+    return savedRows;
   }
 
   submitForm() {

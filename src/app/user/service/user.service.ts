@@ -60,8 +60,8 @@ export class UserService {
     return this.http.get(`${Common.urlBase}/managecontract/get-all-contract-ownerID?ownerID=${id}`)
   }
 
-  updateStatusContract(id: number,status: number): Observable<any>{
-    return this.http.post(`${Common.urlBase}/contract/change-status?contractID=${id}&contractStatusID=${status}`,this.httpOptions)
+  updateStatusContract(id: number,status: number,placeID: number): Observable<any>{
+    return this.http.post(`${Common.urlBase}/contract/change-status?contractID=${id}&contractStatusID=${status}&placeID=${placeID}`,this.httpOptions)
   }
 
   // public upload(formData) {

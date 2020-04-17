@@ -7,13 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./equipment.component.css']
 })
 export class EquipmentComponent implements OnInit {
-    // table edit
-    eqmTable: FormGroup;
-    control: FormArray;
-    mode: boolean;
-    touchedRows: any;
+  // table edit
+  eqmTable: FormGroup;
+  control: FormArray;
+  mode: boolean;
+  touchedRows: any;
 
-  constructor(private fb: FormBuilder,) { }
+  constructor(private fb: FormBuilder, ) { }
 
   ngOnInit() {
     this.ngTableOnInit()
@@ -24,7 +24,7 @@ export class EquipmentComponent implements OnInit {
     return this.fb.group({
       name: ['', Validators.required],
       quantity: ['', [Validators.required]],
-      priceEq: ['', [Validators.required]],
+      price: ['', [Validators.required]],
       likeNew: [''],
       equipmentDescrible: ['', [Validators.maxLength(100)]],
       isEditable: [true]
@@ -63,8 +63,10 @@ export class EquipmentComponent implements OnInit {
     return control;
   }
 
-  getEquipTable(){
-    return this.eqmTable.get('tableRows').value
+  getEquipTable() {
+    const control = this.eqmTable.get('tableRows') as FormArray;
+    const savedRows = control.controls.filter(row => row.value.isEditable == false).map(row => row.value); // only Aprove row have been saved
+    return savedRows;
   }
 
   submitForm() {

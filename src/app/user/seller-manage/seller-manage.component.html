@@ -27,7 +27,7 @@
                 <div class="row">
                   <div class="col-md-9" style="height: 130px;">
                     <mdb-card-title>
-                      <h5>{{item.title}}</h5>
+                      <a (click)="sharedService.placeDetail(item.id)"><h5>{{item.title}}</h5></a>
                     </mdb-card-title>
                     <mdb-card-text>
                       <p><strong>Địa chỉ: </strong>{{item.address}}</p>

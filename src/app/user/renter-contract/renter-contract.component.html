@@ -30,12 +30,14 @@
                     <p><strong>Số tiền đặt cọc: </strong>{{contract.fee | number}}VND/{{vndToUsd(contract.fee) | number}}USD</p>
                   </div>
                   <div class="col">
-                    <p><strong>Thông tin nhà: </strong><a (click)='sharedService.placeDetail(contract.placeID)'>Xem</a>
+                    <p><strong>Thông tin nhà: </strong>
+                      <a class="text-danger" (click)="sharedService.placeDetail(contract.placeID)">Xem</a>
                     </p>
                     <div><strong>Trạng thái nhà: </strong><h6>{{contract.placeStatus}}</h6></div>
+
                   </div>
                 </div>
-                  <app-paypal-button *ngIf="isContractPending(contract.contractStatusID)" [pay]='getPay(contract)'
+                  <app-paypal-button *ngIf="isContractPending(contract.contractStatusID) && isPlaceActive(contract.placeStatusID)" [pay]='getPay(contract)'
                     (onPayResult)='getPayResult($event)'></app-paypal-button>
                 <span class="float-right h5 pr-2">
                   <mdb-badge [color]="statusContractColor(contract.contractStatusID)">{{contract.statusContract}}

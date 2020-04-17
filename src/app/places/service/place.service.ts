@@ -22,33 +22,34 @@ export class PlaceService {
   }
   
   getPlacesTop6List(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/top6`)
+    return this.http.get(`${Common.urlBase}/api/cp/places/top6`)
       .pipe(
         retry(1)
       )
   }
 
   getPlaceDetail(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${id}`)
+    return this.http.get(`${Common.urlBase}/api/cp/places/${id}`)
       .pipe(
         retry(1)
       )
   }
   getImageListByPlaceID(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/images/${id}`)
+    return this.http.get(`${Common.urlBase}/api/cp/places/images/${id}`)
       .pipe(
         retry(1)
       )
   }
   getStatusByPlaceID(placeid): Observable<number> {
-    return this.http.get<number>(`${this.baseUrl}/checkplace?placeid=${placeid}`)
+    return this.http.get<number>(`${Common.urlBase}/api/cp/places/checkplace?placeid=${placeid}`)
       .pipe(
         retry(1)
       )
   }
 
   insertPlace(form): Observable<any> {
-    return this.http.post(`${this.baseUrl}/insert-places`, JSON.stringify(form), this.httpOptions)
+    console.log(JSON.stringify(form));
+    return this.http.post(`${Common.urlBase}/api/cp/places/insert-places`, JSON.stringify(form), this.httpOptions)
       .pipe(
         retry(1)
       )

@@ -37,8 +37,8 @@ export class SellerPostEditComponent implements OnInit, AfterViewInit {
   public searchElementRef: ElementRef;
 
   //upload img
-  imageUploaded = []
-  isDoneUpload = false
+  imageUploaded;
+  isDoneUpload = true
 
   //g map
   gtitle: string = 'AGM project';
@@ -77,9 +77,9 @@ export class SellerPostEditComponent implements OnInit, AfterViewInit {
     this.form = new FormGroup({
       title: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]),
       roleOfPlaceID: new FormControl('', [Validators.required]),
-      districtID: new FormControl('', [Validators.required]),
-      wardID: new FormControl('', [Validators.required]),
-      streetID: new FormControl('', [Validators.required]),
+      districtID: new FormControl(''),
+      wardID: new FormControl(''),
+      streetID: new FormControl(''),
       area: new FormControl('', [Validators.required]),
       pricePlace: new FormControl('', [Validators.required]),
       descriptions: new FormControl('', [Validators.required, Validators.minLength(30), Validators.maxLength(3000)]),
@@ -103,6 +103,7 @@ export class SellerPostEditComponent implements OnInit, AfterViewInit {
   setDefaultData() {
     this.title.setValue(this.postPlaceForm.title)
     this.roleOfPlaceID.setValue(this.postPlaceForm.roleOfPlaceID)
+
     this.area.setValue(this.postPlaceForm.area)
     this.pricePlace.setValue(this.postPlaceForm.price)
     this.descriptions.setValue(this.postPlaceForm.descriptions)
@@ -218,7 +219,6 @@ export class SellerPostEditComponent implements OnInit, AfterViewInit {
   uploadHandler(event) {
     if (event !== null) {
       this.imageUploaded = event.imageUploaded
-      this.isDoneUpload = event.isDoneUpload
     }
   }
 
@@ -285,9 +285,11 @@ export class SellerPostEditComponent implements OnInit, AfterViewInit {
     this.updatePlaceForm.placeID = this.placeID
     this.updatePlaceForm.title = this.title.value
     this.updatePlaceForm.roleOfPlaceID = this.roleOfPlaceID.value
-    this.updatePlaceForm.districtID = this.districtID.value.id
-    this.updatePlaceForm.wardID = this.wardID.value.id
-    this.updatePlaceForm.streetID = this.streetID.value.id
+
+    this.updatePlaceForm.districtID = this.districtID.value.id || this.postPlaceForm.districtID;
+    this.updatePlaceForm.wardID = this.wardID.value.id || this.postPlaceForm.wardID;
+    this.updatePlaceForm.streetID = this.streetID.value.id || this.postPlaceForm.streetID;
+
     this.updatePlaceForm.area = this.area.value
     this.updatePlaceForm.price = this.pricePlace.value
     this.updatePlaceForm.addressDetail = this.searchElementRef.nativeElement.value
@@ -304,7 +306,7 @@ export class SellerPostEditComponent implements OnInit, AfterViewInit {
 
     this.updatePlaceForm.listEquip = this.eqmTable.get('tableRows').value
 
-    this.updatePlaceForm.listImageLink = this.imageUploaded
+    this.updatePlaceForm.listImageLink = this.imageUploaded || this.postPlaceForm.listImageLink
 
     this.updatePlaceForm.contactName = this.contactName.value
     this.updatePlaceForm.contactAddress = this.contactAddress.value
@@ -315,10 +317,12 @@ export class SellerPostEditComponent implements OnInit, AfterViewInit {
     this.userService.updatePlace(this.updatePlaceForm).subscribe(
       data => {
         if (data) {
-          alert("Chỉnh sửa thông tin thành công !")
+          alert("Chỉnh sửa thông tin thành công !");
         }
         else { alert("Đã có lỗi xảy ra! Chỉnh sửa thông tin không thành công") }
-      }
+      },
+      (erro) => alert("Đã có lỗi xảy ra! Chỉnh sửa thông tin không thành công"),
+      () => this.router.navigate(['user/seller'])
     )
   }
 

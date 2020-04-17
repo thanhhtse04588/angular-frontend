@@ -49,9 +49,10 @@
                   <h5><strong>Thông tin mô tả</strong></h5>
                   <p>{{place.description}}</p>
                 </mdb-card-text>
-
               </div>
-              <mdb-card-text>
+
+
+              <mdb-card-text *ngIf="place.listEquip?.length>0">
                 <h5><strong>Thông tin nội thất</strong></h5>
               <div mdbTable bordered="true" hover="true" >
                 <table mat-table [dataSource]="dataSource">
@@ -59,31 +60,31 @@
                   <!-- Position Column -->
                   <ng-container matColumnDef="name">
                     <th *matHeaderCellDef> Tên nội thất  </th>
-                    <td *matCellDef="let element"> {{element.name|| ""}} </td>
+                    <td *matCellDef="let element"> {{element.name}} </td>
                   </ng-container>
 
                   <!-- Name Column -->
                   <ng-container matColumnDef="quantity">
                     <th *matHeaderCellDef> Số lượng</th>
-                    <td *matCellDef="let element"> {{element.quantity|| ""}} </td>
+                    <td *matCellDef="let element"> {{element.quantity}} </td>
                   </ng-container>
 
                   <!-- Weight Column -->
                   <ng-container matColumnDef="price">
-                    <th *matHeaderCellDef> Giá </th>
-                    <td *matCellDef="let element"> {{element.price|| ""}} </td>
+                    <th *matHeaderCellDef> Giá(vnđ) </th>
+                    <td *matCellDef="let element"> {{element.price}} </td>
                   </ng-container>
 
                   <!-- Symbol Column -->
                   <ng-container matColumnDef="likeNew">
                     <th *matHeaderCellDef> Độ mới</th>
-                    <td *matCellDef="let element"> {{element.likeNew|| ""}} </td>
+                    <td *matCellDef="let element"> {{element.likeNew}} </td>
                   </ng-container>
 
                   <!-- Symbol Column -->
                   <ng-container matColumnDef="equipmentDescrible">
                     <th *matHeaderCellDef> Mô tả </th>
-                    <td *matCellDef="let element"> {{element.equipmentDescrible|| ""}} </td>
+                    <td *matCellDef="let element"> {{element.equipmentDescrible}} </td>
                   </ng-container>
 
                   <tr mdbTableCol mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -93,7 +94,7 @@
               </div>
             </mdb-card-text>
 
-            <mdb-card-text>
+            <mdb-card-text *ngIf="place.listCost?.length>0">
               <h5><strong>Thông tin phí dịch vụ sinh hoạt</strong></h5>
             <div mdbTable bordered="true" hover="true" >
               <table mat-table [dataSource]="dataCost">
@@ -101,13 +102,13 @@
                 <!-- Position Column -->
                 <ng-container matColumnDef="costName">
                   <th *matHeaderCellDef> Tên dịch vụ  </th>
-                  <td *matCellDef="let element"> {{element.costName|| ""}} </td>
+                  <td *matCellDef="let element"> {{element.costName}} </td>
                 </ng-container>
 
                 <!-- Name Column -->
                 <ng-container matColumnDef="costPrice">
                   <th *matHeaderCellDef> Đơn giá</th>
-                  <td *matCellDef="let element"> {{element.costPrice|| ""}} </td>
+                  <td *matCellDef="let element"> {{element.costPrice}} </td>
                 </ng-container>
 
 

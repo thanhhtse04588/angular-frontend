@@ -16,7 +16,7 @@ import { ContractStatus } from 'src/app/class/common';
 export class RenterContractComponent implements OnInit, OnDestroy, AfterViewInit {
   private subs = new Subscription();
   contracts: Observable<Contract>;
-  constructor(private userService: UserService, public sharedService: SharedService, private adminService: AdminService ) { }
+  constructor(private userService: UserService, public sharedService: SharedService, private adminService: AdminService) { }
 
   ngOnInit() {
     this.reload();
@@ -26,6 +26,10 @@ export class RenterContractComponent implements OnInit, OnDestroy, AfterViewInit
   isContractPending(status) {
     return status == ContractStatus.PENDING;
   }
+  isPlaceActive(status) {
+    return status == PlaceStatus.ACTIVE;
+  }
+
   statusContractColor(status) {
     switch (status) {
       case ContractStatus.DEACTIVE: return "grey";
@@ -41,8 +45,8 @@ export class RenterContractComponent implements OnInit, OnDestroy, AfterViewInit
       description: 'Đặt cọc tiền hợp đồng thuê nhà',
       payFor: false,
       contractID: contract.contractID,
-    placeID: contract.placeID,
-    orderID: contract.orderID,
+      placeID: contract.placeID,
+      orderID: contract.orderID,
     }
     return pay;
   }
@@ -50,7 +54,7 @@ export class RenterContractComponent implements OnInit, OnDestroy, AfterViewInit
   getPayResult(result: Pay) {
     console.log(result)
     if (result.payFor) {
-      this.subs.add(this.userService.updateStatusContract(result?.contractID, ContractStatus.ACTIVE).subscribe(
+      this.subs.add(this.userService.updateStatusContract(result?.contractID, ContractStatus.ACTIVE,result?.placeID).subscribe(
         data => {
           if (data) {
             alert('Thanh toán tiền đặt cọc thuê nhà thành công');
@@ -73,16 +77,16 @@ export class RenterContractComponent implements OnInit, OnDestroy, AfterViewInit
       statusPlaceID: PlaceStatus.RENTED // Active -> Rented
     }
     this.subs.add(this.adminService.changeStatusOrder(updateStatus).subscribe(
-        data => data ? this.reload() : alert("Thao tác không thành công!")
-      ))
-      debugger;
+      data => data ? this.reload() : alert("Thao tác không thành công!")
+    ))
+    debugger;
   }
-  
+
   vndToUsd(vnd: number) {
     return Math.ceil(vnd / Common.USDtoVND);
   }
   reload() {
-      this.subs.add(this.userService.getContractByRenterID(+sessionStorage.getItem("userID")).subscribe(
+    this.subs.add(this.userService.getContractByRenterID(+sessionStorage.getItem("userID")).subscribe(
       data => {
         this.contracts = data
         console.log(this.contracts)
@@ -107,6 +111,7 @@ interface Contract {
   contractStatusID: number,
   statusContract: string,
 
+  placeStatusID: number,
   orderID: number,
   placeStatus: string,
 }
@@ -115,7 +120,7 @@ interface Pay {
   price: number,
   description: string,
   payFor: boolean,
-contractID: number,
+  contractID: number,
   placeID: number,
   orderID: number,
 }

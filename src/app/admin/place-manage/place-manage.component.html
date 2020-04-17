@@ -6,7 +6,7 @@
     <div class="card-body d-sm-flex justify-content-between">
 
       <h4 class="mb-2 mb-sm-0 pt-1">
-        <a href="https://mdbootstrap.com/docs/jquery/" target="_blank">Admin</a>
+        <a >Admin</a>
         <span>/</span>
         <span>Quản lý nhà trên trang</span>
       </h4>
@@ -38,7 +38,7 @@
           <ng-container matColumnDef="id">
             <th *matHeaderCellDef mat-sort-header>Chi tiết nhà</th>
             <td *matCellDef="let element">
-              <a type="button" mdbBtn color="info" size='sm' (click)="sharedService.placeDetail(element.placeID)" mdbWavesEffect><i class="fas fa-info"></i></a>
+              <a type="button" mdbBtn color="info" size='sm' (click)="sharedService.placeDetail(element.id)" mdbWavesEffect><i class="fas fa-info"></i></a>
             </td>
           </ng-container>
 
