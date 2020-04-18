@@ -14,6 +14,7 @@ import { UserService } from '../service/user.service';
   styleUrls: ['./renter-order.component.css']
 })
 export class RenterOrderComponent implements OnInit, OnDestroy {
+  isSubmit = false;
   orders: Observable<Order>;
   private subs = new Subscription();
   private userID: number;
@@ -109,6 +110,7 @@ export class RenterOrderComponent implements OnInit, OnDestroy {
   }
 
   onSave(event) {
+    this.isSubmit=true;
     this.subs.add(this.userService.editOrder(event.value).subscribe(
       data => data ? alert("Chỉnh sửa thành công") : alert("Chỉnh sửa thất bại") ));
     this.reload();

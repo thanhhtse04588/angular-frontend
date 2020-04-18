@@ -1,3 +1,5 @@
+import { UploadTaskComponent } from './places/test/upload-task/upload-task.component';
+import { DropzoneDirective } from './places/test/dropzone.directive';
 import { EquipmentComponent } from './places/place-post/equipment/equipment.component';
 import { CostLivingComponent } from './places/place-post/cost-living/cost-living.component';
 import { PaypalButtonComponent } from './shared/paypal-button/paypal-button.component';
@@ -96,7 +98,9 @@ import { OrderComponent } from './places/place-detail/order/order.component';
       CheckingListComponent,
       DashboardComponent,
       OrderListComponent,
-      PaypalButtonComponent
+      PaypalButtonComponent,
+      DropzoneDirective,
+      UploadTaskComponent
       
 
     

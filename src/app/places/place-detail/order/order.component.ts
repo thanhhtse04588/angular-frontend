@@ -18,6 +18,7 @@ declare var paypal;
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit, OnDestroy {
+  isSubmit = false;
   private subs = new Subscription();
   orderForm: InsertedOrderForm
   requestOrderForm: FormGroup
@@ -106,6 +107,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   onSubmitOrder() {
+    this.isSubmit = true;
     this.orderForm = new InsertedOrderForm()
 
     this.orderForm.ordererID = + sessionStorage.getItem("userID");

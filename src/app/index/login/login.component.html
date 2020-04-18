@@ -26,8 +26,9 @@
       </div>
 
       <!-- Sign in button -->
-      <button class="btn btn-primary btn-block my-4" [disabled]="!validatingLoginForm.valid" type="submit"
-        mdbWavesEffect><strong>Đăng nhập</strong></button>
+      <button class="btn btn-primary btn-block my-4" [disabled]="!validatingLoginForm.valid || isSubmit" type="submit" mdbWavesEffect>
+        <span [ngClass]="{'spinner-border spinner-border-sm' : isSubmit}"> </span>
+        <strong>Đăng nhập</strong></button>
 
       <!-- Register -->
       <p>Bạn chưa có tài khoản?

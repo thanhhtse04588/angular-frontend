@@ -14,6 +14,7 @@ import { MatSort } from '@angular/material/sort';
   styleUrls: ['./order-list.component.css']
 })
 export class OrderListComponent implements OnInit, OnDestroy {
+  isSubmit = false;
   private subs = new Subscription();
   displayedColumns: string[] = ['orderID', 'contactName', 'email', 'phoneNumber', 'dateTime', 'address', 'message', 'statusPlace', 'status', 'void'];
   dataSource: any;
@@ -78,6 +79,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
   }
 
   sendDeal(form) {
+    this.isSubmit=true;
     this.subs.add(this.adminService.createContract(this.contract = {
       ownerID: this.item.ownerID,
       renterID: this.item.ordererID,

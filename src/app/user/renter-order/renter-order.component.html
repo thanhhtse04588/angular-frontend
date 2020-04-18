@@ -137,8 +137,10 @@
                     Không hợp lệ
                   </mdb-error> -->
             </div>
-            <button type="submit" mdbBtn color="warning" class="relative waves-light" (click)="editModal.hide()"
-              mdbWavesEffect>Lưu</button>
+            <button type="submit" [disabled]="!editOrderForm.valid || isSubmit" mdbBtn color="warning" class="relative waves-light" (click)="editModal.hide()"
+              mdbWavesEffect>
+              <span [ngClass]="{'spinner-border spinner-border-sm' : isSubmit}"> </span>
+              Lưu</button>
             <button type="button" mdbBtn color="primary" class="waves-light" aria-label="Close"
               (click)="editModal.hide()" mdbWavesEffect>Đóng</button>
           </mdb-card-body>

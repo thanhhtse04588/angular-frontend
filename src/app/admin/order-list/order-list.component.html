@@ -11,15 +11,6 @@
         <span>Order List</span>
       </h4>
 
-      <form class="d-flex justify-content-center">
-        <!-- Default input -->
-        <input type="search" placeholder="Type your query" aria-label="Search" class="form-control">
-        <button class="btn btn-primary btn-sm my-0 p" type="submit">
-          <i class="fas fa-search"></i>
-        </button>
-
-      </form>
-
     </div>
 
   </div>
@@ -176,8 +167,9 @@
 
       </div>
       <div class="modal-footer d-flex justify-content-center">
-        <button mdbBtn color="warning" type="submit" [disabled]='form.invalid' (click)="dealForm.hide()" class="waves-light" mdbWavesEffect>Gửi
-          <mdb-icon far icon="paper-plane" class="ml-1"></mdb-icon>
+        <button mdbBtn color="warning" type="submit" [disabled]='form.invalid || isSubmit' 
+        (click)="dealForm.hide()" class="waves-light" mdbWavesEffect>
+        <span [ngClass]="{'spinner-border spinner-border-sm' : isSubmit}"> </span>Gửi
         </button>
       </div>
     </div>

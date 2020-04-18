@@ -1,3 +1,4 @@
+import { async } from '@angular/core/testing';
 
 import { Component, OnInit, ViewChild, ElementRef, EventEmitter, Output } from '@angular/core';
 import { AngularFireStorage } from "@angular/fire/storage";
@@ -29,26 +30,17 @@ export class UploadComponent implements OnInit {
  // upload img
  uploadFile(file) {
   var n = Date.now();
-  const filePath = `Images/${n}`;
+  const filePath = `dmm/${n}`;
   const fileRef = this.storage.ref(filePath);
-  const task = this.storage.upload(`Images/${n}`, file);
+  const task = this.storage.upload(`dmm/${n}`, file);
   task
     .snapshotChanges()
     .pipe(
-      finalize(() => {
-        this.downloadURL = fileRef.getDownloadURL();
-        this.downloadURL.subscribe(url => {
-          if (url) {
-            this.imageUploaded.push(url);
-          }
-        });
+      finalize(async() => {
+        this.downloadURL = await fileRef.getDownloadURL().toPromise();
+            this.imageUploaded.push(this.downloadURL);
       })
     )
-    .subscribe(url => {
-      if (url) {
-        console.log(url);
-      }
-    });
 }
 
 private uploadFiles(callback) {

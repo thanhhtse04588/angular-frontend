@@ -1,6 +1,6 @@
 
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-cost-living',
@@ -12,8 +12,8 @@ export class CostLivingComponent implements OnInit {
   control: FormArray;
   mode: boolean;
   touchedRows: any;
-  defaultCost=[{costName: "Điện",costPrice:"",isEditable: false},
-  {costName: "Nước",costPrice:"",isEditable: false}
+  defaultCost = [{ costName: "Điện", costPrice: "", isEditable: false },
+  { costName: "Nước", costPrice: "", isEditable: false }
   ]
 
   constructor(private fb: FormBuilder,
@@ -63,10 +63,17 @@ export class CostLivingComponent implements OnInit {
     return control;
   }
 
-  getCostOfLivingTable(){
+  getCostOfLivingTable() {
     const control = this.eqmTable.get('tableRows') as FormArray;
     const savedRows = control.controls.filter(row => row.value.isEditable == false).map(row => row.value); // only Aprove row have been saved
     return savedRows;
+  }
+
+  setToEdit(data) { 
+    if (data?.length>0) {
+      data.forEach(element => element.isEditable = false);
+      this.eqmTable.get('tableRows').setValue(data);
+    }
   }
 
   submitForm() {

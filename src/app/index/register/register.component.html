@@ -50,7 +50,9 @@
                 </div>
 
             <!-- Sign up button -->
-            <button [disabled]="!validatingSigninForm.valid" class="btn btn-warning my-4 btn-block" type="submit"><strong>Đăng ký</strong></button>
+            <button [disabled]="!validatingSigninForm.valid || isSubmit" class="btn btn-warning my-4 btn-block" type="submit">
+                <span [ngClass]="{'spinner-border spinner-border-sm' : isSubmit}"> </span>
+                <strong>Đăng ký</strong></button>
 
             <!-- Social register -->
             <!-- <p>or sign up with:</p>

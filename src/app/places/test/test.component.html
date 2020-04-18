@@ -1,8 +1,16 @@
-<form [formGroup]="validatingForm">
-  <div class="md-form">
-    <input mdbInput mdbValidate type="email" id="form8" class="form-control" formControlName="email">
-    <label for="form8">Email validator</label>
-    <mdb-error *ngIf="input.invalid && (input.dirty || input.touched)">Input invalid</mdb-error>
-    <mdb-success *ngIf="input.valid && (input.dirty || input.touched)">Input valid</mdb-success>
-  </div>
-</form>
+<div class="dropzone" 
+     dropzone
+     (hovered)="toggleHover($event)"
+     (dropped)="onDrop($event)"
+     [class.hovering]="isHovering">
+
+
+     <h3>AngularFire Drop Zone</h3>
+     <p>Drag and Drop a File</p>
+</div>
+
+<h3>Uploads</h3>
+
+<div *ngFor="let file of files">
+  <upload-task [file]="file"></upload-task>
+</div>

@@ -13,7 +13,7 @@ import {Location} from '@angular/common';
 export class LoginComponent implements OnInit {
   validatingLoginForm: FormGroup
   validateLogin = false
-
+  isSubmit = false;
   constructor(private _location: Location,private router: Router, public loginService: AuthenticationService) { }
 
   ngOnInit(): void {
@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
   }
 
   checkLogin() {
+    this.isSubmit=true;
     this.loginService.authenticate(this.loginFormModalUsername.value, this.loginFormModalPassword.value).subscribe(
       (data: UserLogin) => {
         if (data.message === "401") {

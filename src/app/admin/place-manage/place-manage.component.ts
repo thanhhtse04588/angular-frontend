@@ -21,7 +21,7 @@ export class PlaceManageComponent implements OnInit, OnDestroy {
   dataSource: any;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  places: any
+  places: Place[]
   id: number;
   constructor(private adminService: AdminService,
      private userService: UserService,
@@ -35,9 +35,10 @@ export class PlaceManageComponent implements OnInit, OnDestroy {
   reload() {
     this.subs.add(this.adminService.getAllPlace().subscribe(
       data => {
-        this.places = data
+        this.places =(data as Place[]).filter(
+          item => [PlaceStatus.ACTIVE,PlaceStatus.DEACTIVE,PlaceStatus.RENTED].includes(item.statusID)) // only Place not Post 
+          
         this.dataSource = new MatTableDataSource<Place>(this.places);
-
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
@@ -72,6 +73,7 @@ export class PlaceManageComponent implements OnInit, OnDestroy {
   isDeactivePlace(id) {
     return id == PlaceStatus.DEACTIVE;
   }
+
   toActive() {
     this.subs.add(this.userService.updateStatusPlace(this.id, PlaceStatus.ACTIVE).subscribe(
       data => data ? this.reload() : alert("Thao tác không thành công!")

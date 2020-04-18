@@ -48,7 +48,8 @@
           <div #paypal></div>
           <div class="mx-auto">
             <button *ngIf="paidFor" type="submit" mdbBtn class="btn btn-danger btn-block"
-              [disabled]="!requestOrderForm.valid" mdbWavesEffect>
+              [disabled]="!requestOrderForm.valid || isSubmit" mdbWavesEffect>
+              <span [ngClass]="{'spinner-border spinner-border-sm' : isSubmit}"> </span>
               <strong>Gửi</strong>
             </button>
           </div>

@@ -1,19 +1,22 @@
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+
+import { Component} from '@angular/core';
 @Component({
   selector: 'app-test',
   templateUrl: './test.component.html',
-  styleUrls: ['./test.component.css']
+  styleUrls: ['./test.component.scss']
 })
 export class TestComponent {
-  validatingForm: FormGroup;
+  isHovering: boolean;
 
-  ngOnInit() {
-    this.validatingForm = new FormGroup({
-      email: new FormControl(null, [Validators.required, Validators.email])
-    });
+  files: File[] = [];
+
+  toggleHover(event: boolean) {
+    this.isHovering = event;
   }
 
-  get input() { return this.validatingForm.get('email'); }
-
+  onDrop(files: FileList) {
+    for (let i = 0; i < files.length; i++) {
+      this.files.push(files.item(i));
+    }
+  }
 }

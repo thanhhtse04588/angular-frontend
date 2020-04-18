@@ -18,8 +18,7 @@
             thực hiện chức năng này
           </div>
         </div>
-        <form [formGroup]="form" (ngSubmit)="postPlace()">
-
+        <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
           <!-- page 1 -->
           <mdb-card class="mb-3">
             <mdb-card-header>
@@ -38,41 +37,44 @@
               </div>
               <!--Grid row-->
               <div class="row">
-                <!-- districtID -->
+                <!-- district -->
                 <div class="col-lg-4 col-md-12 mb-4">
-                  <label for="districtID">Quận/Huyện <span class="text-danger">*</span></label>
-                  <select class="custom-select d-block w-100 form-control" formControlName="districtID"
-                    (change)="onDistrictChange()" (change)="updateAddress()">
+                  <label for="district">Quận/Huyện <span class="text-danger">*</span></label>
+                  <select class="custom-select d-block w-100 form-control" formControlName="district"
+                    (change)="onDistrictChange()">
+                    <option value='' disabled>Chọn...</option>
                     <option *ngFor="let item of districts" [ngValue]="item">{{item.district}}</option>
                   </select>
                   <mdb-error class="pl-3" style="padding-top: 30px;"
-                    *ngIf="districtID.invalid && (districtID.dirty || districtID.touched)">
+                    *ngIf="district.invalid && (district.dirty || district.touched)">
                     Không bỏ trống
                   </mdb-error>
                 </div>
 
-                <!-- wardID -->
+                <!-- ward -->
                 <div class="col-lg-4 col-md-12 mb-4">
-                  <label for="wardID">Phường/Xã<span class="text-danger">*</span></label>
-                  <select class="custom-select d-block w-100 form-control" formControlName="wardID"
-                    (change)="updateAddress()" (change)="onWardChange()">
+                  <label for="ward">Phường/Xã<span class="text-danger">*</span></label>
+                  <select class="custom-select d-block w-100 form-control" formControlName="ward"
+                    (change)="onWardChange()">
+                    <option value='' disabled>Chọn...</option>
                     <option *ngFor="let item of wards" [ngValue]="item">{{item.wardName}}</option>
                   </select>
                   <mdb-error class="pl-3" style="padding-top: 30px;"
-                    *ngIf="wardID.invalid && (wardID.dirty || wardID.touched)">
+                    *ngIf="ward.invalid && (ward.dirty || ward.touched)">
                     Không bỏ trống
                   </mdb-error>
                 </div>
 
-                <!-- streetID -->
+                <!-- street -->
                 <div class="col-lg-4 col-md-12 mb-4">
-                  <label for="streetID">Đường/phố<span class="text-danger">*</span></label>
-                  <select class="custom-select d-block w-100 form-control" formControlName="streetID"
+                  <label for="street">Đường/phố<span class="text-danger">*</span></label>
+                  <select class="custom-select d-block w-100 form-control" formControlName="street"
                     (change)="updateAddress()">
+                    <option value='' disabled>Chọn...</option>
                     <option *ngFor="let item of streets" [ngValue]="item">{{item.streetName}}</option>
                   </select>
                   <mdb-error class="pl-3" style="padding-top: 30px;"
-                    *ngIf="streetID.invalid && (streetID.dirty || streetID.touched)">
+                    *ngIf="street.invalid && (street.dirty || street.touched)">
                     Không bỏ trống
                   </mdb-error>
                 </div>
@@ -84,7 +86,8 @@
                 <div class="col-lg-4 col-md-12 mb-4">
                   <label for="country">Loại nhà đất <span class="text-danger">*</span></label>
                   <select class="custom-select d-block w-100 form-control" formControlName="roleOfPlaceID">
-                    <option *ngFor="let item of roleOfPlaces | async" [ngValue]="item.roleOfPlaceID">{{item.roleName}}
+                    <option value='' disabled>Chọn...</option>
+                    <option *ngFor="let item of roleOfPlaces" [ngValue]="item.roleOfPlaceID">{{item.roleName}}
                     </option>
                   </select>
                   <mdb-error class="pl-3" style="padding-top: 30px;"
@@ -154,6 +157,7 @@
                 <div class="col-lg-4 col-md-12 mb-4">
                   <label for="homeDirection">Hướng nhà</label>
                   <select class="custom-select d-block w-100 form-control" formControlName="homeDirection">
+                    <option value='' disabled>Chọn...</option>
                     <option *ngFor="let item of homeDirections" [ngValue]="item">{{item}}</option>
                   </select>
                 </div>
@@ -226,7 +230,7 @@
                   autocorrect="off" autocapitalize="off" spellcheck="off" #search>
               </div>
 
-              <agm-map style="height: 600px;" (mapReady)="mapReady($event)" [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+              <agm-map style="height: 600px;"  [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
                 <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
                   (dragEnd)="markerDragEnd($event)">
                 </agm-marker>
@@ -300,9 +304,9 @@
                 role="alert">
                 Vui lòng điền thông tin đầy đủ theo yêu cầu 
                 <!-- {{roleOfPlaceID.valid}}
-                {{districtID.valid}}
-                {{wardID.valid}}
-                {{streetID.valid}}
+                {{district.valid}}
+                {{ward.valid}}
+                {{street.valid}}
                 {{area.valid}}
                 {{price.valid}}
                 {{descriptions.valid}}
@@ -317,9 +321,22 @@
                 {{email.valid}}
                 {{checkingDate.valid}} -->
               </div>
-              <button type="submit" mdbBtn color="primary" size="md"
-                [disabled]="!form.valid || !loginService.isUserLoggedIn() || !isDoneUpload" mdbWavesEffect> Yêu cầu
-                đăng tin</button>
+              <button type="submit" mdbBtn
+              [color]="placeEditID? 'warning':'primary'" size="md" mdbWavesEffect
+
+                [disabled]="isSubmit" >
+                <span [ngClass]="{'spinner-border spinner-border-sm' : isSubmit}"> </span>
+
+                Test
+              </button>
+
+              <button type="submit" mdbBtn
+              [color]="placeEditID? 'warning':'primary'" size="md"
+                [disabled]="!form.valid || !loginService.isUserLoggedIn() || !isDoneUpload || isSubmit" mdbWavesEffect>
+                <span [ngClass]="{'spinner-border spinner-border-sm' : isSubmit}"> </span>
+                <span [innerHTML]="placeEditID? 'Lưu chỉnh sửa':' Yêu cầu đăng tin'"></span>
+              </button>
+
               <button type="button" mdbBtn color="danger" size="md" [routerLink]="['/places/home']" mdbWavesEffect>Hủy</button>
             </mdb-card-footer>
           </mdb-card>

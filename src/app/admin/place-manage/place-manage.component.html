@@ -11,15 +11,6 @@
         <span>Quản lý nhà trên trang</span>
       </h4>
 
-      <form class="d-flex justify-content-center">
-        <!-- Default input -->
-        <input type="search" placeholder="Type your query" aria-label="Search" class="form-control">
-        <button class="btn btn-primary btn-sm my-0 p" type="submit">
-          <i class="fas fa-search"></i>
-        </button>
-
-      </form>
-
     </div>
 
   </div>
@@ -35,7 +26,7 @@
       <div mdbTable bordered="true" hover="true">
         <table mat-table matSort [dataSource]="dataSource" class="w-100">
 
-          <ng-container matColumnDef="id">
+          <ng-container matColumnDef="id" >
             <th *matHeaderCellDef mat-sort-header>Chi tiết nhà</th>
             <td *matCellDef="let element">
               <a type="button" mdbBtn color="info" size='sm' (click)="sharedService.placeDetail(element.id)" mdbWavesEffect><i class="fas fa-info"></i></a>
@@ -70,13 +61,10 @@
           <ng-container matColumnDef="void">
             <th *matHeaderCellDef></th>
             <td *matCellDef="let element">
-              <ng-container *ngIf="isShowButton(element.statusID);else status" >
                 <button type="button" *ngIf="isDeactivePlace(element.statusID)" (click)='id = element.id' mdbBtn color="success" size="sm" 
                 (click)="comfirmApprove.show()" mdbWavesEffect>Đăng</button>
               <button type="button" *ngIf="isActivePlace(element.statusID)" (click)='id = element.id' mdbBtn color="danger" size="sm"
               (click)="comfirmReject.show()" mdbWavesEffect>Gỡ</button>
-              </ng-container>
-             <ng-template #status> <strong>{{element.status}}</strong></ng-template> 
             </td>
           </ng-container>
 

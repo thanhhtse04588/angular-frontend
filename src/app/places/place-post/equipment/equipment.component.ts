@@ -1,3 +1,4 @@
+import { EquipmentListForm } from './../../../class/place-detail';
 import { FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
@@ -67,6 +68,13 @@ export class EquipmentComponent implements OnInit {
     const control = this.eqmTable.get('tableRows') as FormArray;
     const savedRows = control.controls.filter(row => row.value.isEditable == false).map(row => row.value); // only Aprove row have been saved
     return savedRows;
+  }
+
+  setToEdit(data) {
+    if (data?.length>0) {
+      data.forEach(element => element.isEditable = false);
+      this.eqmTable.get('tableRows').setValue(data);
+    }
   }
 
   submitForm() {

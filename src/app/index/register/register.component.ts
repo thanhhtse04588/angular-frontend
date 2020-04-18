@@ -11,7 +11,7 @@ import { Location } from '@angular/common';
 })
 
 export class RegisterComponent implements OnInit {
-
+  isSubmit = false;
   validatingSigninForm: FormGroup
   validateLogin = false
   constructor(private _location: Location, private router: Router, public loginService: AuthenticationService, private registerService: AuthenticationService) { }
@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
   }
 
   doSignup() {
-
+this.isSubmit=true;
     if (this.validatingSigninForm.invalid) {
       alert("Thông tin không hợp lệ!")
       return;
