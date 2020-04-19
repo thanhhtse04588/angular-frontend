@@ -3,14 +3,8 @@
      (hovered)="toggleHover($event)"
      (dropped)="onDrop($event)"
      [class.hovering]="isHovering">
-
-
-     <h3>AngularFire Drop Zone</h3>
-     <p>Drag and Drop a File</p>
+     <p>Kéo và thả ảnh vào đây</p>
 </div>
-
-<h3>Uploads</h3>
-
 <div *ngFor="let file of files">
-  <upload-task [file]="file"></upload-task>
+  <upload-task [file]="file" (onUpload)='onUploadedFile($event)'></upload-task>
 </div>

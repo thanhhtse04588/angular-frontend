@@ -3,7 +3,7 @@
     <div class="row py-5">
       <!--Grid column-->
       <div class="col-md-3 ">
-<app-seller-menu></app-seller-menu>
+        <app-seller-menu></app-seller-menu>
       </div>
       <!--Grid column-->
       <div class="col-md-9">
@@ -27,7 +27,7 @@
             <mdb-card-body>
               <!-- title -->
               <div class="md-form mb-5">
-                <input mdbInput mdbValidate type="text" id="title" formControlName="title" class="form-control" >
+                <input mdbInput mdbValidate type="text" id="title" formControlName="title" class="form-control">
                 <label for="title">
                   Tiêu đề<span class="text-danger ">*</span>
                 </label>
@@ -165,8 +165,7 @@
                 <!-- frontispiece -->
                 <div class="col-lg-4 col-md-12 md-form mb-4">
                   <label class="pl-3" for="frontispiece">Mặt tiền m²</label>
-                  <input mdbInput type="number" id="frontispiece" formControlName="frontispiece"
-                    class="form-control">
+                  <input mdbInput type="number" id="frontispiece" formControlName="frontispiece" class="form-control">
                 </div>
               </div>
 
@@ -205,8 +204,8 @@
             </mdb-card-body>
           </mdb-card>
           <!-- page 4 -->
-<!-- Equipment -->
-<app-equipment></app-equipment>
+          <!-- Equipment -->
+          <app-equipment></app-equipment>
 
           <!-- Cost of living -->
           <app-cost-living></app-cost-living>
@@ -230,7 +229,7 @@
                   autocorrect="off" autocapitalize="off" spellcheck="off" #search>
               </div>
 
-              <agm-map style="height: 600px;"  [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+              <agm-map style="height: 600px;" [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
                 <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
                   (dragEnd)="markerDragEnd($event)">
                 </agm-marker>
@@ -300,9 +299,9 @@
               </div>
             </mdb-card-body>
             <mdb-card-footer>
-              <div *ngIf="!form.valid || !loginService.isUserLoggedIn() || !isDoneUpload" class="alert alert-warning"
+              <div *ngIf="!form.valid || !loginService.isUserLoggedIn()" class="alert alert-warning"
                 role="alert">
-                Vui lòng điền thông tin đầy đủ theo yêu cầu 
+                Vui lòng điền thông tin đầy đủ theo yêu cầu
                 <!-- {{roleOfPlaceID.valid}}
                 {{district.valid}}
                 {{ward.valid}}
@@ -321,23 +320,21 @@
                 {{email.valid}}
                 {{checkingDate.valid}} -->
               </div>
-              <button type="submit" mdbBtn
-              [color]="placeEditID? 'warning':'primary'" size="md" mdbWavesEffect
-
-                [disabled]="isSubmit" >
+              <button type="submit" mdbBtn [color]="placeEditID? 'warning':'primary'" size="md" mdbWavesEffect
+                [disabled]="isSubmit">
                 <span [ngClass]="{'spinner-border spinner-border-sm' : isSubmit}"> </span>
 
                 Test
               </button>
 
-              <button type="submit" mdbBtn
-              [color]="placeEditID? 'warning':'primary'" size="md"
-                [disabled]="!form.valid || !loginService.isUserLoggedIn() || !isDoneUpload || isSubmit" mdbWavesEffect>
+              <button type="submit" mdbBtn [color]="placeEditID? 'warning':'primary'" size="md"
+                [disabled]="!form.valid || !loginService.isUserLoggedIn() || isSubmit" mdbWavesEffect>
                 <span [ngClass]="{'spinner-border spinner-border-sm' : isSubmit}"> </span>
                 <span [innerHTML]="placeEditID? 'Lưu chỉnh sửa':' Yêu cầu đăng tin'"></span>
               </button>
 
-              <button type="button" mdbBtn color="danger" size="md" [routerLink]="['/places/home']" mdbWavesEffect>Hủy</button>
+              <button type="button" mdbBtn color="danger" size="md" [routerLink]="['/places/home']"
+                mdbWavesEffect>Hủy</button>
             </mdb-card-footer>
           </mdb-card>
         </form>

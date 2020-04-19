@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
@@ -10,7 +10,8 @@ import { finalize, tap } from 'rxjs/operators';
   styleUrls: ['./upload-task.component.scss']
 })
 export class UploadTaskComponent implements OnInit {
-
+    //upload img
+    @Output() onUpload: EventEmitter<string>;
   @Input() file: File;
 
   task: AngularFireUploadTask;
@@ -19,7 +20,9 @@ export class UploadTaskComponent implements OnInit {
   snapshot: Observable<any>;
   downloadURL: string;
 
-  constructor(private storage: AngularFireStorage, private db: AngularFirestore) { }
+  constructor(private storage: AngularFireStorage, private db: AngularFirestore) { 
+    this.onUpload = new EventEmitter(); 
+  }
 
   ngOnInit() {
     this.startUpload();
@@ -44,7 +47,8 @@ export class UploadTaskComponent implements OnInit {
       // The file's download URL
       finalize( async() =>  {
         this.downloadURL = await ref.getDownloadURL().toPromise();
-        console.log(this.downloadURL);
+        this.onUpload.next(this.downloadURL);
+
         this.db.collection('files').add( { downloadURL: this.downloadURL, path });
       }),
     );

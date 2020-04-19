@@ -38,7 +38,6 @@ export class PlacePostComponent implements OnInit, AfterViewInit, OnDestroy {
   private costComponent: CostLivingComponent;
   //upload img
   imageUploaded = []
-  isDoneUpload = false
   //g map
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -64,7 +63,6 @@ export class PlacePostComponent implements OnInit, AfterViewInit, OnDestroy {
     this.equipComponent.setToEdit(data.listEquip);
     this.costComponent.setToEdit(data.listCost);
     this.imageUploaded = data.listImageLink;
-    this.isDoneUpload = true;
     this.searchElementRef.nativeElement.value = data.addressDetail;
     this.longitude = +data.longtitude;
     this.latitude = +data.latitude;
@@ -191,8 +189,8 @@ export class PlacePostComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //upload img
   uploadHandler(event) {
-    this.imageUploaded = event.imageUploaded;
-    this.isDoneUpload = event.isDoneUpload;
+    this.imageUploaded.push(event);
+    // this.isDoneUpload = event.isDoneUpload;
     console.log(this.imageUploaded);
   }
 

@@ -1,5 +1,5 @@
-import { UploadTaskComponent } from './places/test/upload-task/upload-task.component';
-import { DropzoneDirective } from './places/test/dropzone.directive';
+import { UploadTaskComponent } from './places/place-post/upload/upload-task/upload-task.component';
+import { DropzoneDirective } from './places/place-post/upload/dropzone.directive';
 import { EquipmentComponent } from './places/place-post/equipment/equipment.component';
 import { CostLivingComponent } from './places/place-post/cost-living/cost-living.component';
 import { PaypalButtonComponent } from './shared/paypal-button/paypal-button.component';
