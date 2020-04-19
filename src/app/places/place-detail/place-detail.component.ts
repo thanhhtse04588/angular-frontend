@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AuthenticationService } from './../../index/service/authentication.service';
 import { Subscription } from 'rxjs';
-import { PlaceDetail, EquipmentListForm, CostOfPlaceForm } from './../../class/place-detail';
+import { PlaceDetail, EquipmentListForm, CostOfPlaceForm, CostUnitName } from './../../class/place-detail';
 import { PlaceService } from './../service/place.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
@@ -18,12 +18,13 @@ export class PlaceDetailComponent implements OnInit, OnDestroy {
   id: number;
   place: PlaceDetail;
   orderCount: number;
+  units: CostUnitName[];
   // Equip table
   displayedColumns: string[] = ['name', 'quantity', 'price', 'likeNew', 'equipmentDescrible'];
   dataSource: any;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 // Cost Of Living Table
-  costColumns: string[] = ['costName', 'costPrice'];
+  costColumns: string[] = ['costName', 'costPrice','unitID'];
   dataCost: any;
   @ViewChild(MatPaginator, { static: true }) paginatorCostTable: MatPaginator;
   location: Location;
@@ -50,6 +51,9 @@ export class PlaceDetailComponent implements OnInit, OnDestroy {
         lng: -147.20785
       }
     }
+    this.subs.add(this.placeService.getCostUnit().subscribe(
+      data => this.units = data as CostUnitName[]
+    ))
     this.getData()
   }
 
@@ -74,6 +78,10 @@ export class PlaceDetailComponent implements OnInit, OnDestroy {
         this.dataCost = new MatTableDataSource<CostOfPlaceForm>(this.place.listCost);
         this.dataCost.paginator = this.paginatorCostTable;
       }))
+  }
+
+  getUnitName(id: number){
+    return this.units?.find(unit => unit.id =id).unitName;
   }
 
   isActive(id: number) {

@@ -44,5 +44,6 @@ class EquipmentListForm {
 }
 class CostOfPlaceForm {
     costName:number;
-	costPrice: string;
+    costPrice: number;
+    unitID:number;
 }

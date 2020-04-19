@@ -10,6 +10,7 @@
                   <thead class="text-nowrap">
                     <th scope="col">Tên dịch vụ<span class="text-danger">*</span></th>
                     <th scope="col">Đơn giá(vnđ/tháng)<span class="text-danger">*</span></th>
+                    <th scope="col">Đơn vị <span class="text-danger">*</span></th>
                     <th scope="col"></th>
                   </thead>
                   <tbody>
@@ -24,6 +25,12 @@
                             >
                         </td>
                         <td>
+                          <select matInput  id="unitID" class="form-control" formControlName="unitID">
+                            <option value="" disabled>Chọn...</option>
+                            <option *ngFor="let unit of units" [ngValue]='unit.id' >{{unit.unitName}}</option>
+                          </select>
+                        </td>
+                        <td>
                           <button mdbBtn class="btn-danger" size="sm" (click)="deleteRow(i)" mdbWavesEffect>Xóa</button>
                           <button mdbBtn class="btn-primary" size="sm" [disabled]="eqmTable.invalid"
                             (click)="doneRow(group)" mdbWavesEffect>Lưu</button>
@@ -35,6 +42,9 @@
                         </td>
                         <td>
                           {{group.get('costPrice').value}}
+                        </td>
+                        <td>
+                          {{getUnitName(group.get('unitID').value)}}
                         </td>
                         <td>
                           <button mdbBtn class="btn-warning" size="sm" (click)="editRow(group)"

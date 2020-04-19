@@ -37,7 +37,7 @@ export class PlacePostComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(CostLivingComponent)
   private costComponent: CostLivingComponent;
   //upload img
-  imageUploaded = []
+  imageUploaded: string[] =[];
   //g map
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -112,30 +112,6 @@ export class PlacePostComponent implements OnInit, AfterViewInit, OnDestroy {
     return isNaN(value.getTime()) || value <= new Date() ? { 'invalid': true } : undefined;
   }
 
-  // mapReady($event: any) {
-  // this.zoom = Common.ZOOM
-  // let placeService = new google.maps.places.PlacesService($event);
-  // placeService.getDetails({
-  //   placeId: "ChIJbcDqcsCrNTER1efSKj4epwA"
-  // }, (result, status) => {
-  //   if (status == google.maps.places.PlacesServiceStatus.OK) {
-  //     this.longitude = result.geometry.location.lng()
-  //     this.latitude = result.geometry.location.lat()
-  //   }
-  // });
-  // }
-
-  // autoLoadMapWithSelect(keyword) {
-  //   this.mapsAPILoader.load().then(() => {
-  //     let service = new google.maps.places.AutocompleteService();
-  //     service.getQueryPredictions({ input: keyword }, (predictions, status) => {
-  //       if (status == google.maps.places.PlacesServiceStatus.OK) {
-  //         var result = predictions[0].place_id
-  //       }
-  //     });
-  //   });
-  // }
-
   //load Places Autocomplete
   private loadPlacesAutoComplete() {
     this.mapsAPILoader.load().then(() => {
@@ -155,16 +131,7 @@ export class PlacePostComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     });
   }
-  // Get Current Location Coordinates
-  // private setCurrentLocation() {
-  //   if ('geolocation' in navigator) {
-  //     navigator.geolocation.getCurrentPosition((position) => {
-  //       this.latitude = position.coords.latitude;
-  //       this.longitude = position.coords.longitude;
-  //       this.zoom = 17;
-  //     });
-  //   }
-  // }
+
   markerDragEnd($event: MouseEvent) {
     this.latitude = $event.coords.lat;
     this.longitude = $event.coords.lng;
@@ -212,7 +179,8 @@ export class PlacePostComponent implements OnInit, AfterViewInit, OnDestroy {
     this.postPlaceForm.listEquip = this.equipComponent.getEquipTable();
     this.postPlaceForm.listCost = this.costComponent.getCostOfLivingTable();
     this.postPlaceForm.listImageLink = this.imageUploaded;
-    debugger;
+    console.log(JSON.stringify(this.postPlaceForm,null,'\t'));
+    
     this.subs.add(this.placeService.insertPlace(this.postPlaceForm).subscribe(
       data => data ? alert("Yêu cầu đăng tin thành công, chúng tôi sẽ sớm liên hệ với bạn !") : alert("Đã có lỗi xảy ra! Yêu cầu đăng tin không thành công"),
       (err) => alert("Đã có lỗi xảy ra! Yêu cầu đăng tin không thành công"),
@@ -232,7 +200,7 @@ export class PlacePostComponent implements OnInit, AfterViewInit, OnDestroy {
     form.listEquip = this.equipComponent.getEquipTable();
     form.listCost = this.costComponent.getCostOfLivingTable();
     form.listImageLink = this.imageUploaded;
-    console.log(form);
+
     this.subs.add(this.userService.updatePlace(form).subscribe(
       data => data ? alert("Chỉnh sửa thành công!") : alert("Đã có lỗi xảy ra! Chỉnh sửa không thành công"),
       (err) => alert("Đã có lỗi xảy ra! Chỉnh sửa không thành công"),
@@ -339,4 +307,39 @@ export class PlacePostComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.subs.unsubscribe();
   }
+
+    // Get Current Location Coordinates
+  // private setCurrentLocation() {
+  //   if ('geolocation' in navigator) {
+  //     navigator.geolocation.getCurrentPosition((position) => {
+  //       this.latitude = position.coords.latitude;
+  //       this.longitude = position.coords.longitude;
+  //       this.zoom = 17;
+  //     });
+  //   }
+  // }
+
+    // mapReady($event: any) {
+  // this.zoom = Common.ZOOM
+  // let placeService = new google.maps.places.PlacesService($event);
+  // placeService.getDetails({
+  //   placeId: "ChIJbcDqcsCrNTER1efSKj4epwA"
+  // }, (result, status) => {
+  //   if (status == google.maps.places.PlacesServiceStatus.OK) {
+  //     this.longitude = result.geometry.location.lng()
+  //     this.latitude = result.geometry.location.lat()
+  //   }
+  // });
+  // }
+
+  // autoLoadMapWithSelect(keyword) {
+  //   this.mapsAPILoader.load().then(() => {
+  //     let service = new google.maps.places.AutocompleteService();
+  //     service.getQueryPredictions({ input: keyword }, (predictions, status) => {
+  //       if (status == google.maps.places.PlacesServiceStatus.OK) {
+  //         var result = predictions[0].place_id
+  //       }
+  //     });
+  //   });
+  // }
 }

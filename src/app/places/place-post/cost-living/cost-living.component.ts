@@ -1,3 +1,5 @@
+import { PlaceService } from './../../service/place.service';
+import { CostUnitName } from './../../../class/place-detail';
 
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -12,14 +14,19 @@ export class CostLivingComponent implements OnInit {
   control: FormArray;
   mode: boolean;
   touchedRows: any;
-  defaultCost = [{ costName: "Điện", costPrice: "", isEditable: false },
-  { costName: "Nước", costPrice: "", isEditable: false }
+  units: CostUnitName[];
+  defaultCost = [{ costName: "Điện", costPrice: "",unitID:'', isEditable: false },
+  { costName: "Nước", costPrice: "",unitID:'', isEditable: false }
   ]
 
   constructor(private fb: FormBuilder,
+    private placeService :PlaceService
   ) { }
 
   ngOnInit() {
+    this.placeService.getCostUnit().subscribe(
+      data=> this.units = data as CostUnitName[]
+    )
     this.ngTableOnInit();
     this.control = this.eqmTable.get('tableRows') as FormArray;
   }
@@ -28,6 +35,7 @@ export class CostLivingComponent implements OnInit {
     return this.fb.group({
       costName: ['', Validators.required],
       costPrice: ['', [Validators.required]],
+      unitID: ['', [Validators.required]],
       isEditable: [true]
     });
   }
@@ -79,5 +87,9 @@ export class CostLivingComponent implements OnInit {
   submitForm() {
     const control = this.eqmTable.get('tableRows') as FormArray;
     this.touchedRows = control.controls.filter(row => row.touched).map(row => row.value);
+  }
+
+  getUnitName(id){
+    return this.units.find(unit => unit.id = id ).unitName;
   }
 }

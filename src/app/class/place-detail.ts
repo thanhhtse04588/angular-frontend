@@ -35,5 +35,11 @@ export class EquipmentListForm{
 export class CostOfPlaceForm{
     costName:string;
     costPrice:number
+    unitID:number;
+}
+
+export class CostUnitName{
+    id: number;
+    unitName: string;
 }
  

@@ -11,8 +11,6 @@ import { retry} from 'rxjs/operators';
 })
 export class PlaceService {
 
-  private baseUrl = 'http://localhost:8080/api/cp/places';
-
   constructor(private http: HttpClient) { }
   //Http Options
   httpOptions = {
@@ -67,6 +65,10 @@ export class PlaceService {
       .pipe(
         retry(1)
       )
+  }
+
+  getCostUnit(): Observable<any>{
+    return this.http.get(`${Common.urlBase}/costunitname/getAllCostUnitName`)
   }
 
   getCountOrderPendingByPlaceID(id): Observable<any>{

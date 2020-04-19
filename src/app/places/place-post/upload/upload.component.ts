@@ -15,7 +15,7 @@ export class UploadComponent {
   isHovering: boolean;
   files: File[] = [];
   constructor(){
-    this.onUpload = new EventEmitter;
+    this.onUpload = new EventEmitter();
   }
   
   toggleHover(event: boolean) {

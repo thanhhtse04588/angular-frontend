@@ -161,6 +161,11 @@
                   <td *matCellDef="let element"> {{element.costPrice}} </td>
                 </ng-container>
 
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="unitID">
+                                  <th *matHeaderCellDef> Đơn giá</th>
+                                  <td *matCellDef="let element"> {{getUnitName(element.unitID)}} </td>
+                                </ng-container>
 
                 <tr mdbTableCol mat-header-row *matHeaderRowDef="costColumns"></tr>
                 <tr mdbTableCol mat-row *matRowDef="let row; columns: costColumns;"></tr>
