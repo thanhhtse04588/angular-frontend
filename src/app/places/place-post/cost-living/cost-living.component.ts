@@ -77,10 +77,14 @@ export class CostLivingComponent implements OnInit {
     return savedRows;
   }
 
-  setToEdit(data) { 
-    if (data?.length>0) {
-      data.forEach(element => element.isEditable = false);
-      this.eqmTable.get('tableRows').setValue(data);
+  async setToEdit(data) {
+    this.deleteRow(0)// Delete row default
+    if (data?.length > 0) {
+      await data.forEach(element => {
+      element.isEditable = false;
+        this.addRow();
+      });
+      this.eqmTable.get('tableRows').patchValue(data);
     }
   }
 
@@ -89,7 +93,7 @@ export class CostLivingComponent implements OnInit {
     this.touchedRows = control.controls.filter(row => row.touched).map(row => row.value);
   }
 
-  getUnitName(id){
-    return this.units.find(unit => unit.id = id ).unitName;
+  getUnitName(id: number){
+ return this.units.find(unit => unit.id === id ).unitName;
   }
 }

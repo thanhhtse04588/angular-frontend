@@ -180,7 +180,6 @@ export class PlacePostComponent implements OnInit, AfterViewInit, OnDestroy {
     this.postPlaceForm.listCost = this.costComponent.getCostOfLivingTable();
     this.postPlaceForm.listImageLink = this.imageUploaded;
     console.log(JSON.stringify(this.postPlaceForm,null,'\t'));
-    
     this.subs.add(this.placeService.insertPlace(this.postPlaceForm).subscribe(
       data => data ? alert("Yêu cầu đăng tin thành công, chúng tôi sẽ sớm liên hệ với bạn !") : alert("Đã có lỗi xảy ra! Yêu cầu đăng tin không thành công"),
       (err) => alert("Đã có lỗi xảy ra! Yêu cầu đăng tin không thành công"),

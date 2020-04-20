@@ -205,7 +205,7 @@
           </mdb-card>
           <!-- page 4 -->
           <!-- Equipment -->
-          <app-equipment></app-equipment>
+          <app-equipment ></app-equipment>
 
           <!-- Cost of living -->
           <app-cost-living></app-cost-living>
@@ -320,12 +320,11 @@
                 {{email.valid}}
                 {{checkingDate.valid}} -->
               </div>
-              <button type="submit" mdbBtn [color]="placeEditID? 'warning':'primary'" size="md" mdbWavesEffect
+              <!-- <button type="submit" mdbBtn [color]="placeEditID? 'warning':'primary'" size="md" mdbWavesEffect
                 [disabled]="isSubmit">
                 <span [ngClass]="{'spinner-border spinner-border-sm' : isSubmit}"> </span>
-
                 Test
-              </button>
+              </button> -->
 
               <button type="submit" mdbBtn [color]="placeEditID? 'warning':'primary'" size="md"
                 [disabled]="!form.valid || !loginService.isUserLoggedIn() || isSubmit" mdbWavesEffect>

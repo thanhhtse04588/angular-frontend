@@ -4,42 +4,23 @@
   </mdb-card-header>
   <mdb-card-body>
     <p>Tin rao có ảnh sẽ được xem nhiều hơn gấp 10 lần và được nhiều người gọi gấp 5 lần so với tin rao không
-      có ảnh. Hãy đăng ảnh để được giao dịch nhanh chóng!</p>
+      có ảnh. Hãy đăng ảnh để được giao dịch nhanh chóng! <span class="text-danger">Yêu cầu cung cấp 1 hoặc nhiều hình
+        ảnh.</span></p>
     <!-- listImageLink -->
     <div class="md-form mb-5">
       <mat-card style="margin-top:10px">
-
-        <!-- <mat-card-content>
-          <ul>
-            <li>
-              <span id="file-label">
-                Tải lên: {{imageUploaded.length}}/{{files.length}}
-              </span>
-            </li>
-          </ul>
-        </mat-card-content>
-        <mat-card-actions>
+        <div class="dropzone" dropzone (hovered)="toggleHover($event)" (dropped)="onDrop($event)"
+          [class.hovering]="isHovering">
           <button type="button" mat-button color="warn" (click)="onClick()">
-            <mat-icon>file_upload</mat-icon>
-            Tải lên
+            <i class="fas fa-upload"></i>
           </button>
-        </mat-card-actions>
-        <mdb-error *ngIf="!isDoneUpload">
-          Yêu cầu cung cấp 1 hoặc nhiều hình ảnh.
-        </mdb-error>
-        <input type="file" #fileUpload id="fileUpload" name="fileUpload" multiple="multiple"
-        accept="image/*" style="display:none;" /> -->
-
-        <div class="dropzone" 
-        dropzone
-        (hovered)="toggleHover($event)"
-        (dropped)="onDrop($event)"
-        [class.hovering]="isHovering">
-        <p>Kéo và thả ảnh vào đây</p>
-   </div> 
-   <div *ngFor="let file of files">
-     <upload-task [file]="file" (onUpload)='onUploadedFile($event)'></upload-task>
-   </div>
+          <input type="file" #fileUpload id="fileUpload" name="fileUpload" multiple="multiple" accept="image/*"
+            style="display:none;" />
+          <p>Kéo và thả ảnh vào đây</p>
+        </div>
+        <div *ngFor="let file of files">
+          <upload-task [file]="file" (onUpload)='onUploadedFile($event)'></upload-task>
+        </div>
 
       </mat-card>
     </div>

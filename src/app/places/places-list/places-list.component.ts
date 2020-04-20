@@ -62,6 +62,10 @@ export class PlacesListComponent implements OnInit {
     )
   }
 
+  shortTitle( title: string) {
+    return title?.substring(0, 50);
+  }
+
   gotoPage(currentPage: number) {
     this.searchCondition.page = currentPage
     this.paging.currentPage = currentPage
@@ -87,9 +91,6 @@ export class PlacesListComponent implements OnInit {
     this.previous = infowindow;
  }
 
-  shortTitle(title) {
-    return title.substring(0, 65);
-  }
 
   // reloadCurrentRoute(currentUrl: string, data: any) {
   //   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {

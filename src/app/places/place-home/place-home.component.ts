@@ -23,8 +23,8 @@ export class PlaceHomeComponent implements OnInit {
     );
   }
 
-  shortTitle(title) {
-    return title.substring(0,65);
+  shortTitle( title: string) {
+    return title?.substring(0, 50);
   }
 
   loadScripts() {

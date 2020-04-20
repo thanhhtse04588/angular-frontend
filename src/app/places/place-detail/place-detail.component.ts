@@ -81,7 +81,7 @@ export class PlaceDetailComponent implements OnInit, OnDestroy {
   }
 
   getUnitName(id: number){
-    return this.units?.find(unit => unit.id =id).unitName;
+    return this.units?.find(unit => unit.id ===id).unitName;
   }
 
   isActive(id: number) {

@@ -52,7 +52,6 @@ export class RenterContractComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   getPayResult(result: Pay) {
-    console.log(result)
     if (result.payFor) {
       this.subs.add(this.userService.updateStatusContract(result?.contractID, ContractStatus.ACTIVE,result?.placeID).subscribe(
         data => {
@@ -110,7 +109,6 @@ interface Contract {
   fee: number,
   contractStatusID: number,
   statusContract: string,
-
   placeStatusID: number,
   orderID: number,
   placeStatus: string,

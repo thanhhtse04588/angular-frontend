@@ -23,12 +23,8 @@
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" routerLink="/user/renter" routerLinkActive="active">
                     <a class="nav-link waves-effect">
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link waves-effect" routerLink="/user/renter" routerLinkActive="active">
                         Kênh người mua
                     </a>
                 </li>
@@ -85,10 +81,11 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link border border-light rounded waves-effect" *ngIf="loginService.isUserLoggedIn()" routerLink="/user/logout">
-                      <i class="fas fa-sign-out-alt"></i>
+                    <a class="nav-link border border-light rounded waves-effect" *ngIf="loginService.isUserLoggedIn()"
+                        routerLink="/user/logout">
+                        <i class="fas fa-sign-out-alt"></i>
                     </a>
-                  </li>
+                </li>
             </ul>
 
         </div>
