@@ -1,31 +1,4 @@
 
-@import url("../../../assets/half-page-image-carousel/css/style.min.css");
-html,
-body,
-header,
-.carousel {
-  height: 80vh;
-}
-
-@media (max-width: 740px) {
-
-  html,
-  body,
-  header,
-  .carousel {
-    height: 100vh;
-  }
-}
-
-@media (min-width: 800px) and (max-width: 850px) {
-
-  html,
-  body,
-  header,
-  .carousel {
-    height: 100vh;
-  }
-}
 span{
   padding-left: 15px;
 }

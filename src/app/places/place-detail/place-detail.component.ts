@@ -61,7 +61,6 @@ export class PlaceDetailComponent implements OnInit, OnDestroy {
     this.subs.add(this.placeService.getPlaceDetail(+sessionStorage.getItem("placeID"))
       .subscribe(data => {
         this.place = data;
-        debugger;
         this.getOrderCount();
         this.location = {
           latitude: +this.place.latitude,

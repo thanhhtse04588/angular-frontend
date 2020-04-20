@@ -19,16 +19,17 @@ export class GlobalErrorHandler implements ErrorHandler {
     let stackTrace;
     if (error instanceof HttpErrorResponse) {
       // Server error
-      message = errorService.getServerErrorMessage(error);
+      message =  'Lỗi tại Đức : '+ errorService.getServerErrorMessage(error);
       //stackTrace = errorService.getServerErrorStackTrace(error);
       // notifier.showError(message);
     } else {
       // Client Error
-      message = errorService.getClientErrorMessage(error);
+      message = 'Lỗi của Thành : '+ errorService.getClientErrorMessage(error);
       // notifier.showError(message);
     }
     // Always log errors
-    logger.logError(message, stackTrace);
+    // logger.logError(message, stackTrace);
+    alert(message);
     console.error(error);
     // this.router.navigate(['error'])
   }
