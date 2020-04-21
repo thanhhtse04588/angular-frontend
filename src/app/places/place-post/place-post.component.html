@@ -13,9 +13,7 @@
           <div class="h3 text-center">ĐĂNG TIN RAO BÁN, CHO THUÊ NHÀ ĐẤT</div>
           <p>(Quý vị nhập thông tin nhà đất cần bán hoặc cho thuê vào các mục dưới đây)</p>
           <div *ngIf="!loginService.isUserLoggedIn()" class="alert alert-warning" role="alert">
-            Bạn cần <strong style="cursor: pointer;" title="Đăng nhập ở góc trên bên phải màn hình">đăng nhập</strong>
-            để
-            thực hiện chức năng này
+            Bạn cần <a (click)='authGaurdService.showModal()'><strong style="cursor: pointer;">đăng nhập</strong> để thực hiện chức năng này</a>
           </div>
         </div>
         <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
@@ -319,6 +317,8 @@
                 {{phoneNumber.valid}}
                 {{email.valid}}
                 {{checkingDate.valid}} -->
+                <!-- {{equipComponent?.eqmTable?.invalid}}
+                {{costComponent?.eqmTable?.invalid}} -->
               </div>
               <!-- <button type="submit" mdbBtn [color]="placeEditID? 'warning':'primary'" size="md" mdbWavesEffect
                 [disabled]="isSubmit">
@@ -327,7 +327,7 @@
               </button> -->
 
               <button type="submit" mdbBtn [color]="placeEditID? 'warning':'primary'" size="md"
-                [disabled]="!form.valid || !loginService.isUserLoggedIn() || isSubmit" mdbWavesEffect>
+                [disabled]="!form.valid || !loginService.isUserLoggedIn() || isSubmit || equipComponent?.eqmTable?.invalid || costComponent?.eqmTable?.invalid" mdbWavesEffect>
                 <span [ngClass]="{'spinner-border spinner-border-sm' : isSubmit}"> </span>
                 <span [innerHTML]="placeEditID? 'Lưu chỉnh sửa':' Yêu cầu đăng tin'"></span>
               </button>

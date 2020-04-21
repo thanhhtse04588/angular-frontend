@@ -20,8 +20,6 @@ import { AdminComponent } from './admin/admin.component';
 import { SellerPostEditComponent } from './user/seller-post-edit/seller-post-edit.component';
 import { SellerMenuComponent } from './user/seller-menu/seller-menu.component';
 import { TestComponent } from './places/test/test.component';
-import { RegisterComponent } from './index/register/register.component';
-import { LoginComponent } from './index/login/login.component';
 import { NotFoundComponent } from './index/errors/404/not-found/not-found.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, ErrorHandler } from '@angular/core';
@@ -40,13 +38,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LogoutComponent } from './index/logout/logout.component';
 // import { BasicAuthHtppInterceptorService } from './index/service/basic-auth-htpp-interceptor.service';
 import { PlacePostComponent } from './places/place-post/place-post.component';
-import { GlobalErrorHandler } from './global-error-handler';
+import { GlobalErrorHandler } from './error_handler/global-error-handler';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ServerErrorInterceptor } from './server-error.interceptor';
+import { ServerErrorInterceptor } from './error_handler/server-error.interceptor';
 import { AgmCoreModule } from '@agm/core';
 
 /* Angular material */
-import { AngularMaterialModule } from './angular-material.module';
+import { AngularMaterialModule } from './shared/angular-material.module';
 // MDBootstrap
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { ErrorPageComponent } from './index/errors/error/error-page/error-page.component';
@@ -55,11 +53,9 @@ import { SellerManageComponent } from './user/seller-manage/seller-manage.compon
 // Angular FireBase
 import { AngularFireModule } from "@angular/fire";
 import { environment } from "../environments/environment";
-import {
-  AngularFireStorageModule,
-  AngularFireStorageReference,
-  AngularFireUploadTask
-} from "@angular/fire/storage";
+import {AngularFireStorageModule} from "@angular/fire/storage";
+import { AngularFireAuthModule } from '@angular/fire/auth';
+
 import { OrderComponent } from './places/place-detail/order/order.component';
 
 
@@ -81,8 +77,6 @@ import { OrderComponent } from './places/place-detail/order/order.component';
       CostLivingComponent,
       EquipmentComponent,
       UploadComponent,
-      LoginComponent,
-      RegisterComponent,
       TestComponent,
       SellerMenuComponent,
       SellerManageComponent,
@@ -101,8 +95,6 @@ import { OrderComponent } from './places/place-detail/order/order.component';
       PaypalButtonComponent,
       DropzoneDirective,
       UploadTaskComponent
-      
-
     
 
   ],
@@ -120,7 +112,7 @@ import { OrderComponent } from './places/place-detail/order/order.component';
 
     AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebaseConfig, "cloud"),
-    
+    AngularFireAuthModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBHJYZBS-Vig1M-fizCBelDmmqymJ96tXM',
       libraries: ["places", "geometry"]

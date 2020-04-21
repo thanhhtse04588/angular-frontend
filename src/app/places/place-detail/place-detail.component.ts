@@ -1,3 +1,4 @@
+import { AuthGaurdService } from './../../index/service/auth-gaurd.service';
 import { PlaceStatus, Common } from './../../class/common';
 
 import { MatPaginator } from '@angular/material/paginator';
@@ -31,7 +32,8 @@ export class PlaceDetailComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
     private placeService: PlaceService,
-    public loginService: AuthenticationService) {
+    public loginService: AuthenticationService,
+    public authGaurdService :AuthGaurdService) {
     this.place = new PlaceDetail()
   }
 

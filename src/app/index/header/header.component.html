@@ -113,10 +113,6 @@
                         <input type="text" id="defaultForm-username" formControlName="loginFormModalUsername"
                             class="form-control" mdbInput mdbValidate>
                         <label for="defaultForm-username">Tên đăng nhập<span class="text-danger">*</span></label>
-                        <mdb-error
-                            *ngIf="loginFormModalUsername.invalid && (loginFormModalUsername.dirty || loginFormModalUsername.touched)">
-                            Không bỏ trống
-                        </mdb-error>
                     </div>
 
                     <div class="md-form mb-4">
@@ -124,18 +120,14 @@
                         <input type="password" id="defaultForm-pass" formControlName="loginFormModalPassword"
                             class="form-control" mdbInput mdbValidate>
                         <label for="defaultForm-pass">Mật khẩu<span class="text-danger">*</span></label>
-                        <mdb-error
-                            *ngIf="loginFormModalPassword.invalid && (loginFormModalPassword.dirty || loginFormModalPassword.touched)">
-                            Không bỏ trống
-                        </mdb-error>
                     </div>
 
                 </div>
-                <div class="modal-footer d-flex justify-content-center">
+                <div class="col text-center">
+                    <p>Đăng nhập bằng <a class="mx-2" role="button" (click)="loginService.googleSignin()"><mdb-icon fab icon="google"></mdb-icon>mail</a></p>
                     <button [disabled]="!validatingLoginForm.valid" class="btn btn-primary my-4 btn-block"
                         mdbWavesEffect>
-                        <strong>Đăng nhập</strong>
-                    </button>
+                        <strong>Đăng nhập</strong></button>
                 </div>
             </div>
         </div>
@@ -214,11 +206,6 @@
     </div>
 </form>
 
-
-<!-- /Signin Modal -->
-
-<script type="text/javascript">
-    // Animations initialization
-    new WOW().init();
-
-</script>
+<div *ngIf="loginService.user$ | async">
+    <!-- template will replace this div -->
+  </div>

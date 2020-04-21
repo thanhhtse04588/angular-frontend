@@ -1,11 +1,10 @@
 import { SharedService } from './../../shared/shared.service';
 
-
 import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs";
 import { PlaceService } from "../service/place.service";
 import { PlaceQuickView } from "../../class/place-quick-view";
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-place-home',

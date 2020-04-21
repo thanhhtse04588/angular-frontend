@@ -37,11 +37,11 @@
                 <!--Title-->
                 <h4 class="card-title">{{shortTitle(place?.title)}}...</h4>
                 <!--Text-->
-                <h5 class="card-title">{{place.roleOfPlaceName}}</h5>
+                <h5><mdb-badge pill="true" default="true">{{place.roleOfPlaceName}}</mdb-badge></h5>
                 <p class="card-text">{{place.bedRooms|| '?'}} phòng ngủ - {{place.toilets|| '?'}} phòng vệ sinh -
                   {{place.area|| '?'}} m²
                 </p>
-                <h5 class="card-title"> {{place.district}}</h5>
+                <h5 class="card-title"> <mdb-icon fas icon="map-marker-alt" class="grey-text"></mdb-icon> {{place.district}}</h5>
                 <h4 class="card-title">{{place.price| number}} vnđ</h4>
               </div>
             </a>

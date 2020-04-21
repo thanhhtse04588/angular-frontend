@@ -1,3 +1,4 @@
+import { AuthGaurdService } from './../../index/service/auth-gaurd.service';
 import { UserService } from './../../user/service/user.service';
 import { EquipmentComponent } from './equipment/equipment.component';
 import { CostLivingComponent } from './cost-living/cost-living.component';
@@ -32,10 +33,10 @@ export class PlacePostComponent implements OnInit, AfterViewInit, OnDestroy {
   formatPrice: any
   // Equipment
   @ViewChild(EquipmentComponent)
-  private equipComponent: EquipmentComponent;
+  equipComponent: EquipmentComponent;
   // cost of living
   @ViewChild(CostLivingComponent)
-  private costComponent: CostLivingComponent;
+  costComponent: CostLivingComponent;
   //upload img
   imageUploaded: string[] =[];
   //g map
@@ -55,7 +56,8 @@ export class PlacePostComponent implements OnInit, AfterViewInit, OnDestroy {
     private searchService: SearchBarService,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
-    public loginService: AuthenticationService) { }
+    public loginService: AuthenticationService,
+    public authGaurdService :AuthGaurdService) { }
 
   defaultToEdit(data: PlacePostForm) {
     console.log(data);
@@ -98,7 +100,7 @@ export class PlacePostComponent implements OnInit, AfterViewInit, OnDestroy {
       contactName: new FormControl('', [Validators.required]),
       contactAddress: new FormControl('', Validators.maxLength(100)),
       phoneNumber: new FormControl('', [Validators.required, Validators.pattern("((\\+91-?)|0)?[0-9]*")]),
-      email: new FormControl('', [Validators.email, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]),
+      email: new FormControl('', [Validators.email, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),Validators.required]),
       checkingDate: new FormControl('', [Validators.required,this.date]),
     })
 

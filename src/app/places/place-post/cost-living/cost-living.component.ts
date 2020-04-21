@@ -15,8 +15,9 @@ export class CostLivingComponent implements OnInit {
   mode: boolean;
   touchedRows: any;
   units: CostUnitName[];
-  defaultCost = [{ costName: "Điện", costPrice: "",unitID:'', isEditable: false },
-  { costName: "Nước", costPrice: "",unitID:'', isEditable: false }
+  defaultCost = [{ costName: "Điện",unitID:1, isEditable: true },
+  { costName: "Nước" ,unitID:1, isEditable: true },
+  { costName: "Internet" ,unitID:2, isEditable: true }
   ]
 
   constructor(private fb: FormBuilder,
@@ -45,7 +46,8 @@ export class CostLivingComponent implements OnInit {
     this.eqmTable = this.fb.group({
       tableRows: this.fb.array([])
     });
-    this.addRow();
+    this.defaultCost.forEach(row => this.addRow())
+    this.eqmTable.get('tableRows').patchValue(this.defaultCost);
   }
 
   addRow() {
@@ -78,7 +80,7 @@ export class CostLivingComponent implements OnInit {
   }
 
   async setToEdit(data) {
-    this.deleteRow(0)// Delete row default
+    this.defaultCost.forEach((element, index, array) =>this.deleteRow(index))// Delete row default
     if (data?.length > 0) {
       await data.forEach(element => {
       element.isEditable = false;

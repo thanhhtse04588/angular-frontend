@@ -10,8 +10,6 @@ import { PlacesComponent } from './places/places.component';
 import { AdminComponent } from './admin/admin.component';
 import { SellerPostEditComponent } from './user/seller-post-edit/seller-post-edit.component';
 import { TestComponent } from './places/test/test.component';
-import { RegisterComponent } from './index/register/register.component';
-import { LoginComponent } from './index/login/login.component';
 import { PlaceHomeComponent } from './places/place-home/place-home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -41,8 +39,6 @@ const routes: Routes = [
     path: 'user', component: UserComponent, children: [
       { path: '', redirectTo: 'seller', pathMatch: 'full' },
       { path: 'test', component: TestComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
       { path: 'logout', component: LogoutComponent, canActivate: [AuthGaurdService] },
       { path: 'error', component: ErrorPageComponent },
       {

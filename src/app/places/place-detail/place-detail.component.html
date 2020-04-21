@@ -29,7 +29,7 @@
 
           </div>
           <div *ngIf="!loginService.isUserLoggedIn()" class="alert alert-warning" role="alert">
-            Bạn cần <a routerLink="/user/login" routerLinkActive="active">đăng nhập</a> để sử dụng
+            Bạn cần <a (click)='authGaurdService.showModal()'><strong style="cursor: pointer;">đăng nhập</strong> để thực hiện chức năng này</a>
           </div>
           <h4><strong>Thông tin chi tiết</strong></h4>
         </mdb-card-title>

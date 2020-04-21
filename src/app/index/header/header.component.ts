@@ -4,6 +4,7 @@ import { AuthenticationService } from '../service/authentication.service';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ModalDirective } from 'angular-bootstrap-md';
+import { AuthGaurdService } from '../service/auth-gaurd.service';
 
 @Component({
   selector: 'app-header',
@@ -18,9 +19,13 @@ export class HeaderComponent implements OnInit {
   validatingSigninForm: FormGroup
   validateLogin = false
 
-  constructor(private router: Router, public loginService: AuthenticationService, private registerService: AuthenticationService) { }
+  constructor(private router: Router, public loginService: AuthenticationService, private registerService: AuthenticationService,
+    private authGaurdService: AuthGaurdService) { }
 
   ngOnInit(): void {
+    console.log(this.frameLogin);
+
+    this.authGaurdService.setModal(this.frameLogin);
 
     this.validatingLoginForm = new FormGroup({
       loginFormModalUsername: new FormControl('', Validators.required),
