@@ -29,10 +29,10 @@
                     <mdb-card-title>
                       <a (click)="sharedService.placeDetail(item.id)"><h5>{{item.title}}</h5></a>
                     </mdb-card-title>
-                    <mdb-card-text>
+                    <div>
                       <p><strong>Địa chỉ: </strong>{{item.address}}</p>
                       <p><strong>Ngày đăng: </strong> {{item.datePost}}</p>
-                    </mdb-card-text>
+                    </div>
                   </div>
                   <div class="col-md-3">
                     <button *ngIf="isViewShow(item.statusID)" (click)="sharedService.placeDetail(item.id)"  style="width: 110px;" class=" float-right" size="sm" mdbBtn

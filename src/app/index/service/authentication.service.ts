@@ -89,9 +89,7 @@ export class AuthenticationService {
       this.authenticate(credential.user.email, credential.user.uid).subscribe(
         data => {
           console.log(data);
-          
-          this.setSessionLoggedIn(data)
-          this.router.navigate(["/places"])
+          this.setSessionLoggedIn(data);
         })
     })
 

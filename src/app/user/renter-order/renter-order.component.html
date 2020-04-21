@@ -18,7 +18,7 @@
               <div class="h5">{{order.title}}</div>
             </mdb-card-header>
             <mdb-card-body class="px-5">
-              <mdb-card-text>
+              <div>
                 <div class="row">
                   <div class="col">
                     <p><strong>Họ tên: </strong>{{order.name}}</p>
@@ -47,7 +47,7 @@
                 <span class="float-right h5 pr-2">
                   <mdb-badge [color]="statusOrderColor(order.orderStatusID)">{{order.orderStatus}}</mdb-badge>
                 </span>
-              </mdb-card-text>
+              </div>
             </mdb-card-body>
           </mdb-card>
         </div>

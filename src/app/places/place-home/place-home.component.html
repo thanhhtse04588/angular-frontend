@@ -1,14 +1,4 @@
-<!-- <div class="text-center white-text mx-5 wow fadeIn">
-  <h1 class="mb-4">
-    <strong>Bất động sản sạch</strong>
-  </h1>
-  <p>
-    <strong>Đáp ứng mọi tiêu chí của người mua lẫn người bán</strong>
-  </p>
-  <p class="mb-4 d-none d-md-block">
-    <strong>Hãy trở thành khách hàng của chúng tôi để nhận được những dịch vụ tốt nhất.</strong>
-  </p>
-</div> -->
+
 <div style="margin-top: -100px;">
   <mdb-carousel class="carousel slide carousel-fade"  [animation]="'fade'">
     <mdb-carousel-item>
@@ -64,11 +54,8 @@
     </mdb-carousel-item>
   </mdb-carousel>
 </div>
-
-
-<app-places-list></app-places-list>
-
-<div class="container">
+<app-places-list (onSearch) ="isSearch = $event"></app-places-list>
+<div class="container" *ngIf="!isSearch">
   <hr class="mt-3 mb-5">
   <!--Section: Cards-->
   <section class="text-center">

@@ -13,6 +13,7 @@ import { PlaceQuickView } from "../../class/place-quick-view";
 })
 export class PlaceHomeComponent implements OnInit {
   places: Observable<PlaceQuickView[]>;
+  isSearch = false;
   constructor(private placeService: PlaceService,public sharedService: SharedService) { 
     }
 

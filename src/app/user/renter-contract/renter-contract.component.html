@@ -17,7 +17,7 @@
               <div class="h5">{{contract.titlePlace}}</div>
             </mdb-card-header>
             <mdb-card-body class="px-5">
-              <mdb-card-text>
+              <div>
                 <div class="row">
                   <div class="col">
                     <p><strong>Mã hợp đồng: </strong>{{contract.contractID}}</p>
@@ -43,7 +43,7 @@
                   <mdb-badge [color]="statusContractColor(contract.contractStatusID)">{{contract.statusContract}}
                   </mdb-badge>
                 </span>
-              </mdb-card-text>
+              </div>
             </mdb-card-body>
 
           </mdb-card>

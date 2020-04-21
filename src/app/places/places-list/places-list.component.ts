@@ -1,11 +1,12 @@
 import { SharedService } from './../../shared/shared.service';
 import { Common } from './../../class/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from "rxjs";
 import { PlaceQuickView } from "../../class/place-quick-view";
 import { SearchCondition, Paging } from './../../class/search-condition';
 import { SearchBarService } from './../../index/service/search-bar.service';
+
 declare var $: any;
 
 @Component({
@@ -15,6 +16,7 @@ declare var $: any;
 })
 
 export class PlacesListComponent implements OnInit {
+  @Output() onSearch = new EventEmitter<boolean>();
   places: Observable<PlaceQuickView>;
   searchCondition: SearchCondition;
   paging: Paging;
@@ -24,7 +26,6 @@ export class PlacesListComponent implements OnInit {
   location: Location;
   zoom = Common.ZOOM;
   previous;
-
   constructor(private searchService: SearchBarService,
     private router: Router,public sharedService:SharedService ) {
     this.paging = new Paging();
@@ -45,6 +46,7 @@ export class PlacesListComponent implements OnInit {
     this.paging.pageAmount = this.PAGE_AMOUNT;
     this.searchCondition.amount = this.PAGE_AMOUNT;
     this.getCountSearch();
+    this.onSearch.next(true);
   }
 
 

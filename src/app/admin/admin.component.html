@@ -8,48 +8,49 @@
       <div class="container-fluid">
 
         <!-- Brand -->
-        <a class="navbar-brand waves-effect" >
-          <strong class="blue-text">CyberAdmin</strong>
+        <a class="navbar-brand waves-effect">
+          <strong class="blue-text">Admin</strong>
         </a>
 
-         <!-- Collapse -->
-         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-         <span class="navbar-toggler-icon"></span>
-     </button>
+        <!-- Collapse -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-     <!-- Links -->
-     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Links -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-         <!-- Left -->
-         <ul class="navbar-nav mr-auto">
-             <li class="nav-item" routerLink="/places/home" routerLinkActive="active">
-                 <a class="nav-link waves-effect">Trang chủ
-                     <span class="sr-only">(current)</span>
-                 </a>
-             </li>
-             <li class="nav-item" routerLink="/user/renter" routerLinkActive="active">
-                 <a class="nav-link waves-effect" >
-                     Kênh người mua
-                 </a>
-             </li>
-             <li class="nav-item" routerLink="/user/seller" routerLinkActive="active">
-                 <a class="nav-link waves-effect">
-                     Kênh người bán
-                 </a>
-             </li>
-             <!-- <li *ngIf="loginService.isUserLoggedIn()" class="nav-item">
+          <!-- Left -->
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item" routerLink="/places/home" routerLinkActive="active">
+              <a class="nav-link waves-effect">Trang chủ
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item" routerLink="/user/renter" routerLinkActive="active">
+              <a class="nav-link waves-effect">
+                Kênh người mua
+              </a>
+            </li>
+            <li class="nav-item" routerLink="/user/seller" routerLinkActive="active">
+              <a class="nav-link waves-effect">
+                Kênh người bán
+              </a>
+            </li>
+            <!-- <li *ngIf="loginService.isUserLoggedIn()" class="nav-item">
                  <a class="nav-link waves-effect">
                      Thông báo
                      <span class="badge badge-danger ml-2">4</span>
                  </a>
              </li> -->
-         </ul>
+          </ul>
 
           <!-- Right -->
           <ul class="navbar-nav nav-flex-icons">
             <li class="nav-item">
-              <a class="nav-link border border-light rounded waves-effect" *ngIf="loginService.isUserLoggedIn()" routerLink="/user/logout">
+              <a class="nav-link border border-light rounded waves-effect" *ngIf="loginService.isUserLoggedIn()"
+                routerLink="/user/logout">
                 <i class="fas fa-sign-out-alt"></i>
               </a>
             </li>
@@ -64,15 +65,17 @@
     <!-- Sidebar -->
     <div class="sidebar-fixed position-fixed">
 
-      <a class="logo-wrapper waves-effect">
-        <img src="https://mdbootstrap.com/img/logo/mdb-email.png" class="img-fluid" alt="">
-      </a>
+      <div class="my-5"><a class="navbar-brand waves-effect" routerLink="/places/home">
+          <strong class="blue-text">
+            <mdb-icon fas icon="home" size="3x"></mdb-icon>CyberAdmin
+          </strong>
+        </a></div>
 
       <div class="list-group list-group-flush">
-
+        <!-- 
         <a [routerLink]="['dashboard']" routerLinkActive="active" class="list-group-item waves-effect">
           <i class="fas fa-chart-pie mr-3"></i>Dashboard
-        </a>
+        </a> -->
 
         <a [routerLink]="['checking-list']" routerLinkActive="active"
           class="list-group-item list-group-item-action waves-effect">
@@ -82,7 +85,7 @@
           class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-money-bill-alt mr-3"></i>Yêu cầu xem nhà</a>
 
-          <a [routerLink]="['place-manage']" routerLinkActive="active"
+        <a [routerLink]="['place-manage']" routerLinkActive="active"
           class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-money-bill-alt mr-3"></i>Danh sách nhà</a>
 
@@ -102,78 +105,16 @@
 
   <!--Footer-->
   <footer class="page-footer text-center font-small primary-color-dark darken-2 mt-4 wow fadeIn">
+    <div style="height: 100px;">
 
-    <!--Call to action-->
-    <div class="pt-4">
-      <a class="btn btn-outline-white" href="https://mdbootstrap.com/docs/jquery/getting-started/download/"
-        target="_blank" role="button">Download
-        MDB
-        <i class="fas fa-download ml-2"></i>
-      </a>
-      <a class="btn btn-outline-white" href="https://mdbootstrap.com/education/bootstrap/" target="_blank"
-        role="button">Start
-        free tutorial
-        <i class="fas fa-graduation-cap ml-2"></i>
-      </a>
     </div>
-    <!--/.Call to action-->
-
-    <hr class="my-4">
-
-    <!-- Social icons -->
-    <div class="pb-4">
-      <a href="https://www.facebook.com/mdbootstrap" target="_blank">
-        <i class="fab fa-facebook-f mr-3"></i>
-      </a>
-
-      <a href="https://twitter.com/MDBootstrap" target="_blank">
-        <i class="fab fa-twitter mr-3"></i>
-      </a>
-
-      <a href="https://www.youtube.com/watch?v=7MUISDJ5ZZ4" target="_blank">
-        <i class="fab fa-youtube mr-3"></i>
-      </a>
-
-      <a href="https://plus.google.com/u/0/b/107863090883699620484" target="_blank">
-        <i class="fab fa-google-plus mr-3"></i>
-      </a>
-
-      <a href="https://dribbble.com/mdbootstrap" target="_blank">
-        <i class="fab fa-dribbble mr-3"></i>
-      </a>
-
-      <a href="https://pinterest.com/mdbootstrap" target="_blank">
-        <i class="fab fa-pinterest mr-3"></i>
-      </a>
-
-      <a href="https://github.com/mdbootstrap/bootstrap-material-design" target="_blank">
-        <i class="fab fa-github mr-3"></i>
-      </a>
-
-      <a href="http://codepen.io/mdbootstrap/" target="_blank">
-        <i class="fab fa-codepen mr-3"></i>
-      </a>
-    </div>
-    <!-- Social icons -->
-
-    <!--Copyright-->
-    <div class="footer-copyright py-3">
-      © 2019 Copyright:
-      <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> MDBootstrap.com </a>
-    </div>
-    <!--/.Copyright-->
-
   </footer>
-  <!--/.Footer-->
 
-  <!-- Initializations -->
   <script type="text/javascript">
     // Animations initialization
     new WOW().init();
 
   </script>
-
-  <!-- Charts -->
   <script>
     // Line
     var ctx = document.getElementById("myChart").getContext('2d');
