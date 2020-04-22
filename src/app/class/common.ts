@@ -34,4 +34,5 @@ export class ContractStatus{
     public static ACTIVE =1;
     public static PENDING =2;
     public static CANCEL =3;
+    public static BAN =4;
 }

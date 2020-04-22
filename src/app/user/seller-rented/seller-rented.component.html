@@ -1,5 +1,5 @@
-<body class="grey lighten-3 min-vh-100">
-  <div class="container wow fadeIn">
+<body class="grey lighten-3 min-vh-100  wow fadeIn">
+  <div class="container">
     <div class="row py-5">
       <!--Grid column-->
       <div class="col-md-3 ">
@@ -15,13 +15,19 @@
 
         <div *ngFor="let item of posts">
           <mdb-card *ngIf="isRented(item.statusID)" class="mb-3">
+            <a (click)="sharedService.placeDetail(item.id)">
             <div class="row">
-              <img class="col-md-5" style="height: 236px;" [src]="item.imageLarge"/>
+              <div class="col-md-5 view overlay zoom" >
+                <img [src]="item.imageLarge" style="height: 236px;" class="img-thumbnail" alt="zoom">
+                <div class="mask flex-center waves-effect waves-light">
+                  <p class="white-text">Xem</p>
+                </div>
+              </div>
               <mdb-card-body class="col-md-7">
                 <div class="row">
                   <div class="col-md-9" style="height: 130px;">
                     <mdb-card-title>
-                     <a (click)="sharedService.placeDetail(item.id)"><h5>{{item.title}}</h5></a> 
+                     <h5>{{item.title}}</h5> 
                     </mdb-card-title>
                     <div>
                       <p><strong>Địa chỉ: </strong>{{item.address}}</p>
@@ -34,6 +40,7 @@
                 <span class="h5">Giá: {{item.price| number}} vnđ</span>
               </mdb-card-body>
             </div>
+          </a>
           </mdb-card>
         </div>
       </div>

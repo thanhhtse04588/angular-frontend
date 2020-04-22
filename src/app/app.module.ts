@@ -1,3 +1,4 @@
+import { ContractListComponent } from './admin/contract-list/contract-list.component';
 import { UploadTaskComponent } from './places/place-post/upload/upload-task/upload-task.component';
 import { DropzoneDirective } from './places/place-post/upload/dropzone.directive';
 import { EquipmentComponent } from './places/place-post/equipment/equipment.component';
@@ -91,6 +92,7 @@ import { OrderComponent } from './places/place-detail/order/order.component';
       PlaceManageComponent,
       CheckingListComponent,
       DashboardComponent,
+      ContractListComponent,
       OrderListComponent,
       PaypalButtonComponent,
       DropzoneDirective,

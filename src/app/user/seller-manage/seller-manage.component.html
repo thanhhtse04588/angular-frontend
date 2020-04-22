@@ -1,5 +1,5 @@
-<body class="grey lighten-3 min-vh-100">
-  <div class="container wow fadeIn">
+<body class="grey lighten-3 min-vh-100  wow fadeIn">
+  <div class="container">
     <div class="row py-5">
 
       <div class="col-md-3 ">
@@ -21,39 +21,44 @@
         </div>
         <div *ngFor="let item of posts">
           <mdb-card *ngIf="isStatusShow(item.statusID)" class="mb-3">
-            <div class="row">
-              <img class="col-md-5" style="height: 236px;" [src]="item.imageLarge"/>
-              <mdb-card-body class="col-md-7">
-                <div class="row">
-                  <div class="col-md-9" style="height: 130px;">
-                    <mdb-card-title>
-                      <a (click)="sharedService.placeDetail(item.id)"><h5>{{item.title}}</h5></a>
-                    </mdb-card-title>
-                    <div>
-                      <p><strong>Địa chỉ: </strong>{{item.address}}</p>
-                      <p><strong>Ngày đăng: </strong> {{item.datePost}}</p>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <button *ngIf="isViewShow(item.statusID)" (click)="sharedService.placeDetail(item.id)"  style="width: 110px;" class=" float-right" size="sm" mdbBtn
-                    color="success" mdbWavesEffect> Xem </button>
-                    <button *ngIf="isCancelShow(item.statusID)" (click)="comfirmCancel.show()"
-                      (click)="placeID = item.id" style="width: 110px;" class=" float-right" size="sm" mdbBtn
-                      color="danger" mdbWavesEffect> Hủy </button>
-                    <button *ngIf="isEditShow(item.statusID)" (click)="comfirmEdit.show()" (click)="placeID =item.id"
-                      style="width: 110px;" class=" float-right" size="sm" mdbBtn color="warning" mdbWavesEffect>Chỉnh
-                      sửa</button>
+            <a (click)="sharedService.placeDetail(item.id)">
+              <div class="row">
+                <div class="col-md-5 view overlay zoom" >
+                  <img [src]="item.imageLarge" style="height: 236px;" class="img-thumbnail" alt="zoom">
+                  <div class="mask flex-center waves-effect waves-light">
+                    <p class="white-text">Xem</p>
                   </div>
                 </div>
-                <hr>
+                <mdb-card-body class="col-md-7">
+                  <div class="row">
+                    <div class="col-md-9" style="height: 130px;">
+                      <mdb-card-title>
+                        <h5>{{item.title}}</h5>
+                      </mdb-card-title>
+                      <div>
+                        <p><strong>Địa chỉ: </strong>{{item.address}}</p>
+                        <p><strong>Ngày đăng: </strong> {{item.datePost}}</p>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <button *ngIf="isCancelShow(item.statusID)" (click)="comfirmCancel.show()"
+                        (click)="placeID = item.id" style="width: 110px;" class=" float-right" size="sm" mdbBtn
+                        color="danger" mdbWavesEffect> Hủy </button>
+                      <button *ngIf="isEditShow(item.statusID)" (click)="comfirmEdit.show()" (click)="placeID =item.id"
+                        style="width: 110px;" class=" float-right" size="sm" mdbBtn color="warning" mdbWavesEffect>Chỉnh
+                        sửa</button>
+                    </div>
+                  </div>
+                  <hr>
 
-                <span class="h5">Giá: {{item.price| number}} vnđ</span>
-                <span class="float-right h5 pr-2">
-                  <mdb-badge [color]="statusColor(item.statusID)">{{item.status}}</mdb-badge>
-                </span>
+                  <span class="h5">Giá: {{item.price| number}} vnđ</span>
+                  <span class="float-right h5 pr-2">
+                    <mdb-badge [color]="statusColor(item.statusID)">{{item.status}}</mdb-badge>
+                  </span>
 
-              </mdb-card-body>
-            </div>
+                </mdb-card-body>
+              </div>
+            </a>
           </mdb-card>
         </div>
       </div>

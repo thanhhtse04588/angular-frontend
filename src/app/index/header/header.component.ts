@@ -14,7 +14,8 @@ import { AuthGaurdService } from '../service/auth-gaurd.service';
 export class HeaderComponent implements OnInit {
   @ViewChild('frameLogin', { static: true }) frameLogin: ModalDirective;
   @ViewChild('frameSignin', { static: true }) frameSignin: ModalDirective;
-
+  isLoginSubmit = false;
+  isSigninSubmit = false;
   validatingLoginForm: FormGroup
   validatingSigninForm: FormGroup
   validateLogin = false
@@ -42,7 +43,6 @@ export class HeaderComponent implements OnInit {
   }
 
   doSignup() {
-
     if (this.validatingSigninForm.invalid) {
       alert("Thông tin không hợp lệ!")
       return;
@@ -50,44 +50,33 @@ export class HeaderComponent implements OnInit {
       alert("Mật khẩu không khớp!")
       return;
     }
-
+    this.isSigninSubmit = true;
     this.registerService.register(this.validatingSigninForm.value).subscribe(
       data => {
         if (data) {
           alert("Đăng ký tài khoản thành công!")
-          this.router.navigate(["places"])
-          this.frameSignin.hide()
-          //auto login
-          this.loginService.authenticate(this.username.value, this.password.value).subscribe(
-            (data: UserLogin) => {
-              this.loginService.setSessionLoggedIn(data)
-            })
-
+          this.frameSignin.hide();
+          this.frameLogin.show();
         } else {
           alert("Tên đăng nhập đã tồn tại! Vui lòng nhập lại! ")
         }
-      }
+      },null,()=>this.isSigninSubmit = false
     )
   }
 
 
   checkLogin() {
+    this.isLoginSubmit = true;
     this.loginService.authenticate(this.loginFormModalUsername.value, this.loginFormModalPassword.value).subscribe(
       (data: UserLogin) => {
         if (data.message === "401") {
-          alert("Tên đăng nhập hoặc mật khẩu không chính xác!")
-          return
+          alert("Tên đăng nhập hoặc mật khẩu không chính xác!");
         } else {
-          try {
             this.loginService.setSessionLoggedIn(data)
             if (this.loginService.isAdmin()) this.router.navigate(["admin"])
-          } catch (error) {
-            this.router.navigate(["error"])
-          } finally {
             this.frameLogin.hide()
-          }
         }
-      }
+      },null,()=> this.isLoginSubmit = false
     )
   }
 

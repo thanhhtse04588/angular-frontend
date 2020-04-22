@@ -78,7 +78,6 @@ export class RenterContractComponent implements OnInit, OnDestroy, AfterViewInit
     this.subs.add(this.adminService.changeStatusOrder(updateStatus).subscribe(
       data => data ? this.reload() : alert("Thao tác không thành công!")
     ))
-    debugger;
   }
 
   vndToUsd(vnd: number) {
@@ -98,7 +97,7 @@ export class RenterContractComponent implements OnInit, OnDestroy, AfterViewInit
 }
 
 
-interface Contract {
+export interface Contract {
   placeID: number,
   titlePlace: string,
   contractID: number,
@@ -122,7 +121,7 @@ interface Pay {
   placeID: number,
   orderID: number,
 }
-interface UpdateStatus {
+export interface UpdateStatus {
   orderID: number,
   statusOrderID: number,
   placeID: number,

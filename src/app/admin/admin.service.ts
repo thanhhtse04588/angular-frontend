@@ -18,6 +18,10 @@ getAllChecking(): Observable<any>{
   return this.http.get(`${Common.urlBase}/managechecking/get-all-checking`)
 }
 
+getAllContract(): Observable<any>{
+  return this.http.get(`${Common.urlBase}/managecontract/get-all-contract`)
+}
+
 changeStatusChecking(data): Observable<any>{
   return this.http.post(`${Common.urlBase}/checkinglist/change-status-checking`,JSON.stringify(data),this.httpOptions)
 }

@@ -1,6 +1,4 @@
-<body class="grey lighten-3">
-
-  <!--Main Navigation-->
+<body class="grey lighten-3 wow fadeIn">
   <header>
 
     <!-- Navbar -->
@@ -72,10 +70,6 @@
         </a></div>
 
       <div class="list-group list-group-flush">
-        <!-- 
-        <a [routerLink]="['dashboard']" routerLinkActive="active" class="list-group-item waves-effect">
-          <i class="fas fa-chart-pie mr-3"></i>Dashboard
-        </a> -->
 
         <a [routerLink]="['checking-list']" routerLinkActive="active"
           class="list-group-item list-group-item-action waves-effect">
@@ -87,36 +81,29 @@
 
         <a [routerLink]="['place-manage']" routerLinkActive="active"
           class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-money-bill-alt mr-3"></i>Danh sách nhà</a>
+          <mdb-icon fas icon="home mr-3"></mdb-icon>Danh sách nhà</a>
+          <a [routerLink]="['contract-list']" routerLinkActive="active"
+          class="list-group-item list-group-item-action waves-effect">
+          <mdb-icon fas icon="file-contract mr-3"></mdb-icon>Danh sách hợp đồng</a>
 
       </div>
-
     </div>
-    <!-- Sidebar -->
-
   </header>
-  <!--Main Navigation-->
-
-  <!--Main layout-->
   <main class="pt-5 mx-lg-5 min-vh-100">
     <router-outlet></router-outlet>
   </main>
-  <!--Main layout-->
 
-  <!--Footer-->
   <footer class="page-footer text-center font-small primary-color-dark darken-2 mt-4 wow fadeIn">
     <div style="height: 100px;">
 
     </div>
   </footer>
 
-  <script type="text/javascript">
-    // Animations initialization
+  <!-- <script type="text/javascript">
     new WOW().init();
 
   </script>
   <script>
-    // Line
     var ctx = document.getElementById("myChart").getContext('2d');
     var myChart = new Chart(ctx, {
       type: 'bar',
@@ -155,7 +142,6 @@
       }
     });
 
-    //pie
     var ctxP = document.getElementById("pieChart").getContext('2d');
     var myPieChart = new Chart(ctxP, {
       type: 'pie',
@@ -173,8 +159,6 @@
       }
     });
 
-
-    //line
     var ctxL = document.getElementById("lineChart").getContext('2d');
     var myLineChart = new Chart(ctxL, {
       type: 'line',
@@ -209,7 +193,6 @@
     });
 
 
-    //radar
     var ctxR = document.getElementById("radarChart").getContext('2d');
     var myRadarChart = new Chart(ctxR, {
       type: 'radar',
@@ -242,7 +225,6 @@
       }
     });
 
-    //doughnut
     var ctxD = document.getElementById("doughnutChart").getContext('2d');
     var myLineChart = new Chart(ctxD, {
       type: 'doughnut',
@@ -260,10 +242,9 @@
     });
 
   </script>
-  <!--Google Maps-->
-  <script src="https://maps.google.com/maps/api/js"></script>
-  <script>
-    // Regular map
+
+  <script src="https://maps.google.com/maps/api/js"></script> -->
+  <!-- <script>
     function regular_map() {
       var var_location = new google.maps.LatLng(40.725118, -73.997699);
 
@@ -313,5 +294,5 @@
       }
     });
 
-  </script>
+  </script> -->
 </body>

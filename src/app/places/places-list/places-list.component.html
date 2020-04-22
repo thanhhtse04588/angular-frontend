@@ -1,10 +1,10 @@
 <!--Main layout-->
-<main class="pt-3">
+<main class="pt-3 wow fadeIn">
   <div class="container">
     <app-search-bar (onSearch)="searchHandlerAtParrent($event)"></app-search-bar>
     <!--Kết quả search-->
-    <div *ngIf="searchCondition" class="card wow fadeIn mb-5">
-      <div class="card-body text-black text-center my-2">
+    <div *ngIf="searchCondition" class="card mb-5 wow fadeInLeftBig">
+      <div class="card-body text-black text-center my-2 ">
         <h4>
           Kết quả tìm kiếm: {{paging.countResult}} kết quả
         </h4>
@@ -15,17 +15,18 @@
     </div>
     <!--List-->
     <div *ngIf="!showMap;else map" class="text-center">
-      <div class="row wow fadeIn">
-        <div class="col-lg-4 col-md-6 mb-4" *ngFor="let place of places ">
+      <div class="row ">
+        <div class="col-lg-4 col-md-6 mb-4 wow fadeInLeftBig" *ngFor="let place of places ">
           <!--Card-->
           <div class="card">
             <a (click)="sharedService.placeDetail(place.placeID)">
-              <!--Card image-->
-              <div class="view overlay" style="height: 250px;">
-                <div class="view "
-                  style="background-image: url({{place.imageLarge}}); background-repeat: no-repeat; background-size: cover;">
-                </div>
+            <!--Card image-->
+            <div class="view overlay zoom" style="height: 250px;">
+              <img [src]="place.imageLarge"  class="img-thumbnail" alt="zoom">
+              <div class="mask flex-center waves-effect waves-light">
+                <p class="white-text">Xem</p>
               </div>
+            </div>
               <!--Card content-->
               <div class="card-body">
                 <!--Title-->
@@ -46,7 +47,7 @@
     </div>
     <!-- map -->
     <ng-template #map>
-      <agm-map style="height: 600px;" [latitude]="location.latitude" [longitude]="location.longitude"
+      <agm-map class="wow fadeIn" style="height: 600px;" [latitude]="location.latitude" [longitude]="location.longitude"
         [zoom]="location.zoom">
         <ng-container *ngFor="let place of location?.markers">
           <agm-marker (markerClick)="clickedMarker(infowindow)" 
@@ -55,10 +56,10 @@
             <!--Card-->
             <div class="card" style="width: 300px;">
               <a (click)="sharedService.placeDetail(place.placeID)">
-                <!--Card image-->
-                <div class="view overlay" style="height: 200px;">
-                  <div class="view "
-                    style="background-image: url({{place.imageLarge}}); background-repeat: no-repeat; background-size: cover;">
+                <div class="view overlay zoom" style="height: 200px;" >
+                  <img [src]="place.imageLarge"  class="img-thumbnail" alt="zoom">
+                  <div class="mask flex-center waves-effect waves-light">
+                    <p class="white-text">Xem</p>
                   </div>
                 </div>
                 <!--Card content-->

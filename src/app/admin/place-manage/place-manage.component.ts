@@ -1,10 +1,10 @@
 import { SharedService } from './../../shared/shared.service';
-import { Router } from '@angular/router';
+
 import { UserService } from './../../user/service/user.service';
-import { PlaceStatus, BookingStatus } from './../../class/common';
+import { PlaceStatus } from './../../class/common';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from './../admin.service';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatSort } from '@angular/material/sort';

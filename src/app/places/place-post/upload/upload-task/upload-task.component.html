@@ -1,4 +1,4 @@
-<div *ngIf="percentage | async as pct">
+<div *ngIf="percentage | async as pct" class="wow fadeIn">
   <progress [value]="pct" max="100"></progress>
   {{ pct | number }}%
 </div>

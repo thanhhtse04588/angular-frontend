@@ -92,7 +92,7 @@
 
 <!-- Login Modal -->
 <form [formGroup]="validatingLoginForm" class="text-center" (ngSubmit)="checkLogin()">
-    <div mdbModal #frameLogin="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
+    <div mdbModal #frameLogin="mdbModal" class="modal fade down" id="frameModalTop" tabindex="-1" role="dialog"
         aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content  p-5">
@@ -115,7 +115,8 @@
 
                 <!-- Sign in button -->
                 <button mdbBtn color="info" block="true" class="my-4" type="submit"
-                    [disabled]="!validatingLoginForm.valid">Đăng nhập</button>
+                [disabled]="!validatingLoginForm.valid || isLoginSubmit" >
+                    <span [ngClass]="{'spinner-border spinner-border-sm' : isLoginSubmit}"> </span> Đăng nhập</button>
 
                 <!-- Register -->
                 <p>Bạn chưa có tài khoản?
@@ -133,7 +134,7 @@
 
 <!-- Signin Modal -->
 <form [formGroup]="validatingSigninForm" (ngSubmit)=doSignup()>
-    <div mdbModal #frameSignin="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
+    <div mdbModal #frameSignin="mdbModal" class="modal fade down" id="frameModalTop" tabindex="-1" role="dialog"
         aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content p-5 text-center">
@@ -163,8 +164,8 @@
                 <input type="password" formControlName="confirmPasswrd" class="form-control" placeholder="Nhập lại mật khẩu"
                     aria-describedby="defaultRegisterFormPasswordHelpBlock">
 
-                <button mdbBtn color="info" block="true" class="my-4" [disabled]="!validatingSigninForm.valid"
-                    type="submit">Đăng ký</button>
+                <button mdbBtn color="info" block="true" class="my-4" [disabled]="!validatingSigninForm.valid || isSigninSubmit"
+                    type="submit"> <span [ngClass]="{'spinner-border spinner-border-sm' : isSigninSubmit}"> </span> Đăng ký</button>
 
                 <!-- Social register -->
                 <p>Đăng ký với : <a class="light-blue-text mx-2" role="button" (click)="loginService.googleSignin();frameSignin.hide()">

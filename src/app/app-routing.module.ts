@@ -1,3 +1,4 @@
+import { ContractListComponent } from './admin/contract-list/contract-list.component';
 import { RenterContractComponent } from './user/renter-contract/renter-contract.component';
 import { RenterOrderComponent } from './user/renter-order/renter-order.component';
 import { PlaceManageComponent } from './admin/place-manage/place-manage.component';
@@ -71,6 +72,7 @@ const routes: Routes = [
       { path: "checking-list", component: CheckingListComponent, canActivate: [AuthAdminService] },
       { path: "order-list", component: OrderListComponent, canActivate: [AuthAdminService] },
       { path: "place-manage", component: PlaceManageComponent, canActivate: [AuthAdminService] },
+      { path: "contract-list", component: ContractListComponent, canActivate: [AuthAdminService] },
     ]
   },
   { path: '**', component: NotFoundComponent },
