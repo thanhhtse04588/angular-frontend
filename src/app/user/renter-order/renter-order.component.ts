@@ -1,5 +1,6 @@
+import { thanToday } from 'src/app/shared/directive/than-today.directive';
 import { SharedService } from './../../shared/shared.service';
-import { Validators } from '@angular/forms';
+import { Validators, AbstractControl } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { AdminService } from './../../admin/admin.service';
@@ -27,7 +28,6 @@ export class RenterOrderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.reload();
-
     this.editOrderForm = new FormGroup({
       orderID: new FormControl(''),
       name: new FormControl('', Validators.required),
@@ -97,14 +97,17 @@ export class RenterOrderComponent implements OnInit, OnDestroy {
   creatEditOrder(order: Order) {
     this.editOrderForm = new FormGroup({
       orderID: new FormControl(order.orderID),
-      name: new FormControl(order.name, Validators.required),
-      email: new FormControl(order.email, [Validators.email, Validators.required]),
-      phoneNumber: new FormControl(order.phoneNumber, [Validators.required]),
-      dateTime: new FormControl(order.dateTime, [Validators.required]),
-      message: new FormControl(order.message)
+      name: new FormControl(order.name, [ Validators.maxLength(100),Validators.required]),
+      email: new FormControl(order.email,[Validators.email, Validators.required]),
+      phoneNumber: new FormControl(order.phoneNumber, [Validators.required, Validators.pattern("((\\+91-?)|0)?[0-9]*")]),
+      dateTime: new FormControl(order.dateTime, [Validators.required,this.dateFormat]),
+      message: new FormControl(order.message,[Validators.maxLength(100)])
     });
   }
-
+  dateFormat(c: AbstractControl): { [key: string]: boolean } {
+    let value = new Date(c.value);
+    return isNaN(value.getTime()) || value <= new Date() ? { 'invalid': true } : undefined;
+  }
   onEdit(order: Order) {
     this.creatEditOrder(order);
   }
@@ -118,6 +121,26 @@ export class RenterOrderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subs.unsubscribe();
+  }
+
+  get name() {
+    return this.editOrderForm.get('name');
+  }
+
+  get email() {
+    return this.editOrderForm.get('email');
+  }
+
+  get phoneNumber() {
+    return this.editOrderForm.get('phoneNumber');
+  }
+
+  get dateTime() {
+    return this.editOrderForm.get('dateTime');
+  }
+
+  get message() {
+    return this.editOrderForm.get('message');
   }
 }
 

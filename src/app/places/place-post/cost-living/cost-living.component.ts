@@ -1,3 +1,4 @@
+import { SharedService } from './../../../shared/shared.service';
 import { PlaceService } from './../../service/place.service';
 import { CostUnitName } from './../../../class/place-detail';
 
@@ -21,7 +22,8 @@ export class CostLivingComponent implements OnInit {
   ]
 
   constructor(private fb: FormBuilder,
-    private placeService :PlaceService
+    private placeService :PlaceService,
+    public sharedService: SharedService 
   ) { }
 
   ngOnInit() {
@@ -34,8 +36,8 @@ export class CostLivingComponent implements OnInit {
 
   initiateForm(): FormGroup {
     return this.fb.group({
-      costName: ['', Validators.required],
-      costPrice: ['', [Validators.required]],
+      costName: ['', [Validators.required,Validators.maxLength(32)]],
+      costPrice: ['', [Validators.required,Validators.min(0)]],
       unitID: ['', [Validators.required]],
       isEditable: [true]
     });

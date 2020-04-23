@@ -1,3 +1,4 @@
+import { SharedService } from './../../shared/shared.service';
 import { AuthGaurdService } from './../../index/service/auth-gaurd.service';
 import { UserService } from './../../user/service/user.service';
 import { EquipmentComponent } from './equipment/equipment.component';
@@ -14,6 +15,7 @@ import { PlaceService } from './../service/place.service';
 import { SearchBarService } from 'src/app/index/service/search-bar.service';
 import { Component, OnInit, ViewChild, ElementRef, NgZone, AfterViewInit, OnDestroy, Input } from '@angular/core';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
+import { thanToday } from 'src/app/shared/directive/than-today.directive';
 
 @Component({
   selector: 'app-place-post',
@@ -57,7 +59,8 @@ export class PlacePostComponent implements OnInit, AfterViewInit, OnDestroy {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     public loginService: AuthenticationService,
-    public authGaurdService :AuthGaurdService) { }
+    public authGaurdService :AuthGaurdService,
+    public sharedService: SharedService) { }
 
   defaultToEdit(data: PlacePostForm) {
     console.log(data);
@@ -89,19 +92,19 @@ export class PlacePostComponent implements OnInit, AfterViewInit, OnDestroy {
       district: new FormControl('', [Validators.required]),
       ward: new FormControl('', [Validators.required]),
       street: new FormControl('', [Validators.required]),
-      area: new FormControl('', [Validators.required]),
-      price: new FormControl('', [Validators.required]),
+      area: new FormControl('', [Validators.required,Validators.min(0)]),
+      price: new FormControl('', [Validators.required,Validators.min(0)]),
       descriptions: new FormControl('', [Validators.required, Validators.minLength(30), Validators.maxLength(3000)]),
-      frontispiece: new FormControl(''),
-      homeDirection: new FormControl(''),
-      numberFloors: new FormControl(''),
-      numberBedrooms: new FormControl(''),
-      numberToilets: new FormControl(''),
+      frontispiece: new FormControl('',[Validators.min(0)]),
+      homeDirection: new FormControl('',[Validators.min(0)]),
+      numberFloors: new FormControl('',[Validators.min(0)]),
+      numberBedrooms: new FormControl('',[Validators.min(0)]),
+      numberToilets: new FormControl('',[Validators.min(0)]),
       contactName: new FormControl('', [Validators.required]),
       contactAddress: new FormControl('', Validators.maxLength(100)),
       phoneNumber: new FormControl('', [Validators.required, Validators.pattern("((\\+91-?)|0)?[0-9]*")]),
       email: new FormControl('', [Validators.email, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),Validators.required]),
-      checkingDate: new FormControl('', [Validators.required,this.date]),
+      checkingDate: new FormControl('', [Validators.required,thanToday()]),
     })
 
   }
@@ -109,10 +112,6 @@ export class PlacePostComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
   }
 
-  date(c: AbstractControl): { [key: string]: boolean } {
-    let value = new Date(c.value);
-    return isNaN(value.getTime()) || value <= new Date() ? { 'invalid': true } : undefined;
-  }
 
   //load Places Autocomplete
   private loadPlacesAutoComplete() {
@@ -228,7 +227,6 @@ export class PlacePostComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     ))
   }
-
   onWardChange() {
     this.latitude = +this.ward.value.wardLatitude;
     this.longitude = +this.ward.value.wardLongtitude;

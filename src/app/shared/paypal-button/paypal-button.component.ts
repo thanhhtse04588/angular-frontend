@@ -1,4 +1,4 @@
-import { Common } from './../../class/common';
+
 import { PaymentService } from './../../places/service/payment.service';
 import { Payment } from './../../class/Payment';
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
@@ -57,6 +57,7 @@ export class PaypalButtonComponent implements OnInit {
           this.payment.createTime = order.create_time;
           this.payment.description = this.pay.description;
           this.payment.money = this.pay.price;
+          alert("Thanh toán thành công");
           this.paymentService.completePayment(this.payment).subscribe(
             data => console.log(data)
           ).unsubscribe();
@@ -72,13 +73,13 @@ export class PaypalButtonComponent implements OnInit {
   }
 
 }
-interface Pay {
+export interface Pay {
   price: number,
   description: string,
   payFor: boolean,
-  contractID: number,
-  placeID: number,
-  orderID: number,
+  contractID?: number,
+  placeID?: number,
+  orderID?: number,
 }
 // this.product = {
 //   price: 1000,

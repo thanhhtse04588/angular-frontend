@@ -25,15 +25,15 @@
                     <p><strong>Người thuê: </strong>{{contract.renterID}}</p>
                   </div>
                   <div class="col">
-                    <p><strong>Bắt đầu thuê : </strong>{{contract.startDate}}</p>
-                    <p><strong>Kết thúc thuê: </strong>{{contract.endDate}}</p>
-                    <p><strong>Số tiền đặt cọc: </strong>{{contract.fee | number}}VND/{{vndToUsd(contract.fee) | number}}USD</p>
+                    <p><strong>Ngày bắt đầu: </strong>{{contract.startDate | date:'dd/MM/yyy'}}</p>
+                    <p><strong>Ngày kết thúc: </strong>{{contract.endDate | date:'dd/MM/yyy'}}</p>
+                    <p><strong>Số tiền đặt cọc: </strong>{{contract.fee | number}}<small>VND</small>/{{vndToUsd(contract.fee) | number}}<small>USD</small></p>
                   </div>
                   <div class="col">
                     <p><strong>Thông tin nhà: </strong>
                       <a class="text-danger" (click)="sharedService.placeDetail(contract.placeID)">Xem</a>
                     </p>
-                    <div><strong>Trạng thái nhà: </strong><h6>{{contract.placeStatus}}</h6></div>
+                    <div><strong>Trạng thái nhà: </strong><h6 class="text-warning">{{contract.placeStatus}}</h6></div>
 
                   </div>
                 </div>

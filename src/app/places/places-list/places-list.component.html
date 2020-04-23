@@ -49,9 +49,14 @@
     <ng-template #map>
       <agm-map class="wow fadeIn" style="height: 600px;" [latitude]="location.latitude" [longitude]="location.longitude"
         [zoom]="location.zoom">
-        <ng-container *ngFor="let place of location?.markers">
+        <ng-container *ngFor="let place of places">
           <agm-marker (markerClick)="clickedMarker(infowindow)" 
-          [latitude]="place?.latitude" [longitude]="place?.longtitude">
+          [latitude]="place.latitude" 
+          [longitude]="place.longtitude"
+          [animation]='place.animation'
+          (mouseOut)="makerOut(place)"
+          (mouseOver)="makerOver(place)"
+          >
           <agm-info-window #infowindow>
             <!--Card-->
             <div class="card" style="width: 300px;">

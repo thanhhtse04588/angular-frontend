@@ -20,16 +20,24 @@
                       <tr mdbTableCol *ngIf="group.get('isEditable').value" [formGroupName]="i">
                         <td>
                           <input matInput type="text" id="costName" class="form-control" formControlName="costName">
+                          <small class="red-text" *ngIf="sharedService.checkValidateInput(group.get('costName'))">
+                            Không bỏ trống
+                          </small>
                         </td>
                         <td>
-                          <input matInput type="number" id="costPrice" class="form-control" formControlName="costPrice"
-                            >
+                          <input matInput type="number" id="costPrice" class="form-control" formControlName="costPrice">
+                          <small class="red-text" *ngIf="sharedService.checkValidateInput(group.get('costPrice'))">
+                            Không hợp lệ
+                          </small>
                         </td>
                         <td>
                           <select matInput  id="unitID" class="form-control" formControlName="unitID">
                             <option value="" disabled>Chọn...</option>
                             <option *ngFor="let unit of units" [ngValue]='unit.id' >{{unit.unitName}}</option>
                           </select>
+                          <small class="red-text" *ngIf="sharedService.checkValidateInput(group.get('unitID'))">
+                            Không bỏ trống
+                          </small>
                         </td>
                         <td>
                           <button mdbBtn class="btn-danger" size="sm" (click)="deleteRow(i)" mdbWavesEffect>Xóa</button>

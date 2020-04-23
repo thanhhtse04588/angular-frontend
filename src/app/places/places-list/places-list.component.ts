@@ -1,9 +1,8 @@
+import { PlaceQuickView } from './../../class/place-quick-view';
 import { SharedService } from './../../shared/shared.service';
 import { Common } from './../../class/common';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from "rxjs";
-import { PlaceQuickView } from "../../class/place-quick-view";
+import {Router } from '@angular/router';
 import { SearchCondition, Paging } from './../../class/search-condition';
 import { SearchBarService } from './../../index/service/search-bar.service';
 
@@ -17,7 +16,7 @@ declare var $: any;
 
 export class PlacesListComponent implements OnInit {
   @Output() onSearch = new EventEmitter<boolean>();
-  places: Observable<PlaceQuickView>;
+  places;
   searchCondition: SearchCondition;
   paging: Paging;
   PAGE_AMOUNT = 6;
@@ -35,8 +34,7 @@ export class PlacesListComponent implements OnInit {
     this.location = {
       latitude: -28.68352,
       longitude: -147.20785,
-      zoom: this.zoom,
-      markers: []
+      zoom: this.zoom
     }
   }
 
@@ -73,17 +71,22 @@ export class PlacesListComponent implements OnInit {
     this.paging.currentPage = currentPage
     this.searchService.getPlacesBySearchCondition(this.searchCondition).subscribe(
       data => {
-        this.places = data;
+        this.places = data as PlaceQuickView[];
         this.location = {
           latitude: +this.places[0]?.latitude,
           longitude: +this.places[0]?.longtitude,
           zoom: this.zoom,
-          markers: []
         }
         // make Maker Gmap
-        this.places?.forEach(place => this.location.markers.push(place))
+        this.places.forEach(place => place.animation = "DROP");
       });
 
+  }
+  makerOver(maker){
+    maker.animation ="BOUNCE";
+  }
+  makerOut(maker){
+    maker.animation ="";
   }
 
   clickedMarker(infowindow) {
@@ -105,5 +108,4 @@ interface Location {
   latitude: number;
   longitude: number;
   zoom: number;
-  markers: Array<PlaceQuickView>;
 }

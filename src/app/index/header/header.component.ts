@@ -14,39 +14,33 @@ import { AuthGaurdService } from '../service/auth-gaurd.service';
 export class HeaderComponent implements OnInit {
   @ViewChild('frameLogin', { static: true }) frameLogin: ModalDirective;
   @ViewChild('frameSignin', { static: true }) frameSignin: ModalDirective;
-  isLoginSubmit = false;
-  isSigninSubmit = false;
-  validatingLoginForm: FormGroup
-  validatingSigninForm: FormGroup
-  validateLogin = false
+  isLoginSubmit:boolean = false;
+  isSigninSubmit:boolean = false;
+  validatingLoginForm: FormGroup;
+  validatingSigninForm: FormGroup;
 
   constructor(private router: Router, public loginService: AuthenticationService, private registerService: AuthenticationService,
     private authGaurdService: AuthGaurdService) { }
 
   ngOnInit(): void {
-    console.log(this.frameLogin);
-
     this.authGaurdService.setModal(this.frameLogin);
 
     this.validatingLoginForm = new FormGroup({
-      loginFormModalUsername: new FormControl('', Validators.required),
-      loginFormModalPassword: new FormControl('', [Validators.required]),
+      loginFormModalUsername: new FormControl('', [Validators.required,Validators.maxLength(32),Validators.minLength(6)]),
+      loginFormModalPassword: new FormControl('', [Validators.required,Validators.maxLength(32),Validators.minLength(6)]),
     });
 
     this.validatingSigninForm = new FormGroup({
-      firstName: new FormControl('', Validators.required),
-      lastName: new FormControl(''),
-      username: new FormControl('', Validators.required),
-      password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(32)]),
+      firstName: new FormControl('', [Validators.required,Validators.maxLength(32)]),
+      lastName: new FormControl('',[Validators.maxLength(32)]),
+      username: new FormControl('', [Validators.required,Validators.maxLength(32),Validators.minLength(6)]),
+      password: new FormControl('', [Validators.required,Validators.minLength(6), Validators.maxLength(32)]),
       confirmPasswrd: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(32)])
     });
   }
 
   doSignup() {
-    if (this.validatingSigninForm.invalid) {
-      alert("Thông tin không hợp lệ!")
-      return;
-    } else if (this.password.value !== this.confirmPasswrd.value) {
+    if (this.password.value !== this.confirmPasswrd.value) {
       alert("Mật khẩu không khớp!")
       return;
     }
@@ -60,7 +54,7 @@ export class HeaderComponent implements OnInit {
         } else {
           alert("Tên đăng nhập đã tồn tại! Vui lòng nhập lại! ")
         }
-      },null,()=>this.isSigninSubmit = false
+      }, null, () => this.isSigninSubmit = false
     )
   }
 
@@ -72,11 +66,11 @@ export class HeaderComponent implements OnInit {
         if (data.message === "401") {
           alert("Tên đăng nhập hoặc mật khẩu không chính xác!");
         } else {
-            this.loginService.setSessionLoggedIn(data)
-            if (this.loginService.isAdmin()) this.router.navigate(["admin"])
-            this.frameLogin.hide()
+          this.loginService.setSessionLoggedIn(data)
+          if (this.loginService.isAdmin()) this.router.navigate(["admin"])
+          this.frameLogin.hide()
         }
-      },null,()=> this.isLoginSubmit = false
+      }, null, () => this.isLoginSubmit = false
     )
   }
 

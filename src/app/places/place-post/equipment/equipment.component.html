@@ -16,31 +16,43 @@
           <th scope="col"></th>
         </thead>
         <tbody>
-          <ng-container formArrayName="tableRows"
-            *ngFor="let group of getFormControls.controls ; let i=index">
+          <ng-container formArrayName="tableRows" *ngFor="let group of getFormControls.controls ; let i=index">
             <tr mdbTableCol *ngIf="group.get('isEditable').value" [formGroupName]="i">
               <td>
                 <input matInput type="text" id="name" class="form-control" formControlName="name">
+                <small class="red-text" *ngIf="sharedService.checkValidateInput(group.get('name'))">
+                  Không bỏ trống
+                </small>
               </td>
               <td>
-                <input matInput type="number" id="quantity" class="form-control" formControlName="quantity"
-                  >
+                <input matInput type="number" id="quantity" class="form-control" formControlName="quantity">
+                <small class="red-text" *ngIf="sharedService.checkValidateInput(group.get('quantity'))">
+                  Không hợp lệ
+                </small>
               </td>
               <td>
                 <input matInput type="number" id="price" class="form-control" formControlName="price">
+                <small class="red-text" *ngIf="sharedService.checkValidateInput(group.get('price'))">
+                  Không hợp lệ
+                </small>
               </td>
               <td>
                 <input matInput type="number" id="likeNew" class="form-control" formControlName="likeNew">
+                <small class="red-text" *ngIf="sharedService.checkValidateInput(group.get('likeNew'))">
+                  Không hợp lệ
+                </small>
               </td>
               <td>
                 <textarea matInput type="text" formControlName="equipmentDescrible" id="equipmentDescrible"
                   class="md-textarea form-control"></textarea>
-                <!-- <input mdbInput matInput type="text" id="equipmentDescrible" class="form-control" formControlName="equipmentDescrible"> -->
+                <small class="red-text" *ngIf="sharedService.checkValidateInput(group.get('equipmentDescrible'))">
+                  Không quá 100 ký tự
+                </small>
               </td>
               <td>
                 <button mdbBtn class="btn-danger" size="sm" (click)="deleteRow(i)" mdbWavesEffect>Xóa</button>
-                <button mdbBtn class="btn-primary" size="sm" [disabled]="group.invalid"
-                  (click)="doneRow(group)" mdbWavesEffect>Lưu</button>
+                <button mdbBtn class="btn-primary" size="sm" [disabled]="group.invalid" (click)="doneRow(group)"
+                  mdbWavesEffect>Lưu</button>
               </td>
             </tr>
             <tr *ngIf="!group.get('isEditable').value">
@@ -60,8 +72,7 @@
                 {{group.get('equipmentDescrible').value}}
               </td>
               <td>
-                <button mdbBtn class="btn-warning" size="sm" (click)="editRow(group)"
-                  mdbWavesEffect>Sửa</button>
+                <button mdbBtn class="btn-warning" size="sm" (click)="editRow(group)" mdbWavesEffect>Sửa</button>
               </td>
             </tr>
           </ng-container>

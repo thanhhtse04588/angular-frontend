@@ -27,11 +27,11 @@
                   </div>
                   <div class="col">
                     <p><strong>Email: </strong>{{order.email}}</p>
-                    <p><strong>Ngày xem nhà: </strong>{{order.dateTime}}</p>
+                    <p><strong>Thời gian: </strong>{{order.dateTime | date:'short' }}</p>
                     <p><strong>Thông tin nhà: </strong>
                       <a class="text-danger" (click)="sharedService.placeDetail(order.placeID)">Xem</a>
                     </p>
-                    <div ><strong>Trạng thái nhà:</strong><h6>{{order.placeStatus}}</h6></div>
+                    <div ><strong>Trạng thái nhà:</strong><h6 class="text-warning">{{order.placeStatus}}</h6></div>
 
                   </div>
                   <div class="col">
@@ -83,7 +83,7 @@
         <h5>Bạn có chắc chắn muốn CHỈNH SỬA</h5>
       </div>
       <div class="modal-footer">
-        <a type="button" mdbBtn color="danger" (click)="editModal.show()" class="waves-effect"
+        <a type="button" mdbBtn color="warning" (click)="editModal.show()" class="waves-effect"
           (click)="comfirmEdit.hide()" mdbWavesEffect>Đồng ý </a>
         <a type="button" mdbBtn color="warning" outline="true" class="waves-effect" (click)="comfirmEdit.hide()"
           mdbWavesEffect>Bỏ qua</a>
@@ -105,37 +105,41 @@
               <div class="col md-form">
                 <label class="pl-3">Nhập Tên<span class="text-danger">*</span></label>
                 <input type="text" class="form-control" mdbInput formControlName="name">
-                <!-- <mdb-error *ngIf="name.invalid && (name.dirty || name.touched)">
+                <small class="red-text"  *ngIf="sharedService.checkValidateInput(name)">
                       Không hợp lệ
-                    </mdb-error> -->
+                </small>
               </div>
 
               <div class="col md-form">
                 <input type="text" class="form-control" mdbInput formControlName="email">
                 <label class="pl-3">Nhập Email<span class="text-danger">*</span></label>
-                <!-- <mdb-error *ngIf="email.invalid && (email.dirty || email.touched)">
-                      Không hợp lệ
-                    </mdb-error> -->
+                <small class="red-text"  *ngIf="sharedService.checkValidateInput(email)">
+                  Không hợp lệ
+                </small>
               </div>
             </div>
             <div class="md-form mb-5">
               <input type="text" class="form-control" mdbInput formControlName="phoneNumber">
               <label>Số điện thoại<span class="text-danger">*</span></label>
-              <!-- <mdb-error *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)">
-                      Không hợp lệ
-                    </mdb-error> -->
+              <small class="red-text"  *ngIf="sharedService.checkValidateInput(phoneNumber)">
+                Không hợp lệ
+              </small>
             </div>
             <div class="md-form mb-3">
-              <input type="text" class="form-control" mdbInput mdbValidate formControlName="dateTime">
+              <div>Ngày xem nhà<span class="text-danger">*</span></div>
+              <input type="datetime-local" class="form-control" mdbInput mdbValidate formControlName="dateTime">
+              <small class="red-text" *ngIf="sharedService.checkValidateInput(dateTime)">
+                Không hợp lệ
+              </small>
             </div>
 
             <div class="md-form">
               <textarea type="text" class="md-textarea form-control" rows="1" mdbInput mdbValidate
                 formControlName="message"></textarea>
               <label for="form8">Lời nhắn</label>
-              <!-- <mdb-error *ngIf="mess.invalid && (mess.dirty || mess.touched)">
-                    Không hợp lệ
-                  </mdb-error> -->
+              <small class="red-text"  *ngIf="sharedService.checkValidateInput(message)">
+                Không hợp lệ
+              </small>
             </div>
             <button type="submit" [disabled]="!editOrderForm.valid || isSubmit" mdbBtn color="warning" class="relative waves-light" (click)="editModal.hide()"
               mdbWavesEffect>

@@ -1,3 +1,4 @@
+import { ThanTodayDirective } from './shared/directive/than-today.directive';
 import { ContractListComponent } from './admin/contract-list/contract-list.component';
 import { UploadTaskComponent } from './places/place-post/upload/upload-task/upload-task.component';
 import { DropzoneDirective } from './places/place-post/upload/dropzone.directive';
@@ -59,6 +60,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { OrderComponent } from './places/place-detail/order/order.component';
 
+import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 
 @NgModule({
@@ -96,7 +99,8 @@ import { OrderComponent } from './places/place-detail/order/order.component';
       OrderListComponent,
       PaypalButtonComponent,
       DropzoneDirective,
-      UploadTaskComponent
+      UploadTaskComponent,
+      ThanTodayDirective,
     
 
   ],
@@ -111,7 +115,7 @@ import { OrderComponent } from './places/place-detail/order/order.component';
 
     AngularMaterialModule,
     MDBBootstrapModule.forRoot(),
-
+    NgbModule,
     AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebaseConfig, "cloud"),
     AngularFireAuthModule,

@@ -1,3 +1,5 @@
+import { Pay } from './../../../shared/paypal-button/paypal-button.component';
+import { SharedService } from './../../../shared/shared.service';
 
 import { Common } from './../../../class/common';
 import { PaymentService } from './../../service/payment.service';
@@ -9,8 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 import { FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { formatDate, Location } from "@angular/common";
 import { Payment } from 'src/app/class/Payment';
-import { ElementRef, Component, OnInit, ViewChild, OnDestroy, Input } from '@angular/core';
-declare var paypal;
+import { ElementRef, Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { thanToday } from 'src/app/shared/directive/than-today.directive';
 
 @Component({
   selector: 'app-order',
@@ -24,88 +26,49 @@ export class OrderComponent implements OnInit, OnDestroy {
   requestOrderForm: FormGroup
   //payment
   @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
-  product;
-  paidFor = false;
+  pay : Pay;
+  payFor = false;
   payment: Payment;
-
+  minDate;
+  maxDate;
   constructor(private route: ActivatedRoute,
     private userService: UserService,
     public loginService: AuthenticationService,
-    private paymentService: PaymentService,
-    private _location: Location) {
+    private _location: Location,
+    public sharedService: SharedService) {
   }
 
   ngOnInit() {
-    this.product = {
+    let today: Date = new Date()
+    this.minDate = today.toISOString().slice(0,16);
+    today.setDate(today.getDay()+10);
+    this.maxDate = today.toISOString().slice(0,16);
+    
+    this.pay  = {
       price: Common.PRICEORDER,
       description: 'Đặt cọc tiền giữ nhà',
-      img: ''
+      payFor : false,
     };
-
-    this.paypalOnInit();
     this.ngOnInitOrderForm();
   }
-
-  paypalOnInit() {
-    return paypal
-      .Buttons({
-        style: {
-          layout: 'horizontal',
-          color: 'gold',
-          shape: 'rect',
-          label: 'pay'
-        },
-        createOrder: (data, actions) => {
-          return actions.order.create({
-            purchase_units: [
-              {
-                description: this.product.description,
-                amount: {
-                  currency_code: 'USD',
-                  value: this.product.price
-                }
-              }
-            ]
-          });
-        },
-        onApprove: async (data, actions) => {
-          const order = await actions.order.capture();
-          this.paidFor = true;
-          alert("Thanh toán phí dịch vụ thành công! Mời bạn tiếp tục")
-          this.payment = new Payment()
-          this.payment.placeID = +sessionStorage.getItem("placeID");
-          this.payment.userID = +sessionStorage.getItem("userID")
-          this.payment.orderID = data.orderID
-          this.payment.payerID = data.payerID
-          this.payment.status = order.status
-          this.payment.createTime = order.create_time
-          this.payment.description = this.product.description
-          this.payment.money = this.product.price
-          this.paymentService.completePayment(this.payment)
-        },
-        onError: err => {
-          console.log(err);
-        }
-      })
-      .render(this.paypalElement.nativeElement);
+  onPayResult(event){
+    this.payFor = event.payFor
   }
 
   // Liên hệ ngay
   ngOnInitOrderForm() {
     this.requestOrderForm = new FormGroup({
-      name: new FormControl('', Validators.required),
+      name: new FormControl('', [ Validators.maxLength(100),Validators.required]),
       email: new FormControl('', [Validators.email, Validators.required]),
-      phoneNumber: new FormControl('', [Validators.required]),
-      datetime: new FormControl('', [Validators.required]),
-      mess: new FormControl('')
+      phoneNumber: new FormControl('', [Validators.required, Validators.pattern("((\\+91-?)|0)?[0-9]*")]),
+      datetime: new FormControl('', [Validators.required,this.dateFormat]),
+      mess: new FormControl('',[Validators.maxLength(100)])
     });
   }
-
   dateFormat(c: AbstractControl): { [key: string]: boolean } {
     let value = new Date(c.value);
     return isNaN(value.getTime()) || value <= new Date() ? { 'invalid': true } : undefined;
   }
-
   onSubmitOrder() {
     this.isSubmit = true;
     this.orderForm = new InsertedOrderForm()
