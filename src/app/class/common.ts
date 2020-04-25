@@ -1,5 +1,6 @@
 export class Common {
     public static urlBase = 'http://localhost:8080';
+    public static FAKESERVER = 'http://localhost:3000';
     public static roleAdmin = 1;
     public static PRICEORDER = 50;
     public static FEE = 2; // x2 PlacePrice
@@ -35,4 +36,10 @@ export class ContractStatus{
     public static PENDING =2;
     public static CANCEL =3;
     public static BAN =4;
+}
+
+export enum BillStatus{
+    UNPAID,
+    PAID,
+    PENDING
 }

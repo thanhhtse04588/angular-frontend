@@ -1,0 +1,134 @@
+<div class="container-fluid mt-5  wow fadeIn">
+    <!-- Heading -->
+    <div class="card mb-4">
+  
+      <!--Card content-->
+      <div class="card-body d-sm-flex justify-content-between">
+  
+        <h4 class="mb-2 mb-sm-0 pt-1">
+          <a >Admin</a>
+          <span>/</span>
+          <span>Quản lý(xuất,nhập) hóa đơn hằng tháng</span>
+        </h4>
+  
+      </div>
+  
+    </div>
+    <!-- Heading -->
+  
+    <div class="card mb-5 wow fadeIn">
+      <div class="card-header text-center  h5"><strong>Quản lý(xuất,nhập) hóa đơn hằng tháng</strong></div>
+      <div class="card-body">
+          <div class="md-form">
+            <input matInput mdbInput type="text" id="form1" class="form-control" (keyup)="applyFilter($event)">
+            <label for="form1">Lọc</label>
+          </div>
+        <div mdbTable bordered="true" hover="true">
+          <table mat-table matSort [dataSource]="dataSource" class="w-100">
+  
+            <ng-container matColumnDef="colId" >
+              <th *matHeaderCellDef mat-sort-header>Chi tiết nhà</th>
+              <td *matCellDef="let element">{{element.colId}}
+              </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="renterId">
+              <th *matHeaderCellDef mat-sort-header>Người thuê</th>
+              <td *matCellDef="let element">{{element.renterId}}</td>
+            </ng-container>
+  
+            <ng-container matColumnDef="ownerID">
+              <th *matHeaderCellDef mat-sort-header>Chủ nhà</th>
+              <td *matCellDef="let element"> {{element.ownerID}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="dateCollect">
+              <th *matHeaderCellDef mat-sort-header>Hạn thu tiền</th>
+              <td *matCellDef="let element"> {{element.dateCollect}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="totalExpense">
+              <th *matHeaderCellDef mat-sort-header>Tổng thu</th>
+              <td *matCellDef="let element"> {{element.totalExpense}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="paymentStatusName">
+              <th *matHeaderCellDef mat-sort-header>Trạng thái hóa đơn</th>
+              <td *matCellDef="let element"> {{element.paymentStatusName}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="void">
+              <th *matHeaderCellDef> Thanh toán</th>
+              <td *matCellDef="let element">
+
+                <button type="button" (click)='onFillForm(element)' mdbBtn color="warning" size="sm"  mdbWavesEffect>Nhập hóa đơn</button>
+                  <button type="button" mdbBtn color="warning" size="sm" 
+                  (click)="comfirmCashPaid.show()" mdbWavesEffect>Đã thu</button>
+                  
+              </td>
+            </ng-container>
+  
+            <tr mdbTableCol mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mdbTableCol mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+
+<!-- cash paid comfirm -->
+  <div mdbModal #comfirmCashPaid="mdbModal" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="" aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-success modal-sm  text-center" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <label>Upload hóa đơn thu tiền mặt</label>
+        <input type="file">
+      </div>
+      <div class="modal-footer justify-content-center ">
+        <a type="button" mdbBtn color="success" class="waves-effect" (click)="comfirmCashPaid.hide()" mdbWavesEffect>
+          <i class="fas fa-check"></i></a>
+        <a type="button" mdbBtn color="success" outline="true" class="waves-effect" (click)="comfirmCashPaid.hide()"
+          mdbWavesEffect><i class="fas fa-minus"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mdbModal #fillFormModal="mdbModal" class="modal fade" tabindex="-1" 
+role="dialog" aria-hidden="true" [config]="{backdrop: true, ignoreBackdropClick: true}">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content p-5">
+        <table class="table table-bordered">
+           <thead>
+               <tr>
+                   <th scope="col">#</th>
+                   <th scope="col">Tên dịch vụ</th>
+                   <th scope="col">Đơn giá(vnđ/tháng)</th>
+                   <th scope="col">Số lượng </th>
+                   <th scope="col">Đơn vị </th>
+               </tr>
+           </thead>
+           <tbody>
+               <tr *ngFor="let item of billDetail; let i = index">
+                   <th scope="row">{{i}}</th>
+                   <td>{{item.costName}}</td>
+                   <td>{{item.costPrice}}</td>
+                   <td>
+                   <input type="text" [(ngModel)]="item.amount" class="form-control" required="required">
+                   </td>
+                   <td>{{item.unitName}}</td>
+               </tr>
+           </tbody>
+        </table>
+        <div class="modal-footer text-center">
+          <a type="button" mdbBtn color="warning" class="waves-effect"  (click)="onSave()"  mdbWavesEffect>
+              Lưu</a>
+            <a type="button" mdbBtn color="warning" outline="true" class="waves-effect" (click)="fillFormModal.hide();"
+              mdbWavesEffect>Đóng</a>
+        </div>
+    </div>
+  </div>
+</div>

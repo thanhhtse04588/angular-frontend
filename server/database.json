@@ -1,0 +1,162 @@
+
+{
+    "billDetail": [
+        {
+            "colId": 1,
+            "costId": 1,
+            "amount": null,
+            "expensePerCost": 1,
+            "costName": "1 tháng",
+            "costPrice": 1000000,
+            "unitName": "string"
+        },
+        {
+            "colId": 2,
+            "costId": 2,
+            "amount": null,
+            "expensePerCost": 2,
+            "costName": "1 tháng",
+            "costPrice": 2000000,
+            "unitName": "string"
+        },
+        {
+            "colId": 3,
+            "costId": 3,
+            "amount": null,
+            "expensePerCost": 3,
+            "costName": "1 tháng",
+            "costPrice": 3000000,
+            "unitName": "string"
+        },
+        {
+            "colId": 4,
+            "costId": 4,
+            "amount": null,
+            "expensePerCost": 4,
+            "costName": "1 tháng",
+            "costPrice": 4000000,
+            "unitName": "string"
+        },
+        {
+            "colId": 5,
+            "costId": 5,
+            "amount": null,
+            "expensePerCost": 5,
+            "costName": "1 tháng",
+            "costPrice": 5000000,
+            "unitName": "string"
+        }
+    ],
+    "COLBill": [
+        {
+            "colId": 1,
+            "contractId": 1,
+            "renterId": 1,
+            "ownerID": 1,
+            "placeId": 1,
+            "dateCollect": "20/11/2020",
+            "totalExpense": 1,
+            "paymentStatusId": 1,
+            "paymentStatusName": "Đã thanh toán"
+        },
+        {
+            "colId": 2,
+            "contractId": 2,
+            "renterId": 2,
+            "ownerID": 2,
+            "placeId": 2,
+            "dateCollect": "20/11/2020",
+            "totalExpense": 2,
+            "paymentStatusId": 2,
+            "paymentStatusName": "Đã thanh toán"
+        },
+        {
+            "colId": 3,
+            "contractId": 3,
+            "renterId": 3,
+            "ownerID": 3,
+            "placeId": 3,
+            "dateCollect": "20/11/2020",
+            "totalExpense": 3,
+            "paymentStatusId": 3,
+            "paymentStatusName": "Đã thanh toán"
+        },
+        {
+            "colId": 4,
+            "contractId": 4,
+            "renterId": 4,
+            "ownerID": 4,
+            "placeId": 4,
+            "dateCollect": "20/11/2020",
+            "totalExpense": 4,
+            "paymentStatusId": 4,
+            "paymentStatusName": "Đã thanh toán"
+        },
+        {
+            "colId": 5,
+            "contractId": 5,
+            "renterId": 5,
+            "ownerID": 5,
+            "placeId": 5,
+            "dateCollect": "20/11/2020",
+            "totalExpense": 5,
+            "paymentStatusId": 5,
+            "paymentStatusName": "Đã thanh toán"
+        },
+        {
+            "colId": 6,
+            "contractId": 6,
+            "renterId": 6,
+            "ownerID": 6,
+            "placeId": 6,
+            "dateCollect": "20/11/2020",
+            "totalExpense": 6,
+            "paymentStatusId": 6,
+            "paymentStatusName": "Đã thanh toán"
+        },
+        {
+            "colId": 7,
+            "contractId": 7,
+            "renterId": 7,
+            "ownerID": 7,
+            "placeId": 7,
+            "dateCollect": "20/11/2020",
+            "totalExpense": 7,
+            "paymentStatusId": 7,
+            "paymentStatusName": "Đã thanh toán"
+        },
+        {
+            "colId": 8,
+            "contractId": 8,
+            "renterId": 8,
+            "ownerID": 8,
+            "placeId": 8,
+            "dateCollect": "20/11/2020",
+            "totalExpense": 8,
+            "paymentStatusId": 8,
+            "paymentStatusName": "Đã thanh toán"
+        },
+        {
+            "colId": 9,
+            "contractId": 9,
+            "renterId": 9,
+            "ownerID": 9,
+            "placeId": 9,
+            "dateCollect": "20/11/2020",
+            "totalExpense": 9,
+            "paymentStatusId": 9,
+            "paymentStatusName": "Đã thanh toán"
+        },
+        {
+            "colId": 10,
+            "contractId": 10,
+            "renterId": 10,
+            "ownerID": 10,
+            "placeId": 10,
+            "dateCollect": "20/11/2020",
+            "totalExpense": 10,
+            "paymentStatusId": 10,
+            "paymentStatusName": "Đã thanh toán"
+        }
+    ]
+}

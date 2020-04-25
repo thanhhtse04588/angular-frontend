@@ -61,6 +61,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { OrderComponent } from './places/place-detail/order/order.component';
 
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { CostOfLivingBillComponent } from './admin/cost-of-living-bill/cost-of-living-bill.component';
 
 
 
@@ -101,6 +102,7 @@ import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
       DropzoneDirective,
       UploadTaskComponent,
       ThanTodayDirective,
+      CostOfLivingBillComponent,
     
 
   ],
