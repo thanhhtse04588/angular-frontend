@@ -95,25 +95,11 @@ export class OrderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subs.unsubscribe();
   }
-  get name() {
-    return this.requestOrderForm.get('name');
-  }
-
-  get email() {
-    return this.requestOrderForm.get('email');
-  }
-
-  get phoneNumber() {
-    return this.requestOrderForm.get('phoneNumber');
-  }
-
-  get datetime() {
-    return this.requestOrderForm.get('datetime');
-  }
-
-  get mess() {
-    return this.requestOrderForm.get('mess');
-  }
+  get name() {return this.requestOrderForm.get('name');}
+  get email() { return this.requestOrderForm.get('email');}
+  get phoneNumber() {return this.requestOrderForm.get('phoneNumber');}
+  get datetime() { return this.requestOrderForm.get('datetime'); }
+  get mess() { return this.requestOrderForm.get('mess'); }
 
 
 }

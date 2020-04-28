@@ -84,9 +84,6 @@ export class SearchBarComponent implements OnInit {
   }
 
   searchForm(form) {
-    const test = [...form]
-    console.log(test);
-    
     form.title = form.title.trim();
     form.areaMax = form.areaRange.areaMax;
     form.areaMin = form.areaRange.areaMin;
