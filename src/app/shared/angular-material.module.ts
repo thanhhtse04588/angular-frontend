@@ -109,8 +109,7 @@ import { MatTreeModule } from '@angular/material/tree';
       MatNativeDateModule
    ],
    providers: [],
-   declarations: [
-   ]
+   declarations: []
 })
 
 export class AngularMaterialModule { }

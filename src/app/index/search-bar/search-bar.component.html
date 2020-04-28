@@ -1,7 +1,7 @@
 <!-- Advance Search -->
 <mdb-card class="mdb-color lighten-3">
   <mdb-card-body>
-  <form [formGroup]="form" #searchInfo (ngSubmit)="searchForm()">
+  <form [formGroup]="form" (ngSubmit)="searchForm(form.value)">
     <div class="container">
       <div  class="row">
 

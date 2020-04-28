@@ -2,7 +2,7 @@ import { SearchCondition } from './../../class/search-condition';
 import { SearchBarService } from './../service/search-bar.service';
 import { DistrictDB } from './../../class/district-db';
 import { RoleOfPlace } from './../../class/role-of-place';
-import { Component, OnInit, EventEmitter ,Output} from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Observable } from "rxjs";
 import { FormGroup, FormControl } from '@angular/forms';
 
@@ -11,7 +11,6 @@ import { FormGroup, FormControl } from '@angular/forms';
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
-  styleUrls: ['./search-bar.component.css']
 })
 export class SearchBarComponent implements OnInit {
   @Output() onSearch: EventEmitter<SearchCondition>;
@@ -64,7 +63,7 @@ export class SearchBarComponent implements OnInit {
   constructor(private searchService: SearchBarService
   ) {
     this.onSearch = new EventEmitter()
-   }
+  }
 
   ngOnInit(): void {
     this.searchService.getAllRole().subscribe(
@@ -81,22 +80,19 @@ export class SearchBarComponent implements OnInit {
       areaRange: new FormControl(this.areaRanges[0]),
       priceRange: new FormControl(this.priceRanges[0]),
     });
-    
+
   }
 
-
-  searchForm() {
-    const condition = new SearchCondition()
-    condition.title = this.form.get('title').value
-    condition.roleOfPlaceID = this.form.get('roleOfPlaceID').value
-    condition.districtID = this.form.get('districtID').value
-    condition.areaMax = this.form.get('areaRange').value.areaMax
-    condition.areaMin = this.form.get('areaRange').value.areaMin
-    condition.priceMax = this.form.get('priceRange').value.priceMax
-    condition.priceMin = this.form.get('priceRange').value.priceMin
-
-
-    this.onSearch.next(condition)
+  searchForm(form) {
+    const test = [...form]
+    console.log(test);
+    
+    form.title = form.title.trim();
+    form.areaMax = form.areaRange.areaMax;
+    form.areaMin = form.areaRange.areaMin;
+    form.priceMax = form.priceRange.priceMax;
+    form.priceMin = form.priceRange.priceMin;
+    this.onSearch.next(form)
   }
 
   // reloadCurrentRoute(currentUrl: string, data: any) {

@@ -6,6 +6,17 @@ export class Common {
     public static FEE = 2; // x2 PlacePrice
     public static ZOOM = 17;
     public static USDtoVND = 23442;
+    public static OBSERVER = {
+        next(res){
+          (res === false)? alert("Lỗi! ,Thao tác không thành công!"):alert("Thao tác thành công")
+        },
+        error(err) {
+          alert("Lỗi! ,Thao tác không thành công!");
+        },
+        complete() {
+          console.log("completed");
+        }
+      }
 }
 
 export class PlaceStatus {
@@ -15,6 +26,10 @@ export class PlaceStatus {
     public static DEACTIVE = 3;
     public static RENTED = 4;
     public static CHECKING = 5;
+}
+export class CostUnit{
+    public static UNIT =1;
+    public static MOUNTH =2;
 }
 
 export class BookingStatus{

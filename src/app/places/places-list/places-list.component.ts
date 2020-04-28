@@ -62,10 +62,6 @@ export class PlacesListComponent implements OnInit {
     )
   }
 
-  shortTitle( title: string) {
-    return title?.substring(0, 50);
-  }
-
   gotoPage(currentPage: number) {
     this.searchCondition.page = currentPage
     this.paging.currentPage = currentPage

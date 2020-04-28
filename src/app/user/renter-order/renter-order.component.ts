@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../../index/service/authentication.service';
 import { thanToday } from 'src/app/shared/directive/than-today.directive';
 import { SharedService } from './../../shared/shared.service';
 import { Validators, AbstractControl } from '@angular/forms';
@@ -12,7 +13,6 @@ import { UserService } from '../service/user.service';
 @Component({
   selector: 'app-renter-order',
   templateUrl: './renter-order.component.html',
-  styleUrls: ['./renter-order.component.css']
 })
 export class RenterOrderComponent implements OnInit, OnDestroy {
   isSubmit = false;
@@ -24,7 +24,7 @@ export class RenterOrderComponent implements OnInit, OnDestroy {
   //edit
   editOrderForm: FormGroup;
   constructor(private userService: UserService,
-    private adminService: AdminService,public sharedService:SharedService) { }
+    private adminService: AdminService,public sharedService:SharedService, public loginService: AuthenticationService) { }
 
   ngOnInit() {
     this.reload();
@@ -41,7 +41,7 @@ export class RenterOrderComponent implements OnInit, OnDestroy {
     return id == PlaceStatus.ACTIVE;
   }
   reload() {
-    this.userID = +sessionStorage.getItem("userID");
+    this.userID = this.loginService.currentUserValue.userID;
     this.subs.add(this.userService.getListOrderByUserID(this.userID).subscribe(
       data => {
         this.orders = data;
@@ -76,7 +76,6 @@ export class RenterOrderComponent implements OnInit, OnDestroy {
   // }
   
   onDeal(){
-
   }
 
   onReject() {

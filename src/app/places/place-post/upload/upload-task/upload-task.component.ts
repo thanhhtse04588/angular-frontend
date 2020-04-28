@@ -7,7 +7,6 @@ import { finalize, tap } from 'rxjs/operators';
 @Component({
   selector: 'upload-task',
   templateUrl: './upload-task.component.html',
-  styleUrls: ['./upload-task.component.scss']
 })
 export class UploadTaskComponent implements OnInit {
     //upload img

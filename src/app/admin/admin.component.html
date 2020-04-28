@@ -47,8 +47,7 @@
           <!-- Right -->
           <ul class="navbar-nav nav-flex-icons">
             <li class="nav-item">
-              <a class="nav-link border border-light rounded waves-effect" *ngIf="loginService.isUserLoggedIn()"
-                routerLink="/user/logout">
+              <a class="nav-link border border-light rounded waves-effect" *ngIf="loginService.isUserLoggedIn()" (click)="loginService.logOut()" >
                 <i class="fas fa-sign-out-alt"></i>
               </a>
             </li>

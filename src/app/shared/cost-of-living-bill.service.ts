@@ -16,22 +16,22 @@ export class CostOfLivingBillService {
   constructor(private http: HttpClient) { }
 
   getAllBill(): Observable<any> {
-    return this.http.get(`${Common.FAKESERVER}/COLBill`);
+    return this.http.get(`${Common.urlBase}/costofliving/getall30daysafter`);
   }
   getBillDetailByBillID(billID: number): Observable<any> {
-    return this.http.get(`${Common.FAKESERVER}/billDetail`);
+    return this.http.get(`${Common.urlBase}/costofliving/getdetailbycolid?colID=${billID}`);
   }
   getBillsByRenterID(renterID: number): Observable<any> {
-    return this.http.get(`${Common.urlBase}`);
+    return this.http.get(`${Common.urlBase}/costofliving/getbillbyrenterid?renterID=?${renterID}`);
   }
   getBillsByOwnerID(ownerID: number): Observable<any> {
-    return this.http.get(`${Common.urlBase}`);
+    return this.http.get(`${Common.urlBase}/costofliving/getbillbyownterid?ownerID=?${ownerID}`);
   }
-  updateBillDetail(billDetail): Observable<any> {
-    return this.http.post(`${Common.urlBase}`,JSON.stringify(billDetail),this.httpOptions);
+  updateBillDetail(billDetail): Observable<any>{
+    return this.http.post(`${Common.urlBase}/costofliving/updatebilldetail`,JSON.stringify(billDetail),this.httpOptions);
   }
   updateBillStatus(billID: number , billStatus: number): Observable<any> {
-    return this.http.post(`${Common.urlBase}`,this.httpOptions);
+    return this.http.post(`${Common.urlBase}/costofliving/changeStatusBill?colID=${billID}&billStatusID=${billStatus}`,this.httpOptions);
   }
 
 

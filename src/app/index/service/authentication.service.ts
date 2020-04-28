@@ -1,6 +1,6 @@
 import { Common } from './../../class/common';
 
-import { UserLogin } from './../../class/user';
+import { UserLogin, User } from './../../class/user';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -10,8 +10,8 @@ import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
-import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { Observable, of, BehaviorSubject, concat } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
 
 
 
@@ -19,24 +19,25 @@ import { switchMap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  user$: Observable<User>;
-  constructor(
-    private http: HttpClient,
+  private currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<User>;
+  user$: Observable<UserMail>;
+  constructor(private http: HttpClient,
     private router: Router,
     private afAuth: AngularFireAuth,
-    private afs: AngularFirestore,
-  ) {
+    private afs: AngularFirestore, ) {
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem("currentUser")));
+    this.currentUser = this.currentUserSubject.asObservable();
+    // login gmail
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
-        // Logged in
         if (user) {
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+          return this.afs.doc<UserMail>(`users/${user.uid}`).valueChanges();
         } else {
-          // Logged out
           return of(null);
         }
-      })
-    )
+      }));
+
   }
   //Http Options
   httpOptions = {
@@ -44,80 +45,73 @@ export class AuthenticationService {
       'Content-Type': 'application/json'
     })
   }
-
-  private baseUrl = 'http://localhost:8080/user';
-  authenticate(uname, upass) {
-    return this.http.post<UserLogin>(`${this.baseUrl}/login?uname=${uname}&upass=${upass}`, this.httpOptions)
+  register(registerData: any): Observable<any> {
+    return this.http.post(`${Common.urlBase}/user/register `, JSON.stringify(registerData), this.httpOptions)
   }
-
-  setSessionLoggedIn(data: UserLogin) {
-    try {
-      sessionStorage.setItem("userID", data.u.userID.toString());
-      sessionStorage.setItem("name", data?.ud?.name || "unknow");
-      sessionStorage.setItem("role", data.u.roleID.toString());
-    } catch (error) {
-      console.log(error)
-    }
+  authenticate(uname, upass) {
+    return this.http.post<UserLogin>(`${Common.urlBase}/user/login?uname=${uname}&upass=${upass}`, this.httpOptions).pipe(
+      map(data => {
+        this.setSessionLogin(data.u)
+        return data;
+      })
+    )
+  }
+  setSessionLogin(currentUser: User) {
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+    this.currentUserSubject.next(currentUser);
+  }
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
   }
 
   isUserLoggedIn() {
-    let userID = sessionStorage.getItem('userID')
-    return !(userID === null)
+    return this.currentUserValue ? true : false;
   }
   isAdmin() {
-    return +sessionStorage.getItem('role') == Common.roleAdmin
+    return this.currentUserValue?.roleID == Common.roleAdmin;
   }
+
   logOut() {
-    sessionStorage.clear();
+    localStorage.clear();
+    this.currentUserSubject.next(null);
     this.signOut;
+    this.router.navigate(['places']);
   }
-  // register
-  register(registerData: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/register `, JSON.stringify(registerData), this.httpOptions)
-  }
+
   // login with gmail
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
     const credential = await this.afAuth.signInWithPopup(provider);
-    
-    await this.register({
+    const signUp$ = this.register({
       firstName: credential.user.displayName,
       lastName: '',
       username: credential.user.email,
       password: credential.user.uid
-    }).subscribe(null,null,()=>{
-      this.authenticate(credential.user.email, credential.user.uid).subscribe(
-        data => {
-          console.log(data);
-          this.setSessionLoggedIn(data);
-        })
-    })
-
+    });
+    const logIn$ = this.authenticate(credential.user.email, credential.user.uid);
+    concat(signUp$, logIn$).subscribe(console.log);
     return this.updateUserData(credential.user);
   }
 
   async signOut() {
     await this.afAuth.signOut();
-    this.router.navigate(['/']);
   }
 
 
   private updateUserData(user) {
     // Sets user data to firestore on login
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
-
+    const userRef: AngularFirestoreDocument<UserMail> = this.afs.doc(`users/${user.uid}`);
     const data = {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL
     }
-
     return userRef.set(data, { merge: true })
 
   }
 }
-interface User {
+interface UserMail {
   uid: string;
   email: string;
   photoURL?: string;

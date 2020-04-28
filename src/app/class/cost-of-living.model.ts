@@ -1,3 +1,4 @@
+
 export interface COLBill {
     colId: number;
     contractId: number;
@@ -8,6 +9,8 @@ export interface COLBill {
     totalExpense: number;
     paymentStatusId: number;
     paymentStatusName: string;
+    placePrice: number;
+    colBillDetails: Array<COLBillDetail>;
 }
 
 export interface COLBillDetail{
@@ -15,9 +18,14 @@ export interface COLBillDetail{
     costId: number;
     amount: number;
     expensePerCost: number;
-
     costName: string;
     costPrice: number;
-    unitName: string
+    unitName: string;
+    unitID: number;
+}
+
+export interface COLBillUpdate{
+    totalExpense: number;
+    colBillDetails: Array<COLBillDetail>;
 }
 

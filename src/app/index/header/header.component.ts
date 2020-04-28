@@ -9,7 +9,6 @@ import { AuthGaurdService } from '../service/auth-gaurd.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
   @ViewChild('frameLogin', { static: true }) frameLogin: ModalDirective;
@@ -66,20 +65,11 @@ export class HeaderComponent implements OnInit {
         if (data.message === "401") {
           alert("Tên đăng nhập hoặc mật khẩu không chính xác!");
         } else {
-          this.loginService.setSessionLoggedIn(data)
           if (this.loginService.isAdmin()) this.router.navigate(["admin"])
           this.frameLogin.hide()
         }
       }, null, () => this.isLoginSubmit = false
     )
-  }
-
-  // showLoginModal() {
-  //   this.frameSignin.show()
-  // }
-
-  doLogOut() {
-    this.loginService.logOut()
   }
 
   get firstName() {
@@ -98,13 +88,6 @@ export class HeaderComponent implements OnInit {
   }
   get confirmPasswrd() {
     return this.validatingSigninForm.get('confirmPasswrd');
-  }
-
-  getNameUser() {
-    return sessionStorage.getItem("name");
-  }
-  getShortNameUser() {
-    return sessionStorage.getItem("name").substring(0, 8);
   }
 
   get loginFormModalUsername() {

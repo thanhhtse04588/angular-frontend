@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../../index/service/authentication.service';
 
 import { PaymentService } from './../../places/service/payment.service';
 import { Payment } from './../../class/Payment';
@@ -7,7 +8,6 @@ declare var paypal;
 @Component({
   selector: 'app-paypal-button',
   templateUrl: './paypal-button.component.html',
-  styleUrls: ['./paypal-button.component.css']
 })
 export class PaypalButtonComponent implements OnInit {
   //payment
@@ -15,7 +15,7 @@ export class PaypalButtonComponent implements OnInit {
   @Input() pay: Pay;
   @Output() onPayResult = new EventEmitter<Pay>();
   payment: Payment;
-  constructor(private paymentService: PaymentService, ) { }
+  constructor(private paymentService: PaymentService,public loginService: AuthenticationService ) { }
 
   ngOnInit() {
     this.paypalOnInit();
@@ -50,7 +50,7 @@ export class PaypalButtonComponent implements OnInit {
           this.onPayResult.emit(this.pay);
           this.payment = new Payment();
           this.payment.placeID = +sessionStorage.getItem("placeID");
-          this.payment.userID = +sessionStorage.getItem("userID");
+          this.payment.userID = this.loginService.currentUserValue.userID;
           this.payment.orderID = data.orderID;
           this.payment.payerID = data.payerID;
           this.payment.status = order.status;

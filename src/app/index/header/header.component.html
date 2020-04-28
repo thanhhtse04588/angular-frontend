@@ -44,20 +44,6 @@
 
             <!-- Right -->
             <ul class="navbar-nav nav-flex-icons">
-                <li class="nav-item" *ngIf="!loginService.isUserLoggedIn()">
-                    <a class="nav-link waves-effect" data-toggle="modal" data-target="#frameSignin"
-                        (click)="frameSignin.show()">
-                        Đăng ký
-                    </a>
-                </li>
-                <li class="nav-item" *ngIf="!loginService.isUserLoggedIn()">
-                    <a class="nav-link waves-effect" data-toggle="modal" data-target="#frameLogin"
-                        (click)="frameLogin.show()">
-                        Đăng nhập
-                    </a>
-
-                </li>
-
                 <li *ngIf="loginService.isAdmin();else post" class="nav-item">
                     <button routerLink="/admin" mdbBtn type="button" color="warning" size="sm" mdbWavesEffect>
                         <strong>Admin</strong></button>
@@ -69,19 +55,33 @@
                             <strong>Đăng tin rao</strong></button>
                     </li>
                 </ng-template>
+                <ng-container *ngIf="!loginService.isUserLoggedIn();else logOut">
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect" data-toggle="modal" data-target="#frameSignin"
+                            (click)="frameSignin.show()">
+                            Đăng ký
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect" data-toggle="modal" data-target="#frameLogin"
+                            (click)="frameLogin.show()">
+                            Đăng nhập
+                        </a>
+                    </li>
+                </ng-container>
+                <ng-template #logOut>
+                    <li class="nav-item">
+                        <a class="nav-link">
+                         <small>Xin chào </small><span class="font-weight-bolder blue-text">{{loginService.currentUserValue.userName | slice:0:10}}</span>
+                        </a>
+                    </li>
 
-                <li class="nav-item" *ngIf="loginService.isUserLoggedIn()">
-                    <a class="nav-link" title="{{getNameUser()}}">
-                        Xin chào {{getShortNameUser()}}...
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link border border-light rounded waves-effect" *ngIf="loginService.isUserLoggedIn()"
-                        routerLink="/user/logout">
-                        <i class="fas fa-sign-out-alt"></i>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link border border-light rounded waves-effect" (click)="loginService.logOut()">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </a>
+                    </li>
+                </ng-template>
             </ul>
 
         </div>
@@ -98,16 +98,21 @@
             <div class="modal-content  p-5">
                 <p class="h4 mb-5 text-center">Đăng nhập</p>
 
-                <input type="text" formControlName="loginFormModalUsername" class="form-control" placeholder="Tên đăng nhập">
-                    <small *ngIf="loginFormModalUsername.invalid && (loginFormModalUsername.touched || loginFormModalUsername.dirty)" class="form-text text-muted">
-                        <span class="float-left red-text">Không hợp lệ</span>
-                    </small>
+                <input type="text" formControlName="loginFormModalUsername" class="form-control"
+                    placeholder="Tên đăng nhập">
+                <small
+                    *ngIf="loginFormModalUsername.invalid && (loginFormModalUsername.touched || loginFormModalUsername.dirty)"
+                    class="form-text text-muted">
+                    <span class="float-left red-text">Không hợp lệ</span>
+                </small>
 
                 <input type="password" formControlName="loginFormModalPassword" class="form-control mt-4"
                     placeholder="Mật khẩu">
-                    <small *ngIf="loginFormModalPassword.invalid && (loginFormModalPassword.touched || loginFormModalPassword.dirty)" class="form-text text-muted">
-                        <span class="float-left red-text">Không hợp lệ</span>
-                    </small>
+                <small
+                    *ngIf="loginFormModalPassword.invalid && (loginFormModalPassword.touched || loginFormModalPassword.dirty)"
+                    class="form-text text-muted">
+                    <span class="float-left red-text">Không hợp lệ</span>
+                </small>
                 <!-- Sign in button -->
                 <button mdbBtn color="info" block="true" class="mt-5 mb-4" type="submit"
                     [disabled]="!validatingLoginForm.valid || isLoginSubmit">
@@ -118,7 +123,7 @@
                     <a class="light-blue-text mx-2" (click)='frameSignin.show();frameLogin.hide()'>Đăng ký</a>
                 </p>
                 <!-- Social login -->
-                <p  class="text-center">Đăng nhập với : <a class="light-blue-text mx-2" role="button"
+                <p class="text-center">Đăng nhập với : <a class="light-blue-text mx-2" role="button"
                         (click)="loginService.googleSignin();frameLogin.hide()">
                         <mdb-icon fab icon="google"></mdb-icon>
                     </a></p>

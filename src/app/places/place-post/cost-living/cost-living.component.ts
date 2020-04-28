@@ -8,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-cost-living',
   templateUrl: './cost-living.component.html',
-  styleUrls: ['./cost-living.component.css']
 })
 export class CostLivingComponent implements OnInit {
   eqmTable: FormGroup;

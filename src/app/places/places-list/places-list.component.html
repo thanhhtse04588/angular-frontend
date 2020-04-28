@@ -30,7 +30,7 @@
               <!--Card content-->
               <div class="card-body">
                 <!--Title-->
-                <h4 class="card-title">{{shortTitle(place?.title)}}...</h4>
+                <h4 class="card-title">{{place?.title | slice:0:50}}...</h4>
                 <!--Text-->
                 <h5><mdb-badge pill="true" default="true">{{place.roleOfPlaceName}}</mdb-badge></h5>
                 <p class="card-text">{{place.bedRooms|| '?'}} phòng ngủ - {{place.toilets|| '?'}} phòng vệ sinh -
@@ -70,7 +70,7 @@
                 <!--Card content-->
                 <div class="card-body text-center">
                   <!--Title-->
-                  <h5 class="card-title">{{shortTitle(place?.title)}}...</h5>
+                  <h5 class="card-title" style="height: 56px;">{{place?.title | slice:0:50}}...</h5>
                   <!--Text-->
                   <h6><mdb-badge pill="true" default="true">{{place.roleOfPlaceName}}</mdb-badge></h6>
                   <p class="card-text">{{place.bedRooms|| '?'}} phòng ngủ - {{place.toilets|| '?'}} phòng vệ sinh -

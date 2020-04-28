@@ -12,7 +12,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 @Component({
   selector: 'app-contract-list',
   templateUrl: './contract-list.component.html',
-  styleUrls: ['./contract-list.component.css']
 })
 export class ContractListComponent implements OnInit {
   private subs = new Subscription();

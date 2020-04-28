@@ -9,7 +9,6 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 @Component({
   selector: 'app-seller-post-edit',
   templateUrl: './seller-post-edit.component.html',
-  styleUrls: ['./seller-post-edit.component.css']
 })
 export class SellerPostEditComponent implements OnInit, AfterViewInit {
   @ViewChild(PlacePostComponent)

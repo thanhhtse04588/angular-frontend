@@ -9,7 +9,6 @@ constructor() { }
 
 placeDetail(id: number) {
   sessionStorage.setItem("placeID",id.toString())
-  // this.router.navigate(['places/detail']);
   window.open('places/detail', "_blank");
 }
 

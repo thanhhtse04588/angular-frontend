@@ -17,7 +17,6 @@ import { thanToday } from 'src/app/shared/directive/than-today.directive';
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
-  styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit, OnDestroy {
   isSubmit = false;
@@ -73,7 +72,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     this.isSubmit = true;
     this.orderForm = new InsertedOrderForm()
 
-    this.orderForm.ordererID = + sessionStorage.getItem("userID");
+    this.orderForm.ordererID = this.loginService.currentUserValue.userID;
     this.orderForm.placeID = +sessionStorage.getItem("placeID");
     this.orderForm.name = this.name.value;
     this.orderForm.phoneNumber = this.phoneNumber.value;

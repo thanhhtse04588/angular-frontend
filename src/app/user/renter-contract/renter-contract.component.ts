@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../../index/service/authentication.service';
 import { AdminService } from './../../admin/admin.service';
 import { async } from '@angular/core/testing';
 import { Common, PlaceStatus, OrderStatus } from './../../class/common';
@@ -5,23 +6,23 @@ import { Common, PlaceStatus, OrderStatus } from './../../class/common';
 import { SharedService } from './../../shared/shared.service';
 import { UserService } from './../service/user.service';
 import { Observable, Subscription } from 'rxjs';
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ContractStatus } from 'src/app/class/common';
 
 @Component({
   selector: 'app-renter-contract',
   templateUrl: './renter-contract.component.html',
-  styleUrls: ['./renter-contract.component.css']
 })
-export class RenterContractComponent implements OnInit, OnDestroy, AfterViewInit {
+export class RenterContractComponent implements OnInit, OnDestroy {
   private subs = new Subscription();
   contracts: Observable<Contract>;
-  constructor(private userService: UserService, public sharedService: SharedService, private adminService: AdminService) { }
+  constructor(private userService: UserService, public sharedService: SharedService, private adminService: AdminService, public loginService: AuthenticationService) { }
 
   ngOnInit() {
     this.reload();
   }
-  ngAfterViewInit() {
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
   isContractPending(status) {
     return status == ContractStatus.PENDING;
@@ -84,16 +85,14 @@ export class RenterContractComponent implements OnInit, OnDestroy, AfterViewInit
     return Math.ceil(vnd / Common.USDtoVND);
   }
   reload() {
-    this.subs.add(this.userService.getContractByRenterID(+sessionStorage.getItem("userID")).subscribe(
+    this.subs.add(this.userService.getContractByRenterID(this.loginService.currentUserValue.userID).subscribe(
       data => {
         this.contracts = data
         console.log(this.contracts)
       }
     ))
   }
-  ngOnDestroy() {
-    this.subs.unsubscribe();
-  }
+
 }
 
 

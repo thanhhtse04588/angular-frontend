@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../../index/service/authentication.service';
 import { SharedService } from './../../shared/shared.service';
 
 import { PlaceStatus } from './../../class/common';
@@ -10,7 +11,6 @@ import { ManagePostForm } from 'src/app/class/place-quick-view';
 @Component({
   selector: 'app-seller-manage',
   templateUrl: './seller-manage.component.html',
-  styleUrls: ['./seller-manage.component.css']
 })
 export class SellerManageComponent implements OnInit, OnDestroy {
   private subs = new Subscription()
@@ -27,12 +27,12 @@ export class SellerManageComponent implements OnInit, OnDestroy {
   statusSelected: any;
 
   constructor(private userService: UserService,
-    private router: Router, public sharedService: SharedService) { 
+    private router: Router, public sharedService: SharedService, public loginService : AuthenticationService) { 
       this.statusSelected=  this.statusSelects[0].id;
     }
     
   ngOnInit() {
-    this.userID = +sessionStorage.getItem("userID");
+    this.userID = this.loginService.currentUserValue.userID;
 
     this.subs.add(this.userService.getAllPost(this.userID).subscribe(
       data => this.posts = data

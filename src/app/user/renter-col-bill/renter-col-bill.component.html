@@ -1,0 +1,29 @@
+
+<body class="grey lighten-3 min-vh-100 wow fadeIn">
+    <div class="container ">
+      <div class="row py-5">
+  
+        <div class="col-md-3 ">
+          <app-renter-menu></app-renter-menu>
+        </div>
+  
+        <div class="col-md-9 ">
+            <div class="text-center mb-3 ">
+                <div class="h3 text-center">DANH SÁCH HÓA ĐƠN DỊCH VỤ</div>
+                <p>(Quý vị có thể quản lý, tìm kiếm ở đây)</p>
+              </div>
+              <ng-container *ngFor="let bill of bills | async">
+                <mdb-card class="mb-3">
+                    <mdb-card-header>
+                        <h3>Hóa đơn thu phí dịch vụ số {{bill.colId}}</h3>
+                    </mdb-card-header>
+                    <mdb-card-body>
+                        
+                    </mdb-card-body>
+                </mdb-card>
+            </ng-container>
+          </div>
+      </div>
+    </div>
+  
+  </body>

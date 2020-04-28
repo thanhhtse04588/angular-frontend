@@ -1,3 +1,5 @@
+import { SellerColBillComponent } from './user/seller-col-bill/seller-col-bill.component';
+import { RenterColBillComponent } from './user/renter-col-bill/renter-col-bill.component';
 import { CostOfLivingBillComponent } from './admin/cost-of-living-bill/cost-of-living-bill.component';
 import { ContractListComponent } from './admin/contract-list/contract-list.component';
 import { RenterContractComponent } from './user/renter-contract/renter-contract.component';
@@ -16,7 +18,7 @@ import { PlaceHomeComponent } from './places/place-home/place-home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PlaceDetailComponent } from './places/place-detail/place-detail.component';
-import { LogoutComponent } from './index/logout/logout.component';
+
 import { AuthGaurdService } from './index/service/auth-gaurd.service';
 import { AuthAdminService } from './index/service/auth-admin.service';
 import { ErrorPageComponent } from './index/errors/error/error-page/error-page.component';
@@ -41,7 +43,6 @@ const routes: Routes = [
     path: 'user', component: UserComponent, children: [
       { path: '', redirectTo: 'seller', pathMatch: 'full' },
       { path: 'test', component: TestComponent },
-      { path: 'logout', component: LogoutComponent, canActivate: [AuthGaurdService] },
       { path: 'error', component: ErrorPageComponent },
       {
         path: 'seller',
@@ -51,6 +52,7 @@ const routes: Routes = [
           { path: 'post-manage', component: SellerManageComponent, canActivate: [AuthGaurdService] },
           { path: 'post-edit', component: SellerPostEditComponent, canActivate: [AuthGaurdService] },
           { path: 'rented', component: SellerRentedComponent, canActivate: [AuthGaurdService] },
+          { path: 'bill', component: SellerColBillComponent, canActivate: [AuthGaurdService] },
         ]
       },
       {
@@ -59,6 +61,7 @@ const routes: Routes = [
           { path: '', redirectTo: 'order', pathMatch: 'full' },
           { path: 'order', component: RenterOrderComponent, canActivate: [AuthGaurdService] },
           { path: 'contract', component: RenterContractComponent, canActivate: [AuthGaurdService] },
+          { path: 'bill', component: RenterColBillComponent, canActivate: [AuthGaurdService] },
         ]
       }
     ]

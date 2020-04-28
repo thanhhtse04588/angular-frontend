@@ -1,9 +1,10 @@
+import { Contract } from './../renter-contract/renter-contract.component';
 import { Common } from './../../class/common';
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { retry, catchError, map } from 'rxjs/operators';
+import { Observable  } from 'rxjs';
+import { retry, map } from 'rxjs/operators';
 // import 'rxjs/add/operator/toPromise'
 
 @Injectable({
@@ -11,15 +12,12 @@ import { retry, catchError, map } from 'rxjs/operators';
 })
 export class UserService {
   constructor(private http: HttpClient) { }
-
   //Http Options
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
   }
-
-
   insertOrder(insertForm: any): Observable<any> {
     return this.http.post(`${Common.urlBase}/orderlist/insert-order`, JSON.stringify(insertForm), this.httpOptions)
       .pipe(
@@ -53,7 +51,12 @@ export class UserService {
   }
 
   getContractByRenterID(id): Observable<any> {
-    return this.http.get(`${Common.urlBase}/managecontract/get-all-contract-renterID?renterID=${id}`)
+    return this.http.get<Contract[]>(`${Common.urlBase}/managecontract/get-all-contract-renterID?renterID=${id}`).pipe(map(data=>{
+      data.sort((a, b) => {
+          return b.contractID - a.contractID;
+       });
+      return data;
+   }))
   }
 
   getContractByOwnerID(id): Observable<any> {
@@ -63,10 +66,4 @@ export class UserService {
   updateStatusContract(id: number,status: number,placeID: number): Observable<any>{
     return this.http.post(`${Common.urlBase}/contract/change-status?contractID=${id}&contractStatusID=${status}&placeID=${placeID}`,this.httpOptions)
   }
-
-  // public upload(formData) {
-  //   return this.httpClient.post(this.SERVER_URL, formData, {  
-  //       responseType: 'text'  
-  //     });  
-  // }
 }

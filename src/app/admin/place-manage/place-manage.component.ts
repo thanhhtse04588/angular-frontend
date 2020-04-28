@@ -13,7 +13,6 @@ import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-place-manage',
   templateUrl: './place-manage.component.html',
-  styleUrls: ['./place-manage.component.css']
 })
 export class PlaceManageComponent implements OnInit, OnDestroy {
   private subs = new Subscription();

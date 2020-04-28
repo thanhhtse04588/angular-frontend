@@ -6,23 +6,22 @@ import { CostLivingComponent } from './cost-living/cost-living.component';
 import { Common } from './../../class/common';
 import { AuthenticationService } from './../../index/service/authentication.service';
 import { PlacePostForm } from './../../class/place-post-form';
-import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { DistrictDB, WardDB, StreetDB } from './../../class/district-db';
 import { RoleOfPlace } from './../../class/role-of-place';
 import { Router } from '@angular/router';
 import { PlaceService } from './../service/place.service';
 import { SearchBarService } from 'src/app/index/service/search-bar.service';
-import { Component, OnInit, ViewChild, ElementRef, NgZone, AfterViewInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, OnDestroy, Input } from '@angular/core';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { thanToday } from 'src/app/shared/directive/than-today.directive';
 
 @Component({
   selector: 'app-place-post',
   templateUrl: './place-post.component.html',
-  styleUrls: ['./place-post.component.css']
 })
-export class PlacePostComponent implements OnInit, AfterViewInit, OnDestroy {
+export class PlacePostComponent implements OnInit,OnDestroy {
   private subs = new Subscription();
   @Input() placeEditID: number;
   isSubmit = false;
@@ -108,11 +107,6 @@ export class PlacePostComponent implements OnInit, AfterViewInit, OnDestroy {
     })
 
   }
-
-  ngAfterViewInit(): void {
-  }
-
-
   //load Places Autocomplete
   private loadPlacesAutoComplete() {
     this.mapsAPILoader.load().then(() => {
@@ -173,14 +167,14 @@ export class PlacePostComponent implements OnInit, AfterViewInit, OnDestroy {
     form.wardID = form.ward.id;
     this.postPlaceForm = form;
 
-    this.postPlaceForm.userID = +sessionStorage.getItem("userID");
+    this.postPlaceForm.userID = this.loginService.currentUserValue.userID;
     this.postPlaceForm.addressDetail = this.searchElementRef.nativeElement.value;
     this.postPlaceForm.latitude = this.latitude;
     this.postPlaceForm.longtitude = this.longitude;
     this.postPlaceForm.listEquip = this.equipComponent.getEquipTable();
     this.postPlaceForm.listCost = this.costComponent.getCostOfLivingTable();
     this.postPlaceForm.listImageLink = this.imageUploaded;
-    console.log(JSON.stringify(this.postPlaceForm,null,'\t'));
+    console.log();
     this.subs.add(this.placeService.insertPlace(this.postPlaceForm).subscribe(
       data => data ? alert("Yêu cầu đăng tin thành công, chúng tôi sẽ sớm liên hệ với bạn !") : alert("Đã có lỗi xảy ra! Yêu cầu đăng tin không thành công"),
       (err) => alert("Đã có lỗi xảy ra! Yêu cầu đăng tin không thành công"),
@@ -193,7 +187,7 @@ export class PlacePostComponent implements OnInit, AfterViewInit, OnDestroy {
     form.streetID = form.street.id;
     form.wardID = form.ward.id;
     form.placeID = this.placeEditID;
-    form.userID = +sessionStorage.getItem("userID");
+    form.userID = this.loginService.currentUserValue.userID;
     form.addressDetail = this.searchElementRef.nativeElement.value;
     form.latitude = this.latitude;
     form.longtitude = this.longitude;

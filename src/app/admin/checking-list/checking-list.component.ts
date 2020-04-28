@@ -11,7 +11,6 @@ import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-checking-list',
   templateUrl: './checking-list.component.html',
-  styleUrls: ['./checking-list.component.css']
 })
 export class CheckingListComponent implements OnInit, OnDestroy {
   private subs = new Subscription();

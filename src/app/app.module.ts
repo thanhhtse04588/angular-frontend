@@ -37,8 +37,8 @@ import { PlaceDetailComponent } from './places/place-detail/place-detail.compone
 import { SearchBarComponent } from './index/search-bar/search-bar.component';
 import { PlaceHomeComponent } from './places/place-home/place-home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LogoutComponent } from './index/logout/logout.component';
-// import { BasicAuthHtppInterceptorService } from './index/service/basic-auth-htpp-interceptor.service';
+
+
 import { PlacePostComponent } from './places/place-post/place-post.component';
 import { GlobalErrorHandler } from './error_handler/global-error-handler';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -62,6 +62,10 @@ import { OrderComponent } from './places/place-detail/order/order.component';
 
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { CostOfLivingBillComponent } from './admin/cost-of-living-bill/cost-of-living-bill.component';
+import { RenterColBillComponent } from './user/renter-col-bill/renter-col-bill.component';
+import { SellerColBillComponent } from './user/seller-col-bill/seller-col-bill.component';
+
+import { BillStatusNamePipe } from './shared/pipes/bill-status-name.pipe';
 
 
 
@@ -75,7 +79,6 @@ import { CostOfLivingBillComponent } from './admin/cost-of-living-bill/cost-of-l
       OrderComponent,
       SearchBarComponent,
       PlaceHomeComponent,
-      LogoutComponent,
       ErrorPageComponent,
       NotFoundComponent,
       PlacePostComponent,
@@ -103,7 +106,9 @@ import { CostOfLivingBillComponent } from './admin/cost-of-living-bill/cost-of-l
       UploadTaskComponent,
       ThanTodayDirective,
       CostOfLivingBillComponent,
-    
+      RenterColBillComponent,
+      SellerColBillComponent,
+      BillStatusNamePipe,
 
   ],
   imports: [
