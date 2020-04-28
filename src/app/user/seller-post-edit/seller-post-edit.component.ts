@@ -23,10 +23,8 @@ export class SellerPostEditComponent implements OnInit, AfterViewInit {
     this.placeID = this.route.snapshot.params['id'];
   }
   ngAfterViewInit() {
-
     this.userService.getPostForm(this.placeID).subscribe(
       data => {
-        data.placeID = this.placeID;
         this.placePostComponent.defaultToEdit(data);
       }
     )

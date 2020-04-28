@@ -1,6 +1,6 @@
 import { SharedService } from './../../../shared/shared.service';
 import { PlaceService } from './../../service/place.service';
-import { CostUnitName } from './../../../class/place-detail';
+import { CostUnitName, CostOfPlaceForm } from './../../../class/place-detail';
 
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -15,28 +15,31 @@ export class CostLivingComponent implements OnInit {
   mode: boolean;
   touchedRows: any;
   units: CostUnitName[];
-  defaultCost = [{ costName: "Điện",unitID:1, isEditable: true },
-  { costName: "Nước" ,unitID:1, isEditable: true },
-  { costName: "Internet" ,unitID:2, isEditable: true }
+  defaultCost = [{ costName: "Điện", unitID: 1, isEditable: true },
+  { costName: "Nước", unitID: 1, isEditable: true },
+  { costName: "Internet", unitID: 2, isEditable: true }
   ]
 
   constructor(private fb: FormBuilder,
-    private placeService :PlaceService,
-    public sharedService: SharedService 
+    private placeService: PlaceService,
+    public sharedService: SharedService
   ) { }
 
   ngOnInit() {
     this.placeService.getCostUnit().subscribe(
-      data=> this.units = data as CostUnitName[]
+      data => this.units = data as CostUnitName[]
     )
     this.ngTableOnInit();
+    this.defaultCost.forEach(row => this.addRow());
+    this.eqmTable.get('tableRows').patchValue(this.defaultCost);
+
     this.control = this.eqmTable.get('tableRows') as FormArray;
   }
 
   initiateForm(): FormGroup {
     return this.fb.group({
-      costName: ['', [Validators.required,Validators.maxLength(32)]],
-      costPrice: ['', [Validators.required,Validators.min(0)]],
+      costName: ['', [Validators.required, Validators.maxLength(32)]],
+      costPrice: ['', [Validators.required, Validators.min(0)]],
       unitID: ['', [Validators.required]],
       isEditable: [true]
     });
@@ -47,8 +50,6 @@ export class CostLivingComponent implements OnInit {
     this.eqmTable = this.fb.group({
       tableRows: this.fb.array([])
     });
-    this.defaultCost.forEach(row => this.addRow())
-    this.eqmTable.get('tableRows').patchValue(this.defaultCost);
   }
 
   addRow() {
@@ -80,13 +81,14 @@ export class CostLivingComponent implements OnInit {
     return savedRows;
   }
 
-  async setToEdit(data) {
-    this.defaultCost.forEach((element, index, array) =>this.deleteRow(index))// Delete row default
+  setToEdit(data) {
     if (data?.length > 0) {
-      await data.forEach(element => {
-      element.isEditable = false;
+      this.ngTableOnInit();
+      data.forEach(element => {
+        element.isEditable = false;
         this.addRow();
       });
+
       this.eqmTable.get('tableRows').patchValue(data);
     }
   }
@@ -96,7 +98,7 @@ export class CostLivingComponent implements OnInit {
     this.touchedRows = control.controls.filter(row => row.touched).map(row => row.value);
   }
 
-  getUnitName(id: number){
- return this.units.find(unit => unit.id === id ).unitName;
+  getUnitName(id: number) {
+    return this.units.find(unit => unit.id === id).unitName;
   }
 }

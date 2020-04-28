@@ -23,7 +23,7 @@ export class EquipmentComponent implements OnInit {
 
   initiateForm(): FormGroup {
     return this.fb.group({
-      name: ['', [Validators.required]],
+      name: ['', [Validators.required,Validators.maxLength(32)]],
       quantity: ['', [Validators.required, Validators.min(0)]],
       price: ['', [Validators.required, Validators.min(0)]],
       likeNew: ['',[Validators.max(100),Validators.min(0)]],

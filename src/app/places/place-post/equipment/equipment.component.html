@@ -14,7 +14,7 @@
           <th scope="col">Độ mới(%)</th>
           <th scope="col">Mô tả</th>
           <th scope="col"></th>
-        </thead>
+        </thead> 
         <tbody>
           <ng-container formArrayName="tableRows" *ngFor="let group of getFormControls.controls ; let i=index">
             <tr mdbTableCol *ngIf="group.get('isEditable').value" [formGroupName]="i">

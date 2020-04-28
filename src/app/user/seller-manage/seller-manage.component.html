@@ -21,13 +21,14 @@
         </div>
         <div *ngFor="let item of posts">
           <mdb-card *ngIf="isStatusShow(item.statusID)" class="mb-3">
-            <a (click)="sharedService.placeDetail(item.id)">
               <div class="row">
                 <div class="col-md-5 view overlay zoom" >
-                  <img [src]="item.imageLarge" style="height: 236px;" class="img-thumbnail" alt="zoom">
+                  <a  (click)="sharedService.placeDetail(item.id)">
+                  <img  [src]="item.imageLarge" style="height: 236px;" class="img-thumbnail" alt="zoom">
                   <div class="mask flex-center waves-effect waves-light">
                     <p class="white-text">Xem</p>
                   </div>
+                </a>
                 </div>
                 <mdb-card-body class="col-md-7">
                   <div class="row">
@@ -36,7 +37,7 @@
                         <h5>{{item.title}}</h5>
                       </mdb-card-title>
                       <div>
-                        <p><strong>Địa chỉ: </strong>{{item.address}}</p>
+                        <p><strong>Địa chỉ: </strong>{{item.address | slice:0:70}}</p>
                         <p><strong>Ngày đăng: </strong> {{item.datePost}}</p>
                       </div>
                     </div>
@@ -58,7 +59,6 @@
 
                 </mdb-card-body>
               </div>
-            </a>
           </mdb-card>
         </div>
       </div>

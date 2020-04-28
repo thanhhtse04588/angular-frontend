@@ -84,9 +84,20 @@ export class CostOfLivingBillComponent implements OnInit {
 
     task.snapshotChanges().pipe(finalize(() => {
       const downloadURL = fileRef.getDownloadURL();
-      const update = this.billService.updateBillStatus(bill.colId, BillStatus.PAID)
-        .pipe(map(res => res ? BillStatus.PAID : this.bill.paymentStatusId));
-      downloadURL.pipe(concatMap(() => update)).subscribe(Common.OBSERVER);
+      const updateBillStatus = this.billService.updateBillStatus(bill.colId, BillStatus.PAID)
+        // .pipe(map(res => res ? BillStatus.PAID : this.bill.paymentStatusId));
+        forkJoin(
+          downloadURL,
+          updateBillStatus
+        ).subscribe(([a, b]) => {
+          if (b) {
+            bill.paymentStatusId = BillStatus.PAID;
+            alert("Thao thác thành công");
+            console.log(a);
+          } else {
+            alert("Thao thác không thành công");
+          }
+        }, err => alert("Thao thác không thành công"));
     })
     ).subscribe();
   }

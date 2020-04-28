@@ -76,9 +76,12 @@
                 </div>
 
                 <div id="onMap" class="container tab-pane fade" >
-                  <agm-map  style="height: 600px;" [longitude]="location?.longitude" [latitude]="location?.latitude"
+                  <agm-map (mapReady)="infowindow.open()"   style="height: 600px;" [longitude]="location?.longitude" [latitude]="location?.latitude"
                     [zoom]="location.zoom">
                     <agm-marker [longitude]="location?.marker?.lng" [latitude]="location?.marker?.lat">
+                      <agm-info-window #infowindow> 
+                        <strong><mdb-icon fas icon="map-marker-alt" size="lg" class="red-text"></mdb-icon>{{place.address}}</strong>
+                      </agm-info-window>
                     </agm-marker>
                   </agm-map>
                 </div>

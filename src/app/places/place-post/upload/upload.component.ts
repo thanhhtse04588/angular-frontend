@@ -15,7 +15,7 @@ export class UploadComponent implements OnInit {
   constructor() {
     this.onUpload = new EventEmitter();
   }
-  ngOnInit() {}
+  ngOnInit() { }
 
   toggleHover(event: boolean) {
     this.isHovering = event;
@@ -23,6 +23,7 @@ export class UploadComponent implements OnInit {
   onClick() {
     const fileUpload = this.fileUpload.nativeElement;
     fileUpload.onchange = () => {
+      this.files = [];
       for (let index = 0; index < fileUpload.files.length; index++) {
         const file = fileUpload.files[index];
         if (file.type.match('image.*')) {
@@ -35,8 +36,9 @@ export class UploadComponent implements OnInit {
     };
     fileUpload.click();
   }
-  
+
   onDrop(files: FileList) {
+    this.files = [];
     if (files?.length >= 10) {
       alert('Vui lòng cung cấp < 10 tệp tin');
     }

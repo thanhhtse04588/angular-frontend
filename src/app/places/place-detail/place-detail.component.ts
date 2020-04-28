@@ -9,6 +9,7 @@ import { PlaceDetail, EquipmentListForm, CostOfPlaceForm, CostUnitName } from '.
 import { PlaceService } from './../service/place.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { InfoWindow } from '@agm/core/services/google-maps-types';
 @Component({
   selector: 'app-place-detail',
   templateUrl: './place-detail.component.html',
@@ -56,6 +57,7 @@ export class PlaceDetailComponent implements OnInit, OnDestroy {
     this.subs.add(this.placeService.getCostUnit().subscribe(
       data => this.units = data as CostUnitName[]
     ))
+
     this.getData()
   }
 
@@ -80,7 +82,6 @@ export class PlaceDetailComponent implements OnInit, OnDestroy {
         this.dataCost.paginator = this.paginatorCostTable;
       }))
   }
-
   getUnitName(id: number){
     return this.units?.find(unit => unit.id ===id).unitName;
   }

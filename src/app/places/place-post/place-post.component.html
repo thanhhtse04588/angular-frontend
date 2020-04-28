@@ -212,9 +212,8 @@
                 Chọn lại vị trí bản đồ</p>
               <div>
                 <label>Kiểm tra lại địa chỉ</label>
-                <input type="text" id="map" class="form-control"
-                  (keydown.enter)="$event.preventDefault()" autocorrect="off" autocapitalize="off" spellcheck="off"
-                  #search>
+                <input type="text" id="map" class="form-control" (keydown.enter)="$event.preventDefault()"
+                  autocorrect="off" autocapitalize="off" spellcheck="off" #search>
                 <small class="red-text" *ngIf="!searchElementRef?.nativeElement?.value">
                   Không bỏ trống
                 </small>
@@ -280,56 +279,29 @@
                 <!-- checkingDate -->
                 <div class="col-lg-4 col-md-12  mb-4">
                   <label for="checkingDate">Ngày xem nhà <span class="red-text">*</span></label>
-                  <input mdbInput type="date"  id="checkingDate" formControlName="checkingDate" class="form-control"
+                  <input mdbInput type="date" id="checkingDate" formControlName="checkingDate" class="form-control"
                     mdbValidate>
-                    <div><small>(Lớn hơn ngày hiện tại)</small></div>
-                    <small class="red-text" *ngIf="sharedService.checkValidateInput(checkingDate)">
-                      Không hợp lệ
-                    </small>
+                  <div><small>(Lớn hơn ngày hiện tại)</small></div>
+                  <small class="red-text" *ngIf="sharedService.checkValidateInput(checkingDate)">
+                    Không hợp lệ
+                  </small>
                 </div>
               </div>
             </mdb-card-body>
             <mdb-card-footer>
               <div *ngIf="!form.valid || !loginService.isUserLoggedIn()" class="alert alert-warning" role="alert">
                 Vui lòng điền thông tin đầy đủ theo yêu cầu
-                <!-- {{roleOfPlaceID.valid}}
-                {{district.valid}}
-                {{ward.valid}}
-                {{street.valid}}
-                {{area.valid}}
-                {{price.valid}}
-                {{descriptions.valid}}
-                {{frontispiece.valid}}
-                {{homeDirection.valid}}
-                {{numberFloors.valid}}
-                {{numberBedrooms.valid}}
-                {{numberToilets.valid}}
-                {{contactName.valid}}
-                {{contactAddress.valid}}
-                {{phoneNumber.valid}}
-                {{email.valid}}
-                {{checkingDate.valid}} -->
-                <!-- {{equipComponent?.eqmTable?.invalid}}
-                {{costComponent?.eqmTable?.invalid}} -->
               </div>
-              <!-- <button type="submit" mdbBtn [color]="placeEditID? 'warning':'primary'" size="md" mdbWavesEffect
-                [disabled]="isSubmit">
-                <span [ngClass]="{'spinner-border spinner-border-sm' : isSubmit}"> </span>
-                Test
-              </button> -->
-
-              <button type="submit" mdbBtn [color]="placeEditID? 'warning':'primary'" size="md"
-                [disabled]="!form.valid 
+              <button type="submit" mdbBtn [color]="placeEditID? 'warning':'primary'" size="md" [disabled]="!form.valid 
                 || !loginService.isUserLoggedIn() 
                 || isSubmit 
                 || equipComponent?.eqmTable?.invalid 
                 || costComponent?.eqmTable?.invalid 
-                || !searchElementRef?.nativeElement?.value"
-                mdbWavesEffect>
+                || !searchElementRef?.nativeElement?.value
+                || imageUploaded.length == 0" mdbWavesEffect>
                 <span [ngClass]="{'spinner-border spinner-border-sm' : isSubmit}"> </span>
                 <span [innerHTML]="placeEditID? 'Lưu chỉnh sửa':' Yêu cầu đăng tin'"></span>
               </button>
-
               <button type="button" mdbBtn color="danger" size="md" [routerLink]="['/places/home']"
                 mdbWavesEffect>Hủy</button>
             </mdb-card-footer>

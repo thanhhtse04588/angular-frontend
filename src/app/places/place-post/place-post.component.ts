@@ -21,7 +21,7 @@ import { thanToday } from 'src/app/shared/directive/than-today.directive';
   selector: 'app-place-post',
   templateUrl: './place-post.component.html',
 })
-export class PlacePostComponent implements OnInit,OnDestroy {
+export class PlacePostComponent implements OnInit, OnDestroy {
   private subs = new Subscription();
   @Input() placeEditID: number;
   isSubmit = false;
@@ -39,7 +39,7 @@ export class PlacePostComponent implements OnInit,OnDestroy {
   @ViewChild(CostLivingComponent)
   costComponent: CostLivingComponent;
   //upload img
-  imageUploaded: string[] =[];
+  imageUploaded: string[] = [];
   //g map
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -58,11 +58,10 @@ export class PlacePostComponent implements OnInit,OnDestroy {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     public loginService: AuthenticationService,
-    public authGaurdService :AuthGaurdService,
+    public authGaurdService: AuthGaurdService,
     public sharedService: SharedService) { }
 
   defaultToEdit(data: PlacePostForm) {
-    console.log(data);
     this.form.patchValue(data);
     this.equipComponent.setToEdit(data.listEquip);
     this.costComponent.setToEdit(data.listCost);
@@ -71,7 +70,6 @@ export class PlacePostComponent implements OnInit,OnDestroy {
     this.longitude = +data.longtitude;
     this.latitude = +data.latitude;
   }
-
   ngOnInit() {
     this.latitude = 21.0255349; //load default map
     this.longitude = 105.8521337;
@@ -91,19 +89,19 @@ export class PlacePostComponent implements OnInit,OnDestroy {
       district: new FormControl('', [Validators.required]),
       ward: new FormControl('', [Validators.required]),
       street: new FormControl('', [Validators.required]),
-      area: new FormControl('', [Validators.required,Validators.min(0)]),
-      price: new FormControl('', [Validators.required,Validators.min(0)]),
+      area: new FormControl('', [Validators.required, Validators.min(0)]),
+      price: new FormControl('', [Validators.required, Validators.min(0)]),
       descriptions: new FormControl('', [Validators.required, Validators.minLength(30), Validators.maxLength(3000)]),
-      frontispiece: new FormControl('',[Validators.min(0)]),
-      homeDirection: new FormControl('',[Validators.min(0)]),
-      numberFloors: new FormControl('',[Validators.min(0)]),
-      numberBedrooms: new FormControl('',[Validators.min(0)]),
-      numberToilets: new FormControl('',[Validators.min(0)]),
-      contactName: new FormControl('', [Validators.required]),
+      frontispiece: new FormControl('', [Validators.min(0)]),
+      homeDirection: new FormControl('', [Validators.min(0)]),
+      numberFloors: new FormControl('', [Validators.min(0)]),
+      numberBedrooms: new FormControl('', [Validators.min(0)]),
+      numberToilets: new FormControl('', [Validators.min(0)]),
+      contactName: new FormControl('', [Validators.required,Validators.maxLength(32)]),
       contactAddress: new FormControl('', Validators.maxLength(100)),
       phoneNumber: new FormControl('', [Validators.required, Validators.pattern("((\\+91-?)|0)?[0-9]*")]),
-      email: new FormControl('', [Validators.email, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),Validators.required]),
-      checkingDate: new FormControl('', [Validators.required,thanToday()]),
+      email: new FormControl('', [Validators.email, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'), Validators.required]),
+      checkingDate: new FormControl('', [Validators.required, thanToday()]),
     })
 
   }
@@ -152,8 +150,6 @@ export class PlacePostComponent implements OnInit,OnDestroy {
   //upload img
   uploadHandler(event) {
     this.imageUploaded.push(event);
-    // this.isDoneUpload = event.isDoneUpload;
-    console.log(this.imageUploaded);
   }
 
   // main fucntion
@@ -232,76 +228,53 @@ export class PlacePostComponent implements OnInit,OnDestroy {
       " " + (this.ward.value.wardName?.trim() || '') + "," + (this.district.value.district?.trim() || '')
   }
 
-  get title() {
-    return this.form.get('title');
-  }
-  get roleOfPlaceID() {
-    return this.form.get('roleOfPlaceID');
-  }
-  get district() {
-    return this.form.get('district');
-  }
-  get ward() {
-    return this.form.get('ward');
-  }
-  get street() {
-    return this.form.get('street');
-  }
-  get area() {
-    return this.form.get('area');
-  }
-  get price() {
-    return this.form.get('price');
-  }
-  get descriptions() {
-    return this.form.get('descriptions');
-  }
-  get frontispiece() {
-    return this.form.get('frontispiece');
-  }
-  get homeDirection() {
-    return this.form.get('homeDirection');
-  }
-  get numberFloors() {
-    return this.form.get('numberFloors');
-  }
-  get numberBedrooms() {
-    return this.form.get('numberBedrooms');
-  }
-  get numberToilets() {
-    return this.form.get('numberToilets');
-  }
-  get listImageLink() {
-    return this.form.get('listImageLink');
-  }
+  get title() { return this.form.get('title'); }
 
-  get contactName() {
-    return this.form.get('contactName');
-  }
-  get contactAddress() {
-    return this.form.get('contactAddress');
-  }
-  get phoneNumber() {
-    return this.form.get('phoneNumber');
-  }
-  get email() {
-    return this.form.get('email');
-  }
-  get checkingDate() {
-    return this.form.get('checkingDate');
-  }
-  setward(param) {
-    this.form.patchValue({ "ward": param })
-  }
-  setStreet(param) {
-    this.form.patchValue({ "street": param })
-  }
+  get roleOfPlaceID() { return this.form.get('roleOfPlaceID'); }
+
+  get district() { return this.form.get('district'); }
+
+  get ward() { return this.form.get('ward'); }
+
+  get street() { return this.form.get('street'); }
+
+  get area() { return this.form.get('area'); }
+
+  get price() { return this.form.get('price'); }
+
+  get descriptions() { return this.form.get('descriptions'); }
+
+  get frontispiece() { return this.form.get('frontispiece'); }
+
+  get homeDirection() { return this.form.get('homeDirection'); }
+
+  get numberFloors() { return this.form.get('numberFloors'); }
+
+  get numberBedrooms() { return this.form.get('numberBedrooms'); }
+
+  get numberToilets() { return this.form.get('numberToilets'); }
+
+  get listImageLink() { return this.form.get('listImageLink'); }
+
+  get contactName() { return this.form.get('contactName'); }
+
+  get contactAddress() { return this.form.get('contactAddress'); }
+
+  get phoneNumber() { return this.form.get('phoneNumber'); }
+
+  get email() { return this.form.get('email'); }
+
+  get checkingDate() { return this.form.get('checkingDate'); }
+
+  setward(param) { this.form.patchValue({ "ward": param }) }
+
+  setStreet(param) { this.form.patchValue({ "street": param }) }
 
   ngOnDestroy() {
     this.subs.unsubscribe();
   }
 
-    // Get Current Location Coordinates
+  // Get Current Location Coordinates
   // private setCurrentLocation() {
   //   if ('geolocation' in navigator) {
   //     navigator.geolocation.getCurrentPosition((position) => {
@@ -312,7 +285,7 @@ export class PlacePostComponent implements OnInit,OnDestroy {
   //   }
   // }
 
-    // mapReady($event: any) {
+  // mapReady($event: any) {
   // this.zoom = Common.ZOOM
   // let placeService = new google.maps.places.PlacesService($event);
   // placeService.getDetails({
