@@ -22,10 +22,10 @@ export class CostOfLivingBillService {
     return this.http.get(`${Common.urlBase}/costofliving/getdetailbycolid?colID=${billID}`);
   }
   getBillsByRenterID(renterID: number): Observable<any> {
-    return this.http.get(`${Common.urlBase}/costofliving/getbillbyrenterid?renterID=?${renterID}`);
+    return this.http.get(`${Common.urlBase}/costofliving/getbillbyrenterid?renterID=${renterID}`);
   }
   getBillsByOwnerID(ownerID: number): Observable<any> {
-    return this.http.get(`${Common.urlBase}/costofliving/getbillbyownterid?ownerID=?${ownerID}`);
+    return this.http.get(`${Common.urlBase}/costofliving/getbillbyownterid?ownerID=${ownerID}`);
   }
   updateBillDetail(billDetail): Observable<any>{
     return this.http.post(`${Common.urlBase}/costofliving/updatebilldetail`,JSON.stringify(billDetail),this.httpOptions);

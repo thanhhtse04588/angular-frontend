@@ -25,7 +25,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   requestOrderForm: FormGroup
   //payment
   @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
-  pay : Pay;
+  pay: Pay;
   payFor = false;
   payment: Payment;
   minDate;
@@ -39,29 +39,31 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     let today: Date = new Date()
-    this.minDate = today.toISOString().slice(0,16);
-    today.setDate(today.getDay()+10);
-    this.maxDate = today.toISOString().slice(0,16);
-    
-    this.pay  = {
+    this.minDate = today.toISOString().slice(0, 16);
+    today.setDate(today.getDay() + 10);
+    this.maxDate = today.toISOString().slice(0, 16);
+
+    this.pay = {
       price: Common.PRICEORDER,
       description: 'Đặt cọc tiền giữ nhà',
-      payFor : false,
+      payFor: false,
+      placeID: +sessionStorage.getItem("placeID")
     };
     this.ngOnInitOrderForm();
   }
-  onPayResult(event){
-    this.payFor = event.payFor
+  onPayResult(event: Pay) {
+    event.payFor ? alert("Thanh tóan thành công") : alert("Có lỗi!,Thanh tóan thất bại!");
+    this.payFor = event.payFor;
   }
 
   // Liên hệ ngay
   ngOnInitOrderForm() {
     this.requestOrderForm = new FormGroup({
-      name: new FormControl('', [ Validators.maxLength(100),Validators.required]),
+      name: new FormControl('', [Validators.maxLength(100), Validators.required]),
       email: new FormControl('', [Validators.email, Validators.required]),
       phoneNumber: new FormControl('', [Validators.required, Validators.pattern("((\\+91-?)|0)?[0-9]*")]),
-      datetime: new FormControl('', [Validators.required,this.dateFormat]),
-      mess: new FormControl('',[Validators.maxLength(100)])
+      datetime: new FormControl('', [Validators.required, this.dateFormat]),
+      mess: new FormControl('', [Validators.maxLength(100)])
     });
   }
   dateFormat(c: AbstractControl): { [key: string]: boolean } {

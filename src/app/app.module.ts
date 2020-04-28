@@ -66,6 +66,7 @@ import { RenterColBillComponent } from './user/renter-col-bill/renter-col-bill.c
 import { SellerColBillComponent } from './user/seller-col-bill/seller-col-bill.component';
 
 import { BillStatusNamePipe } from './shared/pipes/bill-status-name.pipe';
+import { DeadlineBillPipe } from './shared/pipes/deadline-bill.pipe';
 
 
 
@@ -109,7 +110,7 @@ import { BillStatusNamePipe } from './shared/pipes/bill-status-name.pipe';
       RenterColBillComponent,
       SellerColBillComponent,
       BillStatusNamePipe,
-
+      DeadlineBillPipe,
   ],
   imports: [
     BrowserModule,

@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class BillStatusNamePipe implements PipeTransform {
 
-  transform(value: number): unknown {
+  transform(value: number): string {
     const billStatusName =[
       "Chưa thanh toán","Đã thanh toán","Chưa xử lý"
   ]

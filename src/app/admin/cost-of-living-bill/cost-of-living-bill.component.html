@@ -43,8 +43,13 @@
           </ng-container>
 
           <ng-container matColumnDef="dateCollect">
-            <th *matHeaderCellDef mat-sort-header>Hạn thu tiền</th>
+            <th *matHeaderCellDef mat-sort-header>Ngày thu tiền</th>
             <td *matCellDef="let element"> {{element.dateCollect | date:'shortDate'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="deadLineStatus">
+            <th *matHeaderCellDef mat-sort-header>Hạn thu tiền</th>
+            <td *matCellDef="let element" class="red-text"> {{element.dateCollect | deadlineBill:element.paymentStatusId }} </td>
           </ng-container>
 
           <ng-container matColumnDef="totalExpense">
@@ -54,7 +59,7 @@
 
           <ng-container matColumnDef="paymentStatusName">
             <th *matHeaderCellDef mat-sort-header>Trạng thái hóa đơn</th>
-            <td *matCellDef="let element" class="font-weight-bold"> {{element.paymentStatusId | billStatusName}} </td>
+            <td *matCellDef="let element" class="font-weight-bold" > {{element.paymentStatusId | billStatusName}} </td>
           </ng-container>
 
           <ng-container matColumnDef="void">
@@ -82,7 +87,7 @@
       </div>
     </div>
 
-  </div>
+  </div> 
 </div>
 
 <!-- cash paid comfirm -->

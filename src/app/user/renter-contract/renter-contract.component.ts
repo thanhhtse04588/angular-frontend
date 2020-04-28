@@ -54,7 +54,7 @@ export class RenterContractComponent implements OnInit, OnDestroy {
 
   getPayResult(result: Pay) {
     if (result.payFor) {
-      this.subs.add(this.userService.updateStatusContract(result?.contractID, ContractStatus.ACTIVE,result?.placeID).subscribe(
+      this.userService.updateStatusContract(result?.contractID, ContractStatus.ACTIVE,result?.placeID).subscribe(
         data => {
           if (data) {
             alert('Thanh toán tiền đặt cọc thuê nhà thành công');
@@ -65,7 +65,7 @@ export class RenterContractComponent implements OnInit, OnDestroy {
         }
         , (err) => alert('Có lỗi, liên hệ với chúng tôi để được hỗ trợ')
         , () => this.reload()
-      ))
+      )
     }
   }
 

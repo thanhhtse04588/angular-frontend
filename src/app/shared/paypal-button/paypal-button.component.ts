@@ -49,7 +49,7 @@ export class PaypalButtonComponent implements OnInit {
           this.pay.payFor=true;
           this.onPayResult.emit(this.pay);
           this.payment = new Payment();
-          this.payment.placeID = +sessionStorage.getItem("placeID");
+          this.payment.placeID = this.pay.placeID;
           this.payment.userID = this.loginService.currentUserValue.userID;
           this.payment.orderID = data.orderID;
           this.payment.payerID = data.payerID;
@@ -57,13 +57,11 @@ export class PaypalButtonComponent implements OnInit {
           this.payment.createTime = order.create_time;
           this.payment.description = this.pay.description;
           this.payment.money = this.pay.price;
-          alert("Thanh toán thành công");
           this.paymentService.completePayment(this.payment).subscribe(
             data => console.log(data)
           ).unsubscribe();
         },
         onError: err => {
-          alert("Có lỗi trong quá trình thanh toán");
           console.log(err);
           this.pay.payFor=false;
           this.onPayResult.emit(this.pay);
@@ -78,8 +76,9 @@ export interface Pay {
   description: string,
   payFor: boolean,
   contractID?: number,
-  placeID?: number,
+  placeID: number,
   orderID?: number,
+  colId?:number
 }
 // this.product = {
 //   price: 1000,
