@@ -84,7 +84,7 @@ export class SearchBarComponent implements OnInit {
   }
 
   searchForm(form) {
-    form.title = form.title.trim();
+    form.title = form.title.trim().toLowerCase();
     form.areaMax = form.areaRange.areaMax;
     form.areaMin = form.areaRange.areaMin;
     form.priceMax = form.priceRange.priceMax;

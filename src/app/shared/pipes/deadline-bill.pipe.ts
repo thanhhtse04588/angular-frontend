@@ -1,4 +1,4 @@
-import { BillStatus } from './../../class/common';
+import { BillStatus, Common } from './../../class/common';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
@@ -10,8 +10,7 @@ export class DeadlineBillPipe implements PipeTransform {
     const deadline = new Date(value.valueOf());
 
     if ([BillStatus.PAID,BillStatus.PENDING].includes(status)) return "";
-    const aDay = 86400000;
-    const days = (deadline.getTime() - Date.now()) / aDay;
+    const days = (deadline.getTime() - Date.now()) / Common.DAY;
     
     if (days >= 0) {
       if (days > 30) return " ";

@@ -29,7 +29,7 @@ export class CostLivingComponent implements OnInit {
     this.placeService.getCostUnit().subscribe(
       data => this.units = data as CostUnitName[]
     )
-    this.ngTableOnInit();
+    this.creatTable();
     this.defaultCost.forEach(row => this.addRow());
     this.eqmTable.get('tableRows').patchValue(this.defaultCost);
 
@@ -45,7 +45,7 @@ export class CostLivingComponent implements OnInit {
     });
   }
 
-  ngTableOnInit(): void {
+  creatTable(): void {
     this.touchedRows = [];
     this.eqmTable = this.fb.group({
       tableRows: this.fb.array([])
@@ -83,7 +83,7 @@ export class CostLivingComponent implements OnInit {
 
   setToEdit(data) {
     if (data?.length > 0) {
-      this.ngTableOnInit();
+      this.creatTable();
       data.forEach(element => {
         element.isEditable = false;
         this.addRow();

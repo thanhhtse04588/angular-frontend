@@ -17,7 +17,8 @@ export class EquipmentComponent implements OnInit {
   constructor(private fb: FormBuilder,public sharedService: SharedService ) { }
 
   ngOnInit() {
-    this.ngTableOnInit()
+    this.createTable();
+    this.addRow();
   }
   // table equiment
 
@@ -32,13 +33,11 @@ export class EquipmentComponent implements OnInit {
     });
   }
 
-
-  ngTableOnInit(): void {
+  createTable(): void {
     this.touchedRows = [];
     this.eqmTable = this.fb.group({
       tableRows: this.fb.array([])
     });
-    this.addRow();
   }
 
   addRow() {
@@ -71,8 +70,8 @@ export class EquipmentComponent implements OnInit {
   }
 
   async setToEdit(data) {
-    this.deleteRow(0)// Delete row default
     if (data?.length > 0) {
+      this.createTable();
       await data.forEach(element => {
       element.isEditable = false;
         this.addRow();

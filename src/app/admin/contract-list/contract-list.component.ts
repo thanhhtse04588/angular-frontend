@@ -14,53 +14,48 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   templateUrl: './contract-list.component.html',
 })
 export class ContractListComponent implements OnInit {
-  private subs = new Subscription();
-  displayedColumns: string[] = ['placeID', 'contractID', 'ownerID', 'renterID', 'startDate', 'endDate','placeStatus','statusContract', 'void'];
+  displayedColumns: string[] = ['placeID', 'contractID', 'ownerID', 'renterID', 'startDate', 'endDate', 'placeStatus', 'statusContract', 'void'];
   dataSource: any;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-contracts : Contract[];
-contractSelected: Contract;
+  contracts: Contract[];
+  contractSelected: Contract;
   constructor(private adminService: AdminService,
     private userService: UserService,
-    public sharedService:SharedService) { }
+    public sharedService: SharedService) { }
 
   ngOnInit() {
     this.reload()
   }
   reload() {
-    this.subs.add(this.adminService.getAllContract().subscribe(
+    this.adminService.getAllContract().subscribe(
       data => {
-          this.contracts = data as Contract[];
+        this.contracts = data as Contract[];
         this.dataSource = new MatTableDataSource<Contract>(this.contracts);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
     )
-    )
+
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  showBtn(status: number){
-return ![ContractStatus.CANCEL,ContractStatus.PENDING].includes(status);
+  showBtn(status: number) {
+    return ![ContractStatus.CANCEL, ContractStatus.PENDING].includes(status);
   }
 
-  isBanContract(status: number){
+  isBanContract(status: number) {
     return status == ContractStatus.BAN;
-      }
-onAccept(){
-  this.subs.add(this.userService.updateStatusContract(
-    this.contractSelected.contractID, 
-    (this.contractSelected.contractID==ContractStatus.BAN)? ContractStatus.ACTIVE: ContractStatus.BAN,
-    this.contractSelected.placeID).subscribe(
-    data => data? alert('Thao tác thành công'):alert('Có lỗi')
-    , (err) => alert('Có lỗi')
-    , () => this.reload()
-  ))
-}
-  ngOnDestroy() {
-    this.subs.unsubscribe();
+  }
+  onAccept() {
+    this.userService.updateStatusContract(this.contractSelected.contractID,
+      (this.contractSelected.contractStatusID == ContractStatus.BAN) ? ContractStatus.ACTIVE : ContractStatus.BAN,
+      this.contractSelected.placeID).subscribe(
+        data => data ? alert('Thao tác thành công') : alert('Có lỗi')
+        , (err) => alert('Có lỗi')
+        , () => this.reload()
+      )
   }
 }

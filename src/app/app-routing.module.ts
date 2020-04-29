@@ -71,8 +71,7 @@ const routes: Routes = [
   {
     path: 'admin', component: AdminComponent, canActivate: [AuthAdminService],
     children: [
-      {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-      { path: "dashboard", component: DashboardComponent, canActivate: [AuthAdminService] },
+      {path: '', redirectTo: 'checking-list', pathMatch: 'full'},
       { path: "checking-list", component: CheckingListComponent, canActivate: [AuthAdminService] },
       { path: "order-list", component: OrderListComponent, canActivate: [AuthAdminService] },
       { path: "place-manage", component: PlaceManageComponent, canActivate: [AuthAdminService] },

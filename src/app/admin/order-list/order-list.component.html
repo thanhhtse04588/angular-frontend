@@ -19,17 +19,18 @@
   <div class="card mb-5 wow fadeIn">
     <div class="card-header text-center  h5"><strong>Danh sách Order </strong></div>
     <div class="card-body">
-        <div class="md-form">
-          <input matInput mdbInput type="text" id="form1" class="form-control" (keyup)="applyFilter($event)">
-          <label for="form1">Lọc</label>
-        </div>
+      <div class="md-form">
+        <input matInput mdbInput type="text" id="form1" class="form-control" (keyup)="applyFilter($event)">
+        <label for="form1">Lọc</label>
+      </div>
       <div mdbTable bordered="true" hover="true">
         <table mat-table matSort [dataSource]="dataSource" class="w-100">
 
           <ng-container matColumnDef="orderID">
             <th *matHeaderCellDef mat-sort-header>Chi tiết nhà</th>
             <td *matCellDef="let element">
-              <a type="button" mdbBtn color="info" size='sm' (click)="sharedService.placeDetail(element.placeID)" mdbWavesEffect><i class="fas fa-info"></i></a>
+              <a type="button" mdbBtn color="info" size='sm' (click)="sharedService.placeDetail(element.placeID)"
+                mdbWavesEffect><i class="fas fa-info"></i></a>
             </td>
           </ng-container>
 
@@ -65,12 +66,13 @@
 
           <ng-container matColumnDef="statusPlace">
             <th *matHeaderCellDef mat-sort-header>Trạng thái nhà</th>
-            <td *matCellDef="let element" [ngClass]='colorStatusPlace(element.statusPlaceID)'> {{element.statusPlace}} </td>
+            <td *matCellDef="let element" [ngClass]='colorStatusPlace(element.statusPlaceID)'> {{element.statusPlace}}
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="status">
             <th *matHeaderCellDef mat-sort-header>Trạng thái đơn</th>
-            <td *matCellDef="let element" ><strong>{{element.status}}</strong> </td>
+            <td *matCellDef="let element"><strong>{{element.status}}</strong> </td>
           </ng-container>
 
           <ng-container matColumnDef="void">
@@ -78,18 +80,16 @@
             <td *matCellDef="let element">
               <ng-container *ngIf="isInProcess(element.orderStatusID)">
 
-                <button *ngIf="!isConsiderStatus(element.orderStatusID);else dealButton"
-                type="button" mdbBtn color="success" size="sm" 
-                (click)='item= element' (click)="comfirmApprove.show()"
-                mdbWavesEffect><i class="fas fa-check"></i></button>
+                <button *ngIf="!isConsiderStatus(element.orderStatusID);else dealButton" type="button" mdbBtn
+                  color="success" size="sm" (click)='item= element' (click)="comfirmApprove.show()" mdbWavesEffect><i
+                    class="fas fa-check"></i></button>
                 <ng-template #dealButton>
-                  <button type="button" mdbBtn color="warning" size="sm" 
-                  (click)='item= element' (click)="dealForm.show()"
-                  mdbWavesEffect><i class="fas fa-check"></i></button>
+                  <button type="button" mdbBtn color="warning" size="sm" (click)='item= element'
+                    (click)="dealForm.show()" mdbWavesEffect><i class="fas fa-check"></i></button>
                 </ng-template>
 
-              <button type="button" mdbBtn color="danger" size="sm" (click)='item = element' (click)="comfirmReject.show()"
-                mdbWavesEffect><i class="fas fa-ban"></i></button>
+                <button type="button" mdbBtn color="danger" size="sm" (click)='item = element'
+                  (click)="comfirmReject.show()" mdbWavesEffect><i class="fas fa-ban"></i></button>
               </ng-container>
             </td>
           </ng-container>
@@ -113,7 +113,8 @@
         <h5>Bạn có chắc chắn muốn HỦY</h5>
       </div>
       <div class="modal-footer justify-content-center ">
-        <a type="button" mdbBtn color="danger" class="waves-effect" (click)='onReject()' (click)="comfirmReject.hide()" mdbWavesEffect>
+        <a type="button" mdbBtn color="danger" class="waves-effect" (click)='onReject()' (click)="comfirmReject.hide()"
+          mdbWavesEffect>
           <i class="fas fa-check"></i>
         </a>
         <a type="button" mdbBtn color="danger" outline="true" class="waves-effect" (click)="comfirmReject.hide()"
@@ -131,7 +132,8 @@
         <h5>Bạn có chắc chắn muốn DUYỆT</h5>
       </div>
       <div class="modal-footer justify-content-center ">
-        <a type="button" mdbBtn color="success" class="waves-effect" (click)='onApprove()' (click)="comfirmApprove.hide()" mdbWavesEffect>
+        <a type="button" mdbBtn color="success" class="waves-effect" (click)='onApprove()'
+          (click)="comfirmApprove.hide()" mdbWavesEffect>
           <i class="fas fa-check"></i></a>
         <a type="button" mdbBtn color="success" outline="true" class="waves-effect" (click)="comfirmApprove.hide()"
           mdbWavesEffect><i class="fas fa-minus"></i></a>
@@ -140,39 +142,62 @@
   </div>
 </div>
 
- <!-- DealForm -->
+<!-- DealForm -->
 <div mdbModal #dealForm="mdbModal" class="modal fade right" id="frameModalTop" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel" aria-hidden="true">
+  aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <form (ngSubmit)='sendDeal(form.value)' #form='ngForm'>
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Thời gian thuê</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="dealForm.hide()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <mdb-icon fas icon="calendar" class="prefix grey-text"> Từ ngày: </mdb-icon>
-          <input type="date" ngModel name='from'
-                 mdbInput required>
+    <form (ngSubmit)='sendDeal(formContract.value)' [formGroup]="formContract">
+      <div class="modal-content p-3">
+        <div class="text-center">
+          <div class="modal-title w-100 h4">Tạo hợp đồng thuê nhà</div>
+          <div><small>(Hợp đồng sẽ được gửi cho người thuê để xác nhận)</small></div>
         </div>
+        <div class="modal-body mx-3">
+          <div class="my-3"> 
+            <label  mdbBtn color="primary" size="sm" mdbWavesEffect
+            class="btn-file">
+            Tải lên hợp đồng bản mềm<input type="file" class="form-control" formControlName="contractLink" autocomplete="off" style="display:none;"
+              (change)="onFileSelected($event)" />
+          </label>
+          <small class="red-text" *ngIf="sharedService.checkValidateInput(contractLink)">
+            Không hợp lệ
+          </small>
+          </div>
+          <div class="mb-4">
+            <label> Thời gian thuê từ ngày<span class="red-text">*</span>: </label>
+            <input type="date" class="form-control" formControlName="startDate">
+            <small class="red-text" *ngIf="sharedService.checkValidateInput(startDate)">
+              Không hợp lệ
+            </small>
+          </div>
 
-        <div class="md-form mb-4">
-          <mdb-icon fas icon="calendar" class="prefix grey-text">Đến ngày: </mdb-icon>
-          <input type="date" ngModel name="to"
-                 mdbInput required>
+          <div class="mb-4">
+            <label>Đến ngày<span class="red-text">*</span>: </label>
+            <input type="date" class="form-control" formControlName="endDate">
+            <small class="red-text" *ngIf="sharedService.checkValidateInput(endDate) || formContract.errors?.invalidEndDate">
+              Không hợp lệ
+            </small>
+          </div>
+
+          <div class="mb-4">
+            <label>Phí đặt cọc(vnđ)<span class="red-text">*</span>: </label>
+            <input type="number" class="form-control" formControlName="fee">
+            <small class="red-text" *ngIf="sharedService.checkValidateInput(fee)">
+              Không hợp lệ
+            </small>
+          </div>
+          <div class="mb-3 mx-3">
+            <mdb-checkbox [default]="false" formControlName="isUseService"><strong>Sử dụng dịch vụ</strong>(<small>Thanh toán phí dịch vụ hằng tháng, dịch vụ báo hỏng...</small>)</mdb-checkbox>
+          </div>
+
         </div>
-
+        <div class="modal-footer d-flex justify-content-center">
+          <button mdbBtn color="warning" type="submit" [disabled]='formContract.invalid || isSubmit'
+            class="btn-block waves-light" (click)="dealForm.hide()" mdbWavesEffect>
+            <span [ngClass]="{'spinner-border spinner-border-sm' : isSubmit}"> </span>Gửi
+          </button>
+        </div>
       </div>
-      <div class="modal-footer d-flex justify-content-center">
-        <button mdbBtn color="warning" type="submit" [disabled]='form.invalid || isSubmit' 
-        (click)="dealForm.hide()" class="waves-light" mdbWavesEffect>
-        <span [ngClass]="{'spinner-border spinner-border-sm' : isSubmit}"> </span>Gửi
-        </button>
-      </div>
-    </div>
-  </form>
+    </form>
   </div>
 </div>

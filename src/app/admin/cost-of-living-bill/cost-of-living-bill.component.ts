@@ -10,7 +10,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { COLBill } from 'src/app/class/cost-of-living.model';
-import { forkJoin} from 'rxjs';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-cost-of-living-bill',
@@ -84,21 +84,19 @@ export class CostOfLivingBillComponent implements OnInit {
 
     task.snapshotChanges().pipe(finalize(() => {
       const downloadURL = fileRef.getDownloadURL();
-      const updateBillStatus = this.billService.updateBillStatus(bill.colId, BillStatus.PAID)
-        // .pipe(map(res => res ? BillStatus.PAID : this.bill.paymentStatusId));
-        forkJoin(
-          downloadURL,
-          updateBillStatus
-        ).subscribe(([a, b]) => {
-          if (b) {
-            bill.paymentStatusId = BillStatus.PAID;
-            alert("Thao thác thành công");
-            console.log(a);
-          } else {
-            alert("Thao thác không thành công");
-          }
-        }, err => alert("Thao thác không thành công"));
-    })
-    ).subscribe();
+      const updateBillStatus = this.billService.updateBillStatus(bill.colId, BillStatus.PAID);
+      forkJoin(
+        downloadURL,
+        updateBillStatus
+      ).subscribe(([a, b]) => {
+        if (b) {
+          bill.paymentStatusId = BillStatus.PAID;
+          alert("Thao thác thành công");
+          console.log(a);
+        } else {
+          alert("Thao thác không thành công");
+        }
+      }, err => alert("Thao thác không thành công"));
+    })).subscribe();
   }
 }

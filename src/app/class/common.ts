@@ -6,6 +6,8 @@ export class Common {
     public static FEE = 2; // x2 PlacePrice
     public static ZOOM = 17;
     public static USDtoVND = 23442;
+    public static MONTH = 2592000000;
+    public static DAY = 86400000;
     public static OBSERVER = {
         next(res){
           (res === false)? alert("Lỗi! ,Thao tác không thành công!"):alert("Thao tác thành công")
@@ -57,4 +59,8 @@ export enum BillStatus{
     UNPAID,
     PAID,
     PENDING
+}
+export enum IsUseService{
+  NO,
+  YES
 }
