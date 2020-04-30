@@ -1,14 +1,16 @@
-import { AuthenticationService } from './../../index/service/authentication.service';
 import { thanToday } from 'src/app/shared/directive/than-today.directive';
+import { UpdateOrderStatus } from './../../shared/model/order.model';
+import { AuthenticationService } from './../../index/service/authentication.service';
 import { SharedService } from './../../shared/shared.service';
 import { Validators, AbstractControl } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { AdminService } from './../../admin/admin.service';
-import { PlaceStatus, OrderStatus } from './../../class/common';
+import { PlaceStatus, OrderStatus } from '../../shared/common';
 import { Observable, Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '../service/user.service';
+import { Order } from 'src/app/shared/model/order.model';
 
 @Component({
   selector: 'app-renter-order',
@@ -20,25 +22,32 @@ export class RenterOrderComponent implements OnInit, OnDestroy {
   private subs = new Subscription();
   private userID: number;
   item: Order;
-  updateStatus: UpdateStatus;
-  //edit
+  updateStatus: UpdateOrderStatus;
+  // edit
   editOrderForm: FormGroup;
-  constructor(private userService: UserService,
-    private adminService: AdminService,public sharedService:SharedService, public loginService: AuthenticationService) { }
+  constructor(
+    private userService: UserService, private adminService: AdminService,
+    public sharedService: SharedService, public loginService: AuthenticationService) { }
 
   ngOnInit() {
     this.reload();
     this.editOrderForm = new FormGroup({
-      orderID: new FormControl(''),
-      name: new FormControl('', Validators.required),
+      orderID: new FormControl(),
+      name: new FormControl('', [Validators.maxLength(100), Validators.required]),
       email: new FormControl('', [Validators.email, Validators.required]),
-      phoneNumber: new FormControl('', [Validators.required]),
-      dateTime: new FormControl('', [Validators.required]),
-      message: new FormControl('')
+      phoneNumber: new FormControl('', [Validators.required, Validators.pattern('((\\+91-?)|0)?[0-9]*')]),
+      dateTime: new FormControl('', [Validators.required, thanToday()]),
+      message: new FormControl('', [Validators.maxLength(100)])
     });
   }
+
+  onEdit(order: Order) {
+    this.isSubmit = false;
+    this.editOrderForm.patchValue(order);
+  }
+
   isShowButton(id) {
-    return id == PlaceStatus.ACTIVE;
+    return id === PlaceStatus.ACTIVE;
   }
   reload() {
     this.userID = this.loginService.currentUserValue.userID;
@@ -47,37 +56,23 @@ export class RenterOrderComponent implements OnInit, OnDestroy {
         this.orders = data;
       }));
   }
-  statusOrderColor(id){
+  statusOrderColor(id) {
     switch (id) {
-      case OrderStatus.DEAL: return "orange";
-      case OrderStatus.CONSIDER: return "purple";
-      case OrderStatus.PENDING: return "cyan";
-      case OrderStatus.REJECT: return "grey";
-      case OrderStatus.APPROVE: return "green";
-      default: return "grey";
+      case OrderStatus.DEAL: return 'orange';
+      case OrderStatus.CONSIDER: return 'purple';
+      case OrderStatus.PENDING: return 'cyan';
+      case OrderStatus.REJECT: return 'grey';
+      case OrderStatus.APPROVE: return 'green';
+      default: return 'grey';
     }
   }
 
-  isInProcess(status: number){
-    return [OrderStatus.PENDING,OrderStatus.CONSIDER].includes(status);
+  isInProcess(status: number) {
+    return [OrderStatus.PENDING, OrderStatus.CONSIDER].includes(status);
   }
   isDeal(status: number) {
-    return status == OrderStatus.DEAL;
+    return status === OrderStatus.DEAL;
   }
-
-  // statusPlaceColor(id) {
-  //   switch (id) {
-  //     case PlaceStatus.ACTIVE: return "green";
-  //     case PlaceStatus.PENDING: return "orange";
-  //     case PlaceStatus.CHECKING: return "cyan";
-  //     case PlaceStatus.CANCEL: return "grey";
-  //     default: return "grey";
-  //   }
-  // }
-  
-  onDeal(){
-  }
-
   onReject() {
     this.subs.add(this.adminService.changeStatusOrder(
       this.updateStatus = {
@@ -86,35 +81,16 @@ export class RenterOrderComponent implements OnInit, OnDestroy {
         statusOrderID: OrderStatus.REJECT, // Reject
         statusPlaceID: PlaceStatus.ACTIVE // Active-> Active
       }).subscribe(
-        data => data ? alert("Thao tác thành công!") : alert("Thao tác không thành công!"),
+        data => data ? alert('Thao tác thành công!') : alert('Thao tác không thành công!'),
         (err) => console.log(err),
         () => this.reload()
-      ))
-  }
-
-  //edit order
-  creatEditOrder(order: Order) {
-    this.editOrderForm = new FormGroup({
-      orderID: new FormControl(order.orderID),
-      name: new FormControl(order.name, [ Validators.maxLength(100),Validators.required]),
-      email: new FormControl(order.email,[Validators.email, Validators.required]),
-      phoneNumber: new FormControl(order.phoneNumber, [Validators.required, Validators.pattern("((\\+91-?)|0)?[0-9]*")]),
-      dateTime: new FormControl(order.dateTime, [Validators.required,this.dateFormat]),
-      message: new FormControl(order.message,[Validators.maxLength(100)])
-    });
-  }
-  dateFormat(c: AbstractControl): { [key: string]: boolean } {
-    let value = new Date(c.value);
-    return isNaN(value.getTime()) || value <= new Date() ? { 'invalid': true } : undefined;
-  }
-  onEdit(order: Order) {
-    this.creatEditOrder(order);
+      ));
   }
 
   onSave(event) {
-    this.isSubmit=true;
+    this.isSubmit = true;
     this.subs.add(this.userService.editOrder(event.value).subscribe(
-      data => data ? alert("Chỉnh sửa thành công") : alert("Chỉnh sửa thất bại") ));
+      data => data ? alert('Chỉnh sửa thành công') : alert('Chỉnh sửa thất bại')));
     this.reload();
   }
 
@@ -141,24 +117,4 @@ export class RenterOrderComponent implements OnInit, OnDestroy {
   get message() {
     return this.editOrderForm.get('message');
   }
-}
-
-interface Order {
-  orderID: number;
-  placeID: number;
-  orderStatusID: number;
-  dateTime: Date;
-  name: string;
-  email: string;
-  phoneNumber: string;
-  message: string;
-  title: string;
-  placeStatus: string;
-  orderStatus: string;
-}
-interface UpdateStatus {
-  orderID: number,
-  statusOrderID: number,
-  placeID: number,
-  statusPlaceID: number,
 }

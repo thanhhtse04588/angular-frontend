@@ -45,7 +45,7 @@
 
           <ng-container matColumnDef="datePost">
             <th *matHeaderCellDef mat-sort-header>Ngày đăng</th>
-            <td *matCellDef="let element"> {{element.datePost}} </td>
+            <td *matCellDef="let element"> {{element.datePost | date:'shortDate' }} </td>
           </ng-container>
 
           <ng-container matColumnDef="price">

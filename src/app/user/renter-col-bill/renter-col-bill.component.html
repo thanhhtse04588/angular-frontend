@@ -66,7 +66,9 @@
                         </th>
                         <td *matCellDef="let element">
                           <app-paypal-button *ngIf="!isBillPending(element.paymentStatusId)" [pay]='getPay(element)'
-                          (onPayResult)='getPayResult($event)'></app-paypal-button>
+                          (payResult)='getPayResult($event)'></app-paypal-button>
+                          <a type="button" *ngIf='element.cashPaidLink' [href]="element.cashPaidLink" mdbBtn color="success"
+                          size="sm" mdbWavesEffect>Xem hóa đơn tiền mặt</a>
                         </td>
                       </ng-container>
             

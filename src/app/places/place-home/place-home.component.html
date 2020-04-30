@@ -1,46 +1,10 @@
 <div class="wow fadeIn" style="margin-top: -100px;">
   <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
-    <mdb-carousel-item>
+    <mdb-carousel-item *ngFor="let img of imgSlide">
       <div class="view w-100" style="height: 70vh;">
         <img class="d-block img-fluid"
-          src="../../assets/img/house/white-single-story-houses-beside-body-of-water-1438832.jpg" alt="First slide">
+          [src]="img" alt="First slide">
         <div class="mask rgba-black-light waves-light" mdbWavesEffect></div>
-      </div>
-      <div class="carousel-caption h-50 my-auto">
-        <h1 class="mb-4">
-          <strong>Bất động sản sạch</strong>
-        </h1>
-        <p>
-          <strong>Đáp ứng mọi tiêu chí của người mua lẫn người bán</strong>
-        </p>
-        <p class="mb-4 d-none d-md-block">
-          <strong>Hãy trở thành khách hàng của chúng tôi để nhận được những dịch vụ tốt nhất.</strong>
-        </p>
-      </div>
-    </mdb-carousel-item>
-    <mdb-carousel-item>
-      <div class="view w-100" style="height: 70vh;">
-        <img class="d-block img-fluid"
-          src="../../assets/img/house/architecture-beautiful-home-building-class-280229.jpg" alt="Second slide">
-        <div class="mask rgba-black-strong waves-light" mdbWavesEffect></div>
-      </div>
-      <div class="carousel-caption h-50 my-auto">
-        <h1 class="mb-4">
-          <strong>Bất động sản sạch</strong>
-        </h1>
-        <p>
-          <strong>Đáp ứng mọi tiêu chí của người mua lẫn người bán</strong>
-        </p>
-        <p class="mb-4 d-none d-md-block">
-          <strong>Hãy trở thành khách hàng của chúng tôi để nhận được những dịch vụ tốt nhất.</strong>
-        </p>
-      </div>
-    </mdb-carousel-item>
-    <mdb-carousel-item>
-      <div class="view w-100" style="height: 70vh;">
-        <img class="d-block img-fluid" src="../../assets/img/house/white-and-red-wooden-house-with-fence-1029599.jpg"
-          alt="Third slide">
-        <div class="mask rgba-black-slight waves-light" mdbWavesEffect></div>
       </div>
       <div class="carousel-caption h-50 my-auto">
         <h1 class="mb-4">
@@ -56,7 +20,8 @@
     </mdb-carousel-item>
   </mdb-carousel>
 
-  <app-places-list (onSearch)="isSearch = $event"></app-places-list>
+  <app-places-list></app-places-list>
+
   <div class="container">
     <hr class="mt-3 mb-5">
     <!--Section: Cards-->
@@ -65,37 +30,7 @@
       <div class="row wow fadeIn">
 
         <div class="col-lg-4 col-md-6 mb-4" *ngFor="let place of places">
-
-          <!--Card-->
-          <div class="card">
-            <a (click)="sharedService.placeDetail(place.placeID)">
-              <!--Card image-->
-              <div class="view overlay zoom" style="height: 250px;">
-                <img [src]="place.imageLarge" class="img-thumbnail" alt="zoom">
-                <div class="mask flex-center waves-effect waves-light">
-                  <p class="white-text">Xem</p>
-                </div>
-              </div>
-              <!--Card content-->
-              <div class="card-body">
-                <!--Title-->
-                <h4 class="card-title" style="height: 56px;">{{place?.title | slice:0:50}}...</h4>
-                <!--Text-->
-                <h5>
-                  <mdb-badge pill="true" default="true">{{place.roleOfPlaceName}}</mdb-badge>
-                </h5>
-
-                <p class="card-text">{{place.bedRooms}} phòng ngủ - {{place.toilets}} phòng vệ sinh - {{place.area}} m²
-                </p>
-                <h5 class="card-title">
-                  <mdb-icon fas icon="map-marker-alt" class="grey-text"></mdb-icon> {{place.district}}
-                </h5>
-                <h4 class="card-title"> {{place.price| number}} vnđ</h4>
-
-              </div>
-            </a>
-          </div>
-          <!--/.Card-->
+          <app-place-quick-view [place]="place"></app-place-quick-view>
         </div>
         <!--Grid column-->
       </div>
@@ -147,6 +82,7 @@
     </section>
     <!--Section: Main info-->
   </div>
+
 </div>
 
 <!--Main layout-->

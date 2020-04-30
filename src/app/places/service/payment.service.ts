@@ -1,24 +1,15 @@
+import { Common } from './../../shared/common';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpEvent, HttpRequest } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { retry, catchError, map } from 'rxjs/operators';
+import { HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PaymentService {
-  private baseUrl = 'http://localhost:8080/paypal';
   constructor(private http: HttpClient) { }
-  //Http Options
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  }  
-
 
   completePayment(payment) {
-    return this.http.post(this.baseUrl + '/pay',JSON.stringify(payment),this.httpOptions)
+    return this.http.post(`${Common.urlBase}/payment/insert-payment`, JSON.stringify(payment), Common.httpOptions);
   }
 
 }

@@ -1,4 +1,4 @@
-import { Common } from './../../class/common';
+import { Common } from '../common';
 import { Directive } from '@angular/core';
 import { ValidatorFn, AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
 
@@ -13,15 +13,15 @@ export const endDateThanOneMonthStartDate: ValidatorFn = (control: FormGroup): V
   const endTime = new Date(control.get('endDate').value);
   const compare = endTime.getTime() - startTime.getTime();
 
-  return (compare <= Common.MONTH) ? { 'invalidEndDate': true } : null; // 
+  return (compare <= Common.MONTH) ? { invalidEndDate: true } : null;
 };
 
 export function thanToday(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } => {
-    let value = new Date(control.value);
-    let now = new Date();
-    const oneYearLater = now.setFullYear(now.getFullYear()+1);
-    
-    return (value.getTime() >= Date.now() && value.getTime() <= oneYearLater)? null : {'invalid': true};
-  }
+    const value = new Date(control.value);
+    const now = new Date();
+    const oneYearLater = now.setFullYear(now.getFullYear() + 1);
+
+    return (value.getTime() >= Date.now() && value.getTime() <= oneYearLater) ? null : { invalid: true };
+  };
 }

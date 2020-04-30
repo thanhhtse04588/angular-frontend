@@ -50,12 +50,12 @@
 
           <ng-container matColumnDef="startDate">
             <th *matHeaderCellDef mat-sort-header>Ngày thuê</th>
-            <td *matCellDef="let element"> {{element.startDate}} </td>
+            <td *matCellDef="let element"> {{element.startDate | date:'shortDate' }} </td>
           </ng-container>
 
           <ng-container matColumnDef="endDate">
             <th *matHeaderCellDef mat-sort-header>Ngày kết thúc</th>
-            <td *matCellDef="let element"> {{element.endDate}} </td>
+            <td *matCellDef="let element"> {{element.endDate | date:'shortDate' }} </td>
           </ng-container>
 
           <ng-container matColumnDef="placeStatus">

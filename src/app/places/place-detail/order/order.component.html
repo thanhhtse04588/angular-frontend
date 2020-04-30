@@ -33,7 +33,7 @@
             </div>
 
             <div class="col md-form">
-              <input type="datetime-local" [min]="minDate" [max]="maxDate" class="form-control" mdbInput mdbValidate
+              <input type="datetime-local"  class="form-control" mdbInput mdbValidate
                 formControlName="datetime">
               <div><small>(Lớn hơn ngày hiện tại)</small></div>
               <small class="red-text" *ngIf="sharedService.checkValidateInput(datetime)">
@@ -53,7 +53,7 @@
             [innerHTML]='payFor? "Bạn đã thanh toán phí dịch vụ thành công, hoàn thành mẫu và gửi": "Thanh toán phí dịch vụ 50$ ở cổng paypal để hoàn thành mẫu đăng ký" '>
           </p>
           <ng-template #paypalButton>
-            <app-paypal-button [pay]='pay' (onPayResult)='onPayResult($event)'></app-paypal-button>
+            <app-paypal-button [pay]='pay' (payResult)='payResult($event)'></app-paypal-button>
           </ng-template>
           <div class="mx-auto" *ngIf='payFor; else paypalButton'>
             <button type="submit" mdbBtn class="btn btn-danger btn-block"

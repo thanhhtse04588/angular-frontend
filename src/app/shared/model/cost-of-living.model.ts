@@ -3,7 +3,7 @@ export interface COLBill {
     colId: number;
     contractId: number;
     renterId: number;
-    ownerID:number;
+    ownerID: number;
     placeId: number;
     dateCollect: Date;
     totalExpense: number;
@@ -11,9 +11,10 @@ export interface COLBill {
     paymentStatusName: string;
     placePrice: number;
     colBillDetails: Array<COLBillDetail>;
+    cashPaidLink: string;
 }
 
-export interface COLBillDetail{
+export interface COLBillDetail {
     colId: number;
     costId: number;
     amount: number;
@@ -24,7 +25,7 @@ export interface COLBillDetail{
     unitID: number;
 }
 
-export interface COLBillUpdate{
+export interface COLBillUpdate {
     totalExpense: number;
     colBillDetails: Array<COLBillDetail>;
 }

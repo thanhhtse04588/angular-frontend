@@ -19,7 +19,7 @@
           <p>Kéo và thả ảnh vào đây</p>
         </div>
         <div *ngFor="let file of files">
-          <upload-task [file]="file" (onUpload)='onUploadedFile($event)'></upload-task>
+          <app-upload-task [file]="file" (upload)='uploadTask($event)'></app-upload-task>
         </div>
 
       </mat-card>

@@ -25,8 +25,8 @@
                     <p><strong>Người thuê: </strong>{{contract.renterID}}</p>
                   </div>
                   <div class="col">
-                    <p><strong>Ngày bắt đầu: </strong>{{contract.startDate | date:'dd/MM/yyy'}}</p>
-                    <p><strong>Ngày kết thúc: </strong>{{contract.endDate | date:'dd/MM/yyy'}}</p>
+                    <p><strong>Ngày bắt đầu: </strong>{{contract.startDate | date:'shortDate' }}</p>
+                    <p><strong>Ngày kết thúc: </strong>{{contract.endDate | date:'shortDate' }}</p>
                     <p><strong>Số tiền đặt cọc: </strong>{{contract.fee | number}}<small>VND</small>/{{vndToUsd(contract.fee) | number}}<small>USD</small></p>
                   </div>
                   <div class="col">
@@ -38,7 +38,7 @@
                   </div>
                 </div>
                   <app-paypal-button *ngIf="isContractPending(contract.contractStatusID) && isPlaceActive(contract.placeStatusID)" [pay]='getPay(contract)'
-                    (onPayResult)='getPayResult($event)'></app-paypal-button>
+                    (payResult)='getPayResult($event)'></app-paypal-button>
                 <span class="float-right h5 pr-2">
                   <mdb-badge [color]="statusContractColor(contract.contractStatusID)">{{contract.statusContract}}
                   </mdb-badge>

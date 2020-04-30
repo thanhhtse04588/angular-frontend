@@ -38,7 +38,7 @@
                       </mdb-card-title>
                       <div>
                         <p><strong>Địa chỉ: </strong>{{item.address | slice:0:70}}</p>
-                        <p><strong>Ngày đăng: </strong> {{item.datePost}}</p>
+                        <p><strong>Ngày đăng: </strong> {{item.datePost | date:'shortDate' }}</p>
                       </div>
                     </div>
                     <div class="col-md-3">

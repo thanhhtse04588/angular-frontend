@@ -53,9 +53,9 @@ import { ErrorPageComponent } from './index/errors/error/error-page/error-page.c
 import { SellerManageComponent } from './user/seller-manage/seller-manage.component';
 
 // Angular FireBase
-import { AngularFireModule } from "@angular/fire";
-import { environment } from "../environments/environment";
-import {AngularFireStorageModule} from "@angular/fire/storage";
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
+import {AngularFireStorageModule} from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { OrderComponent } from './places/place-detail/order/order.component';
@@ -67,6 +67,7 @@ import { SellerColBillComponent } from './user/seller-col-bill/seller-col-bill.c
 
 import { BillStatusNamePipe } from './shared/pipes/bill-status-name.pipe';
 import { DeadlineBillPipe } from './shared/pipes/deadline-bill.pipe';
+import { PlaceQuickViewComponent } from './places/place-quick-view/place-quick-view.component';
 
 
 
@@ -111,6 +112,8 @@ import { DeadlineBillPipe } from './shared/pipes/deadline-bill.pipe';
       SellerColBillComponent,
       BillStatusNamePipe,
       DeadlineBillPipe,
+      PlaceQuickViewComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -125,11 +128,11 @@ import { DeadlineBillPipe } from './shared/pipes/deadline-bill.pipe';
     MDBBootstrapModule.forRoot(),
     NgbModule,
     AngularFireStorageModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig, "cloud"),
+    AngularFireModule.initializeApp(environment.firebaseConfig, 'cloud'),
     AngularFireAuthModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBHJYZBS-Vig1M-fizCBelDmmqymJ96tXM',
-      libraries: ["places", "geometry"]
+      libraries: ['places', 'geometry']
   })
   ],
   providers: [

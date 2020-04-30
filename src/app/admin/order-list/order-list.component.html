@@ -51,7 +51,7 @@
 
           <ng-container matColumnDef="dateTime">
             <th *matHeaderCellDef mat-sort-header>Thời gian</th>
-            <td *matCellDef="let element"> {{element.dateTime}} </td>
+            <td *matCellDef="let element"> {{element.dateTime | date:'short' }} </td>
           </ng-container>
 
           <ng-container matColumnDef="address">

@@ -16,15 +16,15 @@ export class GlobalErrorHandler implements ErrorHandler {
     const notifier = this.injector.get(NotificationService);
 
     let message;
-    let stackTrace;
+    let stackTrace ;
     if (error instanceof HttpErrorResponse) {
       // Server error
-      message =  'Lỗi tại Đức : '+ errorService.getServerErrorMessage(error);
-      //stackTrace = errorService.getServerErrorStackTrace(error);
+      message =  'Lỗi tại Đức : ' + errorService.getServerErrorMessage(error);
+      // stackTrace = errorService.getServerErrorStackTrace(error);
       // notifier.showError(message);
     } else {
       // Client Error
-      message = 'Lỗi của Thành : '+ errorService.getClientErrorMessage(error);
+      message = 'Lỗi của Thành : ' + errorService.getClientErrorMessage(error);
       // notifier.showError(message);
     }
     // Always log errors

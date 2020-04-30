@@ -8,12 +8,12 @@ import { Component, OnInit, ViewChild, ElementRef, EventEmitter, Output } from '
   styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent implements OnInit {
-  @ViewChild("fileUpload", { static: false }) fileUpload: ElementRef;
-  @Output() onUpload: EventEmitter<string>;
+  @ViewChild('fileUpload', { static: false }) fileUpload: ElementRef;
+  @Output() upload: EventEmitter<string>;
   isHovering: boolean;
   files: File[] = [];
   constructor() {
-    this.onUpload = new EventEmitter();
+    this.upload = new EventEmitter();
   }
   ngOnInit() { }
 
@@ -24,15 +24,15 @@ export class UploadComponent implements OnInit {
     const fileUpload = this.fileUpload.nativeElement;
     fileUpload.onchange = () => {
       this.files = [];
+      // tslint:disable-next-line: prefer-for-of
       for (let index = 0; index < fileUpload.files.length; index++) {
         const file = fileUpload.files[index];
         if (file.type.match('image.*')) {
-          (file.size > 2000000) ? alert("Tệp ảnh không quá 2 MB") : this.files.push(file);
+          (file.size > 2000000) ? alert('Tệp ảnh không quá 2 MB') : this.files.push(file);
         } else {
           alert('Tệp phải là định dạng hình ảnh');
         }
       }
-
     };
     fileUpload.click();
   }
@@ -45,14 +45,15 @@ export class UploadComponent implements OnInit {
     for (let i = 0; i < files.length; i++) {
 
       if (files.item(i).type.match('image.*')) {
-        (files.item(i).size > 2000000) ? alert("Tệp ảnh không quá 2 MB") : this.files.push(files.item(i));
+        (files.item(i).size > 2000000) ? alert('Tệp ảnh không quá 2 MB') : this.files.push(files.item(i));
       } else {
         alert('Tệp phải là định dạng hình ảnh');
       }
     }
   }
-  onUploadedFile(uploadLink: string) {
-    this.onUpload.next(uploadLink);
+
+  uploadTask(uploadLink: string) {
+    this.upload.next(uploadLink);
   }
 }
 

@@ -1,5 +1,5 @@
+
 import { SharedService } from './../../../shared/shared.service';
-import { EquipmentListForm } from './../../../class/place-detail';
 import { FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
@@ -14,7 +14,7 @@ export class EquipmentComponent implements OnInit {
   mode: boolean;
   touchedRows: any;
 
-  constructor(private fb: FormBuilder,public sharedService: SharedService ) { }
+  constructor(private fb: FormBuilder, public sharedService: SharedService) { }
 
   ngOnInit() {
     this.createTable();
@@ -24,15 +24,30 @@ export class EquipmentComponent implements OnInit {
 
   initiateForm(): FormGroup {
     return this.fb.group({
-      name: ['', [Validators.required,Validators.maxLength(32)]],
+      name: ['', [Validators.required, Validators.maxLength(32)]],
       quantity: ['', [Validators.required, Validators.min(0)]],
       price: ['', [Validators.required, Validators.min(0)]],
-      likeNew: ['',[Validators.max(100),Validators.min(0)]],
+      likeNew: ['', [Validators.max(100), Validators.min(0)]],
       equipmentDescrible: ['', [Validators.maxLength(100)]],
       isEditable: [true]
     });
   }
 
+  setToEdit(data) {
+    this.clearTable();
+    if (data?.length > 0) {
+      data.forEach(element => {
+        element.isEditable = false;
+        this.addRow();
+      });
+      this.eqmTable.get('tableRows').patchValue(data);
+    }
+  }
+
+  submitForm() {
+    const control = this.eqmTable.get('tableRows') as FormArray;
+    this.touchedRows = control.controls.filter(row => row.touched).map(row => row.value);
+  }
   createTable(): void {
     this.touchedRows = [];
     this.eqmTable = this.fb.group({
@@ -43,6 +58,10 @@ export class EquipmentComponent implements OnInit {
   addRow() {
     const control = this.eqmTable.get('tableRows') as FormArray;
     control.push(this.initiateForm());
+  }
+  clearTable() {
+    const control = this.eqmTable.get('tableRows') as FormArray;
+    control.clear();
   }
 
   deleteRow(index: number) {
@@ -65,23 +84,8 @@ export class EquipmentComponent implements OnInit {
 
   getEquipTable() {
     const control = this.eqmTable.get('tableRows') as FormArray;
-    const savedRows = control.controls.filter(row => row.value.isEditable == false).map(row => row.value); // only Aprove row have been saved
+    // only Aprove row have been saved
+    const savedRows = control.controls.filter(row => row.value.isEditable === false).map(row => row.value);
     return savedRows;
-  }
-
-  async setToEdit(data) {
-    if (data?.length > 0) {
-      this.createTable();
-      await data.forEach(element => {
-      element.isEditable = false;
-        this.addRow();
-      });
-      this.eqmTable.get('tableRows').patchValue(data);
-    }
-  }
-
-  submitForm() {
-    const control = this.eqmTable.get('tableRows') as FormArray;
-    this.touchedRows = control.controls.filter(row => row.touched).map(row => row.value);
   }
 }

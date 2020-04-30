@@ -1,10 +1,8 @@
-import { Common } from './../../class/common';
-
-
+import { Common } from '../../shared/common';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable} from 'rxjs';
-import { retry} from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,67 +10,39 @@ import { retry} from 'rxjs/operators';
 export class PlaceService {
 
   constructor(private http: HttpClient) { }
-  //Http Options
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  }
-  
+
   getPlacesTop6List(): Observable<any> {
-    return this.http.get(`${Common.urlBase}/api/cp/places/top6`)
-      .pipe(
-        retry(1)
-      )
+    return this.http.get(`${Common.urlBase}/api/cp/places/top6`);
   }
 
   getPlaceDetail(id: number): Observable<any> {
-    return this.http.get(`${Common.urlBase}/api/cp/places/${id}`)
-      .pipe(
-        retry(1)
-      )
+    return this.http.get(`${Common.urlBase}/api/cp/places/${id}`);
   }
   getImageListByPlaceID(id: number): Observable<any> {
-    return this.http.get(`${Common.urlBase}/api/cp/places/images/${id}`)
-      .pipe(
-        retry(1)
-      )
+    return this.http.get(`${Common.urlBase}/api/cp/places/images/${id}`);
   }
   getStatusByPlaceID(placeid): Observable<number> {
-    return this.http.get<number>(`${Common.urlBase}/api/cp/places/checkplace?placeid=${placeid}`)
-      .pipe(
-        retry(1)
-      )
+    return this.http.get<number>(`${Common.urlBase}/api/cp/places/checkplace?placeid=${placeid}`);
   }
 
   insertPlace(form): Observable<any> {
-    console.log(JSON.stringify(form));
-    return this.http.post(`${Common.urlBase}/api/cp/places/insert-places`, JSON.stringify(form), this.httpOptions)
-      .pipe(
-        retry(1)
-      )
+    return this.http.post(`${Common.urlBase}/api/cp/places/insert-places`, JSON.stringify(form),  Common.httpOptions);
   }
 
   getWardIDByDistrictID(id): Observable<any> {
-    return this.http.get(`${Common.urlBase}/warddb/getallwardbydistrict?districtid=${id}`)
-      .pipe(
-        retry(1)
-      )
+    return this.http.get(`${Common.urlBase}/warddb/getallwardbydistrict?districtid=${id}`);
   }
 
   getStreetIDByDistrictID(id): Observable<any> {
-    return this.http.get(`${Common.urlBase}/street/getstreetbydistrict?districtid=${id}`)
-      .pipe(
-        retry(1)
-      )
+    return this.http.get(`${Common.urlBase}/street/getstreetbydistrict?districtid=${id}`);
   }
 
-  getCostUnit(): Observable<any>{
-    return this.http.get(`${Common.urlBase}/costunitname/getAllCostUnitName`)
+  getCostUnit(): Observable<any> {
+    return this.http.get(`${Common.urlBase}/costunitname/getAllCostUnitName`);
   }
 
-  getCountOrderPendingByPlaceID(id): Observable<any>{
-    return this.http.get(`${Common.urlBase}/manageorder/count-order-pending?placeID=${id}`)
+  getCountOrderPendingByPlaceID(id): Observable<any> {
+    return this.http.get(`${Common.urlBase}/manageorder/count-order-pending?placeID=${id}`);
   }
 
 

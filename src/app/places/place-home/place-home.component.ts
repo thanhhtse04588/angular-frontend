@@ -1,33 +1,25 @@
-import { SharedService } from './../../shared/shared.service';
-
+import { PlaceQuickView } from 'src/app/shared/model/place.model';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from "rxjs";
-import { PlaceService } from "../service/place.service";
-import { PlaceQuickView } from "../../class/place-quick-view";
-
+import { Observable } from 'rxjs';
+import { PlaceService } from '../service/place.service';
 
 @Component({
   selector: 'app-place-home',
   templateUrl: './place-home.component.html',
 })
 export class PlaceHomeComponent implements OnInit {
+  imgSlide = [
+    '../../assets/img/house/white-single-story-houses-beside-body-of-water-1438832.jpg',
+    '../../assets/img/house/architecture-beautiful-home-building-class-280229.jpg',
+    '../../assets/img/house/white-and-red-wooden-house-with-fence-1029599.jpg'
+  ];
   places: Observable<PlaceQuickView[]>;
-  isSearch = false;
-  constructor(private placeService: PlaceService, public sharedService: SharedService) {
+  constructor(private placeService: PlaceService) {
   }
 
   ngOnInit(): void {
     this.placeService.getPlacesTop6List().subscribe(
       data => this.places = data
     );
-  }
-
-  loadScripts() {
-    const dynamicScripts = [];
-    for (let i = 0; i < dynamicScripts.length; i++) {
-      const node = document.createElement('script');
-      node.src = dynamicScripts[i]; node.type = 'text/javascript'; node.async = false; node.charset = 'utf-8';
-      document.getElementsByTagName('head')[0].appendChild(node);
-    }
   }
 }

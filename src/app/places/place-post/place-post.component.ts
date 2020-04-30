@@ -1,15 +1,14 @@
+import { RoleOfPlace, PlacePostForm } from './../../shared/model/place.model';
+import { DistrictDB, WardDB, StreetDB } from './../../shared/model/local.model';
 import { SharedService } from './../../shared/shared.service';
 import { AuthGaurdService } from './../../index/service/auth-gaurd.service';
 import { UserService } from './../../user/service/user.service';
 import { EquipmentComponent } from './equipment/equipment.component';
 import { CostLivingComponent } from './cost-living/cost-living.component';
-import { Common } from './../../class/common';
+import { Common } from '../../shared/common';
 import { AuthenticationService } from './../../index/service/authentication.service';
-import { PlacePostForm } from './../../class/place-post-form';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { DistrictDB, WardDB, StreetDB } from './../../class/district-db';
-import { RoleOfPlace } from './../../class/role-of-place';
 import { Router } from '@angular/router';
 import { PlaceService } from './../service/place.service';
 import { SearchBarService } from 'src/app/index/service/search-bar.service';
@@ -31,16 +30,16 @@ export class PlacePostComponent implements OnInit, OnDestroy {
   districts: DistrictDB[];
   wards: WardDB[];
   streets: StreetDB[];
-  formatPrice: any
+  formatPrice: any;
   // Equipment
   @ViewChild(EquipmentComponent)
   equipComponent: EquipmentComponent;
   // cost of living
   @ViewChild(CostLivingComponent)
   costComponent: CostLivingComponent;
-  //upload img
+  // upload img
   imageUploaded: string[] = [];
-  //g map
+  // g map
   @ViewChild('search')
   public searchElementRef: ElementRef;
   latitude: number;
@@ -48,9 +47,9 @@ export class PlacePostComponent implements OnInit, OnDestroy {
   zoom: number;
   address: string;
   private geoCoder;
-  homeDirections = ["Bắc", "Đông Bắc", "Đông", "Đông Nam", "Nam", "Tây Nam", "Tây", "Tây Bắc"]
+  homeDirections = ['Bắc', 'Đông Bắc', 'Đông', 'Đông Nam', 'Nam', 'Tây Nam', 'Tây', 'Tây Bắc'];
 
-  constructor(private fb: FormBuilder,
+  constructor(
     private placeService: PlaceService,
     private userService: UserService,
     private router: Router,
@@ -71,17 +70,17 @@ export class PlacePostComponent implements OnInit, OnDestroy {
     this.latitude = +data.latitude;
   }
   ngOnInit() {
-    this.latitude = 21.0255349; //load default map
+    this.latitude = 21.0255349; // load default map
     this.longitude = 105.8521337;
     this.zoom = Common.ZOOM;
-    this.loadPlacesAutoComplete()
+    this.loadPlacesAutoComplete();
 
     this.subs.add(this.searchService.getAllRole().subscribe(
       data => this.roleOfPlaces = data as RoleOfPlace[]
-    ))
+    ));
     this.subs.add(this.searchService.getAllStatistic().subscribe(
       data => this.districts = data as DistrictDB[]
-    ))
+    ));
 
     this.form = new FormGroup({
       title: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]),
@@ -97,24 +96,26 @@ export class PlacePostComponent implements OnInit, OnDestroy {
       numberFloors: new FormControl('', [Validators.min(0)]),
       numberBedrooms: new FormControl('', [Validators.min(0)]),
       numberToilets: new FormControl('', [Validators.min(0)]),
-      contactName: new FormControl('', [Validators.required,Validators.maxLength(32)]),
+      contactName: new FormControl('', [Validators.required, Validators.maxLength(32)]),
       contactAddress: new FormControl('', Validators.maxLength(100)),
-      phoneNumber: new FormControl('', [Validators.required, Validators.pattern("((\\+91-?)|0)?[0-9]*")]),
-      email: new FormControl('', [Validators.email, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'), Validators.required]),
+      phoneNumber: new FormControl('', [Validators.required, Validators.pattern('((\\+91-?)|0)?[0-9]*')]),
+      email: new FormControl('', [Validators.email,
+      Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
+      Validators.required]),
       checkingDate: new FormControl('', [Validators.required, thanToday()]),
-    })
+    });
 
   }
-  //load Places Autocomplete
+  // load Places Autocomplete
   private loadPlacesAutoComplete() {
     this.mapsAPILoader.load().then(() => {
-      this.geoCoder = new google.maps.Geocoder;
+      this.geoCoder = new google.maps.Geocoder();
 
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-      autocomplete.setTypes([])
-      autocomplete.addListener("place_changed", () => {
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+      autocomplete.setTypes([]);
+      autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
@@ -132,11 +133,11 @@ export class PlacePostComponent implements OnInit, OnDestroy {
   }
 
   getAddress(latitude, longitude) {
-    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+    this.geoCoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
       if (status === 'OK') {
         if (results[0]) {
-          this.address = results[0].formatted_address
-          this.searchElementRef.nativeElement.value = this.address
+          this.address = results[0].formatted_address;
+          this.searchElementRef.nativeElement.value = this.address;
         } else {
           window.alert('No results found');
         }
@@ -147,7 +148,7 @@ export class PlacePostComponent implements OnInit, OnDestroy {
     });
   }
 
-  //upload img
+  // upload img
   uploadHandler(event) {
     this.imageUploaded.push(event);
   }
@@ -155,7 +156,7 @@ export class PlacePostComponent implements OnInit, OnDestroy {
   // main fucntion
   onSubmit(form) {
     this.isSubmit = true;
-    this.placeEditID ? this.editPlace(form) : this.postPlace(form)
+    this.placeEditID ? this.editPlace(form) : this.postPlace(form);
   }
   postPlace(form) {
     form.districtID = form.district.id;
@@ -170,11 +171,11 @@ export class PlacePostComponent implements OnInit, OnDestroy {
     this.postPlaceForm.listEquip = this.equipComponent.getEquipTable();
     this.postPlaceForm.listCost = this.costComponent.getCostOfLivingTable();
     this.postPlaceForm.listImageLink = this.imageUploaded;
-    console.log();
     this.subs.add(this.placeService.insertPlace(this.postPlaceForm).subscribe(
-      data => data ? alert("Yêu cầu đăng tin thành công, chúng tôi sẽ sớm liên hệ với bạn !") : alert("Đã có lỗi xảy ra! Yêu cầu đăng tin không thành công"),
-      (err) => alert("Đã có lỗi xảy ra! Yêu cầu đăng tin không thành công"),
-      () => this.router.navigate(["user/seller/post-manage"])
+      data => data ? alert('Yêu cầu đăng tin thành công, chúng tôi sẽ sớm liên hệ với bạn !')
+        : alert('Đã có lỗi xảy ra! Yêu cầu đăng tin không thành công'),
+      (err) => alert('Đã có lỗi xảy ra! Yêu cầu đăng tin không thành công'),
+      () => this.router.navigate(['user/seller/post-manage'])
     ));
   }
 
@@ -192,30 +193,30 @@ export class PlacePostComponent implements OnInit, OnDestroy {
     form.listImageLink = this.imageUploaded;
 
     this.subs.add(this.userService.updatePlace(form).subscribe(
-      data => data ? alert("Chỉnh sửa thành công!") : alert("Đã có lỗi xảy ra! Chỉnh sửa không thành công"),
-      (err) => alert("Đã có lỗi xảy ra! Chỉnh sửa không thành công"),
-      () => this.router.navigate(["user/seller/post-manage"])
+      data => data ? alert('Chỉnh sửa thành công!') : alert('Đã có lỗi xảy ra! Chỉnh sửa không thành công'),
+      (err) => alert('Đã có lỗi xảy ra! Chỉnh sửa không thành công'),
+      () => this.router.navigate(['user/seller/post-manage'])
     ));
   }
 
   onDistrictChange() {
-    this.updateAddress()
-    this.wards = null
-    this.setward([])
-    this.streets = null
-    this.setStreet([])
-    this.latitude = +this.district.value.districtLatitude
-    this.longitude = +this.district.value.districtLongitude
+    this.updateAddress();
+    this.wards = null;
+    this.setward([]);
+    this.streets = null;
+    this.setStreet([]);
+    this.latitude = +this.district.value.districtLatitude;
+    this.longitude = +this.district.value.districtLongitude;
     this.subs.add(this.placeService.getWardIDByDistrictID(this.district.value.id).subscribe(
       data => {
-        this.wards = data as WardDB[]
+        this.wards = data as WardDB[];
       }
-    ))
+    ));
     this.subs.add(this.placeService.getStreetIDByDistrictID(this.district.value.id).subscribe(
       data => {
-        this.streets = data as StreetDB[]
+        this.streets = data as StreetDB[];
       }
-    ))
+    ));
   }
   onWardChange() {
     this.latitude = +this.ward.value.wardLatitude;
@@ -225,7 +226,7 @@ export class PlacePostComponent implements OnInit, OnDestroy {
 
   updateAddress() {
     this.searchElementRef.nativeElement.value = (this.street.value.streetName?.trim() || '') +
-      " " + (this.ward.value.wardName?.trim() || '') + "," + (this.district.value.district?.trim() || '')
+      ' ' + (this.ward.value.wardName?.trim() || '') + ',' + (this.district.value.district?.trim() || '');
   }
 
   get title() { return this.form.get('title'); }
@@ -266,9 +267,9 @@ export class PlacePostComponent implements OnInit, OnDestroy {
 
   get checkingDate() { return this.form.get('checkingDate'); }
 
-  setward(param) { this.form.patchValue({ "ward": param }) }
+  setward(param) { this.form.patchValue({ward: param }); }
 
-  setStreet(param) { this.form.patchValue({ "street": param }) }
+  setStreet(param) { this.form.patchValue({street: param }); }
 
   ngOnDestroy() {
     this.subs.unsubscribe();
@@ -289,7 +290,7 @@ export class PlacePostComponent implements OnInit, OnDestroy {
   // this.zoom = Common.ZOOM
   // let placeService = new google.maps.places.PlacesService($event);
   // placeService.getDetails({
-  //   placeId: "ChIJbcDqcsCrNTER1efSKj4epwA"
+  //   placeId: 'ChIJbcDqcsCrNTER1efSKj4epwA'
   // }, (result, status) => {
   //   if (status == google.maps.places.PlacesServiceStatus.OK) {
   //     this.longitude = result.geometry.location.lng()

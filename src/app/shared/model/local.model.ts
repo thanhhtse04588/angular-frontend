@@ -1,16 +1,18 @@
-export class DistrictDB {
+export interface DistrictDB {
     id: number;
     district: string;
     districtLatitude: string;
     districtLongitude: string;
 }
-export class StreetDB {
+
+export interface StreetDB {
     id: number;
     streetName: string;
 }
-export class WardDB {
+
+export interface WardDB {
     id: number;
     wardName: string;
-    wardLatitude: string
-    wardLongtitude: string
+    wardLatitude: string;
+    wardLongtitude: string;
 }

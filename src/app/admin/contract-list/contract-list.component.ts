@@ -1,31 +1,29 @@
 import { MatTableDataSource } from '@angular/material/table';
-import { ContractStatus } from 'src/app/class/common';
+import { ContractStatus } from 'src/app/shared/common';
 import { SharedService } from './../../shared/shared.service';
 import { UserService } from './../../user/service/user.service';
 import { AdminService } from './../admin.service';
-import { Contract } from './../../user/renter-contract/renter-contract.component';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { Subscription } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Contract } from 'src/app/shared/model/contract.model';
 
 @Component({
   selector: 'app-contract-list',
   templateUrl: './contract-list.component.html',
 })
 export class ContractListComponent implements OnInit {
-  displayedColumns: string[] = ['placeID', 'contractID', 'ownerID', 'renterID', 'startDate', 'endDate', 'placeStatus', 'statusContract', 'void'];
+  displayedColumns: string[] = ['placeID', 'contractID', 'ownerID',
+  'renterID', 'startDate', 'endDate', 'placeStatus', 'statusContract', 'void'];
   dataSource: any;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   contracts: Contract[];
   contractSelected: Contract;
-  constructor(private adminService: AdminService,
-    private userService: UserService,
-    public sharedService: SharedService) { }
+  constructor(private adminService: AdminService, private userService: UserService, public sharedService: SharedService) { }
 
   ngOnInit() {
-    this.reload()
+    this.reload();
   }
   reload() {
     this.adminService.getAllContract().subscribe(
@@ -35,7 +33,7 @@ export class ContractListComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
-    )
+    );
 
   }
   applyFilter(event: Event) {
@@ -47,15 +45,15 @@ export class ContractListComponent implements OnInit {
   }
 
   isBanContract(status: number) {
-    return status == ContractStatus.BAN;
+    return status === ContractStatus.BAN;
   }
   onAccept() {
     this.userService.updateStatusContract(this.contractSelected.contractID,
-      (this.contractSelected.contractStatusID == ContractStatus.BAN) ? ContractStatus.ACTIVE : ContractStatus.BAN,
+      (this.contractSelected.contractStatusID === ContractStatus.BAN) ? ContractStatus.ACTIVE : ContractStatus.BAN,
       this.contractSelected.placeID).subscribe(
         data => data ? alert('Thao tác thành công') : alert('Có lỗi')
         , (err) => alert('Có lỗi')
         , () => this.reload()
-      )
+      );
   }
 }

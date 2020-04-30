@@ -1,7 +1,7 @@
-import { finalize, concatMap, map } from 'rxjs/operators';
+import { finalize, mergeMap } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { BillStatus, Common } from './../../class/common';
-import { COLBillDetail } from './../../class/cost-of-living.model';
+import { BillStatus } from '../../shared/common';
+import { COLBillDetail } from '../../shared/model/cost-of-living.model';
 import { ModalDirective } from 'angular-bootstrap-md';
 import { CostOfLivingBillService } from './../../shared/cost-of-living-bill.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -9,7 +9,7 @@ import { SharedService } from './../../shared/shared.service';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { COLBill } from 'src/app/class/cost-of-living.model';
+import { COLBill } from 'src/app/shared/model/cost-of-living.model';
 import { forkJoin } from 'rxjs';
 
 @Component({
@@ -19,16 +19,17 @@ import { forkJoin } from 'rxjs';
 export class CostOfLivingBillComponent implements OnInit {
   @ViewChild('fillFormModal', { static: true }) fillFormModal: ModalDirective;
   bill: COLBill;
-  displayedColumns: string[] = ['colId', 'renterId', 'ownerID', 'dateCollect', "deadLineStatus", 'totalExpense', 'paymentStatusName', 'void'];
+  displayedColumns: string[] = ['colId', 'renterId', 'ownerID', 'dateCollect',
+    'deadLineStatus', 'totalExpense', 'paymentStatusName', 'void'];
   dataSource: any;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   bills: COLBill[];
   selectedFile: File = null;
-  constructor(public sharedService: SharedService,
-    private billService: CostOfLivingBillService, private storage: AngularFireStorage) { }
+  constructor(public sharedService: SharedService, private billService: CostOfLivingBillService, private storage: AngularFireStorage) { }
+
   ngOnInit(): void {
-    this.totalLoad()
+    this.totalLoad();
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -36,22 +37,20 @@ export class CostOfLivingBillComponent implements OnInit {
   }
   onFillForm(bill: COLBill) {
     this.bill = bill;
-    this.fillFormModal.show()
+    this.fillFormModal.show();
   }
   onSave() {
     const updateBill = this.billService.updateBillDetail(this.bill);
     const updateStatus = this.billService.updateBillStatus(this.bill.colId, BillStatus.UNPAID);
-    forkJoin(
-      updateBill,
-      updateStatus
+    forkJoin([updateBill, updateStatus]
     ).subscribe(([a, b]) => {
       if (a && b) {
         this.bill.paymentStatusId = BillStatus.UNPAID;
-        alert("Thao thác thành công")
+        alert('Thao thác thành công');
       } else {
-        alert("Thao thác không thành công")
+        alert('Thao thác không thành công');
       }
-    }, err => alert("Thao thác không thành công"));
+    }, err => alert('Thao thác không thành công'));
   }
 
   onInputAmount(amount: number, item: COLBillDetail) {
@@ -62,41 +61,40 @@ export class CostOfLivingBillComponent implements OnInit {
   totalLoad() {
     this.billService.getAllBill().subscribe(
       data => {
-        this.bills = (data as COLBill[])
+        this.bills = (data as COLBill[]);
         this.dataSource = new MatTableDataSource<COLBill>(this.bills);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
-    )
+    );
   }
   isBillPaid(stt: number) {
-    return stt == BillStatus.PAID;
+    return stt === BillStatus.PAID;
   }
   isBillPending(stt: number) {
     return [BillStatus.PENDING, BillStatus.PAID].includes(stt);
   }
-  onFileSelected(event, bill: COLBill) {
-    var n = Date.now();
+  onCashPaidBillUpload(event, bill: COLBill) {
+    const n = Date.now();
     const file = event.target.files[0];
     const filePath = `CashPaidBills/${n}`;
     const fileRef = this.storage.ref(filePath);
     const task = this.storage.upload(`CashPaidBills/${n}`, file);
 
     task.snapshotChanges().pipe(finalize(() => {
-      const downloadURL = fileRef.getDownloadURL();
+      const updatePaidLink = fileRef.getDownloadURL()
+        .pipe(mergeMap(url => this.billService.updateCashPaidLink(bill.colId, url).pipe(finalize(() => bill.cashPaidLink = url))));
+
       const updateBillStatus = this.billService.updateBillStatus(bill.colId, BillStatus.PAID);
-      forkJoin(
-        downloadURL,
-        updateBillStatus
-      ).subscribe(([a, b]) => {
-        if (b) {
-          bill.paymentStatusId = BillStatus.PAID;
-          alert("Thao thác thành công");
-          console.log(a);
-        } else {
-          alert("Thao thác không thành công");
-        }
-      }, err => alert("Thao thác không thành công"));
+      forkJoin([updatePaidLink, updateBillStatus])
+        .subscribe(([a, b]) => {
+          if (a && b) {
+            bill.paymentStatusId = BillStatus.PAID;
+            alert('Thao thác thành công');
+          } else {
+            alert('Thao thác không thành công');
+          }
+        }, err => alert('Thao thác không thành công'));
     })).subscribe();
   }
 }

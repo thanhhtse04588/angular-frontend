@@ -1,8 +1,6 @@
-import { Common } from './../../class/common';
-
-import { UserLogin, User } from './../../class/user';
-
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Common } from '../../shared/common';
+import { UserLogin, User, UserMail } from '../../shared/model/user.model';
+import { HttpClient } from '@angular/common/http';
 
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -22,11 +20,12 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
   user$: Observable<UserMail>;
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     private router: Router,
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore, ) {
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem("currentUser")));
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
     // login gmail
     this.user$ = this.afAuth.authState.pipe(
@@ -39,25 +38,20 @@ export class AuthenticationService {
       }));
 
   }
-  //Http Options
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  }
+
   register(registerData: any): Observable<any> {
-    return this.http.post(`${Common.urlBase}/user/register `, JSON.stringify(registerData), this.httpOptions)
+    return this.http.post(`${Common.urlBase}/user/register `, JSON.stringify(registerData),  Common.httpOptions);
   }
   authenticate(uname, upass) {
-    return this.http.post<UserLogin>(`${Common.urlBase}/user/login?uname=${uname}&upass=${upass}`, this.httpOptions).pipe(
+    return this.http.post<UserLogin>(`${Common.urlBase}/user/login?uname=${uname}&upass=${upass}`,  Common.httpOptions).pipe(
       map(data => {
-        this.setSessionLogin(data.u)
+        this.setSessionLogin(data.u);
         return data;
       })
-    )
+    );
   }
   setSessionLogin(currentUser: User) {
-    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
     this.currentUserSubject.next(currentUser);
   }
   public get currentUserValue(): User {
@@ -68,13 +62,13 @@ export class AuthenticationService {
     return this.currentUserValue ? true : false;
   }
   isAdmin() {
-    return this.currentUserValue?.roleID == Common.roleAdmin;
+    return this.currentUserValue?.roleID === Common.roleAdmin;
   }
 
   logOut() {
     localStorage.clear();
     this.currentUserSubject.next(null);
-    this.signOut;
+    this.signOut();
     this.router.navigate(['places']);
   }
 
@@ -106,15 +100,8 @@ export class AuthenticationService {
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL
-    }
-    return userRef.set(data, { merge: true })
+    };
+    return userRef.set(data, { merge: true });
 
   }
-}
-interface UserMail {
-  uid: string;
-  email: string;
-  photoURL?: string;
-  displayName?: string;
-  myCustomData?: string;
 }

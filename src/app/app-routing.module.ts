@@ -7,7 +7,6 @@ import { RenterOrderComponent } from './user/renter-order/renter-order.component
 import { PlaceManageComponent } from './admin/place-manage/place-manage.component';
 import { SellerRentedComponent } from './user/seller-rented/seller-rented.component';
 import { OrderListComponent } from './admin/order-list/order-list.component';
-import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { CheckingListComponent } from './admin/checking-list/checking-list.component';
 import { UserComponent } from './user/user.component';
 import { PlacesComponent } from './places/places.component';
@@ -72,11 +71,11 @@ const routes: Routes = [
     path: 'admin', component: AdminComponent, canActivate: [AuthAdminService],
     children: [
       {path: '', redirectTo: 'checking-list', pathMatch: 'full'},
-      { path: "checking-list", component: CheckingListComponent, canActivate: [AuthAdminService] },
-      { path: "order-list", component: OrderListComponent, canActivate: [AuthAdminService] },
-      { path: "place-manage", component: PlaceManageComponent, canActivate: [AuthAdminService] },
-      { path: "contract-list", component: ContractListComponent, canActivate: [AuthAdminService] },
-      { path: "cost-of-living-bill", component: CostOfLivingBillComponent, canActivate: [AuthAdminService] },
+      { path: 'checking-list', component: CheckingListComponent, canActivate: [AuthAdminService] },
+      { path: 'order-list', component: OrderListComponent, canActivate: [AuthAdminService] },
+      { path: 'place-manage', component: PlaceManageComponent, canActivate: [AuthAdminService] },
+      { path: 'contract-list', component: ContractListComponent, canActivate: [AuthAdminService] },
+      { path: 'cost-of-living-bill', component: CostOfLivingBillComponent, canActivate: [AuthAdminService] },
     ]
   },
   { path: '**', component: NotFoundComponent },

@@ -1,4 +1,4 @@
-import { Common } from './../class/common';
+import { Common } from '../shared/common';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -8,38 +8,33 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class AdminService {
 constructor(private http: HttpClient) { }
-httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json'
-  })
+
+getAllChecking(): Observable<any> {
+  return this.http.get(`${Common.urlBase}/managechecking/get-all-checking`);
 }
 
-getAllChecking(): Observable<any>{
-  return this.http.get(`${Common.urlBase}/managechecking/get-all-checking`)
+getAllContract(): Observable<any> {
+  return this.http.get(`${Common.urlBase}/managecontract/get-all-contract`);
 }
 
-getAllContract(): Observable<any>{
-  return this.http.get(`${Common.urlBase}/managecontract/get-all-contract`)
+changeStatusChecking(data): Observable<any> {
+  return this.http.post(`${Common.urlBase}/checkinglist/change-status-checking`, JSON.stringify(data), Common.httpOptions);
 }
 
-changeStatusChecking(data): Observable<any>{
-  return this.http.post(`${Common.urlBase}/checkinglist/change-status-checking`,JSON.stringify(data),this.httpOptions)
+changeStatusOrder(data): Observable<any> {
+  return this.http.post(`${Common.urlBase}/orderlist/change-status-order`, JSON.stringify(data), Common.httpOptions);
 }
 
-changeStatusOrder(data): Observable<any>{
-  return this.http.post(`${Common.urlBase}/orderlist/change-status-order`,JSON.stringify(data),this.httpOptions)
+getAllOrder(): Observable<any> {
+  return this.http.get(`${Common.urlBase}/manageorder/get-all-order`);
 }
 
-getAllOrder(): Observable<any>{
-  return this.http.get(`${Common.urlBase}/manageorder/get-all-order`)
+getAllPlace(): Observable<any> {
+  return this.http.get(`${Common.urlBase}/manageplace/get-all-place`);
 }
 
-getAllPlace(): Observable<any>{
-  return this.http.get(`${Common.urlBase}/manageplace/get-all-place`)
-}
-
-createContract(data): Observable<any>{
-return this.http.post(`${Common.urlBase}/contract/insert`,JSON.stringify(data),this.httpOptions)
+createContract(data): Observable<any> {
+return this.http.post(`${Common.urlBase}/contract/insert`, JSON.stringify(data), Common.httpOptions);
 }
 
 }

@@ -1,0 +1,30 @@
+          <!--Card-->
+          <div class="card">
+            <a (click)="sharedService.placeDetail(place.placeID)">
+              <!--Card image-->
+              <div class="view overlay zoom" style="height: 250px;">
+                <img [src]="place.imageLarge" class="img-thumbnail" alt="zoom">
+                <div class="mask flex-center waves-effect waves-light">
+                  <p class="white-text">Xem</p>
+                </div>
+              </div>
+              <!--Card content-->
+              <div class="card-body">
+                <!--Title-->
+                <h4 class="card-title" style="height: 56px;">{{place?.title | slice:0:50}}...</h4>
+                <!--Text-->
+                <h5>
+                  <mdb-badge pill="true" default="true">{{place.roleOfPlaceName}}</mdb-badge>
+                </h5>
+
+                <p class="card-text">{{place.bedRooms}} phòng ngủ - {{place.toilets}} phòng vệ sinh - {{place.area}} m²
+                </p>
+                <h5 class="card-title">
+                  <mdb-icon fas icon="map-marker-alt" class="grey-text"></mdb-icon> {{place.district}}
+                </h5>
+                <h4 class="card-title"> {{place.price| number}} vnđ</h4>
+
+              </div>
+            </a>
+          </div>
+          <!--/.Card-->

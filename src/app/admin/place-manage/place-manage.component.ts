@@ -1,13 +1,13 @@
 import { SharedService } from './../../shared/shared.service';
-
 import { UserService } from './../../user/service/user.service';
-import { PlaceStatus } from './../../class/common';
+import { PlaceStatus } from '../../shared/common';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from './../admin.service';
 import { Subscription } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
+import { Place } from 'src/app/shared/model/place.model';
 
 
 @Component({
@@ -20,29 +20,28 @@ export class PlaceManageComponent implements OnInit, OnDestroy {
   dataSource: any;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  places: Place[]
+  places: Place[];
   id: number;
-  constructor(private adminService: AdminService,
+  constructor(
+     private adminService: AdminService,
      private userService: UserService,
-     public sharedService:SharedService) {
+     public sharedService: SharedService) {
   }
 
   ngOnInit() {
-    this.reload()
+    this.reload();
   }
-  
   reload() {
     this.subs.add(this.adminService.getAllPlace().subscribe(
       data => {
-        this.places =(data as Place[]).filter(
-          item => [PlaceStatus.ACTIVE,PlaceStatus.DEACTIVE,PlaceStatus.RENTED].includes(item.statusID)) // only Place not Post 
-          
+        this.places = (data as Place[]).filter(
+          item => [PlaceStatus.ACTIVE, PlaceStatus.DEACTIVE, PlaceStatus.RENTED].includes(item.statusID));  // only Place not Post
         this.dataSource = new MatTableDataSource<Place>(this.places);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
     )
-    )
+    );
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -54,50 +53,38 @@ export class PlaceManageComponent implements OnInit, OnDestroy {
       // case PlaceStatus.PENDING: return 'text-warning'
       // case PlaceStatus.CHECKING: return 'text-primary'
       // case PlaceStatus.ACTIVE: return 'text-success'
-      default: return 'text-muted'
+      default: return 'text-muted';
     }
   }
 
   isShowButton(id) {
     switch (id) {
-      case PlaceStatus.ACTIVE: return true
-      case PlaceStatus.DEACTIVE: return true
-      default: return false
+      case PlaceStatus.ACTIVE: return true;
+      case PlaceStatus.DEACTIVE: return true;
+      default: return false;
     }
   }
-  
   isActivePlace(id) {
-    return id == PlaceStatus.ACTIVE;
+    return id === PlaceStatus.ACTIVE;
   }
   isDeactivePlace(id) {
-    return id == PlaceStatus.DEACTIVE;
+    return id === PlaceStatus.DEACTIVE;
   }
 
   toActive() {
     this.subs.add(this.userService.updateStatusPlace(this.id, PlaceStatus.ACTIVE).subscribe(
-      data => data ? this.reload() : alert("Thao tác không thành công!")
-    ))
+      data => data ? this.reload() : alert('Thao tác không thành công!')
+    ));
   }
 
   toDeactive() {
     this.subs.add(this.userService.updateStatusPlace(this.id, PlaceStatus.DEACTIVE).subscribe(
-      data => data ? this.reload() : alert("Thao tác không thành công!")
-    ))
+      data => data ? this.reload() : alert('Thao tác không thành công!')
+    ));
   }
 
   ngOnDestroy() {
     this.subs.unsubscribe();
   }
 
-}
-
-interface Place {
-  id: number
-  imageLarge: string;
-  title: string;
-  address: string;
-  datePost: string;
-  price: number;
-  status: string;
-  statusID: number;
 }

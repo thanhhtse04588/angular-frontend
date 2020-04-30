@@ -23,7 +23,7 @@
         <input matInput mdbInput type="text" id="form1" class="form-control" (keyup)="applyFilter($event)">
         <label for="form1">Lọc</label>
       </div>
-      <div mdbTable bordered="true" hover="true" >
+      <div mdbTable bordered="true" hover="true">
         <table mat-table matSort [dataSource]="dataSource" class="w-100">
 
           <ng-container matColumnDef="colId">
@@ -49,7 +49,8 @@
 
           <ng-container matColumnDef="deadLineStatus">
             <th *matHeaderCellDef mat-sort-header>Hạn thu tiền</th>
-            <td *matCellDef="let element" class="red-text"> {{element.dateCollect | deadlineBill:element.paymentStatusId }} </td>
+            <td *matCellDef="let element" class="red-text">
+              {{element.dateCollect | deadlineBill:element.paymentStatusId}} </td>
           </ng-container>
 
           <ng-container matColumnDef="totalExpense">
@@ -59,7 +60,7 @@
 
           <ng-container matColumnDef="paymentStatusName">
             <th *matHeaderCellDef mat-sort-header>Trạng thái hóa đơn</th>
-            <td *matCellDef="let element" class="font-weight-bold" > {{element.paymentStatusId | billStatusName}} </td>
+            <td *matCellDef="let element" class="font-weight-bold"> {{element.paymentStatusId | billStatusName}} </td>
           </ng-container>
 
           <ng-container matColumnDef="void">
@@ -69,12 +70,14 @@
             <td *matCellDef="let element">
 
               <button type="button" mdbBtn color="warning" size="sm" mdbWavesEffect
-                *ngIf="!isBillPaid(element.paymentStatusId)" (click)='onFillForm(element)'>Nhập phí</button>
-
+                *ngIf="!isBillPaid(element.paymentStatusId)" (click)='onFillForm(element)'>Nhập
+                phí</button>
+              <button type="button" *ngIf='element.cashPaidLink' (click)='sharedService.openLinkNewTab(element.cashPaidLink)' mdbBtn color="success"
+                size="sm" mdbWavesEffect>Xem hóa đơn tiền mặt</button>
               <label *ngIf="!isBillPending(element.paymentStatusId)" mdbBtn color="primary" size="sm" mdbWavesEffect
-                class="btn-file">
-                Hóa đơn tiền mặt<input type="file" autocomplete="off" style="display:none;"
-                  (change)="onFileSelected($event,element)" />
+                class="btn-file"> Hóa đơn tiền mặt
+                <input type="file" autocomplete="off" style="display:none;"
+                  (change)="onCashPaidBillUpload($event,element)" />
               </label>
 
             </td>
@@ -87,7 +90,7 @@
       </div>
     </div>
 
-  </div> 
+  </div>
 </div>
 
 <!-- cash paid comfirm -->

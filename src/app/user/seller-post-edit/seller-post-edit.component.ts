@@ -14,19 +14,20 @@ export class SellerPostEditComponent implements OnInit, AfterViewInit {
   @ViewChild(PlacePostComponent)
   private placePostComponent: PlacePostComponent;
 
-  placeID: number
-  constructor(private route: ActivatedRoute,
+  placeID: number;
+  constructor(
+    private route: ActivatedRoute,
     private userService: UserService,
     public loginService: AuthenticationService, ) { }
 
   ngOnInit() {
-    this.placeID = this.route.snapshot.params['id'];
+    this.placeID = this.route.snapshot.params["id"];
   }
   ngAfterViewInit() {
     this.userService.getPostForm(this.placeID).subscribe(
       data => {
         this.placePostComponent.defaultToEdit(data);
       }
-    )
+    );
   }
 }
