@@ -4,8 +4,8 @@ import { SharedService } from './../../../shared/shared.service';
 import { Common } from '../../../shared/common';
 import { AuthenticationService } from './../../../index/service/authentication.service';
 import { UserService } from './../../../user/service/user.service';
-import { FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
-import { formatDate, Location } from '@angular/common';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { Location } from '@angular/common';
 import { ElementRef, Component, OnInit, ViewChild } from '@angular/core';
 import { PayPaypal, Payment } from 'src/app/shared/model/payment.model';
 
@@ -20,7 +20,7 @@ export class OrderComponent implements OnInit {
   @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
   payFor = false;
   pay: PayPaypal = {
-    price: Common.PRICEORDER,
+    price: Common.PRICEORDER.valueOf(),
     description: 'Đặt cọc tiền giữ nhà',
     payFor: false,
     placeID: +sessionStorage.getItem('placeID')

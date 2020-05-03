@@ -35,7 +35,7 @@
 
           <ng-container matColumnDef="statusPlace">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Trạng thái nhà</th>
-            <td mat-cell *matCellDef="let element" [ngClass]='colorStatusPlace(element.statusPlaceID)'> {{element.statusPlace}}</td>
+            <td mat-cell *matCellDef="let element" [ngClass]="'text-'+ sharedService.placeStatusColor(element.statusPlaceID)">{{element.statusPlace}}</td>
           </ng-container>
 
           <!-- <ng-container matColumnDef="status">
@@ -52,7 +52,7 @@
               <button type="button" (click)='item = element' mat-stroked-button color="accent" 
               (click)="comfirmReject.show()"  ><i class="fas fa-ban"></i></button>
               </ng-container>
-             <ng-template #status><strong>{{element.status}}</strong></ng-template> 
+             <ng-template #status><span [ngClass]="'text-'+sharedService.checkingStatusColor(element.checkingStatusID)">{{element.status}}</span></ng-template> 
             </td>
           </ng-container>
 

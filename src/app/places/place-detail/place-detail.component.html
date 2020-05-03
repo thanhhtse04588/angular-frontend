@@ -33,7 +33,7 @@
             </div>
 
             <ng-template #statusPlace>
-              <div class="my-3 h4">Trạng thái: <strong class="red-text">{{place.statusPlace}}</strong></div>
+              <div class="my-3 h4">Trạng thái: <strong [ngClass]="'text-'+sharedService.placeStatusColor(place.statusPlaceID)">{{place.statusPlace}}</strong></div>
             </ng-template>
 
           </div>

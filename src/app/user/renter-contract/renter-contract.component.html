@@ -31,17 +31,17 @@
                   </div>
                   <div class="col">
                     <p><strong>Thông tin nhà: </strong>
-                      <a mat-button (click)="sharedService.placeDetail(contract.placeID)">Xem</a>
+                      <a mat-button color="primary" (click)="sharedService.placeDetail(contract.placeID)">Xem</a>
                     </p>
-                    <div><strong>Trạng thái nhà: </strong><div class="text-warning h6">{{contract.placeStatus}}</div></div>
+                    <div><strong>Trạng thái nhà: </strong><div [ngClass]="'text-'+ sharedService.placeStatusColor(contract.placeStatusID)">{{contract.placeStatus}}</div></div>
 
                   </div>
                 </div>
                   <app-paypal-button *ngIf="isContractPending(contract.contractStatusID) && isPlaceActive(contract.placeStatusID)" [pay]='getPay(contract)'
                     (payResult)='getPayResult($event)'></app-paypal-button>
                 <span class="float-right h5 pr-2">
-                  <mdb-badge [color]="statusContractColor(contract.contractStatusID)">{{contract.statusContract}}
-                  </mdb-badge>
+                  <span [ngClass]="'badge badge-'+sharedService.contractStatusColor(contract.contractStatusID)">{{contract.statusContract}}
+                  </span>
                 </span>
               </div>
             </div>

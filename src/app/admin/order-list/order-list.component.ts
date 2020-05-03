@@ -58,13 +58,6 @@ export class OrderListComponent implements OnInit {
     );
   }
 
-  colorStatusPlace(id) {
-    switch (id) {
-      case PlaceStatus.RENTED: return 'text-primary';
-      case PlaceStatus.ACTIVE: return 'text-success';
-      default: return 'text-muted';
-    }
-  }
   isInProcess(id: number) {
     return [OrderStatus.PENDING, OrderStatus.CONSIDER].includes(id);
   }
@@ -128,6 +121,7 @@ export class OrderListComponent implements OnInit {
       }
     );
   }
+  
   onFileSelected(event) {
     const n = Date.now();
     const file = event.target.files[0];

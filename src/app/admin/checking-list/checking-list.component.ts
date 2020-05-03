@@ -1,5 +1,5 @@
 import { SharedService } from './../../shared/shared.service';
-import { PlaceStatus, BookingStatus } from '../../shared/common';
+import { PlaceStatus, CheckingStatus } from '../../shared/common';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from './../admin.service';
 import { Subscription } from 'rxjs';
@@ -43,15 +43,6 @@ export class CheckingListComponent implements OnInit, OnDestroy {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  colorStatusPlace(id) {
-    switch (id) {
-      case PlaceStatus.PENDING: return 'text-warning';
-      case PlaceStatus.CHECKING: return 'text-primary';
-      case PlaceStatus.ACTIVE: return 'text-success';
-      default: return 'text-muted';
-    }
-  }
-
   isShowButton(id) {
     switch (id) {
       case PlaceStatus.PENDING: return true;
@@ -66,7 +57,7 @@ export class CheckingListComponent implements OnInit, OnDestroy {
         this.updateStatus = {
           checkingID: this.item.checkingID,
           placeID: this.item.placeID,
-          statusCheckingID: BookingStatus.APPROVE, // Approve
+          statusCheckingID: CheckingStatus.APPROVE, // Approve
           statusPlaceID: PlaceStatus.CHECKING // Pending -> Checking
         }).subscribe(
           data => data ? this.reload() : alert('Thao tác không thành công!')
@@ -77,7 +68,7 @@ export class CheckingListComponent implements OnInit, OnDestroy {
         this.updateStatus = {
           checkingID: this.item.checkingID,
           placeID: this.item.placeID,
-          statusCheckingID: BookingStatus.APPROVE, // Approve
+          statusCheckingID: CheckingStatus.APPROVE, // Approve
           statusPlaceID: PlaceStatus.ACTIVE // Checking -> Active
         }).subscribe(
           data => data ? this.reload() : alert('Thao tác không thành công!')
@@ -90,7 +81,7 @@ export class CheckingListComponent implements OnInit, OnDestroy {
       this.updateStatus = {
         checkingID: this.item.checkingID,
         placeID: this.item.placeID,
-        statusCheckingID: BookingStatus.REJECT, // Reject
+        statusCheckingID: CheckingStatus.REJECT, // Reject
         statusPlaceID: PlaceStatus.CANCEL // Pending,Checking -> Cancel
       }).subscribe(
         data => data ? this.reload() : alert('Thao tác không thành công!')

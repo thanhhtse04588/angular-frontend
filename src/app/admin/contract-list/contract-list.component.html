@@ -41,11 +41,11 @@
 
           <ng-container matColumnDef="placeStatus">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Trạng thái nhà</th>
-            <td mat-cell *matCellDef="let element"> {{element.placeStatus}} </td>
+            <td mat-cell *matCellDef="let element" [ngClass]="'text-'+ sharedService.placeStatusColor(element.placeStatusID)"> {{element.placeStatus}} </td>
           </ng-container>
           <ng-container matColumnDef="statusContract">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Trạng thái hợp đồng</th>
-            <td mat-cell *matCellDef="let element"> {{element.statusContract}} </td>
+            <td mat-cell *matCellDef="let element" [ngClass]="'text-'+ sharedService.contractStatusColor(element.contractStatusID)"> {{element.statusContract}} </td>
           </ng-container>
 
           <ng-container matColumnDef="void">

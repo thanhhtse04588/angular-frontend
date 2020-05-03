@@ -48,15 +48,6 @@ export class PlaceManageComponent implements OnInit, OnDestroy {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  colorStatusPlace(id) {
-    switch (id) {
-      // case PlaceStatus.PENDING: return 'text-warning'
-      // case PlaceStatus.CHECKING: return 'text-primary'
-      // case PlaceStatus.ACTIVE: return 'text-success'
-      default: return 'text-muted';
-    }
-  }
-
   isShowButton(id) {
     switch (id) {
       case PlaceStatus.ACTIVE: return true;

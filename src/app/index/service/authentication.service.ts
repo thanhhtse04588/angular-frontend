@@ -1,4 +1,4 @@
-import { Common } from '../../shared/common';
+import { Common,_httpOptions } from '../../shared/common';
 import { UserLogin, User, UserMail } from '../../shared/model/user.model';
 import { HttpClient } from '@angular/common/http';
 
@@ -40,10 +40,10 @@ export class AuthenticationService {
   }
 
   register(registerData: any): Observable<any> {
-    return this.http.post(`${Common.urlBase}/user/register `, JSON.stringify(registerData),  Common.httpOptions);
+    return this.http.post(`${Common.urlBase}/user/register `, JSON.stringify(registerData),  _httpOptions);
   }
   authenticate(uname, upass) {
-    return this.http.post<UserLogin>(`${Common.urlBase}/user/login?uname=${uname}&upass=${upass}`,  Common.httpOptions).pipe(
+    return this.http.post<UserLogin>(`${Common.urlBase}/user/login?uname=${uname}&upass=${upass}`,  _httpOptions).pipe(
       map(data => {
         this.setSessionLogin(data.u);
         return data;

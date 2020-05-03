@@ -54,17 +54,9 @@ export class RenterOrderComponent implements OnInit, OnDestroy {
     this.subs.add(this.userService.getListOrderByUserID(this.userID).subscribe(
       data => {
         this.orders = data;
+        console.log(data);
+        
       }));
-  }
-  statusOrderColor(id) {
-    switch (id) {
-      case OrderStatus.DEAL: return 'orange';
-      case OrderStatus.CONSIDER: return 'purple';
-      case OrderStatus.PENDING: return 'cyan';
-      case OrderStatus.REJECT: return 'grey';
-      case OrderStatus.APPROVE: return 'green';
-      default: return 'grey';
-    }
   }
 
   isInProcess(status: number) {

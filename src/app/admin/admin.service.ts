@@ -1,7 +1,7 @@
-import { Common } from '../shared/common';
+import { Common,_httpOptions } from '../shared/common';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +18,11 @@ getAllContract(): Observable<any> {
 }
 
 changeStatusChecking(data): Observable<any> {
-  return this.http.post(`${Common.urlBase}/checkinglist/change-status-checking`, JSON.stringify(data), Common.httpOptions);
+  return this.http.post(`${Common.urlBase}/checkinglist/change-status-checking`, JSON.stringify(data), _httpOptions);
 }
 
 changeStatusOrder(data): Observable<any> {
-  return this.http.post(`${Common.urlBase}/orderlist/change-status-order`, JSON.stringify(data), Common.httpOptions);
+  return this.http.post(`${Common.urlBase}/orderlist/change-status-order`, JSON.stringify(data), _httpOptions);
 }
 
 getAllOrder(): Observable<any> {
@@ -34,7 +34,7 @@ getAllPlace(): Observable<any> {
 }
 
 createContract(data): Observable<any> {
-return this.http.post(`${Common.urlBase}/contract/insert`, JSON.stringify(data), Common.httpOptions);
+return this.http.post(`${Common.urlBase}/contract/insert`, JSON.stringify(data), _httpOptions);
 }
 
 }

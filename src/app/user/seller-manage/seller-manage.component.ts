@@ -57,16 +57,6 @@ export class SellerManageComponent implements OnInit {
     return id === PlaceStatus.PENDING;
   }
 
-  statusColor(id) {
-    switch (id) {
-      case PlaceStatus.ACTIVE: return 'green';
-      case PlaceStatus.PENDING: return 'orange';
-      case PlaceStatus.CHECKING: return 'cyan';
-      case PlaceStatus.CANCEL: return 'grey';
-      default: return 'grey';
-    }
-  }
-
   edit() {
     this.router.navigate(['user/seller/post-edit', { id: this.placeID }], { skipLocationChange: true });
   }

@@ -1,4 +1,6 @@
+
 import { Injectable } from '@angular/core';
+import { PlaceStatusColor, CheckingStatusColor, OrderStatusColor, BillStatusColor, ContractStatusColor } from './common';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +15,22 @@ placeDetail(id: number) {
 }
 checkValidateInput(formControlName) {
   return formControlName.invalid && (formControlName.dirty || formControlName.touched);
+}
+
+placeStatusColor(status: number){
+  return PlaceStatusColor[status];
+}
+checkingStatusColor(status: number){
+  return CheckingStatusColor[status];
+}
+orderStatusColor(status: number){
+  return OrderStatusColor[status];
+}
+contractStatusColor(status: number){
+  return ContractStatusColor[status];
+}
+billStatusColor(status: number){
+  return BillStatusColor[status];
 }
 
 }

@@ -1,4 +1,4 @@
-import { Common } from './../../shared/common';
+import { Common ,_httpOptions} from './../../shared/common';
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 
@@ -9,7 +9,7 @@ export class PaymentService {
   constructor(private http: HttpClient) { }
 
   completePayment(payment) {
-    return this.http.post(`${Common.urlBase}/payment/insert-payment`, JSON.stringify(payment), Common.httpOptions);
+    return this.http.post(`${Common.urlBase}/payment/insert-payment`, JSON.stringify(payment), _httpOptions);
   }
 
 }

@@ -29,9 +29,9 @@
                     <p><strong>Email: </strong>{{order.email}}</p>
                     <p><strong>Thời gian: </strong>{{order.dateTime | date:'short' }}</p>
                     <p><strong>Thông tin nhà: </strong>
-                      <a mat-button (click)="sharedService.placeDetail(order.placeID)">Xem</a>
+                      <a mat-button color="primary" (click)="sharedService.placeDetail(order.placeID)">Xem</a>
                     </p>
-                    <div ><strong>Trạng thái nhà:</strong><div class="text-warning h6">{{order.placeStatus}}</div></div>
+                    <div ><strong>Trạng thái nhà: </strong><div [ngClass]="'text-'+ sharedService.placeStatusColor(order.placeStatusID)">{{order.placeStatus}}</div></div>
 
                   </div>
                   <div class="col">
@@ -45,7 +45,7 @@
                   </div>
                 </div>
                 <span class="float-right h5 pr-2">
-                  <mdb-badge [color]="statusOrderColor(order.orderStatusID)">{{order.orderStatus}}</mdb-badge>
+                  <span [ngClass]="'badge badge-'+sharedService.orderStatusColor(order.orderStatusID)">{{order.orderStatus}}</span>
                 </span>
               </div>
             </div>

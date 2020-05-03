@@ -1,3 +1,4 @@
+import { SharedService } from './../../shared/shared.service';
 import { PlaceDetail, EquipmentListForm, CostOfPlaceForm, CostUnitName } from './../../shared/model/place.model';
 import { AuthGaurdService } from './../../index/service/auth-gaurd.service';
 import { PlaceStatus, Common } from '../../shared/common';
@@ -29,7 +30,8 @@ export class PlaceDetailComponent implements OnInit {
   constructor(
     private placeService: PlaceService,
     public loginService: AuthenticationService,
-    public authGaurdService: AuthGaurdService) {
+    public authGaurdService: AuthGaurdService,
+    public sharedService: SharedService) {
   }
 
   getOrderCount() {
@@ -42,7 +44,7 @@ export class PlaceDetailComponent implements OnInit {
     this.location = {
       latitude: -28.68352,
       longitude: -147.20785,
-      zoom: Common.ZOOM,
+      zoom: Common.ZOOM.valueOf(),
       marker: {
         lat: -28.68352,
         lng: -147.20785
@@ -63,7 +65,7 @@ export class PlaceDetailComponent implements OnInit {
         this.location = {
           latitude: +this.place.latitude,
           longitude: +this.place.longtitude,
-          zoom: Common.ZOOM,
+          zoom: Common.ZOOM.valueOf(),
           marker: {
             lat: +this.place.latitude,
             lng: +this.place.longtitude

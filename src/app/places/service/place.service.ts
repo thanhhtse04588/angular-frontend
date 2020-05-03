@@ -1,4 +1,4 @@
-import { Common } from '../../shared/common';
+import { Common,_httpOptions } from '../../shared/common';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable} from 'rxjs';
@@ -26,7 +26,7 @@ export class PlaceService {
   }
 
   insertPlace(form): Observable<any> {
-    return this.http.post(`${Common.urlBase}/api/cp/places/insert-places`, JSON.stringify(form),  Common.httpOptions);
+    return this.http.post(`${Common.urlBase}/api/cp/places/insert-places`, JSON.stringify(form),  _httpOptions);
   }
 
   getWardIDByDistrictID(id): Observable<any> {

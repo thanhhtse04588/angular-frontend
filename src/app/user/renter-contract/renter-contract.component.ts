@@ -32,14 +32,7 @@ export class RenterContractComponent implements OnInit, OnDestroy {
   isPlaceActive(status) {
     return status === PlaceStatus.ACTIVE;
   }
-  statusContractColor(status) {
-    switch (status) {
-      case ContractStatus.DEACTIVE: return 'grey';
-      case ContractStatus.ACTIVE: return 'green';
-      case ContractStatus.PENDING: return 'cyan';
-      default: return 'grey';
-    }
-  }
+  
   getPay(contract: Contract) {
     const pay: PayPaypal = {
       price: this.vndToUsd(contract.fee),

@@ -1,7 +1,8 @@
+import { Common } from './../../shared/common';
 
 import { SharedService } from './../../shared/shared.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { BillStatus, Common } from '../../shared/common';
+import { BillStatus,_OBSERVER } from '../../shared/common';
 import { ModalDirective } from 'angular-bootstrap-md';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -71,7 +72,7 @@ export class RenterColBillComponent implements OnInit {
 
   getPayResult(result: PayPaypal) {
     if (result.payFor) {
-      this.billService.updateBillStatus(result.colId, BillStatus.PAID).subscribe(Common.OBSERVER);
+      this.billService.updateBillStatus(result.colId, BillStatus.PAID).subscribe(_OBSERVER);
       this.totalLoad();
     }
   }
