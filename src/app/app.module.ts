@@ -1,3 +1,4 @@
+import { AngularMaterialModule } from './material-module';
 import { ThanTodayDirective } from './shared/directive/than-today.directive';
 import { ContractListComponent } from './admin/contract-list/contract-list.component';
 import { UploadTaskComponent } from './places/place-post/upload/upload-task/upload-task.component';
@@ -13,7 +14,6 @@ import { PlaceManageComponent } from './admin/place-manage/place-manage.componen
 import { UploadComponent } from './places/place-post/upload/upload.component';
 import { SellerRentedComponent } from './user/seller-rented/seller-rented.component';
 import { OrderListComponent } from './admin/order-list/order-list.component';
-import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { CheckingListComponent } from './admin/checking-list/checking-list.component';
 
 import { UserComponent } from './user/user.component';
@@ -41,12 +41,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { PlacePostComponent } from './places/place-post/place-post.component';
 import { GlobalErrorHandler } from './error_handler/global-error-handler';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ServerErrorInterceptor } from './error_handler/server-error.interceptor';
 import { AgmCoreModule } from '@agm/core';
 
 /* Angular material */
-import { AngularMaterialModule } from './shared/angular-material.module';
 // MDBootstrap
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { ErrorPageComponent } from './index/errors/error/error-page/error-page.component';
@@ -68,6 +66,14 @@ import { SellerColBillComponent } from './user/seller-col-bill/seller-col-bill.c
 import { BillStatusNamePipe } from './shared/pipes/bill-status-name.pipe';
 import { DeadlineBillPipe } from './shared/pipes/deadline-bill.pipe';
 import { PlaceQuickViewComponent } from './places/place-quick-view/place-quick-view.component';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { NavComponent } from './index/nav/nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 
 
 
@@ -100,7 +106,6 @@ import { PlaceQuickViewComponent } from './places/place-quick-view/place-quick-v
       AdminComponent,
       PlaceManageComponent,
       CheckingListComponent,
-      DashboardComponent,
       ContractListComponent,
       OrderListComponent,
       PaypalButtonComponent,
@@ -113,6 +118,7 @@ import { PlaceQuickViewComponent } from './places/place-quick-view/place-quick-v
       BillStatusNamePipe,
       DeadlineBillPipe,
       PlaceQuickViewComponent,
+      NavComponent,
 
   ],
   imports: [
@@ -122,9 +128,9 @@ import { PlaceQuickViewComponent } from './places/place-quick-view/place-quick-v
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatSnackBarModule,
 
     AngularMaterialModule,
+
     MDBBootstrapModule.forRoot(),
     NgbModule,
     AngularFireStorageModule,
@@ -133,12 +139,16 @@ import { PlaceQuickViewComponent } from './places/place-quick-view/place-quick-v
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBHJYZBS-Vig1M-fizCBelDmmqymJ96tXM',
       libraries: ['places', 'geometry']
-  })
+  }),
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule
   ],
   providers: [
-    // {
-    //   provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true
-    // },
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     {
       provide: ErrorHandler, useClass: GlobalErrorHandler
     },

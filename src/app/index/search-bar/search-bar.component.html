@@ -1,6 +1,6 @@
 <!-- Advance Search -->
-<mdb-card class="mdb-color lighten-3">
-  <mdb-card-body>
+<div class="card">
+  <div class="p-3 rounded">
   <form [formGroup]="form" (ngSubmit)="searchForm(form.value)">
     <div class="container">
       <div  class="row">
@@ -33,14 +33,14 @@
             <option *ngFor="let item of priceRanges" [ngValue]="item">{{item.text}}</option>
           </select>
         </div>
-        <div class="col-md-2 " style="margin-top: -10px;">
-          <button type="submit" mdbBtn color="success" rounded="true" mdbWavesEffect>
+        <div class="col-md-2 ">
+          <button type="submit" mat-raised-button  color="primary">
             <strong>Tìm kiếm</strong>
           </button>
         </div>
       </div>
     </div>
   </form>
-</mdb-card-body>
-</mdb-card>
+</div>
+</div>
 <!-- / Advance Search -->

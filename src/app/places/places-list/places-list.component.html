@@ -3,14 +3,12 @@
   <div class="container">
     <app-search-bar (search)="searchHandlerAtParrent($event)"></app-search-bar>
     <!--Kết quả search-->
-    <div *ngIf="paging.countResult!=null" class="card mb-5 wow fadeIn">
-      <div class="card-body text-black text-center my-2 ">
+    <div *ngIf="paging.countResult!=null" class="text-center my-4 wow fadeIn">
         <div>Tìm thấy: <span class="red-text h4">{{paging.countResult}}</span> kết quả</div>
-        <button [disabled]='paging.countResult==0' type="button" (click)="showMap = !showMap" mdbBtn color="primary"
-          mdbWavesEffect><span [innerHTML]="!showMap ? 'Bản đồ ' : 'Danh sách '"></span>
-          <mdb-icon fas [icon]="!showMap? 'map-marked-alt' : 'list-ul'"></mdb-icon>
+        <button [disabled]='paging.countResult==0' type="button" (click)="showMap = !showMap" mat-raised-button color="primary"
+           ><span [innerHTML]="!showMap ? 'Bản đồ ' : 'Danh sách '"></span>
+          <i  [class]="!showMap? 'fas fa-map-marked-alt' : 'fas fa-list-ul'"></i>
         </button>
-      </div>
     </div>
 
     <div *ngIf="places">
@@ -38,25 +36,25 @@
                   <a (click)="sharedService.placeDetail(place.placeID)">
                     <div class="view overlay zoom" style="height: 200px;">
                       <img [src]="place.imageLarge" class="img-thumbnail" alt="zoom">
-                      <div class="mask flex-center waves-effect waves-light">
+                      <div class="mask flex-center   waves-light">
                         <p class="white-text">Xem</p>
                       </div>
                     </div>
                     <!--Card content-->
                     <div class="card-body text-center">
                       <!--Title-->
-                      <h5 class="card-title" style="height: 56px;">{{place?.title | slice:0:50}}...</h5>
+                      <div class="card-title h5" style="height: 56px;">{{place?.title | slice:0:50}}...</div>
                       <!--Text-->
-                      <h6>
-                        <mdb-badge pill="true" default="true">{{place.roleOfPlaceName}}</mdb-badge>
-                      </h6>
+                      <div class="h6">
+                        <span class="badge badge-pill badge-info">{{place.roleOfPlaceName}}</span>
+                      </div>
                       <p class="card-text">{{place.bedRooms|| '?'}} phòng ngủ - {{place.toilets|| '?'}} phòng vệ sinh -
                         {{place.area|| '?'}} m²
                       </p>
-                      <h6 class="card-title">
-                        <mdb-icon fas icon="map-marker-alt" class="grey-text"></mdb-icon> {{place.district}}
-                      </h6>
-                      <h5 class="card-title">{{place.price| number}} vnđ</h5>
+                      <div class="card-title h6">
+                        <i class="fas fa-map-marker-alt grey-text"></i> {{place.district}}
+                      </div>
+                      <div  class="card-title h5">{{place.price| number}} vnđ</div>
                     </div>
                   </a>
                 </div>

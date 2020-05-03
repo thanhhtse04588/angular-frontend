@@ -1,17 +1,12 @@
-<mdb-card class="mb-3">
-  <mdb-card-header>
-    <div class="h3">Hình ảnh liên quan</div>
-  </mdb-card-header>
-  <mdb-card-body>
+
     <p>Tin rao có ảnh sẽ được xem nhiều hơn gấp 10 lần và được nhiều người gọi gấp 5 lần so với tin rao không
-      có ảnh. Hãy đăng ảnh để được giao dịch nhanh chóng! <span class="text-danger">Yêu cầu cung cấp 1 hoặc nhiều hình
+      có ảnh. Hãy đăng ảnh để được giao dịch nhanh chóng! <span class="red-text">Yêu cầu cung cấp 1 hoặc nhiều hình
         ảnh.</span></p>
     <!-- listImageLink -->
-    <div class="md-form mb-5">
       <mat-card style="margin-top:10px">
         <div class="dropzone" dropzone (hovered)="toggleHover($event)" (dropped)="onDrop($event)"
           [class.hovering]="isHovering">
-          <button type="button" mat-button color="warn" (click)="onClick()">
+          <button type="button" mat-raised-button color="warn" (click)="onClick()">
             <i class="fas fa-upload"></i>
           </button>
           <input type="file" #fileUpload id="fileUpload" name="fileUpload" multiple="multiple" accept="image/*"
@@ -21,9 +16,5 @@
         <div *ngFor="let file of files">
           <app-upload-task [file]="file" (upload)='uploadTask($event)'></app-upload-task>
         </div>
-
       </mat-card>
-    </div>
     <hr>
-  </mdb-card-body>
-</mdb-card>

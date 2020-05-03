@@ -3,68 +3,77 @@
     <div class="container">
 
         <!-- Brand -->
-        <a class="navbar-brand waves-effect" routerLink="/places/home">
-            <strong class="blue-text">
-                <mdb-icon fas icon="home" size="2x"></mdb-icon>Cyber Place
+        <a class="navbar-brand  " routerLink="/places/home">
+            <strong>
+                <i class="fas fa-home fa-2x"></i>Cyber Place
             </strong>
         </a>
 
         <!-- Collapse -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar"
+            aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <!-- Links -->
-        <div class="collapse navbar-collapse font-weight-bolder" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse font-weight-bolder" id="navbar">
 
             <!-- Left -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item" routerLink="/places/home" routerLinkActive="active">
-                    <a class="nav-link waves-effect">Trang chủ
+                    <a class="nav-link  ">Trang chủ
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item" routerLink="/user/renter" routerLinkActive="active">
-                    <a class="nav-link waves-effect">
-                        Kênh người mua
+                <li class="nav-item dropdown">
+
+                    <a class="nav-link dropdown-toggle" href="#" id="sellerMenu" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Kênh cho thuê
                     </a>
+                    <div class="dropdown-menu" aria-labelledby="sellerMenu">
+                        <a routerLink="/user/seller/post" class="dropdown-item" href="#">Đăng tin</a>
+                        <a routerLink="/user/seller/post-manage" class="dropdown-item" href="#">Tin đã đăng</a>
+                        <a routerLink="/user/seller/rented" class="dropdown-item" href="#">Nhà cho thuê</a>
+                    </div>
+
                 </li>
-                <li class="nav-item" routerLink="/user/seller" routerLinkActive="active">
-                    <a class="nav-link waves-effect">
-                        Kênh người bán
+                <li class="nav-item dropdown">
+
+                    <a class="nav-link dropdown-toggle" href="#" id="renterMenu" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Kênh thuê nhà
                     </a>
-                </li>
-                <li class="nav-item" routerLink="/user/test" routerLinkActive="active">
-                    <a class="nav-link waves-effect">
-                        TEST
-                    </a>
+                    <div class="dropdown-menu" aria-labelledby="renterMenu">
+                        <a routerLink="/user/renter/order" class="dropdown-item" href="#">Lịch xem nhà</a>
+                        <a routerLink="/user/renter/contract" class="dropdown-item" href="#">Hợp đồng thuê nhà</a>
+                        <a routerLink="/user/renter/bill" class="dropdown-item" href="#">Chi phí hằng tháng</a>
+                    </div>
+
                 </li>
             </ul>
 
             <!-- Right -->
             <ul class="navbar-nav nav-flex-icons">
                 <li *ngIf="loginService.isAdmin();else post" class="nav-item">
-                    <button routerLink="/admin" mdbBtn type="button" color="warning" size="sm" mdbWavesEffect>
+                    <button routerLink="/admin" mat-raised-button type="button" color="warn">
                         <strong>Admin</strong></button>
                 </li>
                 <ng-template #post>
                     <li class="nav-item">
-                        <button routerLink="/user/seller/post" mdbBtn type="button" color="dark-green" size="sm"
-                            mdbWavesEffect>
+                        <button routerLink="/user/seller/post" mat-raised-button color="primary">
                             <strong>Đăng tin rao</strong></button>
                     </li>
                 </ng-template>
                 <ng-container *ngIf="!loginService.isUserLoggedIn();else logOut">
                     <li class="nav-item">
-                        <a class="nav-link waves-effect" data-toggle="modal" data-target="#frameSignin"
+                        <a class="nav-link  " data-toggle="modal" data-target="#frameSignin"
                             (click)="frameSignin.show()">
                             Đăng ký
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link waves-effect" data-toggle="modal" data-target="#frameLogin"
-                            (click)="frameLogin.show()">
+                        <a class="nav-link  " data-toggle="modal" data-target="#frameLogin" (click)="frameLogin.show()">
                             Đăng nhập
                         </a>
                     </li>
@@ -72,12 +81,13 @@
                 <ng-template #logOut>
                     <li class="nav-item">
                         <a class="nav-link">
-                         <small>Xin chào </small><span class="font-weight-bolder blue-text">{{loginService.currentUserValue.userName | slice:0:10}}</span>
+                            <small>Xin chào </small><span
+                                class="font-weight-bolder blue-text">{{loginService.currentUserValue.userName | slice:0:10}}</span>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link border border-light rounded waves-effect" (click)="loginService.logOut()">
+                        <a class="nav-link" mat-raised-button (click)="loginService.logOut()">
                             <i class="fas fa-sign-out-alt"></i>
                         </a>
                     </li>
@@ -96,7 +106,7 @@
         aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content  p-5">
-                <p class="h4 mb-5 text-center">Đăng nhập</p>
+                <div class="h4 mb-5 text-center">Đăng nhập</div>
 
                 <input type="text" formControlName="loginFormModalUsername" class="form-control"
                     placeholder="Tên đăng nhập">
@@ -114,7 +124,7 @@
                     <span class="float-left red-text">Không hợp lệ</span>
                 </small>
                 <!-- Sign in button -->
-                <button mdbBtn color="info" block="true" class="mt-5 mb-4" type="submit"
+                <button mat-raised-button color="primary" class="btn-block mt-5 mb-4" type="submit"
                     [disabled]="!validatingLoginForm.valid || isLoginSubmit">
                     <span [ngClass]="{'spinner-border spinner-border-sm' : isLoginSubmit}"> </span> Đăng nhập</button>
 
@@ -125,7 +135,7 @@
                 <!-- Social login -->
                 <p class="text-center">Đăng nhập với : <a class="light-blue-text mx-2" role="button"
                         (click)="loginService.googleSignin();frameLogin.hide()">
-                        <mdb-icon fab icon="google"></mdb-icon>
+                        <i class="fab fa-google fa-2x"></i>
                     </a></p>
             </div>
         </div>
@@ -139,7 +149,7 @@
         aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content p-5 ">
-                <p class="h4 mb-5 text-center">Đăng ký</p>
+                <div class="mb-5 text-center h4">Đăng ký</div>
 
                 <div class="form-row">
                     <div class="col">
@@ -166,14 +176,14 @@
                 <input type="password" formControlName="confirmPasswrd" class="form-control"
                     placeholder="Nhập lại mật khẩu" aria-describedby="defaultRegisterFormPasswordHelpBlock">
 
-                <button mdbBtn color="info" block="true" class="my-4"
+                <button mat-raised-button color="primary" class="btn-block my-4"
                     [disabled]="!validatingSigninForm.valid || isSigninSubmit" type="submit"> <span
                         [ngClass]="{'spinner-border spinner-border-sm' : isSigninSubmit}"> </span> Đăng ký</button>
 
                 <!-- Social register -->
                 <p class="text-center">Đăng ký với : <a class="light-blue-text mx-2" role="button"
                         (click)="loginService.googleSignin();frameSignin.hide()">
-                        <mdb-icon fab icon="google"></mdb-icon>
+                        <i class="fab fa-google fa-2x"></i>
                     </a></p>
             </div>
         </div>

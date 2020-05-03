@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { PlaceService } from './../service/place.service';
 import { SearchBarService } from 'src/app/index/service/search-bar.service';
-import { Component, OnInit, ViewChild, ElementRef, NgZone, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, OnDestroy, Input, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { thanToday } from 'src/app/shared/directive/than-today.directive';
 
@@ -20,7 +20,7 @@ import { thanToday } from 'src/app/shared/directive/than-today.directive';
   selector: 'app-place-post',
   templateUrl: './place-post.component.html',
 })
-export class PlacePostComponent implements OnInit, OnDestroy {
+export class PlacePostComponent implements OnInit, OnDestroy, AfterViewChecked  {
   private subs = new Subscription();
   @Input() placeEditID: number;
   isSubmit = false;
@@ -58,7 +58,8 @@ export class PlacePostComponent implements OnInit, OnDestroy {
     private ngZone: NgZone,
     public loginService: AuthenticationService,
     public authGaurdService: AuthGaurdService,
-    public sharedService: SharedService) { }
+    public sharedService: SharedService,
+    private cdr: ChangeDetectorRef) { }
 
   defaultToEdit(data: PlacePostForm) {
     this.form.patchValue(data);
@@ -105,6 +106,9 @@ export class PlacePostComponent implements OnInit, OnDestroy {
       checkingDate: new FormControl('', [Validators.required, thanToday()]),
     });
 
+  }
+  ngAfterViewChecked(): void {
+    this.cdr.detectChanges();
   }
   // load Places Autocomplete
   private loadPlacesAutoComplete() {
@@ -229,6 +233,19 @@ export class PlacePostComponent implements OnInit, OnDestroy {
       ' ' + (this.ward.value.wardName?.trim() || '') + ',' + (this.district.value.district?.trim() || '');
   }
 
+  isStepOneValid() {
+    return this.title.valid && this.roleOfPlaceID.valid &&
+      this.district.valid && this.ward.valid && this.street.valid
+      && this.area.valid && this.price.valid;
+  }
+  isStepTwoValid() { return this.descriptions.valid; }
+  isStepThreeValid() { return true; }
+  isStepFourValid() { return this.equipComponent?.eqmTable?.valid; }
+  isStepFiveValid() { return this.costComponent?.eqmTable?.valid; }
+  isStepSixValid() { return this.imageUploaded.length !== 0; }
+  isStepSevenValid() { return this.searchElementRef?.nativeElement?.value || false; }
+  isStepEightValid() { return this.contactName.valid && this.phoneNumber.valid && this.checkingDate.valid }
+
   get title() { return this.form.get('title'); }
 
   get roleOfPlaceID() { return this.form.get('roleOfPlaceID'); }
@@ -267,9 +284,9 @@ export class PlacePostComponent implements OnInit, OnDestroy {
 
   get checkingDate() { return this.form.get('checkingDate'); }
 
-  setward(param) { this.form.patchValue({ward: param }); }
+  setward(param) { this.form.patchValue({ ward: param }); }
 
-  setStreet(param) { this.form.patchValue({street: param }); }
+  setStreet(param) { this.form.patchValue({ street: param }); }
 
   ngOnDestroy() {
     this.subs.unsubscribe();

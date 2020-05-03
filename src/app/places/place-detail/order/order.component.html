@@ -1,39 +1,40 @@
 <div class="container wow fadeIn">
   <div class="col-md-7 mx-auto">
     <form (ngSubmit)="onSubmitOrder()" [formGroup]="requestOrderForm">
-      <mdb-card>
-        <mdb-card-header>
+      <div class="card">
+        <div class="card-header">
           <div class="h4 text-center">Mẫu đăng ký đặt lịch xem nhà</div>
-        </mdb-card-header>
-        <mdb-card-body class="p-5">
-          <div class="row">
-            <div class="col md-form">
-              <label class="pl-3">Nhập Tên<span class="text-danger">*</span></label>
-              <input type="text" class="form-control" mdbInput mdbValidate formControlName="name">
+        </div>
+        <div class="card-body p-5">
+          <div class="row mb-4">
+            <div class="col">
+              <label>Nhập Tên<span class="red-text">*</span></label>
+              <input type="text" class="form-control"  formControlName="name">
               <small class="red-text" *ngIf="sharedService.checkValidateInput(name)">
                 Không bỏ trống
               </small>
             </div>
 
-            <div class="col md-form">
-              <input type="text" class="form-control" mdbInput mdbValidate formControlName="email">
-              <label class="pl-3">Nhập Email<span class="text-danger">*</span></label>
+            <div class="col">
+              <label  >Nhập Email<span class="red-text">*</span></label>
+              <input type="text" class="form-control"    formControlName="email">
               <small class="red-text" *ngIf="sharedService.checkValidateInput(email)">
                 Không hợp lệ
               </small>
             </div>
           </div>
-          <div class="row">
-            <div class="col md-form">
-              <input type="text" id="form29" class="form-control" mdbInput mdbValidate formControlName="phoneNumber">
-              <label class="pl-3">Nhập số điện thoại<span class="text-danger">*</span></label>
+          <div class="row mb-4">
+            <div class="col">
+              <label  >Nhập số điện thoại<span class="red-text">*</span></label>
+              <input type="text" id="form29" class="form-control"    formControlName="phoneNumber">
               <small class="red-text" *ngIf="sharedService.checkValidateInput(phoneNumber)">
                 Không hợp lệ
               </small>
             </div>
 
-            <div class="col md-form">
-              <input type="datetime-local"  class="form-control" mdbInput mdbValidate
+            <div class="col">
+              <label>Thời gian xem nhà<span class="red-text">*</span></label>
+              <input type="datetime-local"  class="form-control"   
                 formControlName="datetime">
               <div><small>(Lớn hơn ngày hiện tại)</small></div>
               <small class="red-text" *ngIf="sharedService.checkValidateInput(datetime)">
@@ -41,29 +42,29 @@
               </small>
             </div>
           </div>
-          <div class="md-form">
-            <textarea type="text" id="form8" class="md-textarea form-control" rows="1" mdbInput mdbValidate
-              formControlName="mess"></textarea>
+          <div>
             <label for="form8">Lời nhắn</label>
+            <textarea type="text" id="form8" class="md-textarea form-control" rows="1"   
+              formControlName="mess"></textarea>
             <small class="red-text" *ngIf="sharedService.checkValidateInput(mess)">
               Tối đa 100 ký tự
             </small>
           </div>
-          <p class="text-center" [ngClass]="{'red-text': !payFor}"
+          <div class="text-center my-2" [ngClass]="{'red-text': !payFor}"
             [innerHTML]='payFor? "Bạn đã thanh toán phí dịch vụ thành công, hoàn thành mẫu và gửi": "Thanh toán phí dịch vụ 50$ ở cổng paypal để hoàn thành mẫu đăng ký" '>
-          </p>
+          </div>
           <ng-template #paypalButton>
             <app-paypal-button [pay]='pay' (payResult)='payResult($event)'></app-paypal-button>
           </ng-template>
           <div class="mx-auto" *ngIf='payFor; else paypalButton'>
-            <button type="submit" mdbBtn class="btn btn-danger btn-block"
-              [disabled]="!requestOrderForm.valid || isSubmit" mdbWavesEffect>
+            <button type="submit" mat-raised-button color="primary" class="btn-block"
+              [disabled]="!requestOrderForm.valid || isSubmit"  >
               <span [ngClass]="{'spinner-border spinner-border-sm' : isSubmit}"> </span>
               <strong>Gửi</strong>
             </button>
           </div>
-        </mdb-card-body>
-      </mdb-card>
+        </div>
+      </div>
     </form>
   </div>
 </div>

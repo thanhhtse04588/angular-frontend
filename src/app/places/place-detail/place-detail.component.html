@@ -1,43 +1,53 @@
 <!--Main layout-->
 <div *ngIf="place" class="container wow fadeInDown">
   <div class="row mb-4">
-    <mdb-card>
-      <mdb-card-header class="text-center">
-        <div class="h3">{{place.title}}</div>
-      </mdb-card-header>
-      <mdb-card-body class="px-5 pb-5">
-        <mdb-card-title class="text-center">
-          <h5>
-            <span><mdb-icon fas icon="home" class="grey-text"></mdb-icon><strong> {{place.roleOfPlace}}</strong></span>
-            <span><mdb-icon fas icon="dollar-sign" class="grey-text"></mdb-icon><strong> {{place.price| number}} vnđ/tháng</strong></span>
-            <span><mdb-icon fas icon="border-none" class="grey-text"></mdb-icon> <strong> {{place.area}} m²</strong></span>
-            <span><mdb-icon fas icon="map-marker-alt" class="grey-text"></mdb-icon><strong> {{place.district}}</strong></span>
-          </h5>
+    <div class="card">
+      <div class="card-header text-center">
+        <div class="h4">{{place.title}}</div>
+      </div>
+      <div class="card-body px-5 pb-5">
+        <div class="card-title text-center">
+          <div class="h5">
+            <span>
+              <i class="fas fa-home grey-text"></i><strong> {{place.roleOfPlace}}</strong>
+            </span>
+            <span>
+              <i class="fas fa-dollar-sign grey-text"></i><strong> {{place.price| number}}
+                vnđ/tháng</strong>
+            </span>
+            <span>
+              <i class="fas fa-border-none grey-text" ></i> <strong> {{place.area}} m²</strong>
+            </span>
+            <span>
+              <i class="fas fa-map-marker-alt grey-text"></i><strong> {{place.district}}</strong>
+            </span>
+          </div>
           <div class="mx-auto ">
             <div *ngIf="isActive(place.statusPlaceID);else statusPlace">
-              <button mdbBtn [routerLink]="['/places/order']" [disabled]="!loginService.isUserLoggedIn()" color="danger"
-                class="btn-lg" mdbWavesEffect>
+              <button mat-raised-button [routerLink]="['/places/order']" [disabled]="!loginService.isUserLoggedIn()" color="primary"
+                class="btn-lg"  >
                 Đặt lịch xem nhà
               </button>
-              <p class="text-danger">Hiện tại đang có <strong>{{orderCount|| '0'}}</strong> người đăng ký xem nhà này
+              <p class="red-text">Hiện tại đang có <strong>{{orderCount|| '0'}}</strong> người đăng ký xem nhà này
               </p>
             </div>
 
             <ng-template #statusPlace>
-              <h4 class="my-3">Trạng thái: <strong class="text-danger">{{place.statusPlace}}</strong></h4>
+              <div class="my-3 h4">Trạng thái: <strong class="red-text">{{place.statusPlace}}</strong></div>
             </ng-template>
 
           </div>
           <div *ngIf="!loginService.isUserLoggedIn()" class="alert alert-warning" role="alert">
-            Bạn cần <a (click)='authGaurdService.showModal()'><strong style="cursor: pointer;">đăng nhập</strong> để thực hiện chức năng này</a>
+            Bạn cần <a (click)='authGaurdService.showModal()'><strong style="cursor: pointer;">đăng nhập</strong> để
+              thực hiện chức năng này</a>
           </div>
-          <h4><strong>Thông tin chi tiết</strong></h4>
-        </mdb-card-title>
+          <div class="h4"><strong>Thông tin chi tiết</strong></div>
+        </div>
         <div class="row">
           <div class="col-md">
-            <h5><strong>Địa chỉ:</strong></h5>
+            <div class="h5"><strong>Địa chỉ:</strong></div>
             <p>{{place.address}}</p>
-            <h5><strong>Tiện ích:</strong></h5>
+            <div class="h5"><strong>Tiện ích:</strong></div>
             <ul>
               <li>Phòng ngủ :{{place.bedRooms|| ""}} phòng</li>
               <li>Vệ sinh :{{place.toilets|| ""}} phòng </li>
@@ -47,124 +57,118 @@
             </ul>
           </div>
           <div class="col-md">
-            <h5><strong>Thông tin mô tả</strong></h5>
+            <div class="h5"><strong>Thông tin mô tả</strong></div>
             <p>{{place.description}}</p>
           </div>
         </div>
 
         <div class="row mb-4">
-            <div class="container mt-3 ">
-              <ul class="nav nav-tabs">
-                <li class="nav-item">
-                  <a class="nav-link active" data-toggle="tab" href="#imagesPlace">
-                    <h6><mdb-icon far icon="images" size="lg"></mdb-icon></h6>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#onMap">
-                    <h6><mdb-icon far icon="map" size="lg"></mdb-icon></h6>
-                  </a>
-                </li>
-              </ul>
-              <div class="tab-content border border-light">
-                <div id="imagesPlace" class="container tab-pane active" >
+          <div class="container mt-3 ">
+
+            <mat-tab-group>
+              <mat-tab label="Ảnh chụp">
+                <div id="imagesPlace" class="container tab-pane active">
                   <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
-                    <mdb-carousel-item  *ngFor="let img of place.listImage; let i = index">
-                      <img class="d-block mx-auto img-fluid z-depth-1"  style="height: 600px;" [src]="img">
+                    <mdb-carousel-item *ngFor="let img of place.listImage; let i = index">
+                      <img class="d-block mx-auto img-fluid z-depth-1" style="height: 600px;" [src]="img">
                     </mdb-carousel-item>
                   </mdb-carousel>
                 </div>
-
-                <div id="onMap" class="container tab-pane fade" >
-                  <agm-map (mapReady)="infowindow.open()"   style="height: 600px;" [longitude]="location?.longitude" [latitude]="location?.latitude"
-                    [zoom]="location.zoom">
+              </mat-tab>
+              <mat-tab label="Bản đồ">
+                <div id="onMap" class="container tab-pane fade">
+                  <agm-map (mapReady)="infowindow.open()" style="height: 600px;" [longitude]="location?.longitude"
+                    [latitude]="location?.latitude" [zoom]="location.zoom">
                     <agm-marker [longitude]="location?.marker?.lng" [latitude]="location?.marker?.lat">
-                      <agm-info-window #infowindow> 
-                        <strong><mdb-icon fas icon="map-marker-alt" size="lg" class="red-text"></mdb-icon>{{place.address}}</strong>
+                      <agm-info-window #infowindow>
+                        <strong>
+                          <i class="fas fa-map-marker-alt" size="lg" class="red-text"></i>{{place.address}}
+                        </strong>
                       </agm-info-window>
                     </agm-marker>
                   </agm-map>
                 </div>
-              </div>
-            </div>
+              </mat-tab>
+            </mat-tab-group>
+
+          </div>
         </div>
         <div class="row">
           <div class="col" *ngIf="place.listEquip?.length>0">
-            <h5><strong>Thông tin nội thất</strong></h5>
-            <div mdbTable bordered="true" hover="true">
+            <div class="h5"><strong>Thông tin nội thất</strong></div>
+            <div  bordered="true" hover="true">
               <table mat-table [dataSource]="dataSource">
 
                 <!-- Position Column -->
                 <ng-container matColumnDef="name">
-                  <th *matHeaderCellDef> Tên nội thất </th>
-                  <td *matCellDef="let element"> {{element.name}} </td>
+                  <th mat-header-cell *matHeaderCellDef> Tên nội thất </th>
+                  <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                 </ng-container>
 
                 <!-- Name Column -->
                 <ng-container matColumnDef="quantity">
-                  <th *matHeaderCellDef> Số lượng</th>
-                  <td *matCellDef="let element"> {{element.quantity}} </td>
+                  <th mat-header-cell *matHeaderCellDef> Số lượng</th>
+                  <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
                 </ng-container>
 
                 <!-- Weight Column -->
                 <ng-container matColumnDef="price">
-                  <th *matHeaderCellDef> Giá(vnđ) </th>
-                  <td *matCellDef="let element"> {{element.price}} </td>
+                  <th mat-header-cell *matHeaderCellDef> Giá(vnđ) </th>
+                  <td mat-cell *matCellDef="let element"> {{element.price}} </td>
                 </ng-container>
 
                 <!-- Symbol Column -->
                 <ng-container matColumnDef="likeNew">
-                  <th *matHeaderCellDef> Độ mới</th>
-                  <td *matCellDef="let element"> {{element.likeNew}} </td>
+                  <th mat-header-cell *matHeaderCellDef> Độ mới</th>
+                  <td mat-cell *matCellDef="let element"> {{element.likeNew}} </td>
                 </ng-container>
 
                 <!-- Symbol Column -->
                 <ng-container matColumnDef="equipmentDescrible">
-                  <th *matHeaderCellDef> Mô tả </th>
-                  <td *matCellDef="let element"> {{element.equipmentDescrible}} </td>
+                  <th mat-header-cell *matHeaderCellDef> Mô tả </th>
+                  <td mat-cell *matCellDef="let element"> {{element.equipmentDescrible}} </td>
                 </ng-container>
 
-                <tr mdbTableCol mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mdbTableCol mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr  mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr  mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
               </table>
-              <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+              <mat-paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>
             </div>
           </div>
 
           <div class="col" *ngIf="place.listCost?.length>0">
-            <h5><strong>Thông tin phí dịch vụ sinh hoạt</strong></h5>
-            <div mdbTable bordered="true" hover="true">
+            <div class="h5"><strong>Thông tin phí dịch vụ sinh hoạt</strong></div>
+            <div  bordered="true" hover="true">
               <table mat-table [dataSource]="dataCost">
 
                 <!-- Position Column -->
                 <ng-container matColumnDef="costName">
-                  <th *matHeaderCellDef> Tên dịch vụ </th>
-                  <td *matCellDef="let element"> {{element.costName}} </td>
+                  <th mat-header-cell *matHeaderCellDef> Tên dịch vụ </th>
+                  <td mat-cell *matCellDef="let element"> {{element.costName}} </td>
                 </ng-container>
 
                 <!-- Name Column -->
                 <ng-container matColumnDef="costPrice">
-                  <th *matHeaderCellDef> Đơn giá</th>
-                  <td *matCellDef="let element"> {{element.costPrice}} </td>
+                  <th mat-header-cell *matHeaderCellDef> Đơn giá</th>
+                  <td mat-cell *matCellDef="let element"> {{element.costPrice}} </td>
                 </ng-container>
 
                 <!-- Name Column -->
                 <ng-container matColumnDef="unitID">
-                  <th *matHeaderCellDef> Đơn giá</th>
-                  <td *matCellDef="let element"> {{getUnitName(element.unitID)}} </td>
+                  <th mat-header-cell *matHeaderCellDef> Đơn giá</th>
+                  <td mat-cell *matCellDef="let element"> {{getUnitName(element.unitID)}} </td>
                 </ng-container>
 
-                <tr mdbTableCol mat-header-row *matHeaderRowDef="costColumns"></tr>
-                <tr mdbTableCol mat-row *matRowDef="let row; columns: costColumns;"></tr>
+                <tr  mat-header-row *matHeaderRowDef="costColumns"></tr>
+                <tr  mat-row *matRowDef="let row; columns: costColumns;"></tr>
               </table>
-              <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+              <mat-paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>
             </div>
           </div>
 
         </div>
 
-      </mdb-card-body>
-    </mdb-card>
+      </div>
+    </div>
   </div>
 </div>
-

@@ -12,11 +12,11 @@
           <p>(Quý vị có thể quản lý, tìm kiếm ở đây)</p>
         </div>
         <div *ngFor="let contract of contracts">
-          <mdb-card class="mb-3">
-            <mdb-card-header>
+          <div class="card mb-3">
+            <div class="card-header">
               <div class="h5">{{contract.titlePlace}}</div>
-            </mdb-card-header>
-            <mdb-card-body class="px-5">
+            </div>
+            <div class="card-body px-5">
               <div>
                 <div class="row">
                   <div class="col">
@@ -25,15 +25,15 @@
                     <p><strong>Người thuê: </strong>{{contract.renterID}}</p>
                   </div>
                   <div class="col">
-                    <p><strong>Ngày bắt đầu: </strong>{{contract.startDate | date:'shortDate' }}</p>
-                    <p><strong>Ngày kết thúc: </strong>{{contract.endDate | date:'shortDate' }}</p>
+                    <p><strong>Ngày bắt đầu: </strong>{{contract.startDate | date:'M/d/yyyy' }}</p>
+                    <p><strong>Ngày kết thúc: </strong>{{contract.endDate | date:'M/d/yyyy' }}</p>
                     <p><strong>Số tiền đặt cọc: </strong>{{contract.fee | number}}<small>VND</small>/{{vndToUsd(contract.fee) | number}}<small>USD</small></p>
                   </div>
                   <div class="col">
                     <p><strong>Thông tin nhà: </strong>
-                      <a class="text-danger" (click)="sharedService.placeDetail(contract.placeID)">Xem</a>
+                      <a mat-button (click)="sharedService.placeDetail(contract.placeID)">Xem</a>
                     </p>
-                    <div><strong>Trạng thái nhà: </strong><h6 class="text-warning">{{contract.placeStatus}}</h6></div>
+                    <div><strong>Trạng thái nhà: </strong><div class="text-warning h6">{{contract.placeStatus}}</div></div>
 
                   </div>
                 </div>
@@ -44,9 +44,9 @@
                   </mdb-badge>
                 </span>
               </div>
-            </mdb-card-body>
+            </div>
 
-          </mdb-card>
+          </div>
         </div>
 
       </div>

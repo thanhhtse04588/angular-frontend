@@ -1,94 +1,73 @@
 <div class="container-fluid mt-5  wow fadeIn">
-  <!-- Heading -->
-  <div class="card mb-4">
 
-    <!--Card content-->
-    <div class="card-body d-sm-flex justify-content-between">
-
-      <h4 class="mb-2 mb-sm-0 pt-1">
-        <a >Admin</a>
-        <span>/</span>
-        <span>Quản lý Hợp đồng</span>
-      </h4>
-
-    </div>
-
-  </div>
-  <!-- Heading -->
-
-  <div class="card mb-5 wow fadeIn">
-    <div class="card-header text-center  h5"><strong>Danh sách Hợp đồng</strong></div>
-    <div class="card-body">
-        <div class="md-form">
-          <input matInput mdbInput type="text" id="form1" class="form-control" (keyup)="applyFilter($event)">
-          <label for="form1">Lọc</label>
-        </div>
-      <div mdbTable bordered="true" hover="true">
-        <table mat-table matSort [dataSource]="dataSource" class="w-100">
+    <div class="text-center  h5"><strong>Danh sách Hợp đồng</strong></div>
+    <mat-form-field class="w-100">
+      <mat-label>Lọc</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Đang chờ">
+    </mat-form-field>
+      <div class="card">
+        <table mat-table matSort [dataSource]="dataSource" class="table-hover w-100">
 
           <ng-container matColumnDef="placeID" >
-            <th *matHeaderCellDef mat-sort-header>Chi tiết nhà</th>
-            <td *matCellDef="let element">
-              <a type="button" mdbBtn color="info" size='sm' (click)="sharedService.placeDetail(element.placeID)" mdbWavesEffect><i class="fas fa-info"></i></a>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Chi tiết nhà</th>
+            <td mat-cell *matCellDef="let element">
+              <a type="button" color="primary" mat-button (click)="sharedService.placeDetail(element.placeID)"  ><i class="fas fa-info"></i></a>
             </td>
           </ng-container>
 
           <ng-container matColumnDef="contractID">
-            <th *matHeaderCellDef mat-sort-header>Chi tiết hợp đồng</th>
-            <td *matCellDef="let element"><a ><i class="fas fa-warning"></i></a> </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Chi tiết hợp đồng</th>
+            <td mat-cell *matCellDef="let element"><a ><i class="fas fa-warning"></i></a> </td>
           </ng-container>
 
           <ng-container matColumnDef="ownerID">
-            <th *matHeaderCellDef mat-sort-header>Chủ nhà</th>
-            <td *matCellDef="let element"> {{element.ownerID}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Chủ nhà</th>
+            <td mat-cell *matCellDef="let element"> {{element.ownerID}} </td>
           </ng-container>
 
           <ng-container matColumnDef="renterID">
-            <th *matHeaderCellDef mat-sort-header>Người thuê</th>
-            <td *matCellDef="let element"> {{element.renterID}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Người thuê</th>
+            <td mat-cell *matCellDef="let element"> {{element.renterID}} </td>
           </ng-container>
 
           <ng-container matColumnDef="startDate">
-            <th *matHeaderCellDef mat-sort-header>Ngày thuê</th>
-            <td *matCellDef="let element"> {{element.startDate | date:'shortDate' }} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Ngày thuê</th>
+            <td mat-cell *matCellDef="let element"> {{element.startDate | date:'M/d/yyyy' }} </td>
           </ng-container>
 
           <ng-container matColumnDef="endDate">
-            <th *matHeaderCellDef mat-sort-header>Ngày kết thúc</th>
-            <td *matCellDef="let element"> {{element.endDate | date:'shortDate' }} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Ngày kết thúc</th>
+            <td mat-cell *matCellDef="let element"> {{element.endDate | date:'M/d/yyyy' }} </td>
           </ng-container>
 
           <ng-container matColumnDef="placeStatus">
-            <th *matHeaderCellDef mat-sort-header>Trạng thái nhà</th>
-            <td *matCellDef="let element"> {{element.placeStatus}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Trạng thái nhà</th>
+            <td mat-cell *matCellDef="let element"> {{element.placeStatus}} </td>
           </ng-container>
           <ng-container matColumnDef="statusContract">
-            <th *matHeaderCellDef mat-sort-header>Trạng thái hợp đồng</th>
-            <td *matCellDef="let element"> {{element.statusContract}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Trạng thái hợp đồng</th>
+            <td mat-cell *matCellDef="let element"> {{element.statusContract}} </td>
           </ng-container>
 
           <ng-container matColumnDef="void">
-            <th *matHeaderCellDef></th>
-            <td *matCellDef="let element">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
               <ng-container *ngIf="showBtn(element.contractStatusID)"  >
-                <button type="button" *ngIf="isBanContract(element.contractStatusID)" (click)='contractSelected = element' mdbBtn color="success" size="sm" 
-                (click)="comfirmApprove.show()" mdbWavesEffect><mdb-icon fas icon="undo"></mdb-icon></button>
-              <button type="button" *ngIf="!isBanContract(element.contractStatusID)" (click)='contractSelected = element' mdbBtn color="danger" size="sm"
-              (click)="comfirmReject.show()" mdbWavesEffect><mdb-icon fas icon="ban"></mdb-icon></button>
+                <button type="button" *ngIf="isBanContract(element.contractStatusID)" (click)='contractSelected = element' mat-stroked-button  color="primary" 
+                (click)="comfirmApprove.show()"  ><i class="fas fa-undo"></i></button>
+              <button type="button" *ngIf="!isBanContract(element.contractStatusID)" (click)='contractSelected = element' mat-stroked-button color="accent" 
+              (click)="comfirmReject.show()"  ><i class="fas fa-ban"></i></button>
               </ng-container>
               
             </td>
           </ng-container>
 
-          <tr mdbTableCol mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mdbTableCol mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr  mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr  mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
         <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
       </div>
     </div>
-
-  </div>
-</div>
 
 <!-- To Deactive comfirm -->
 <div mdbModal #comfirmReject="mdbModal" class="modal fade" tabindex="-1" role="dialog"
@@ -96,14 +75,14 @@
   <div class="modal-dialog modal-notify modal-danger modal-sm  text-center" role="document">
     <div class="modal-content">
       <div class="modal-body text-center">
-        <h5>Bạn có chắc chắn muốn BAN hợp đồng</h5>
+        <div class="h5">Bạn có chắc chắn muốn BAN hợp đồng</div>
       </div>
       <div class="modal-footer justify-content-center ">
-        <a type="button" mdbBtn color="danger" class="waves-effect" (click)="onAccept()"   (click)="comfirmReject.hide()" mdbWavesEffect>
+        <a type="button" mat-stroked-button color="accent"  (click)="onAccept()"   (click)="comfirmReject.hide()"  >
           <i class="fas fa-check"></i>
         </a>
-        <a type="button" mdbBtn color="danger" outline="true" class="waves-effect" (click)="comfirmReject.hide()"
-          mdbWavesEffect><i class="fas fa-minus"></i></a>
+        <a type="button" mat-stroked-button color="accent"   (click)="comfirmReject.hide()"
+           ><i class="fas fa-minus"></i></a>
       </div>
     </div>
   </div>
@@ -115,13 +94,13 @@
   <div class="modal-dialog modal-notify modal-success modal-sm  text-center" role="document">
     <div class="modal-content">
       <div class="modal-body">
-        <h5>Bạn có chắc chắn muốn gỡ BAN hợp đồng</h5>
+        <div class="h5">Bạn có chắc chắn muốn gỡ BAN hợp đồng</div>
       </div>
       <div class="modal-footer justify-content-center ">
-        <a type="button" mdbBtn color="success" class="waves-effect" (click)="onAccept()" (click)="comfirmApprove.hide()"  mdbWavesEffect>
+        <a type="button" mat-stroked-button  color="primary"  (click)="onAccept()" (click)="comfirmApprove.hide()"   >
           <i class="fas fa-check"></i></a>
-        <a type="button" mdbBtn color="success" outline="true" class="waves-effect" (click)="comfirmApprove.hide()"
-          mdbWavesEffect><i class="fas fa-minus"></i></a>
+        <a type="button" mat-stroked-button  color="primary"   (click)="comfirmApprove.hide()"
+           ><i class="fas fa-minus"></i></a>
       </div>
     </div>
   </div>

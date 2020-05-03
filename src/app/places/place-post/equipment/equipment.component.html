@@ -1,23 +1,18 @@
-<mdb-card class="mb-3">
-  <mdb-card-header>
-    <div class="h3">Thông tin nội thất</div>
-  </mdb-card-header>
-  <mdb-card-body>
-    <!-- listEquip -->
-    <p class="text-danger">Thông tin yêu cầu</p>
+
+    <p class="red-text">Thông tin yêu cầu</p>
     <form [formGroup]="eqmTable">
-      <table mdbTable bordered="true" small="true">
+      <table class="table table-bordered table-sm">
         <thead class="text-nowrap">
-          <th scope="col">Tên<span class="text-danger">*</span></th>
-          <th scope="col">Số lượng<span class="text-danger">*</span></th>
-          <th scope="col">Giá trị(vnđ)<span class="text-danger">*</span></th>
+          <th scope="col">Tên<span class="red-text">*</span></th>
+          <th scope="col">Số lượng<span class="red-text">*</span></th>
+          <th scope="col">Giá trị(vnđ)<span class="red-text">*</span></th>
           <th scope="col">Độ mới(%)</th>
           <th scope="col">Mô tả</th>
           <th scope="col"></th>
         </thead> 
         <tbody>
           <ng-container formArrayName="tableRows" *ngFor="let group of getFormControls.controls ; let i=index">
-            <tr mdbTableCol *ngIf="group.get('isEditable').value" [formGroupName]="i">
+            <tr  *ngIf="group.get('isEditable').value" [formGroupName]="i">
               <td>
                 <input matInput type="text" id="name" class="form-control" formControlName="name">
                 <small class="red-text" *ngIf="sharedService.checkValidateInput(group.get('name'))">
@@ -50,9 +45,9 @@
                 </small>
               </td>
               <td>
-                <button mdbBtn class="btn-danger" size="sm" (click)="deleteRow(i)" mdbWavesEffect>Xóa</button>
-                <button mdbBtn class="btn-primary" size="sm" [disabled]="group.invalid" (click)="doneRow(group)"
-                  mdbWavesEffect>Lưu</button>
+                <button mat-flat-button  (click)="deleteRow(i)"  >Xóa</button>
+                <button mat-flat-button [disabled]="group.invalid" (click)="doneRow(group)"
+                   >Lưu</button>
               </td>
             </tr>
             <tr *ngIf="!group.get('isEditable').value">
@@ -72,17 +67,15 @@
                 {{group.get('equipmentDescrible').value}}
               </td>
               <td>
-                <button mdbBtn class="btn-warning" size="sm" (click)="editRow(group)" mdbWavesEffect>Sửa</button>
+                <button mat-flat-button  (click)="editRow(group)"  >Sửa</button>
               </td>
             </tr>
           </ng-container>
         </tbody>
       </table>
       <div class="action-container">
-        <button mdbBtn class="btn-success mx-auto" size="sm" [disabled]="eqmTable.invalid" (click)="addRow()"
-          mdbWavesEffect>Thêm</button>
+        <button mat-flat-button  [disabled]="eqmTable.invalid" (click)="addRow()"
+           >Thêm</button>
       </div>
     </form>
     <hr>
-  </mdb-card-body>
-</mdb-card>

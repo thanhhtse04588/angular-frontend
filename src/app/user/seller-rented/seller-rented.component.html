@@ -14,21 +14,21 @@
         </div>
 
         <div *ngFor="let item of posts">
-          <mdb-card *ngIf="isRented(item.statusID)" class="mb-3">
+          <div *ngIf="isRented(item.statusID)" class="card mb-3">
             <a (click)="sharedService.placeDetail(item.id)">
             <div class="row">
               <div class="col-md-5 view overlay zoom" >
                 <img [src]="item.imageLarge" style="height: 236px;" class="img-thumbnail" alt="zoom">
-                <div class="mask flex-center waves-effect waves-light">
+                <div class="mask flex-center   waves-light">
                   <p class="white-text">Xem</p>
                 </div>
               </div>
-              <mdb-card-body class="col-md-7">
+              <div class="card-body col-md-7">
                 <div class="row">
                   <div class="col-md-9" style="height: 130px;">
-                    <mdb-card-title>
-                     <h5>{{item.title}}</h5> 
-                    </mdb-card-title>
+                    <div class="card-title">
+                      <div class="h5">{{item.title}}</div> 
+                    </div>
                     <div>
                       <p><strong>Địa chỉ: </strong>{{item.address |slice:0:70}}</p>
                     </div>
@@ -38,10 +38,10 @@
                 </div>
                 <hr>
                 <span class="h5">Giá: {{item.price| number}} vnđ</span>
-              </mdb-card-body>
+              </div>
             </div>
           </a>
-          </mdb-card>
+          </div>
         </div>
       </div>
     </div>

@@ -20,33 +20,33 @@
           </select>
         </div>
         <div *ngFor="let item of posts">
-          <mdb-card *ngIf="isStatusShow(item.statusID)" class="mb-3">
+          <div *ngIf="isStatusShow(item.statusID)" class="card mb-3">
               <div class="row">
                 <div class="col-md-5 view overlay zoom" >
                   <a  (click)="sharedService.placeDetail(item.id)">
                   <img  [src]="item.imageLarge" style="height: 236px;" class="img-thumbnail" alt="zoom">
-                  <div class="mask flex-center waves-effect waves-light">
+                  <div class="mask flex-center   waves-light">
                     <p class="white-text">Xem</p>
                   </div>
                 </a>
                 </div>
-                <mdb-card-body class="col-md-7">
+                <div class="card-body col-md-7">
                   <div class="row">
                     <div class="col-md-9" style="height: 130px;">
-                      <mdb-card-title>
-                        <h5>{{item.title}}</h5>
-                      </mdb-card-title>
+                      <div class="card-title">
+                        <div class="h5">{{item.title | slice:0:70}}</div>
+                      </div>
                       <div>
                         <p><strong>Địa chỉ: </strong>{{item.address | slice:0:70}}</p>
-                        <p><strong>Ngày đăng: </strong> {{item.datePost | date:'shortDate' }}</p>
+                        <p><strong>Ngày đăng: </strong> {{item.datePost | date:'M/d/yyyy' }}</p>
                       </div>
                     </div>
                     <div class="col-md-3">
                       <button *ngIf="isCancelShow(item.statusID)" (click)="comfirmCancel.show()"
-                        (click)="placeID = item.id" style="width: 110px;" class=" float-right" size="sm" mdbBtn
-                        color="danger" mdbWavesEffect> Hủy </button>
+                        (click)="placeID = item.id" style="width: 110px;" class="float-right"  mat-stroked-button
+                        color="accent"  > Hủy </button>
                       <button *ngIf="isEditShow(item.statusID)" (click)="comfirmEdit.show()" (click)="placeID =item.id"
-                        style="width: 110px;" class=" float-right" size="sm" mdbBtn color="warning" mdbWavesEffect>Chỉnh
+                        style="width: 110px;" class="float-right"  mat-stroked-button color="warn"  >Chỉnh
                         sửa</button>
                     </div>
                   </div>
@@ -57,9 +57,9 @@
                     <mdb-badge [color]="statusColor(item.statusID)">{{item.status}}</mdb-badge>
                   </span>
 
-                </mdb-card-body>
+                </div>
               </div>
-          </mdb-card>
+          </div>
         </div>
       </div>
     </div>
@@ -71,13 +71,13 @@
     <div class="modal-dialog modal-notify modal-danger" role="document">
       <div class="modal-content">
         <div class="modal-body">
-          <h5>Bạn có chắc chắn muốn HỦY</h5>
+          <div class="h5">Bạn có chắc chắn muốn HỦY</div>
         </div>
         <div class="modal-footer">
-          <a type="button" mdbBtn color="danger" class="waves-effect" (click)="comfirmCancel.hide()" (click)="cancel()"
-            mdbWavesEffect>Đồng ý </a>
-          <a type="button" mdbBtn color="danger" outline="true" class="waves-effect" (click)="comfirmCancel.hide()"
-            mdbWavesEffect>Bỏ qua</a>
+          <a type="button" mat-stroked-button color="accent"  (click)="comfirmCancel.hide()" (click)="cancel()"
+             >Đồng ý </a>
+          <a type="button" mat-stroked-button color="accent"   (click)="comfirmCancel.hide()"
+             >Bỏ qua</a>
         </div>
       </div>
     </div>
@@ -89,13 +89,13 @@
     <div class="modal-dialog modal-notify modal-warning" role="document">
       <div class="modal-content">
         <div class="modal-body">
-          <h5>Bạn có chắc chắn muốn CHỈNH SỬA</h5>
+          <div class="h5">Bạn có chắc chắn muốn CHỈNH SỬA</div>
         </div>
         <div class="modal-footer justify-content-center">
-          <a type="button" mdbBtn color="warning" class="waves-effect" (click)="comfirmEdit.hide()" (click)="edit()"
-            mdbWavesEffect><i class="fas fa-check"></i> </a>
-          <a type="button" mdbBtn color="warning" outline="true" class="waves-effect" (click)="comfirmEdit.hide()"
-            mdbWavesEffect><i class="fas fa-minus"></i></a>
+          <a type="button" mat-stroked-button color="warn"  (click)="comfirmEdit.hide()" (click)="edit()"
+             ><i class="fas fa-check"></i> </a>
+          <a type="button" mat-stroked-button color="warn"   (click)="comfirmEdit.hide()"
+             ><i class="fas fa-minus"></i></a>
         </div>
       </div>
     </div>
