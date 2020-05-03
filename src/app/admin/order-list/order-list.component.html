@@ -1,11 +1,10 @@
 <div class="container-fluid mt-5">
-
-    <div class="text-center  h5"><strong>Danh sách Order </strong></div>
-    <mat-form-field class="w-100">
-      <mat-label>Lọc</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Đang chờ">
-    </mat-form-field>
       <div class="card">
+        <div class="card-header text-center  h5"><strong>Danh sách Order </strong></div>
+        <mat-form-field class="w-100">
+          <mat-label>Lọc</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Đang chờ">
+        </mat-form-field>
         <table mat-table matSort [dataSource]="dataSource" class="table-hover w-100">
 
           <ng-container matColumnDef="orderID">
