@@ -1,5 +1,5 @@
 
-import { SharedService } from './../../../shared/shared.service';
+import { SharedService } from '../../../shared/service/shared.service';
 import { FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 

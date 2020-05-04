@@ -1,11 +1,10 @@
+import { SharedModule } from './shared/shared.module';
 import { AngularMaterialModule } from './material-module';
-import { ThanTodayDirective } from './shared/directive/than-today.directive';
 import { ContractListComponent } from './admin/contract-list/contract-list.component';
 import { UploadTaskComponent } from './places/place-post/upload/upload-task/upload-task.component';
 import { DropzoneDirective } from './places/place-post/upload/dropzone.directive';
 import { EquipmentComponent } from './places/place-post/equipment/equipment.component';
 import { CostLivingComponent } from './places/place-post/cost-living/cost-living.component';
-import { PaypalButtonComponent } from './shared/paypal-button/paypal-button.component';
 import { RenterContractComponent } from './user/renter-contract/renter-contract.component';
 import { RenterOrderComponent } from './user/renter-order/renter-order.component';
 import { RenterMenuComponent } from './user/renter-menu/renter-menu.component';
@@ -26,7 +25,7 @@ import { NotFoundComponent } from './index/errors/404/not-found/not-found.compon
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, ErrorHandler } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -43,10 +42,9 @@ import { PlacePostComponent } from './places/place-post/place-post.component';
 import { GlobalErrorHandler } from './error_handler/global-error-handler';
 import { ServerErrorInterceptor } from './error_handler/server-error.interceptor';
 import { AgmCoreModule } from '@agm/core';
-
-/* Angular material */
 // MDBootstrap
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { ModalModule, CarouselModule } from 'angular-bootstrap-md';
+
 import { ErrorPageComponent } from './index/errors/error/error-page/error-page.component';
 import { SellerManageComponent } from './user/seller-manage/seller-manage.component';
 
@@ -58,32 +56,21 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { OrderComponent } from './places/place-detail/order/order.component';
 
-import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { CostOfLivingBillComponent } from './admin/cost-of-living-bill/cost-of-living-bill.component';
 import { RenterColBillComponent } from './user/renter-col-bill/renter-col-bill.component';
 import { SellerColBillComponent } from './user/seller-col-bill/seller-col-bill.component';
 
-import { BillStatusNamePipe } from './shared/pipes/bill-status-name.pipe';
-import { DeadlineBillPipe } from './shared/pipes/deadline-bill.pipe';
 import { PlaceQuickViewComponent } from './places/place-quick-view/place-quick-view.component';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { NavComponent } from './index/nav/nav.component';
-import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-
 
 
 @NgModule({
    declarations: [
       AppComponent,
       PlacesListComponent,
+      PlaceDetailComponent,
       FooterComponent,
       HeaderComponent,
-      PlaceDetailComponent,
       OrderComponent,
       SearchBarComponent,
       PlaceHomeComponent,
@@ -108,31 +95,27 @@ import { MatListModule } from '@angular/material/list';
       CheckingListComponent,
       ContractListComponent,
       OrderListComponent,
-      PaypalButtonComponent,
       DropzoneDirective,
       UploadTaskComponent,
-      ThanTodayDirective,
       CostOfLivingBillComponent,
       RenterColBillComponent,
       SellerColBillComponent,
-      BillStatusNamePipe,
-      DeadlineBillPipe,
       PlaceQuickViewComponent,
-      NavComponent,
-
   ],
   imports: [
+    SharedModule,
+
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule,
     BrowserAnimationsModule,
 
+    // 3rd parties
     AngularMaterialModule,
+    ModalModule.forRoot(),
+    CarouselModule,
 
-    MDBBootstrapModule.forRoot(),
-    NgbModule,
     AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebaseConfig, 'cloud'),
     AngularFireAuthModule,
@@ -140,12 +123,6 @@ import { MatListModule } from '@angular/material/list';
       apiKey: 'AIzaSyBHJYZBS-Vig1M-fizCBelDmmqymJ96tXM',
       libraries: ['places', 'geometry']
   }),
-    LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },

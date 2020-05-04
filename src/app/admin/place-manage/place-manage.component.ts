@@ -1,4 +1,4 @@
-import { SharedService } from './../../shared/shared.service';
+import { SharedService } from '../../shared/service/shared.service';
 import { UserService } from './../../user/service/user.service';
 import { PlaceStatus } from '../../shared/common';
 import { MatTableDataSource } from '@angular/material/table';

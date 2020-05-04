@@ -1,6 +1,6 @@
 import { RoleOfPlace, PlacePostForm } from './../../shared/model/place.model';
 import { DistrictDB, WardDB, StreetDB } from './../../shared/model/local.model';
-import { SharedService } from './../../shared/shared.service';
+import { SharedService } from '../../shared/service/shared.service';
 import { AuthGaurdService } from './../../index/service/auth-gaurd.service';
 import { UserService } from './../../user/service/user.service';
 import { EquipmentComponent } from './equipment/equipment.component';

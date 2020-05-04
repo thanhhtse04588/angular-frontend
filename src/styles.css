@@ -2,7 +2,10 @@
 textarea.ng-invalid.ng-touched,select.ng-invalid.ng-touched,input.ng-invalid.ng-touched{
     border-color: #dc3545!important;
 }
-html, body { height: 100%; }
+html, body { 
+    height: 100%;
+    /* word-break: break-all;  */
+}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
 .mat-stroked-button{
     margin: 5px !important;
@@ -11,4 +14,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
 .mat-header-cell {
 font-size: 14px  ;
 font-weight: bold;
+}
+
+th,td {
+    padding-left: 10px !important;
 }

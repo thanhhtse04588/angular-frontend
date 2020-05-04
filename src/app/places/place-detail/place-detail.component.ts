@@ -1,4 +1,4 @@
-import { SharedService } from './../../shared/shared.service';
+import { SharedService } from '../../shared/service/shared.service';
 import { PlaceDetail, EquipmentListForm, CostOfPlaceForm, CostUnitName } from './../../shared/model/place.model';
 import { AuthGaurdService } from './../../index/service/auth-gaurd.service';
 import { PlaceStatus, Common } from '../../shared/common';

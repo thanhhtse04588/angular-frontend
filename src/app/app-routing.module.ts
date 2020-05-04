@@ -25,7 +25,6 @@ import { NotFoundComponent } from './index/errors/404/not-found/not-found.compon
 import { PlacePostComponent } from './places/place-post/place-post.component';
 import { SellerManageComponent } from './user/seller-manage/seller-manage.component';
 import { OrderComponent } from './places/place-detail/order/order.component';
-import { NavComponent } from './index/nav/nav.component';
 
 
 const routes: Routes = [
@@ -79,7 +78,6 @@ const routes: Routes = [
       { path: 'cost-of-living-bill', component: CostOfLivingBillComponent, canActivate: [AuthAdminService] },
     ]
   },
-  { path: 'nav', component: NavComponent },
   { path: '**', component: NotFoundComponent },
 
 ];

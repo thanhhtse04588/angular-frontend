@@ -8,14 +8,20 @@
         <table mat-table class="table-hover w-100" matSort [dataSource]="dataSource">
 
           <ng-container matColumnDef="checkingID">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Chi tiết nhà</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Mã tin đăng</th>
+            <td mat-cell *matCellDef="let element">{{element.checkingID}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="checkingDetail">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Chi tiết tin đăng</th>
             <td mat-cell *matCellDef="let element">
               <a mat-button color="primary" (click)="sharedService.placeDetail(element.placeID)"  ><i class="fas fa-info"></i></a>
             </td>
           </ng-container>
           <ng-container matColumnDef="title">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Tiêu đề</th>
-            <td mat-cell *matCellDef="let element"><a (click)='sharedService.placeDetail(element.placeID)'>{{element.title}} </a> </td>
+            <td mat-cell *matCellDef="let element">{{element.title}}</td>
           </ng-container>
 
           <ng-container matColumnDef="dateTime">

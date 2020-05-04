@@ -1,5 +1,5 @@
 import { AuthenticationService } from './../../index/service/authentication.service';
-import { SharedService } from './../../shared/shared.service';
+import { SharedService } from '../../shared/service/shared.service';
 import { PlaceStatus } from '../../shared/common';
 
 import { Observable } from 'rxjs';

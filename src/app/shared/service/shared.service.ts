@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { PlaceStatusColor, CheckingStatusColor, OrderStatusColor, BillStatusColor, ContractStatusColor } from './common';
+import { PlaceStatusColor, CheckingStatusColor, OrderStatusColor, BillStatusColor, ContractStatusColor } from '../common';
 
 @Injectable({
   providedIn: 'root'

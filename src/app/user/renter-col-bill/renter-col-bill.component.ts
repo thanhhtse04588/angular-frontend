@@ -1,6 +1,6 @@
 import { Common } from './../../shared/common';
 
-import { SharedService } from './../../shared/shared.service';
+import { SharedService } from '../../shared/service/shared.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { BillStatus,_OBSERVER } from '../../shared/common';
 import { ModalDirective } from 'angular-bootstrap-md';
@@ -8,7 +8,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { AuthenticationService } from './../../index/service/authentication.service';
 import { COLBill } from 'src/app/shared/model/cost-of-living.model';
-import { CostOfLivingBillService } from './../../shared/cost-of-living-bill.service';
+import { CostOfLivingBillService } from '../../shared/service/cost-of-living-bill.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PayPaypal } from 'src/app/shared/model/payment.model';
 

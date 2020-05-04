@@ -1,5 +1,5 @@
 import { PlaceQuickView } from 'src/app/shared/model/place.model';
-import { SharedService } from './../../shared/shared.service';
+import { SharedService } from '../../shared/service/shared.service';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({

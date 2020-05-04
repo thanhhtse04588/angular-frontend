@@ -1,6 +1,6 @@
 import { thanToday } from 'src/app/shared/directive/than-today.directive';
 import { InsertedOrderForm } from './../../../shared/model/order.model';
-import { SharedService } from './../../../shared/shared.service';
+import { SharedService } from '../../../shared/service/shared.service';
 import { Common } from '../../../shared/common';
 import { AuthenticationService } from './../../../index/service/authentication.service';
 import { UserService } from './../../../user/service/user.service';

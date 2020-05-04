@@ -1,5 +1,5 @@
 import { CostUnitName } from './../../../shared/model/place.model';
-import { SharedService } from './../../../shared/shared.service';
+import { SharedService } from '../../../shared/service/shared.service';
 import { PlaceService } from './../../service/place.service';
 
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';

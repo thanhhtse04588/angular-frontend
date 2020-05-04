@@ -1,6 +1,6 @@
 import { MatTableDataSource } from '@angular/material/table';
 import { ContractStatus } from 'src/app/shared/common';
-import { SharedService } from './../../shared/shared.service';
+import { SharedService } from '../../shared/service/shared.service';
 import { UserService } from './../../user/service/user.service';
 import { AdminService } from './../admin.service';
 import { MatSort } from '@angular/material/sort';
@@ -13,7 +13,7 @@ import { Contract } from 'src/app/shared/model/contract.model';
   templateUrl: './contract-list.component.html',
 })
 export class ContractListComponent implements OnInit {
-  displayedColumns: string[] = ['placeID', 'contractID', 'ownerID',
+  displayedColumns: string[] = ['contractID','contractDetail', 'placeID', 'ownerID',
   'renterID', 'startDate', 'endDate', 'placeStatus', 'statusContract', 'void'];
   dataSource: any;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

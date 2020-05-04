@@ -1,4 +1,4 @@
-import { SharedService } from './../../shared/shared.service';
+import { SharedService } from '../../shared/service/shared.service';
 import { PlaceStatus, CheckingStatus } from '../../shared/common';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from './../admin.service';
@@ -14,7 +14,7 @@ import { Checking, UpdateCheckingStatus } from 'src/app/shared/model/checking.mo
 })
 export class CheckingListComponent implements OnInit, OnDestroy {
   private subs = new Subscription();
-  displayedColumns: string[] = ['checkingID', 'title', 'dateTime',
+  displayedColumns: string[] = ['checkingID','checkingDetail', 'title', 'dateTime',
     'phoneNumber', 'contactName', 'statusPlace', 'void'];
   dataSource: any;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

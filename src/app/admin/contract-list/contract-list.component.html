@@ -7,16 +7,24 @@
         </mat-form-field>
         <table mat-table matSort [dataSource]="dataSource" class="table-hover w-100">
 
+          <ng-container matColumnDef="contractID" >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Mã hợp đồng</th>
+            <td mat-cell *matCellDef="let element">
+            {{element.contractID}}
+            </td>
+          </ng-container>
+
+          
+          <ng-container matColumnDef="contractDetail">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Chi tiết hợp đồng</th>
+            <td mat-cell *matCellDef="let element"><a mat-button *ngIf='element.contractLink' [href]="element.contractLink" target="_blank"><i class="fas fa-warning"></i></a> </td>
+          </ng-container>
+
           <ng-container matColumnDef="placeID" >
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Chi tiết nhà</th>
             <td mat-cell *matCellDef="let element">
               <a type="button" color="primary" mat-button (click)="sharedService.placeDetail(element.placeID)"  ><i class="fas fa-info"></i></a>
             </td>
-          </ng-container>
-
-          <ng-container matColumnDef="contractID">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Chi tiết hợp đồng</th>
-            <td mat-cell *matCellDef="let element"><a ><i class="fas fa-warning"></i></a> </td>
           </ng-container>
 
           <ng-container matColumnDef="ownerID">

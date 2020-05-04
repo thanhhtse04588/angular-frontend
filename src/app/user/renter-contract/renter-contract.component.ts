@@ -2,7 +2,7 @@ import { UpdateOrderStatus } from './../../shared/model/order.model';
 import { AuthenticationService } from './../../index/service/authentication.service';
 import { AdminService } from './../../admin/admin.service';
 import { Common, PlaceStatus, OrderStatus } from '../../shared/common';
-import { SharedService } from './../../shared/shared.service';
+import { SharedService } from '../../shared/service/shared.service';
 import { UserService } from './../service/user.service';
 import { Observable, Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';

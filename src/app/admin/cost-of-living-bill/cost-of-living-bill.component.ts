@@ -3,9 +3,9 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { BillStatus } from '../../shared/common';
 import { COLBillDetail } from '../../shared/model/cost-of-living.model';
 import { ModalDirective } from 'angular-bootstrap-md';
-import { CostOfLivingBillService } from './../../shared/cost-of-living-bill.service';
+import { CostOfLivingBillService } from '../../shared/service/cost-of-living-bill.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { SharedService } from './../../shared/shared.service';
+import { SharedService } from '../../shared/service/shared.service';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -19,7 +19,7 @@ import { forkJoin } from 'rxjs';
 export class CostOfLivingBillComponent implements OnInit {
   @ViewChild('fillFormModal', { static: true }) fillFormModal: ModalDirective;
   bill: COLBill;
-  displayedColumns: string[] = ['colId', 'renterId', 'ownerID', 'dateCollect',
+  displayedColumns: string[] = ['colId','colDetail', 'renterId', 'ownerID', 'dateCollect',
     'deadLineStatus', 'totalExpense', 'paymentStatusName', 'void'];
   dataSource: any;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

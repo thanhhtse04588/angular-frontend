@@ -3,7 +3,7 @@ import { AgmInfoWindow } from '@agm/core';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Common } from '../../shared/common';
 import { SearchBarService } from './../../index/service/search-bar.service';
-import { SharedService } from './../../shared/shared.service';
+import { SharedService } from '../../shared/service/shared.service';
 import { PlaceQuickView } from 'src/app/shared/model/place.model';
 declare var $: any;
 
