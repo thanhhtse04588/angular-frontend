@@ -1,3 +1,6 @@
+import { UserListComponent } from './admin/user-list/user-list.component';
+import { RenterPaymentComponent } from './user/renter-payment/renter-payment.component';
+import { PaymentListComponent } from './admin/payment-list/payment-list.component';
 import { SellerColBillComponent } from './user/seller-col-bill/seller-col-bill.component';
 import { RenterColBillComponent } from './user/renter-col-bill/renter-col-bill.component';
 import { CostOfLivingBillComponent } from './admin/cost-of-living-bill/cost-of-living-bill.component';
@@ -61,6 +64,7 @@ const routes: Routes = [
           { path: 'order', component: RenterOrderComponent, canActivate: [AuthGaurdService] },
           { path: 'contract', component: RenterContractComponent, canActivate: [AuthGaurdService] },
           { path: 'bill', component: RenterColBillComponent, canActivate: [AuthGaurdService] },
+          { path: 'payment', component: RenterPaymentComponent, canActivate: [AuthGaurdService] },
         ]
       }
     ]
@@ -76,6 +80,8 @@ const routes: Routes = [
       { path: 'place-manage', component: PlaceManageComponent, canActivate: [AuthAdminService] },
       { path: 'contract-list', component: ContractListComponent, canActivate: [AuthAdminService] },
       { path: 'cost-of-living-bill', component: CostOfLivingBillComponent, canActivate: [AuthAdminService] },
+      { path: 'payment-list', component: PaymentListComponent, canActivate: [AuthAdminService] },
+      { path: 'user-list', component: UserListComponent, canActivate: [AuthAdminService] },
     ]
   },
   { path: '**', component: NotFoundComponent },

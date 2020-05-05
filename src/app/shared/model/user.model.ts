@@ -8,6 +8,22 @@ export interface User {
   statusID: number;
 }
 
+export interface UserProfile {
+  userID: number;
+  userName: string;
+  roleName: string;
+  statusID: number;
+  statusName: string;
+  name: string;
+  gender: string;
+  dob: string;
+  address: string;
+  phoneNumber: string;
+  email: string;
+  avatarLink: string;
+  bankAccount: string;
+}
+
 export interface UserDetail {
   userID: number;
   name: string;

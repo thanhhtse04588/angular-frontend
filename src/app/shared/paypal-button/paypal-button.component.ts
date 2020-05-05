@@ -1,4 +1,4 @@
-import { Common } from '../common';
+
 import { AuthenticationService } from './../../index/service/authentication.service';
 import { PaymentService } from './../../places/service/payment.service';
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
@@ -59,7 +59,10 @@ export class PaypalButtonComponent implements OnInit {
             description: this.pay.description,
             money: this.pay.price,
           };
-          this.paymentService.completePayment(payment).subscribe();
+          this.paymentService.completePayment(payment).subscribe(
+            data=> console.log(data)
+            
+          );
         },
         onError: err => {
           alert('Có lỗi!,Thanh tóan Paypal thất bại!');

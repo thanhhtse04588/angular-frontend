@@ -1,6 +1,6 @@
 <!-- Navbar -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
-    <div class="container">
+    <div class="container-fluid">
 
         <!-- Brand -->
         <a class="navbar-brand  " routerLink="/places/home">
@@ -27,27 +27,28 @@
                 </li>
                 <li class="nav-item dropdown">
 
-                    <a class="nav-link dropdown-toggle" href="#" id="sellerMenu" role="button" data-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle" id="sellerMenu" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         Kênh cho thuê
                     </a>
                     <div class="dropdown-menu" aria-labelledby="sellerMenu">
-                        <a routerLink="/user/seller/post" class="dropdown-item" href="#">Đăng tin</a>
-                        <a routerLink="/user/seller/post-manage" class="dropdown-item" href="#">Tin đã đăng</a>
-                        <a routerLink="/user/seller/rented" class="dropdown-item" href="#">Nhà cho thuê</a>
+                        <a routerLink="/user/seller/post" class="dropdown-item">Đăng tin</a>
+                        <a routerLink="/user/seller/post-manage" class="dropdown-item">Tin đã đăng</a>
+                        <a routerLink="/user/seller/rented" class="dropdown-item">Nhà cho thuê</a>
                     </div>
 
                 </li>
                 <li class="nav-item dropdown">
 
-                    <a class="nav-link dropdown-toggle" href="#" id="renterMenu" role="button" data-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle" id="renterMenu" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         Kênh thuê nhà
                     </a>
                     <div class="dropdown-menu" aria-labelledby="renterMenu">
-                        <a routerLink="/user/renter/order" class="dropdown-item" href="#">Lịch xem nhà</a>
-                        <a routerLink="/user/renter/contract" class="dropdown-item" href="#">Hợp đồng thuê nhà</a>
-                        <a routerLink="/user/renter/bill" class="dropdown-item" href="#">Chi phí hằng tháng</a>
+                        <a routerLink="/user/renter/order" class="dropdown-item">Lịch xem nhà</a>
+                        <a routerLink="/user/renter/contract" class="dropdown-item">Hợp đồng thuê nhà</a>
+                        <a routerLink="/user/renter/bill" class="dropdown-item">Chi phí hằng tháng</a>
+                        <a routerLink="/user/renter/payment" class="dropdown-item">Lịch sử thanh toán</a>
                     </div>
 
                 </li>
@@ -66,24 +67,23 @@
                     </li>
                 </ng-template>
                 <ng-container *ngIf="!loginService.isUserLoggedIn();else logOut">
-                    <li class="nav-item">
-                        <a class="nav-link  " data-toggle="modal" data-target="#frameSignin"
+                    <li class="nav-item mx-2">
+                        <a class="nav-link  " mat-raised-button data-toggle="modal" data-target="#frameSignin"
                             (click)="frameSignin.show()">
                             Đăng ký
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  " data-toggle="modal" data-target="#frameLogin" (click)="frameLogin.show()">
+                        <a class="nav-link  " mat-raised-button data-toggle="modal" data-target="#frameLogin"
+                            (click)="frameLogin.show()">
                             Đăng nhập
                         </a>
                     </li>
                 </ng-container>
                 <ng-template #logOut>
                     <li class="nav-item">
-                        <a class="nav-link">
-                            <small>Xin chào </small><span
-                                class="font-weight-bolder blue-text">{{loginService.currentUserValue.userName | slice:0:10}}</span>
-                        </a>
+                        <a class="nav-link mx-2" mat-raised-button (click)="userService.openUserProfile(loginService.currentUserValue.userID)">
+                            <i class="fas fa-user"></i></a>
                     </li>
 
                     <li class="nav-item">

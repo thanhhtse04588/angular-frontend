@@ -2,77 +2,7 @@
   <header>
 
     <!-- Navbar -->
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
-      <div class="container-fluid">
-
-        <!-- Brand -->
-        <a class="navbar-brand  ">
-          <strong class="blue-text">Admin</strong>
-        </a>
-
-        <!-- Collapse -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- Links -->
-        <div class="collapse navbar-collapse font-weight-bolder" id="navbarSupportedContent">
-
-            <!-- Left -->
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item" routerLink="/places/home" routerLinkActive="active">
-                  <a class="nav-link  ">Trang chủ
-                      <span class="sr-only">(current)</span>
-                  </a>
-              </li>
-              <li class="nav-item dropdown">
-
-                  <a class="nav-link dropdown-toggle" href="#" id="sellerMenu" role="button" data-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">
-                      Kênh cho thuê
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="sellerMenu">
-                      <a routerLink="/user/seller/post" class="dropdown-item" href="#">Đăng tin</a>
-                      <a routerLink="/user/seller/post-manage" class="dropdown-item" href="#">Tin đã đăng</a>
-                      <a routerLink="/user/seller/rented" class="dropdown-item" href="#">Nhà cho thuê</a>
-                  </div>
-
-              </li>
-              <li class="nav-item dropdown">
-
-                  <a class="nav-link dropdown-toggle" href="#" id="renterMenu" role="button" data-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">
-                      Kênh thuê nhà
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="renterMenu">
-                      <a routerLink="/user/renter/order" class="dropdown-item" href="#">Lịch xem nhà</a>
-                      <a routerLink="/user/renter/contract" class="dropdown-item" href="#">Hợp đồng thuê nhà</a>
-                      <a routerLink="/user/renter/bill" class="dropdown-item" href="#">Chi phí hằng tháng</a>
-                  </div>
-
-              </li>
-          </ul>
-
-          <!-- Right -->
-          <ul class="navbar-nav nav-flex-icons">
-                  <li class="nav-item">
-                      <a class="nav-link">
-                       <small>Xin chào </small><span class="font-weight-bolder blue-text">{{loginService.currentUserValue.userName | slice:0:10}}</span>
-                      </a>
-                  </li>
-
-                  <li class="nav-item">
-                      <a class="nav-link border border-light rounded  " (click)="loginService.logOut()">
-                          <i class="fas fa-sign-out-alt"></i>
-                      </a>
-                  </li>
-          </ul>
-
-      </div>
-
-      </div>
-    </nav>
+    <app-header></app-header>
     <!-- Navbar -->
 
     <!-- Sidebar -->
@@ -88,7 +18,7 @@
 
         <a [routerLink]="['checking-list']" routerLinkActive="active"
           class="list-group-item list-group-item-action  ">
-          <i class="fas fa-user mr-3"></i>Yêu cầu đăng tin</a>
+          <i class="fas fa-file-upload mr-3"></i>Yêu cầu đăng tin</a>
 
         <a [routerLink]="['order-list']" routerLinkActive="active"
           class="list-group-item list-group-item-action  ">
@@ -101,9 +31,18 @@
           <a [routerLink]="['contract-list']" routerLinkActive="active"
           class="list-group-item list-group-item-action  ">
           <i class="fas fa-file-contract mr-3" ></i>Danh sách hợp đồng</a>
+
           <a [routerLink]="['cost-of-living-bill']" routerLinkActive="active"
           class="list-group-item list-group-item-action  ">
-          <i class="fas fa-file-contract mr-3"></i>Hóa đơn dịch vụ</a>
+          <i class="fas fa-dollar-sign mr-3"></i>Hóa đơn dịch vụ</a>
+
+          <a [routerLink]="['payment-list']" routerLinkActive="active"
+          class="list-group-item list-group-item-action  ">
+          <i class="fab fa-cc-paypal mr-3"></i>Lịch sử thanh toán</a>
+          
+          <a [routerLink]="['user-list']" routerLinkActive="active"
+          class="list-group-item list-group-item-action  ">
+          <i class="fas fa-users mr-3"></i>Quản lý người dùng</a>
 
       </div>
     </div>

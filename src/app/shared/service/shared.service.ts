@@ -17,6 +17,7 @@ checkValidateInput(formControlName) {
   return formControlName.invalid && (formControlName.dirty || formControlName.touched);
 }
 
+
 placeStatusColor(status: number){
   return PlaceStatusColor[status];
 }

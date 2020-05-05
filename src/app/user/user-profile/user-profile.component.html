@@ -1,0 +1,77 @@
+<h1 mat-dialog-title>Thông tin cá nhân</h1>
+<div mat-dialog-content *ngIf="user">
+    <mat-tab-group>
+        <mat-tab label="Thông tin">
+            <mat-card>
+                <mat-card-header>
+                    <div mat-card-avatar style="background-size: cover;background-image: url('{{user.avatarLink}}')">
+                    </div>
+                    <mat-card-title>
+                        {{user.name}}
+                    </mat-card-title>
+                    <mat-card-subtitle>
+                        {{user.statusName}}
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-list>
+                        <mat-list-item><strong>Giới tính</strong> : {{user.gender}} </mat-list-item>
+                        <mat-list-item><strong>Địa chỉ</strong> : {{user.address}}</mat-list-item>
+                        <mat-list-item><strong>Số điện thoại</strong>: {{user.phoneNumber}}</mat-list-item>
+                        <mat-list-item><strong>Email</strong>: {{user.email}}</mat-list-item>
+                        <mat-list-item><strong>Ngày sinh</strong>: {{user.dob}}</mat-list-item>
+                        <mat-list-item><strong>Tài khoản ngân hàng</strong>: {{user.bankAccount}}</mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+        </mat-tab>
+
+        <mat-tab label="Cập nhật">
+            <form [formGroup]="profileForm">
+                <mat-form-field class="mb-3" appearance="standard">
+                    <mat-label>Tên</mat-label>
+                    <input matInput type="text" formControlName="name">
+                </mat-form-field>
+                <mat-form-field class="mb-3" appearance="standard">
+                    <mat-label>Giới tính</mat-label>
+                    <mat-select formControlName="gender">
+                        <mat-option value="Nam">Nam</mat-option>
+                        <mat-option value="Nữ">Nữ</mat-option>
+                        <mat-option value="Khác">Khác</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="mb-3" appearance="standard">
+                    <mat-label>Ngày sinh</mat-label>
+                    <input matInput type="date" formControlName="dob">
+                </mat-form-field>
+                <mat-form-field class="mb-3" appearance="standard">
+                    <mat-label>Địa chỉ</mat-label>
+                    <input matInput type="text" formControlName="address">
+                </mat-form-field>
+                <mat-form-field class="mb-3" appearance="standard">
+                    <mat-label>Số điện thoại</mat-label>
+                    <input matInput type="text" formControlName="phoneNumber">
+                </mat-form-field>
+                <mat-form-field class="mb-3" appearance="standard">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="email" formControlName="email">
+                </mat-form-field>
+                <mat-form-field class="mb-3" style="width: 95%;" appearance="standard">
+                    <mat-label>Tài khoản ngân hàng</mat-label>
+                    <input matInput type="number" formControlName="bankAccount">
+                </mat-form-field>
+                <div class="mb-4">
+                    <button mat-stroked-button type="button" (click)="upload.click()" color="primary">
+                        Ảnh đại diện<input type="file" class="form-control" formControlName="avatarLink"
+                            autocomplete="off" style="display:none;" (change)="onFileSelected($event)" #upload />
+                    </button>
+                    <small>{{fileName}}</small>
+                </div>
+                <button type="button" [disabled]="!uploaded" [mat-dialog-close]="profileForm.value" cdkFocusInitial class="btn-block" mat-raised-button color="warn">Cập nhật</button>
+            </form>
+        </mat-tab>
+    </mat-tab-group>
+</div>
+<div mat-dialog-actions>
+    <button mat-button class="btn-block" (click)="onNoClick()">Đóng</button>
+</div>

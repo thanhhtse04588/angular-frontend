@@ -21,26 +21,37 @@
                 <div class="row">
                   <div class="col">
                     <p><strong>Mã hợp đồng: </strong>{{contract.contractID}}</p>
-                    <p><strong>Chủ nhà: </strong>{{contract.ownerID}}</p>
-                    <p><strong>Người thuê: </strong>{{contract.renterID}}</p>
+                    <p><strong>Chủ nhà: </strong> 
+                      <a mat-button color="primary" (click)="userService.openUserProfileDialog(contract.ownerID)"><i class="fas fa-info"></i></a>
+                    </p>
+                    <p><strong>Người thuê: </strong>
+                      <a mat-button color="primary" (click)="userService.openUserProfileDialog(contract.renterID)"><i class="fas fa-info"></i></a>
+                    </p>
                   </div>
                   <div class="col">
                     <p><strong>Ngày bắt đầu: </strong>{{contract.startDate | date:'M/d/yyyy' }}</p>
                     <p><strong>Ngày kết thúc: </strong>{{contract.endDate | date:'M/d/yyyy' }}</p>
-                    <p><strong>Số tiền đặt cọc: </strong>{{contract.fee | number}}<small>VND</small>/{{vndToUsd(contract.fee) | number}}<small>USD</small></p>
+                    <p><strong>Số tiền đặt cọc:
+                      </strong>{{contract.fee | number}}<small>VND</small>/{{vndToUsd(contract.fee) | number}}<small>USD</small>
+                    </p>
                   </div>
                   <div class="col">
                     <p><strong>Thông tin nhà: </strong>
-                      <a mat-button color="primary" (click)="sharedService.placeDetail(contract.placeID)">Xem</a>
+                      <a mat-button color="primary" (click)="sharedService.placeDetail(contract.placeID)"><i class="fas fa-info"></i></a>
                     </p>
-                    <div><strong>Trạng thái nhà: </strong><div [ngClass]="'text-'+ sharedService.placeStatusColor(contract.placeStatusID)">{{contract.placeStatus}}</div></div>
+                    <div><strong>Trạng thái nhà: </strong>
+                      <div [ngClass]="'text-'+ sharedService.placeStatusColor(contract.placeStatusID)">
+                        {{contract.placeStatus}}</div>
+                    </div>
 
                   </div>
                 </div>
-                  <app-paypal-button *ngIf="isContractPending(contract.contractStatusID) && isPlaceActive(contract.placeStatusID)" [pay]='getPay(contract)'
-                    (payResult)='getPayResult($event)'></app-paypal-button>
+                <app-paypal-button
+                  *ngIf="isContractPending(contract.contractStatusID) && isPlaceActive(contract.placeStatusID)"
+                  [pay]='getPay(contract)' (payResult)='getPayResult($event)'></app-paypal-button>
                 <span class="float-right h5 pr-2">
-                  <span [ngClass]="'badge badge-'+sharedService.contractStatusColor(contract.contractStatusID)">{{contract.statusContract}}
+                  <span
+                    [ngClass]="'badge badge-'+sharedService.contractStatusColor(contract.contractStatusID)">{{contract.statusContract}}
                   </span>
                 </span>
               </div>

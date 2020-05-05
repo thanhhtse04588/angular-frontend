@@ -113,3 +113,8 @@ export enum IsUseService {
   NO,
   YES
 }
+
+export enum UserStatus {
+  DEACTIVE,
+  ACTIVE
+}

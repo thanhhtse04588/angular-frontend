@@ -1,3 +1,4 @@
+
 import { SharedModule } from './shared/shared.module';
 import { AngularMaterialModule } from './material-module';
 import { ContractListComponent } from './admin/contract-list/contract-list.component';
@@ -9,12 +10,10 @@ import { RenterContractComponent } from './user/renter-contract/renter-contract.
 import { RenterOrderComponent } from './user/renter-order/renter-order.component';
 import { RenterMenuComponent } from './user/renter-menu/renter-menu.component';
 import { PlaceManageComponent } from './admin/place-manage/place-manage.component';
-
 import { UploadComponent } from './places/place-post/upload/upload.component';
 import { SellerRentedComponent } from './user/seller-rented/seller-rented.component';
 import { OrderListComponent } from './admin/order-list/order-list.component';
 import { CheckingListComponent } from './admin/checking-list/checking-list.component';
-
 import { UserComponent } from './user/user.component';
 import { PlacesComponent } from './places/places.component';
 import { AdminComponent } from './admin/admin.component';
@@ -26,7 +25,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, ErrorHandler } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PlacesListComponent } from './places/places-list/places-list.component';
@@ -36,8 +34,6 @@ import { PlaceDetailComponent } from './places/place-detail/place-detail.compone
 import { SearchBarComponent } from './index/search-bar/search-bar.component';
 import { PlaceHomeComponent } from './places/place-home/place-home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-
 import { PlacePostComponent } from './places/place-post/place-post.component';
 import { GlobalErrorHandler } from './error_handler/global-error-handler';
 import { ServerErrorInterceptor } from './error_handler/server-error.interceptor';
@@ -62,6 +58,11 @@ import { SellerColBillComponent } from './user/seller-col-bill/seller-col-bill.c
 
 import { PlaceQuickViewComponent } from './places/place-quick-view/place-quick-view.component';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { PaymentListComponent } from './admin/payment-list/payment-list.component';
+import { RenterPaymentComponent } from './user/renter-payment/renter-payment.component';
+import { UserListComponent } from './admin/user-list/user-list.component';
+import { UserProfileDialogComponent } from './user/user-profile-dialog/user-profile-dialog.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 
 @NgModule({
@@ -101,6 +102,14 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
       RenterColBillComponent,
       SellerColBillComponent,
       PlaceQuickViewComponent,
+      PaymentListComponent,
+      RenterPaymentComponent,
+      UserListComponent,
+      UserProfileDialogComponent,
+      UserProfileComponent,
+  ],
+  entryComponents: [
+    UserProfileDialogComponent
   ],
   imports: [
     SharedModule,

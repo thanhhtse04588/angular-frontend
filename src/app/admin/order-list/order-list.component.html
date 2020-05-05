@@ -78,7 +78,7 @@
           <tr  mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr  mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-        <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+        <mat-paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>
       </div>
     </div>
 
@@ -137,9 +137,7 @@
             Tải lên hợp đồng bản mềm<input type="file" class="form-control" formControlName="contractLink" autocomplete="off" style="display:none;"
               (change)="onFileSelected($event)" #upload/>
           </button>
-          <small class="red-text" *ngIf="sharedService.checkValidateInput(contractLink)">
-            Không hợp lệ
-          </small>
+          <small class="d-block" [ngClass]="{'red-text':!fileName}">{{fileName? fileName: "Yêu cầu tải lên hợp đồng bản mềm."}}</small>
           </div>
           <div class="mb-4">
             <label> Thời gian thuê từ ngày<span class="red-text">*</span>: </label>
@@ -164,8 +162,8 @@
               Không hợp lệ
             </small>
           </div>
-          <div class="mb-3 mx-3">
-            <mdb-checkbox [default]="false" formControlName="isUseService"><strong>Sử dụng dịch vụ</strong>(<small>Thanh toán phí dịch vụ hằng tháng, dịch vụ báo hỏng...</small>)</mdb-checkbox>
+          <div class="mb-3">
+            <mat-checkbox [default]="false" formControlName="isUseService">Sử dụng dịch vụ(<small>Thanh toán phí dịch vụ hằng tháng qua hệ thống...</small>)</mat-checkbox >
           </div>
         <div>
           <button  mat-raised-button color="warn" class="btn-block mt-5 mb-4" type="submit"  [disabled]="formContract.invalid || isSubmit"(click)="dealForm.hide()" >

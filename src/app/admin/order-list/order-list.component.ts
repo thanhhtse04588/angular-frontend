@@ -31,6 +31,7 @@ export class OrderListComponent implements OnInit {
   orderList: any;
   item: Order;
   link: string;
+  fileName: string;
   // send Deal
   formContract: FormGroup;
   constructor(private adminService: AdminService, public sharedService: SharedService, private storage: AngularFireStorage) {
@@ -123,8 +124,11 @@ export class OrderListComponent implements OnInit {
   }
   
   onFileSelected(event) {
+    console.log(event);
+    
     const n = Date.now();
     const file = event.target.files[0];
+    this.fileName = file.name;
     const filePath = `contracts/${n}`;
     const fileRef = this.storage.ref(filePath);
     const task = this.storage.upload(`contracts/${n}`, file);

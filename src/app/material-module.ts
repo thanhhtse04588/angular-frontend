@@ -99,6 +99,12 @@ exports: [
   MatPaginatorModule,
   MatFormFieldModule,
   MatInputModule,
+  MatCheckboxModule,
+  MatDialogModule,
+  MatCardModule,
+  MatListModule,
+  MatSelectModule
+
 ]
 })
 export class AngularMaterialModule {}

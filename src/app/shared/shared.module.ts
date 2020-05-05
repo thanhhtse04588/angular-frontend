@@ -13,12 +13,13 @@ import { CommonModule } from '@angular/common';
         PaypalButtonComponent,
         BillStatusNamePipe,
         DeadlineBillPipe,
-        CommonModule, 
-        FormsModule],
+        CommonModule,
+        FormsModule,],
     declarations: [
         ThanTodayDirective,
         PaypalButtonComponent,
         BillStatusNamePipe,
-        DeadlineBillPipe],
+        DeadlineBillPipe,
+        ],
 })
 export class SharedModule { }

@@ -1,3 +1,4 @@
+import { UserService } from './../../user/service/user.service';
 import { UserLogin } from '../../shared/model/user.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthenticationService } from '../service/authentication.service';
@@ -9,6 +10,7 @@ import { AuthGaurdService } from '../service/auth-gaurd.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
+  styles: [".sidebar-fixed{height:100vh;width:270px;-webkit-box-shadow:0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);box-shadow:0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);z-index:1050;background-color:#fff;padding:0 1.5rem 1.5rem}.sidebar-fixed .list-group .active{-webkit-box-shadow:0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);box-shadow:0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);-webkit-border-radius:5px;border-radius:5px}.sidebar-fixed .logo-wrapper{padding:2.5rem}.sidebar-fixed .logo-wrapper img{max-height:50px}@media (min-width:1200px){.navbar,.page-footer,main{padding-left:270px}}@media (max-width:1199.98px){.sidebar-fixed{display:none}}"]
 })
 export class HeaderComponent implements OnInit {
   @ViewChild('frameLogin', { static: true }) frameLogin: ModalDirective;
@@ -20,7 +22,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private router: Router, public loginService: AuthenticationService, private registerService: AuthenticationService,
-    private authGaurdService: AuthGaurdService) { }
+    private authGaurdService: AuthGaurdService, public userService: UserService) { }
 
   ngOnInit(): void {
     this.authGaurdService.setModal(this.frameLogin);

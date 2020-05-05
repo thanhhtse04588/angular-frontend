@@ -18,7 +18,7 @@ export class RenterContractComponent implements OnInit, OnDestroy {
   private subs = new Subscription();
   contracts: Observable<Contract>;
   constructor(
-    private userService: UserService, public sharedService: SharedService,
+    public userService: UserService, public sharedService: SharedService,
     private adminService: AdminService, public loginService: AuthenticationService ) { }
   ngOnInit() {
     this.reload();

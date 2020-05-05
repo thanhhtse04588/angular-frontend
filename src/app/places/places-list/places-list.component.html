@@ -72,7 +72,7 @@
           <!--Arrow left-->
           <li class="page-item" [ngClass]="{disabled:paging.currentPage === 0}">
             <a class="page-link" (click)="gotoPage(paging.currentPage - 1)" aria-label="Previous">
-              Previous
+              Trang trước
             </a>
           </li>
 
@@ -84,7 +84,7 @@
 
           <li class="page-item" [ngClass]="{disabled:paging.currentPage === paging.pages-1}">
             <a class="page-link" (click)="gotoPage(paging.currentPage + 1)" aria-label="Next">
-              Next
+              Trang sau
             </a>
           </li>
         </ul>
