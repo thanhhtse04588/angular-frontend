@@ -67,7 +67,7 @@
                     </button>
                     <small>{{fileName}}</small>
                 </div>
-                <button type="button" [disabled]="!uploaded" [mat-dialog-close]="profileForm.value" cdkFocusInitial class="btn-block" mat-raised-button color="warn">Cập nhật</button>
+                <button type="button" [disabled]="!uploaded || profileForm.invalid" [mat-dialog-close]="profileForm.value" cdkFocusInitial class="btn-block" mat-raised-button color="warn">Cập nhật</button>
             </form>
         </mat-tab>
     </mat-tab-group>
