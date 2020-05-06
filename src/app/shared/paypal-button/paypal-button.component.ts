@@ -45,7 +45,7 @@ export class PaypalButtonComponent implements OnInit {
         },
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
-          this.sharedService.loggerDialog(true);
+          this.sharedService.loggerDialog(true,'Thanh toán paypal thành công');
           this.pay.payFor = true;
           this.payResult.emit(this.pay);
 
@@ -60,10 +60,7 @@ export class PaypalButtonComponent implements OnInit {
             description: this.pay.description,
             money: this.pay.price,
           };
-          this.paymentService.completePayment(payment).subscribe(
-            data=> console.log(data)
-            
-          );
+          this.paymentService.completePayment(payment).subscribe();
         },
         onError: err => {
       this.sharedService.loggerDialog(false,'Có lỗi!,Thanh tóan Paypal thất bại!')

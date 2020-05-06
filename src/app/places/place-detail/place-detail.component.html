@@ -24,7 +24,7 @@
           </div>
           <div class="mx-auto ">
             <div *ngIf="isActive(place.statusPlaceID);else statusPlace">
-              <button mat-raised-button [routerLink]="['/places/order']" [disabled]="!loginService.isUserLoggedIn()" color="primary"
+              <button mat-raised-button (click)="openDialog()" [disabled]="!loginService.isUserLoggedIn()" color="primary"
                 class="my-2 btn-lg"  >
                 Đặt lịch xem nhà
               </button>

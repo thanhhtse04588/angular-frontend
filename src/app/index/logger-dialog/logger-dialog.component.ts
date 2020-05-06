@@ -18,9 +18,5 @@ export class LoggerDialogComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
 
 }

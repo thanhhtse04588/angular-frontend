@@ -3,7 +3,7 @@ export enum Common {
   urlBase = 'http://localhost:8080',
   FAKESERVER = 'http://localhost:3000',
   roleAdmin = 1,
-  PRICEORDER = 50,
+  PRICEORDER = 25,
   FEE = 2, // x2 PlacePrice
   ZOOM = 17,
   USDtoVND = 23442,

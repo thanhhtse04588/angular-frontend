@@ -6,8 +6,9 @@ import { AuthenticationService } from './../../../index/service/authentication.s
 import { UserService } from './../../../user/service/user.service';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
-import { ElementRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ElementRef, Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { PayPaypal, Payment } from 'src/app/shared/model/payment.model';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-order',
@@ -23,12 +24,14 @@ export class OrderComponent implements OnInit {
     price: Common.PRICEORDER.valueOf(),
     description: 'Đặt cọc tiền giữ nhà',
     payFor: false,
-    placeID: +sessionStorage.getItem('placeID')
+    placeID: this.placeID
   };
   payment: Payment;
   minDate: string;
   maxDate: string;
   constructor(
+    public dialogRef: MatDialogRef<OrderComponent>,
+    @Inject(MAT_DIALOG_DATA) public placeID: number,
     private userService: UserService, public loginService: AuthenticationService,
     private location: Location, public sharedService: SharedService) { }
 
@@ -37,6 +40,11 @@ export class OrderComponent implements OnInit {
   }
   payResult(event: PayPaypal) {
     this.payFor = event.payFor;
+  }
+
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
   // Liên hệ ngay
@@ -55,7 +63,7 @@ export class OrderComponent implements OnInit {
     let orderForm: InsertedOrderForm;
     orderForm = {
       ordererID: this.loginService.currentUserValue.userID,
-      placeID: +sessionStorage.getItem('placeID'),
+      placeID: this.placeID,
       name: this.name.value,
       phoneNumber: this.phoneNumber.value,
       email: this.email.value,
@@ -66,12 +74,14 @@ export class OrderComponent implements OnInit {
     this.userService.insertOrder(orderForm).subscribe(
       data => {
         if (data) {
-          this.sharedService.loggerDialog(true,'Liên hệ thành công , chúng tôi sẽ phản hổi sớm.');
+          this.sharedService.loggerDialog(true,'Liên hệ thành công , chúng tôi sẽ phản hồi sớm.');
         } else {
           this.sharedService.loggerDialog(false,'Mặt hàng không còn tồn tại');
         }
       }, (error) => this.sharedService.loggerDialog(false),
-      () => this.location.back()
+      () => {
+        this.dialogRef.close()
+      }
     );
   }
 

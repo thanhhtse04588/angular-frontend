@@ -1,3 +1,4 @@
+import { OrderComponent } from './order/order.component';
 import { SharedService } from '../../shared/service/shared.service';
 import { PlaceDetail, EquipmentListForm, CostOfPlaceForm, CostUnitName } from './../../shared/model/place.model';
 import { AuthGaurdService } from './../../index/service/auth-gaurd.service';
@@ -7,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AuthenticationService } from './../../index/service/authentication.service';
 import { PlaceService } from './../service/place.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-place-detail',
   templateUrl: './place-detail.component.html',
@@ -28,6 +30,7 @@ export class PlaceDetailComponent implements OnInit {
   location: Location;
 
   constructor(
+    public dialog: MatDialog,
     private placeService: PlaceService,
     public loginService: AuthenticationService,
     public authGaurdService: AuthGaurdService,
@@ -56,7 +59,13 @@ export class PlaceDetailComponent implements OnInit {
 
     this.getData();
   }
-
+  openDialog(): void {
+    const dialogRef = this.dialog.open(OrderComponent, {
+      width: '620px',
+      data: this.place.placeID,
+      disableClose: true
+    });
+  }
   getData() {
     this.placeService.getPlaceDetail(+sessionStorage.getItem('placeID'))
       .subscribe(data => {

@@ -293,7 +293,7 @@
                   <div class="col-lg-4 col-md-12  mb-4">
                     <label for="checkingDate">Ngày xem nhà <span class="red-text">*</span></label>
                     <input type="date" id="checkingDate" formControlName="checkingDate" class="form-control">
-                    <div><small class="red-text">(Lớn hơn ngày hiện tại)</small></div>
+                    <div><small class="red-text">(Lớn hơn ngày hiện tại và không quá 1 tháng)</small></div>
                     <small class="red-text" class="red-text" *ngIf="sharedService.checkValidateInput(checkingDate)">
                       Không hợp lệ
                     </small>

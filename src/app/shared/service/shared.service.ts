@@ -30,7 +30,8 @@ loggerDialog(status: boolean,mess?: string): void {
   const message = mess? mess : (status? 'Thao tác thành công':'Thao tác không thành công')
   const dialogRef = this.dialog.open(LoggerDialogComponent, {
     width: '250px',
-    data: {status: status, mess: message}
+    data: {status: status, mess: message},
+    hasBackdrop:false,
   });}
 
 placeStatusColor(status: number){
