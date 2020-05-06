@@ -103,7 +103,8 @@ exports: [
   MatDialogModule,
   MatCardModule,
   MatListModule,
-  MatSelectModule
+  MatSelectModule,
+  MatSnackBarModule,
 
 ]
 })

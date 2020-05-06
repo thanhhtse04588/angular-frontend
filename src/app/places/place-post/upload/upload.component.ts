@@ -1,7 +1,4 @@
-
 import { Component, OnInit, ViewChild, ElementRef, EventEmitter, Output } from '@angular/core';
-
-
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',

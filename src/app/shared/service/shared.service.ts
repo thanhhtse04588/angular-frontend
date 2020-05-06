@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Injectable } from '@angular/core';
 import { PlaceStatusColor, CheckingStatusColor, OrderStatusColor, BillStatusColor, ContractStatusColor } from '../common';
@@ -7,7 +8,7 @@ import { PlaceStatusColor, CheckingStatusColor, OrderStatusColor, BillStatusColo
 })
 export class SharedService {
 
-constructor() { }
+constructor( private _snackBar: MatSnackBar) { }
 
 placeDetail(id: number) {
   sessionStorage.setItem('placeID', id.toString());
@@ -17,6 +18,11 @@ checkValidateInput(formControlName) {
   return formControlName.invalid && (formControlName.dirty || formControlName.touched);
 }
 
+openSnackBar(message: string, action?: string) {
+  this._snackBar.open(message, action, {
+    duration: 1000,
+  });
+}
 
 placeStatusColor(status: number){
   return PlaceStatusColor[status];

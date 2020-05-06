@@ -4,7 +4,7 @@
         <mat-tab label="Thông tin">
             <mat-card>
                 <mat-card-header>
-                    <div mat-card-avatar style="background-size: cover;background-image: url('{{user.avatarLink}}')">
+                    <div mat-card-avatar style="background-size: cover;background-image: url({{user.avatarLink}})">
                     </div>
                     <mat-card-title>
                         {{user.name}}
@@ -19,8 +19,7 @@
                         <mat-list-item><strong>Địa chỉ</strong> : {{user.address}}</mat-list-item>
                         <mat-list-item><strong>Số điện thoại</strong>: {{user.phoneNumber}}</mat-list-item>
                         <mat-list-item><strong>Email</strong>: {{user.email}}</mat-list-item>
-                        <mat-list-item><strong>Ngày sinh</strong>: {{user.dob}}</mat-list-item>
-                        <mat-list-item><strong>Tài khoản ngân hàng</strong>: {{user.bankAccount}}</mat-list-item>
+                        <mat-list-item><strong>Ngày sinh</strong>: {{user.dob ||'' | date:'M/d/yyyy'}}</mat-list-item>
                     </mat-list>
                 </mat-card-content>
             </mat-card>
@@ -29,7 +28,7 @@
         <mat-tab label="Cập nhật">
             <form [formGroup]="profileForm">
                 <mat-form-field class="mb-3" appearance="standard">
-                    <mat-label>Tên</mat-label>
+                    <mat-label>Tên<span class="red-text">*</span></mat-label>
                     <input matInput type="text" formControlName="name">
                 </mat-form-field>
                 <mat-form-field class="mb-3" appearance="standard">
@@ -45,27 +44,23 @@
                     <input matInput type="date" formControlName="dob">
                 </mat-form-field>
                 <mat-form-field class="mb-3" appearance="standard">
-                    <mat-label>Địa chỉ</mat-label>
+                    <mat-label>Địa chỉ <span class="red-text">*</span></mat-label>
                     <input matInput type="text" formControlName="address">
                 </mat-form-field>
                 <mat-form-field class="mb-3" appearance="standard">
-                    <mat-label>Số điện thoại</mat-label>
+                    <mat-label>Số điện thoại <span class="red-text">*</span></mat-label>
                     <input matInput type="text" formControlName="phoneNumber">
                 </mat-form-field>
                 <mat-form-field class="mb-3" appearance="standard">
                     <mat-label>Email</mat-label>
                     <input matInput type="email" formControlName="email">
                 </mat-form-field>
-                <mat-form-field class="mb-3" style="width: 95%;" appearance="standard">
-                    <mat-label>Tài khoản ngân hàng</mat-label>
-                    <input matInput type="number" formControlName="bankAccount">
-                </mat-form-field>
                 <div class="mb-4">
                     <button mat-stroked-button type="button" (click)="upload.click()" color="primary">
-                        Ảnh đại diện<input type="file" class="form-control" formControlName="avatarLink"
+                        Ảnh đại diện<span class="red-text">*</span><input type="file" class="form-control" formControlName="avatarLink"
                             autocomplete="off" style="display:none;" (change)="onFileSelected($event)" #upload />
                     </button>
-                    <small>{{fileName}}</small>
+                    <small [ngClass]="{'red-text':!fileName}">{{fileName? fileName: "Cập nhật ảnh đại diện."}}</small>
                 </div>
                 <button type="button" [disabled]="!uploaded || profileForm.invalid" [mat-dialog-close]="profileForm.value" cdkFocusInitial class="btn-block" mat-raised-button color="warn">Cập nhật</button>
             </form>

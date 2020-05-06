@@ -16,7 +16,7 @@ import { UserProfile } from 'src/app/shared/model/user.model';
 })
 export class UserListComponent implements OnInit {
   displayedColumns: string[] = ['userID', 'userName', 'statusName', 'name',
-    'gender', 'DOB', 'address', 'phoneNumber', 'email', 'bankAccount', 'void'];
+    'gender', 'dob', 'address', 'phoneNumber', 'email', 'void'];
   dataSource: any;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;

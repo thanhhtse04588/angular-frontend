@@ -9,7 +9,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
-  styles: ["mat-form-field {margin-right: 12px;}"]
+  styles: ["mat-form-field {margin-right: 12px;}.mat-card-avatar {height: 70px;width: 70px;}"]
 })
 export class UserProfileComponent {
   fileName: string;
@@ -19,18 +19,18 @@ export class UserProfileComponent {
     name: ['',[Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
     gender: [''],
     dob: [''],
-    address: ['',[ Validators.maxLength(100)]],
-    phoneNumber: ['',[Validators.pattern('((\\+91-?)|0)?[0-9]*')]],
-    email: ['',[Validators.email,Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),]],
-    avatarLink: [''],
-    bankAccount: [''],
+    address: ['',[ Validators.maxLength(100),Validators.required]],
+    phoneNumber: ['',[Validators.pattern('((\\+91-?)|0)?[0-9]*'),Validators.required]],
+    email: ['',[Validators.email,Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
+    avatarLink: ['',Validators.required],
   });
 
   constructor(
     private storage: AngularFireStorage,
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<UserProfileComponent>,
-    @Inject(MAT_DIALOG_DATA) public user: UserProfile) { 
+    @Inject(MAT_DIALOG_DATA) public user: UserProfile) {
+// can't pass link to input type="file" ;
       this.profileForm.patchValue(user);
     }
 
@@ -42,6 +42,12 @@ export class UserProfileComponent {
     this.uploaded = false;
     const n = Date.now();
     const file = event.target.files[0];
+    if (file.type.match('image.*')) {
+      if(file.size > 2000000){ alert('Tệp ảnh không quá 2 MB'); return;}
+    } else {
+      alert('Tệp phải là định dạng hình ảnh');
+      return;
+    }
     this.fileName = file.name;
     const filePath = `avatar/${n}`;
     const fileRef = this.storage.ref(filePath);
@@ -56,10 +62,9 @@ export class UserProfileComponent {
 
   get name() {return this.profileForm.get("name"); }
   get gender() {return this.profileForm.get("gender"); }
-  get DOB() {return this.profileForm.get("DOB"); }
+  get dob() {return this.profileForm.get("dob"); }
   get address() {return this.profileForm.get("address"); }
   get email() {return this.profileForm.get("email"); }
   get phoneNumber() {return this.profileForm.get("phoneNumber"); }
   get avatarLink() {return this.profileForm.get("avatarLink"); }
-  get bankAccount() {return this.profileForm.get("bankAccount"); }
 }

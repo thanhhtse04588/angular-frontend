@@ -40,10 +40,11 @@ export class UserService {
         });
 
         dialogRef.afterClosed().subscribe(result => {
+          if(result){
           result.userID= this.loginService.currentUserValue.userID;
-          result.avatarLink = sessionStorage.getItem("avatarLink");
+          result.avatarLink = sessionStorage.getItem("avatarLink") || result.avatarLink;
           console.log(JSON.stringify(result));
-          this.updateUser(result).subscribe(_OBSERVER);
+          this.updateUser(result).subscribe(_OBSERVER);}
         });
       }
     );  

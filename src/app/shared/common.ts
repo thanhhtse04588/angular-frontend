@@ -46,7 +46,7 @@ export enum PlaceStatus {
 }
 
 export enum PlaceStatusColor {
-  "muted",
+  "dark",
   "success",
   "primary",
   "secondary",
@@ -61,7 +61,7 @@ export enum CheckingStatus {
 }
 
 export enum CheckingStatusColor {
-  "muted",
+  "dark",
   "success",
   "primary",
 }
@@ -75,7 +75,7 @@ export enum OrderStatus {
 }
 
 export enum OrderStatusColor {
-  "muted",
+  "dark",
   "success",
   "primary",
   "warning",

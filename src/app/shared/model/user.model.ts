@@ -21,7 +21,6 @@ export interface UserProfile {
   phoneNumber: string;
   email: string;
   avatarLink: string;
-  bankAccount: string;
 }
 
 export interface UserDetail {
@@ -32,7 +31,6 @@ export interface UserDetail {
   address: string;
   phoneNumber: string;
   email: string;
-  bankAccount: string;
   avatar_link: string;
 }
 
