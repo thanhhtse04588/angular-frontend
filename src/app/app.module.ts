@@ -63,6 +63,7 @@ import { RenterPaymentComponent } from './user/renter-payment/renter-payment.com
 import { UserListComponent } from './admin/user-list/user-list.component';
 import { UserProfileDialogComponent } from './user/user-profile-dialog/user-profile-dialog.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { LoggerDialogComponent } from './index/logger-dialog/logger-dialog.component';
 
 
 @NgModule({
@@ -107,9 +108,11 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
       UserListComponent,
       UserProfileDialogComponent,
       UserProfileComponent,
+      LoggerDialogComponent,
   ],
   entryComponents: [
-    UserProfileDialogComponent
+    UserProfileDialogComponent,
+    LoggerDialogComponent,
   ],
   imports: [
     SharedModule,

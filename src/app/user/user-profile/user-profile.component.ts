@@ -1,3 +1,4 @@
+import { SharedService } from './../../shared/service/shared.service';
 import {  _OBSERVER } from './../../shared/common';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
@@ -26,6 +27,7 @@ export class UserProfileComponent {
   });
 
   constructor(
+    private sharedService: SharedService,
     private storage: AngularFireStorage,
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<UserProfileComponent>,
@@ -43,9 +45,9 @@ export class UserProfileComponent {
     const n = Date.now();
     const file = event.target.files[0];
     if (file.type.match('image.*')) {
-      if(file.size > 2000000){ alert('Tệp ảnh không quá 2 MB'); return;}
+      if(file.size > 2000000){ this.sharedService.loggerDialog(false,'Tệp ảnh không quá 2 MB'); return;}
     } else {
-      alert('Tệp phải là định dạng hình ảnh');
+      this.sharedService.loggerDialog(false,'Tệp phải là định dạng hình ảnh')
       return;
     }
     this.fileName = file.name;

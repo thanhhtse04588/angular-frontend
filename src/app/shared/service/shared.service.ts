@@ -1,14 +1,16 @@
+import { LoggerDialogComponent } from './../../index/logger-dialog/logger-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Injectable } from '@angular/core';
 import { PlaceStatusColor, CheckingStatusColor, OrderStatusColor, BillStatusColor, ContractStatusColor } from '../common';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
 
-constructor( private _snackBar: MatSnackBar) { }
+constructor( private _snackBar: MatSnackBar,private dialog: MatDialog) { }
 
 placeDetail(id: number) {
   sessionStorage.setItem('placeID', id.toString());
@@ -23,6 +25,13 @@ openSnackBar(message: string, action?: string) {
     duration: 1000,
   });
 }
+
+loggerDialog(status: boolean,mess?: string): void {
+  const message = mess? mess : (status? 'Thao tác thành công':'Thao tác không thành công')
+  const dialogRef = this.dialog.open(LoggerDialogComponent, {
+    width: '250px',
+    data: {status: status, mess: message}
+  });}
 
 placeStatusColor(status: number){
   return PlaceStatusColor[status];

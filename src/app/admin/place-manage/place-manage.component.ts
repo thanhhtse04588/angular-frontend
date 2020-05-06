@@ -61,13 +61,13 @@ export class PlaceManageComponent implements OnInit {
 
   toActive() {
     this.userService.updateStatusPlace(this.id, PlaceStatus.ACTIVE).subscribe(
-      data => data ? this.reload() : alert('Thao tác không thành công!')
+      data => data ? this.reload() : this.sharedService.loggerDialog(false)
     );
   }
 
   toDeactive() {
     this.userService.updateStatusPlace(this.id, PlaceStatus.DEACTIVE).subscribe(
-      data => data ? this.reload() : alert('Thao tác không thành công!')
+      data => data ? this.reload() : this.sharedService.loggerDialog(false)
     );
   }
 

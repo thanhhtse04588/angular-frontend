@@ -66,11 +66,11 @@ export class OrderComponent implements OnInit {
     this.userService.insertOrder(orderForm).subscribe(
       data => {
         if (data) {
-          alert('Liên hệ thành công , chúng tôi sẽ phản hổi sớm.');
+          this.sharedService.loggerDialog(true,'Liên hệ thành công , chúng tôi sẽ phản hổi sớm.');
         } else {
-          alert('Ôi, mặt hàng không còn tồn tại');
+          this.sharedService.loggerDialog(false,'Mặt hàng không còn tồn tại');
         }
-      }, (error) => console.log(error),
+      }, (error) => this.sharedService.loggerDialog(false),
       () => this.location.back()
     );
   }

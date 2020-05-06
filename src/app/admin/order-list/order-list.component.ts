@@ -83,7 +83,7 @@ export class OrderListComponent implements OnInit {
     this.adminService.changeStatusOrder(updateStatus).subscribe(
       data => {
         if (data) {
-          alert('Thao tác thành công!');
+          this.sharedService.loggerDialog(true);
           this.reload();
           this.dealForm.hide();
         } else { alert('Lỗi! Thao tác không thành công!'); }
@@ -116,9 +116,9 @@ export class OrderListComponent implements OnInit {
     this.adminService.changeStatusOrder(updateStatus).subscribe(
       data => {
         if (data) {
-          alert('Thao tác thành công!');
+          this.sharedService.loggerDialog(true);
           this.reload();
-        } else { alert('Lỗi! Thao tác không thành công!'); }
+        } else { this.sharedService.loggerDialog(false); }
       }
     );
   }

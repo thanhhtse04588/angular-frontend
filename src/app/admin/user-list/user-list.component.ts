@@ -64,7 +64,7 @@ export class UserListComponent implements OnInit {
   changeStatus(userID: number, currentStatus: number) {
     this.userService.updateStatusUser(userID, 
       currentStatus == UserStatus.ACTIVE ? UserStatus.DEACTIVE : UserStatus.ACTIVE).subscribe(
-      data => data ? this.reload() : alert('Thao tác không thành công!')
+      data => data ? this.reload() : this.sharedService.loggerDialog(false)
     );
   }
 }

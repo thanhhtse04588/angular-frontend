@@ -143,10 +143,10 @@ export class PlacePostComponent implements OnInit, OnDestroy, AfterViewChecked  
           this.address = results[0].formatted_address;
           this.searchElementRef.nativeElement.value = this.address;
         } else {
-          window.alert('No results found');
+          this.sharedService.loggerDialog(false,'Không tìm thấy kết quả');
         }
       } else {
-        window.alert('Geocoder failed due to: ' + status);
+        this.sharedService.loggerDialog(false);
       }
 
     });
@@ -176,9 +176,9 @@ export class PlacePostComponent implements OnInit, OnDestroy, AfterViewChecked  
     this.postPlaceForm.listCost = this.costComponent.getCostOfLivingTable();
     this.postPlaceForm.listImageLink = this.imageUploaded;
     this.subs.add(this.placeService.insertPlace(this.postPlaceForm).subscribe(
-      data => data ? alert('Yêu cầu đăng tin thành công, chúng tôi sẽ sớm liên hệ với bạn !')
-        : alert('Đã có lỗi xảy ra! Yêu cầu đăng tin không thành công'),
-      (err) => alert('Đã có lỗi xảy ra! Yêu cầu đăng tin không thành công'),
+      data => data ? this.sharedService.loggerDialog(true,'Yêu cầu đăng tin thành công, chúng tôi sẽ sớm liên hệ với bạn !')
+        : this.sharedService.loggerDialog(false),
+      (err) => this.sharedService.loggerDialog(false),
       () => this.router.navigate(['user/seller/post-manage'])
     ));
   }
@@ -197,8 +197,8 @@ export class PlacePostComponent implements OnInit, OnDestroy, AfterViewChecked  
     form.listImageLink = this.imageUploaded;
 
     this.subs.add(this.userService.updatePlace(form).subscribe(
-      data => data ? alert('Chỉnh sửa thành công!') : alert('Đã có lỗi xảy ra! Chỉnh sửa không thành công'),
-      (err) => alert('Đã có lỗi xảy ra! Chỉnh sửa không thành công'),
+      data => data ? this.sharedService.loggerDialog(true) : this.sharedService.loggerDialog(false),
+      (err) => this.sharedService.loggerDialog(false),
       () => this.router.navigate(['user/seller/post-manage'])
     ));
   }

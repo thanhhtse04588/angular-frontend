@@ -73,7 +73,7 @@ export class RenterOrderComponent implements OnInit, OnDestroy {
         statusOrderID: OrderStatus.REJECT, // Reject
         statusPlaceID: PlaceStatus.ACTIVE // Active-> Active
       }).subscribe(
-        data => data ? alert('Thao tác thành công!') : alert('Thao tác không thành công!'),
+        data => data ? this.sharedService.loggerDialog(true) : this.sharedService.loggerDialog(false),
         (err) => console.log(err),
         () => this.reload()
       ));
@@ -82,7 +82,7 @@ export class RenterOrderComponent implements OnInit, OnDestroy {
   onSave(event) {
     this.isSubmit = true;
     this.subs.add(this.userService.editOrder(event.value).subscribe(
-      data => data ? alert('Chỉnh sửa thành công') : alert('Chỉnh sửa thất bại')));
+      data => data ? this.sharedService.loggerDialog(true) : this.sharedService.loggerDialog(false)));
     this.reload();
   }
 

@@ -1,3 +1,4 @@
+import { SharedService } from './../service/shared.service';
 
 import { AuthenticationService } from './../../index/service/authentication.service';
 import { PaymentService } from './../../places/service/payment.service';
@@ -13,7 +14,7 @@ export class PaypalButtonComponent implements OnInit {
   @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
   @Input() pay: PayPaypal;
   @Output() payResult = new EventEmitter<PayPaypal>();
-  constructor(private paymentService: PaymentService, public loginService: AuthenticationService) { }
+  constructor(private paymentService: PaymentService, public loginService: AuthenticationService, private sharedService: SharedService) { }
 
   ngOnInit() {
     this.paypalOnInit();
@@ -44,7 +45,7 @@ export class PaypalButtonComponent implements OnInit {
         },
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
-          alert('Thanh tóan Paypal thành công');
+          this.sharedService.loggerDialog(true);
           this.pay.payFor = true;
           this.payResult.emit(this.pay);
 
@@ -65,7 +66,7 @@ export class PaypalButtonComponent implements OnInit {
           );
         },
         onError: err => {
-          alert('Có lỗi!,Thanh tóan Paypal thất bại!');
+      this.sharedService.loggerDialog(false,'Có lỗi!,Thanh tóan Paypal thất bại!')
           this.pay.payFor = false;
           this.payResult.emit(this.pay);
         }

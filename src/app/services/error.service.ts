@@ -1,3 +1,4 @@
+import { SharedService } from './../shared/service/shared.service';
 import { Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -7,7 +8,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ErrorService {
-  constructor(
+  constructor(private sharedService: SharedService,
     private router: Router){
 
     }
@@ -34,7 +35,7 @@ export class ErrorService {
         // Get server-side error
         errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
       }
-      window.alert(errorMessage);
+      this.sharedService.loggerDialog(false,errorMessage)
       return throwError(errorMessage);
     }
 }

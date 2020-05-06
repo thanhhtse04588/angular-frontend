@@ -51,8 +51,8 @@ export class ContractListComponent implements OnInit {
     this.userService.updateStatusContract(this.contractSelected.contractID,
       (this.contractSelected.contractStatusID === ContractStatus.BAN) ? ContractStatus.ACTIVE : ContractStatus.BAN,
       this.contractSelected.placeID).subscribe(
-        data => data ? alert('Thao tác thành công') : alert('Có lỗi')
-        , (err) => alert('Có lỗi')
+        data => data ? this.sharedService.loggerDialog(true) : this.sharedService.loggerDialog(false)
+        , (err) => this.sharedService.loggerDialog(false)
         , () => this.reload()
       );
   }

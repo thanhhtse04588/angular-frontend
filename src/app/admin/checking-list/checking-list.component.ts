@@ -60,7 +60,7 @@ export class CheckingListComponent implements OnInit, OnDestroy {
           statusCheckingID: CheckingStatus.APPROVE, // Approve
           statusPlaceID: PlaceStatus.CHECKING // Pending -> Checking
         }).subscribe(
-          data => data ? this.reload() : alert('Thao tác không thành công!')
+          data => data ? this.reload() : this.sharedService.loggerDialog(false)
 
         );
     } else if (this.item.statusPlaceID === PlaceStatus.CHECKING) {
@@ -71,7 +71,7 @@ export class CheckingListComponent implements OnInit, OnDestroy {
           statusCheckingID: CheckingStatus.APPROVE, // Approve
           statusPlaceID: PlaceStatus.ACTIVE // Checking -> Active
         }).subscribe(
-          data => data ? this.reload() : alert('Thao tác không thành công!')
+          data => data ? this.reload() : this.sharedService.loggerDialog(false)
         );
     }
   }
@@ -84,7 +84,7 @@ export class CheckingListComponent implements OnInit, OnDestroy {
         statusCheckingID: CheckingStatus.REJECT, // Reject
         statusPlaceID: PlaceStatus.CANCEL // Pending,Checking -> Cancel
       }).subscribe(
-        data => data ? this.reload() : alert('Thao tác không thành công!')
+        data => data ? this.reload() : this.sharedService.loggerDialog(false)
       ));
   }
   ngOnDestroy() {

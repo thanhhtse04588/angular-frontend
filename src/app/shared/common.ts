@@ -15,10 +15,10 @@ export enum Common {
 
 export const _OBSERVER = {
   next(res) {
-    (res === false) ? alert('Lỗi! ,Thao tác không thành công!') : alert('Thao tác thành công');
+    (res === false) ? this.sharedService.loggerDialog(false) : this.sharedService.loggerDialog(true);
   },
   error(err) {
-    alert('Lỗi! ,Thao tác không thành công!');
+    this.sharedService.loggerDialog(false);
   },
   complete() {
     console.log('completed');

@@ -19,7 +19,7 @@ export class RenterContractComponent implements OnInit, OnDestroy {
   contracts: Observable<Contract>;
   constructor(
     public userService: UserService, public sharedService: SharedService,
-    private adminService: AdminService, public loginService: AuthenticationService ) { }
+    private adminService: AdminService, public loginService: AuthenticationService) { }
   ngOnInit() {
     this.reload();
   }
@@ -32,7 +32,7 @@ export class RenterContractComponent implements OnInit, OnDestroy {
   isPlaceActive(status) {
     return status === PlaceStatus.ACTIVE;
   }
-  
+
   getPay(contract: Contract) {
     const pay: PayPaypal = {
       price: this.vndToUsd(contract.fee),
@@ -50,13 +50,13 @@ export class RenterContractComponent implements OnInit, OnDestroy {
       this.userService.updateStatusContract(result?.contractID, ContractStatus.ACTIVE, result?.placeID).subscribe(
         data => {
           if (data) {
-            alert('Thanh toán tiền đặt cọc thuê nhà thành công');
-            this.onApproveDeal(result);
+            this.sharedService.loggerDialog(true, 'Thanh toán tiền đặt cọc thuê nhà thành công'),
+              this.onApproveDeal(result);
           } else {
-            alert('Có lỗi, liên hệ với chúng tôi để được hỗ trợ');
+            this.sharedService.loggerDialog(false, 'Có lỗi, liên hệ với chúng tôi để được hỗ trợ')
           }
         }
-        , (err) => alert('Có lỗi, liên hệ với chúng tôi để được hỗ trợ')
+        , (err) => this.sharedService.loggerDialog(false, 'Có lỗi, liên hệ với chúng tôi để được hỗ trợ')
         , () => this.reload()
       );
     }
@@ -70,7 +70,7 @@ export class RenterContractComponent implements OnInit, OnDestroy {
       statusPlaceID: PlaceStatus.RENTED // Active -> Rented
     };
     this.subs.add(this.adminService.changeStatusOrder(updateStatus).subscribe(
-      data => data ? this.reload() : alert('Thao tác không thành công!')
+      data => data ? this.reload() : this.sharedService.loggerDialog(false)
     ));
   }
 

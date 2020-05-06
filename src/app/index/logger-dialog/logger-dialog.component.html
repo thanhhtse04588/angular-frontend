@@ -1,0 +1,7 @@
+<h1 mat-dialog-title>{{data.status? 'Thành công':'Thất bại'}}</h1>
+<div mat-dialog-content>
+  <div *ngIf="data.mess">{{data.mess}}</div>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()" class="btn-block" cdkFocusInitial>Ok</button>
+  </div>
