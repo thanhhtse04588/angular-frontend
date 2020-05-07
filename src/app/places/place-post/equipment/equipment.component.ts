@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-equipment',
   templateUrl: './equipment.component.html',
+  styles: ['mat-form-field{width:100px}']
 })
 export class EquipmentComponent implements OnInit {
   // table edit

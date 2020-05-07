@@ -15,94 +15,85 @@
               thực hiện chức năng này</a>
           </div>
         </div>
-        <div class="card">
+        <mat-card >
           <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
             <mat-vertical-stepper linear>
               <!-- page 1 -->
               <mat-step [completed]="isStepOneValid()">
                 <ng-template matStepLabel>Thông tin cơ bản</ng-template>
                 <!-- title -->
-                <div class="mb-5">
-                  <label for="title">
-                    Tiêu đề<span class="red-text ">*</span>
-                  </label>
-                  <input type="text" id="title" formControlName="title" class="form-control">
-                  <small class="red-text" *ngIf="sharedService.checkValidateInput(title)">
+                <mat-form-field appearance="standard">
+                  <mat-label> Tiêu đề<span class="red-text ">*</span></mat-label>
+                  <input type="text" formControlName="title" matInput>
+                  <mat-error *ngIf="sharedService.checkValidateInput(title)">
                     Yêu cầu từ 10-100 ký tự
-                  </small>
-                </div>
+                  </mat-error>
+                </mat-form-field>
                 <!--Grid row-->
                 <div class="row">
                   <!-- district -->
-                  <div class="col-lg-4 col-md-12 mb-4">
-                    <label for="district">Quận/Huyện <span class="red-text">*</span></label>
-                    <select class="custom-select d-block w-100 form-control" formControlName="district"
-                      (change)="onDistrictChange()">
-                      <option value='' disabled>Chọn...</option>
-                      <option *ngFor="let item of districts" [ngValue]="item">{{item.district}}</option>
-                    </select>
-                    <small class="red-text" style="padding-top: 30px;"
-                      *ngIf="sharedService.checkValidateInput(district)">
+                  <mat-form-field appearance="standard" class="col-lg-4 col-md-12 mb-4">
+                    <mat-label>Quận/Huyện <span class="red-text">*</span></mat-label>
+                    <mat-select formControlName="district" (selectionChange)="onDistrictChange()">
+                      <mat-option *ngFor="let item of districts" [value]="item">{{item.district}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="sharedService.checkValidateInput(district)">
                       Không bỏ trống
-                    </small>
-                  </div>
+                    </mat-error>
+                  </mat-form-field>
                   <!-- ward -->
-                  <div class="col-lg-4 col-md-12 mb-4">
-                    <label for="ward">Phường/Xã<span class="red-text">*</span></label>
-                    <select class="custom-select d-block w-100 form-control" formControlName="ward"
-                      (change)="onWardChange()">
-                      <option value='' disabled>Chọn...</option>
-                      <option *ngFor="let item of wards" [ngValue]="item">{{item.wardName}}</option>
-                    </select>
-                    <small class="red-text" style="padding-top: 30px;" *ngIf="sharedService.checkValidateInput(ward)">
+                  <mat-form-field appearance="standard" class="col-lg-4 col-md-12 mb-4">
+                    <mat-label>Phường/Xã<span class="red-text">*</span></mat-label>
+                    <mat-select formControlName="ward" (selectionChange)="onWardChange()">
+                      <mat-option *ngFor="let item of wards" [value]="item">{{item.wardName}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="sharedService.checkValidateInput(ward)">
                       Không bỏ trống
-                    </small>
-                  </div>
+                    </mat-error>
+                  </mat-form-field>
                   <!-- street -->
-                  <div class="col-lg-4 col-md-12 mb-4">
-                    <label for="street">Đường/phố<span class="red-text">*</span></label>
-                    <select class="custom-select d-block w-100 form-control" formControlName="street"
-                      (change)="updateAddress()">
-                      <option value='' disabled>Chọn...</option>
-                      <option *ngFor="let item of streets" [ngValue]="item">{{item.streetName}}</option>
-                    </select>
-                    <small class="red-text" style="padding-top: 30px;" *ngIf="sharedService.checkValidateInput(street)">
+                  <mat-form-field appearance="standard" class="col-lg-4 col-md-12 mb-4">
+                    <mat-label for="street">Đường/phố<span class="red-text">*</span></mat-label>
+                    <mat-select formControlName="street" (selectionChange)="updateAddress()">
+                      <mat-option *ngFor="let item of streets" [value]="item">{{item.streetName}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="sharedService.checkValidateInput(street)">
                       Không bỏ trống
-                    </small>
-                  </div>
+                    </mat-error>
+                  </mat-form-field>
                 </div>
                 <div class="row">
                   <!-- roleOfPlaceID -->
-                  <div class="col-lg-4 col-md-12 mb-4">
-                    <label for="country">Loại nhà đất <span class="red-text">*</span></label>
-                    <select class="custom-select d-block w-100 form-control" formControlName="roleOfPlaceID">
-                      <option value='' disabled>Chọn...</option>
-                      <option *ngFor="let item of roleOfPlaces" [ngValue]="item.roleOfPlaceID">{{item.roleName}}
-                      </option>
-                    </select>
-                    <small class="red-text" style="padding-top: 30px;"
-                      *ngIf="sharedService.checkValidateInput(roleOfPlaceID)">
+                  <mat-form-field appearance="standard" class="col-lg-4 col-md-12 mb-4">
+                    <mat-label>Loại nhà đất <span class="red-text">*</span></mat-label>
+                    <mat-select formControlName="roleOfPlaceID">
+                      <mat-option *ngFor="let item of roleOfPlaces" [value]="item.roleOfPlaceID">{{item.roleName}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="sharedService.checkValidateInput(roleOfPlaceID)">
                       Không bỏ trống
-                    </small>
-                  </div>
+                    </mat-error>
+                  </mat-form-field>
                   <!-- area -->
-                  <div class="col-lg-4 col-md-12 mb-4">
-                    <label for="area">Diện tích m²<span class="red-text">*</span></label>
-                    <input type="number" id="area" formControlName="area" class="form-control">
-                    <small class="red-text" *ngIf="sharedService.checkValidateInput(area)">
+                  <mat-form-field appearance="standard" class="col-lg-4 col-md-12 mb-4">
+                    <mat-label for="area">Diện tích<span class="red-text">*</span></mat-label>
+                    <input matInput type="number" id="area" formControlName="area">
+                    <span matSuffix>m²</span>
+                    <mat-error *ngIf="sharedService.checkValidateInput(area)">
                       Không bỏ trống
-                    </small>
-                  </div>
+                    </mat-error>
+                  </mat-form-field>
                   <!-- price -->
-                  <div class="col-lg-4 col-md-12   mb-4">
-                    <label for="price">Giá (vnđ/tháng)<span class="red-text">*</span></label>
-                    <input type="number" id="price" formControlName="price" class="form-control">
-                    <div *ngIf="!sharedService.checkValidateInput(price)">{{price.value | currency:' ':'symbol':'2.0'}}
-                    </div>
-                    <small class="red-text" *ngIf="sharedService.checkValidateInput(price)">
+                  <mat-form-field appearance="standard" class="col-lg-4 col-md-12   mb-4">
+                    <mat-label for="price">Giá thuê (vnđ/tháng)<span class="red-text">*</span></mat-label>
+                    <input type="number" id="price" formControlName="price" matInput>
+                    <span matSuffix>vnđ</span>
+                    <mat-error *ngIf="sharedService.checkValidateInput(price)">
                       Không bỏ trống
-                    </small>
-                  </div>
+                    </mat-error>
+                  </mat-form-field>
+                  <!-- <div *ngIf="!sharedService.checkValidateInput(price)">{{price.value | currency:' ':'symbol':'2.0'}}
+                  </div> -->
                 </div>
 
                 <div>
@@ -118,14 +109,13 @@
                   trường học ... Tổng diện tích 52m2, đường đi ô tô vào tận cửa.
                   <span class="red-text">Lưu ý: tin rao chỉ để mệnh giá tiền Việt Nam Đồng.</span></p>
                 <!-- descriptions -->
-                <div class=" ">
-                  <textarea type="text" id="descriptions" formControlName="descriptions"
-                    class="md-textarea form-control"></textarea>
-                  <small class="red-text" *ngIf="sharedService.checkValidateInput(descriptions)">
+                <mat-form-field appearance="standard">
+                  <textarea type="text" id="descriptions" formControlName="descriptions" matInput></textarea>
+                  <mat-error *ngIf="sharedService.checkValidateInput(descriptions)">
                     Vui lòng nhập thông tin mô tả. Tối thiểu là 30 ký tự và tối đa là 3000 ký tự.
-                  </small>
-                  <label for="descriptions">Mô tả chi tiết</label>
-                </div>
+                  </mat-error>
+                  <mat-label for="descriptions">Mô tả chi tiết</mat-label>
+                </mat-form-field>
 
                 <div>
                   <button mat-stroked-button matStepperPrevious>Quay lại</button>
@@ -138,49 +128,49 @@
                 <p>Quý vị nên điền đầy đủ thông tin vào các mục dưới đây để đăng tin có hiệu quả hơn.</p>
                 <div class="row">
                   <!-- homeDirection -->
-                  <div class="col-lg-4 col-md-12 mb-4">
-                    <label for="homeDirection">Hướng nhà</label>
-                    <select class="custom-select d-block w-100 form-control" formControlName="homeDirection">
-                      <option value='' disabled>Chọn...</option>
-                      <option *ngFor="let item of homeDirections" [ngValue]="item">{{item}}</option>
-                    </select>
-                  </div>
+                  <mat-form-field appearance="standard" class="col-lg-4 col-md-12 mb-4">
+                    <mat-label for="homeDirection">Hướng nhà</mat-label>
+                    <mat-select formControlName="homeDirection">
+                      <mat-option *ngFor="let item of homeDirections" [value]="item">{{item}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
 
                   <!-- frontispiece -->
-                  <div class="col-lg-4 col-md-12   mb-4">
-                    <label for="frontispiece">Mặt tiền m²</label>
-                    <input type="number" id="frontispiece" formControlName="frontispiece" class="form-control">
-                    <small class="red-text" *ngIf="sharedService.checkValidateInput(frontispiece)">
+                  <mat-form-field appearance="standard" class="col-lg-4 col-md-12   mb-4">
+                    <mat-label for="frontispiece">Mặt tiền</mat-label>
+                    <input type="number" id="frontispiece" formControlName="frontispiece" matInput>
+                    <span matSuffix>m²</span>
+                    <mat-error *ngIf="sharedService.checkValidateInput(frontispiece)">
                       Không hợp lệ
-                    </small>
-                  </div>
+                    </mat-error>
+                  </mat-form-field>
                 </div>
 
                 <div class="row">
                   <!-- numberFloors -->
-                  <div class="col-lg-4 col-md-12   mb-4">
-                    <label for="numberFloors">Số tầng</label>
-                    <input type="number" id="numberFloors" formControlName="numberFloors" class="form-control">
-                    <small class="red-text" *ngIf="sharedService.checkValidateInput(numberFloors)">
+                  <mat-form-field appearance="standard" class="col-lg-4 col-md-12   mb-4">
+                    <mat-label for="numberFloors">Số tầng</mat-label>
+                    <input type="number" id="numberFloors" formControlName="numberFloors" matInput>
+                    <mat-error *ngIf="sharedService.checkValidateInput(numberFloors)">
                       Không hợp lệ
-                    </small>
-                  </div>
+                    </mat-error>
+                  </mat-form-field>
                   <!-- numberBedrooms -->
-                  <div class="col-lg-4 col-md-12   mb-4">
-                    <label for="numberBedrooms">Số phòng ngủ</label>
-                    <input type="number" id="numberBedrooms" formControlName="numberBedrooms" class="form-control">
-                    <small class="red-text" *ngIf="sharedService.checkValidateInput(numberBedrooms)">
+                  <mat-form-field appearance="standard" class="col-lg-4 col-md-12   mb-4">
+                    <mat-label for="numberBedrooms">Số phòng ngủ</mat-label>
+                    <input type="number" id="numberBedrooms" formControlName="numberBedrooms" matInput>
+                    <mat-error *ngIf="sharedService.checkValidateInput(numberBedrooms)">
                       Không hợp lệ
-                    </small>
-                  </div>
+                    </mat-error>
+                  </mat-form-field>
                   <!-- numberToilets -->
-                  <div class="col-lg-4 col-md-12   mb-4">
-                    <label for="numberToilets">Số phòng vệ sinh</label>
-                    <input type="number" id="numberToilets" formControlName="numberToilets" class="form-control">
-                    <small class="red-text" *ngIf="sharedService.checkValidateInput(numberToilets)">
+                  <mat-form-field appearance="standard" class="col-lg-4 col-md-12   mb-4">
+                    <mat-label for="numberToilets">Số phòng vệ sinh</mat-label>
+                    <input type="number" id="numberToilets" formControlName="numberToilets" matInput>
+                    <mat-error *ngIf="sharedService.checkValidateInput(numberToilets)">
                       Không hợp lệ
-                    </small>
-                  </div>
+                    </mat-error>
+                  </mat-form-field>
                 </div>
 
                 <div>
@@ -225,14 +215,14 @@
                   bằng
                   cách
                   Chọn lại vị trí bản đồ</p>
-                <div>
-                  <label>Kiểm tra lại địa chỉ</label>
-                  <input type="text" id="map" class="form-control" (keydown.enter)="$event.preventDefault()"
-                    autocorrect="off" autocapitalize="off" spellcheck="off" #search>
-                  <small class="red-text" class="red-text" *ngIf="!searchElementRef?.nativeElement?.value">
+                <mat-form-field appearance="standard">
+                  <mat-label>Kiểm tra lại địa chỉ</mat-label>
+                  <input type="text" id="map" matInput (keydown.enter)="$event.preventDefault()" autocorrect="off"
+                    autocapitalize="off" spellcheck="off" #search>
+                  <mat-error class="red-text" *ngIf="!searchElementRef?.nativeElement?.value">
                     Không bỏ trống
-                  </small>
-                </div>
+                  </mat-error>
+                </mat-form-field>
                 <div class="mt-3">
                   <agm-map style="height: 600px;" [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
                     <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
@@ -256,49 +246,49 @@
                 <ng-template matStepLabel>Liên hệ xem nhà</ng-template>
                 <div class="row">
                   <!-- contactName -->
-                  <div class="col-lg-4 col-md-12   mb-4">
-                    <label for="contactName">Tên liên hệ<span class="red-text">*</span></label>
-                    <input type="text" id="contactName" formControlName="contactName" class="form-control">
-                    <small class="red-text" *ngIf="sharedService.checkValidateInput(contactName)">
+                  <mat-form-field appearance="standard" class="col-lg-4 col-md-12   mb-4">
+                    <mat-label for="contactName">Tên liên hệ<span class="red-text">*</span></mat-label>
+                    <input type="text" id="contactName" formControlName="contactName" matInput>
+                    <mat-error *ngIf="sharedService.checkValidateInput(contactName)">
                       Không bỏ trống
-                    </small>
-                  </div>
+                    </mat-error>
+                  </mat-form-field>
 
                   <!-- contactAddress -->
-                  <div class="col-lg-4 col-md-12   mb-4">
-                    <label for="contactAddress">Địa chỉ liên hệ</label>
-                    <input type="text" id="contactAddress" formControlName="contactAddress" class="form-control">
-                  </div>
+                  <mat-form-field appearance="standard" class="col-lg-4 col-md-12   mb-4">
+                    <mat-label for="contactAddress">Địa chỉ liên hệ</mat-label>
+                    <input type="text" id="contactAddress" formControlName="contactAddress" matInput>
+                  </mat-form-field>
 
                   <!-- phoneNumber -->
-                  <div class="col-lg-4 col-md-12   mb-4">
-                    <label for="phoneNumber">Số điện thoại liên hệ<span class="red-text">*</span></label>
-                    <input type="text" id="phoneNumber" formControlName="phoneNumber" class="form-control">
-                    <small class="red-text" *ngIf="sharedService.checkValidateInput(phoneNumber)">
+                  <mat-form-field appearance="standard" class="col-lg-4 col-md-12   mb-4">
+                    <mat-label for="phoneNumber">Số điện thoại liên hệ<span class="red-text">*</span></mat-label>
+                    <input type="text" id="phoneNumber" formControlName="phoneNumber" matInput>
+                    <mat-error *ngIf="sharedService.checkValidateInput(phoneNumber)">
                       Không hợp lệ
-                    </small>
-                  </div>
+                    </mat-error>
+                  </mat-form-field>
                 </div>
                 <div class="row">
                   <!-- email -->
-                  <div class="col-lg-4 col-md-12   mb-4">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" formControlName="email" class="form-control">
-                    <small class="red-text" *ngIf="sharedService.checkValidateInput(email)">
+                  <mat-form-field appearance="standard" class="col-lg-4 col-md-12   mb-4">
+                    <mat-label for="email">Email</mat-label>
+                    <input type="email" id="email" formControlName="email" matInput>
+                    <mat-error *ngIf="sharedService.checkValidateInput(email)">
                       Email không hợp lệ
-                    </small>
-                  </div>
+                    </mat-error>
+                  </mat-form-field>
 
                   <!-- checkingDate -->
-                  <div class="col-lg-4 col-md-12  mb-4">
-                    <label for="checkingDate">Ngày xem nhà <span class="red-text">*</span></label>
-                    <input type="date" id="checkingDate" formControlName="checkingDate" class="form-control">
-                    <div><small class="red-text">(Lớn hơn ngày hiện tại và không quá 1 tháng)</small></div>
-                    <small class="red-text" class="red-text" *ngIf="sharedService.checkValidateInput(checkingDate)">
-                      Không hợp lệ
-                    </small>
+                    <mat-form-field class="col-lg-4 col-md-12  mb-4" appearance="standard">
+                      <mat-label for="checkingDate">Ngày xem nhà <span class="red-text">*</span></mat-label>
+                      <input type="date" id="checkingDate" formControlName="checkingDate" matInput>
+                      <mat-error class="red-text" *ngIf="sharedService.checkValidateInput(checkingDate)">
+                        Không hợp lệ
+                      </mat-error>
+                      <mat-hint>(Lớn hơn ngày hiện tại và không quá 1 tháng)</mat-hint>
+                    </mat-form-field>
                   </div>
-                </div>
                 <div>
                   <button mat-stroked-button matStepperPrevious>Quay lại</button>
                   <button type="button" mat-stroked-button matStepperNext>Tiếp tục</button>
@@ -309,9 +299,6 @@
                 <ng-template matStepLabel>Hoàn thành</ng-template>
                 <div>
                   <button mat-stroked-button matStepperPrevious>Quay lại</button>
-                </div>
-                <div *ngIf="!form.valid || !loginService.isUserLoggedIn()" class="alert alert-warning" role="alert">
-                  Vui lòng điền thông tin đầy đủ theo yêu cầu
                 </div>
                 <button style="margin-right: 8px;" type="submit" mat-raised-button
                   [color]="placeEditID? 'warn':'primary'" size="md" [disabled]="!form.valid 
@@ -329,7 +316,7 @@
               </mat-step>
             </mat-vertical-stepper>
           </form>
-        </div>
+        </mat-card>
       </div>
     </div>
   </div>

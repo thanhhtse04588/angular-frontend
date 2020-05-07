@@ -15,6 +15,7 @@ import { Order } from 'src/app/shared/model/order.model';
 @Component({
   selector: 'app-renter-order',
   templateUrl: './renter-order.component.html',
+  styles: ['mat-form-field{width: 100%}']
 })
 export class RenterOrderComponent implements OnInit, OnDestroy {
   isSubmit = false;

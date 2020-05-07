@@ -13,11 +13,9 @@
         </div>
 
         <div *ngFor="let order of orders">
-          <div class="card mb-3">
-            <div class="card-header">
-              <div class="h5">{{order.title}}</div>
-            </div>
-            <div class="card-body px-5">
+          <mat-card class="mb-3">
+            <mat-card-header class="h5">{{order.title}}</mat-card-header>
+            <mat-card-content class="px-5">
               <div>
                 <div class="row">
                   <div class="col">
@@ -29,27 +27,31 @@
                     <p><strong>Email: </strong>{{order.email}}</p>
                     <p><strong>Thời gian: </strong>{{order.dateTime | date:'short' }}</p>
                     <p><strong>Thông tin nhà: </strong>
-                      <a mat-button color="primary" (click)="sharedService.placeDetail(order.placeID)">Xem</a>
+                      <a mat-button color="primary" (click)="sharedService.placeDetail(order.placeID)"><i
+                          class="fas fa-info"></i></a>
                     </p>
-                    <div ><strong>Trạng thái nhà: </strong><div [ngClass]="'text-'+ sharedService.placeStatusColor(order.placeStatusID)">{{order.placeStatus}}</div></div>
+                    <div><strong>Trạng thái nhà: </strong><span
+                        [ngClass]="'text-'+ sharedService.placeStatusColor(order.placeStatusID)">{{order.placeStatus}}</span>
+                    </div>
 
                   </div>
-                  <div class="col">
+                  <div class="col d-flex align-items-end flex-column">
                     <div *ngIf="isInProcess(order.orderStatusID)">
-                      <a *ngIf="!isDeal(order.orderStatusID)" (click)="onEdit(order)"  (click)='comfirmEdit.show()' style="width: 110px;" class="float-right"
-                         mat-stroked-button color="warn"  > Sửa </a>
+                      <a *ngIf="!isDeal(order.orderStatusID)" (click)="onEdit(order)" (click)='comfirmEdit.show()'
+                        style="width: 110px;" class="float-right" mat-stroked-button color="warn"> Sửa </a>
 
-                    <a (click)="item = order" (click)='comfirmCancel.show()' style="width: 110px;" class="float-right"
-                       mat-stroked-button color="accent"  > Hủy </a>
-                  </div>
+                      <a (click)="item = order" (click)='comfirmCancel.show()' style="width: 110px;" class="float-right"
+                        mat-stroked-button color="accent"> Hủy </a>
+                    </div>
+                    <span class="mt-auto h5">
+                      <span
+                        [ngClass]="'badge badge-'+sharedService.orderStatusColor(order.orderStatusID)">{{order.orderStatus}}</span>
+                    </span>
                   </div>
                 </div>
-                <span class="float-right h5 pr-2">
-                  <span [ngClass]="'badge badge-'+sharedService.orderStatusColor(order.orderStatusID)">{{order.orderStatus}}</span>
-                </span>
               </div>
-            </div>
-          </div>
+            </mat-card-content>
+          </mat-card>
         </div>
       </div>
     </div>
@@ -66,10 +68,9 @@
         <div class="h5">Bạn có chắc chắn muốn HỦY</div>
       </div>
       <div class="modal-footer">
-        <a type="button" mat-stroked-button color="accent"  (click)="comfirmCancel.hide()" (click)="onReject()"
-           >Đồng ý </a>
-        <a type="button" mat-stroked-button color="accent"   (click)="comfirmCancel.hide()"
-           >Bỏ qua</a>
+        <a type="button" mat-stroked-button color="accent" (click)="comfirmCancel.hide()" (click)="onReject()">Đồng ý
+        </a>
+        <a type="button" mat-stroked-button color="accent" (click)="comfirmCancel.hide()">Bỏ qua</a>
       </div>
     </div>
   </div>
@@ -83,10 +84,9 @@
         <div class="h5">Bạn có chắc chắn muốn CHỈNH SỬA</div>
       </div>
       <div class="modal-footer">
-        <a type="button" mat-stroked-button color="warn" (click)="editModal.show()" 
-          (click)="comfirmEdit.hide()"  >Đồng ý </a>
-        <a type="button" mat-stroked-button color="warn"   (click)="comfirmEdit.hide()"
-           >Bỏ qua</a>
+        <a type="button" mat-stroked-button color="warn" (click)="editModal.show()" (click)="comfirmEdit.hide()">Đồng ý
+        </a>
+        <a type="button" mat-stroked-button color="warn" (click)="comfirmEdit.hide()">Bỏ qua</a>
       </div>
     </div>
   </div>
@@ -95,60 +95,54 @@
 <div mdbModal #editModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
   <form (ngSubmit)="onSave(editOrderForm)" [formGroup]="editOrderForm">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="card">
-          <div class="card-header">
+      <div class="modal-content p-5" >
             <div class="h4 text-center">Mẫu đăng ký đặt lịch xem nhà</div>
-          </div>
-          <div class="card-body p-5">
-            <div class="row mb-3">
-              <div class="col">
-                <label  >Nhập Tên<span class="red-text">*</span></label>
-                <input type="text" class="form-control"   formControlName="name">
-                <small class="red-text"  *ngIf="sharedService.checkValidateInput(name)">
-                      Không hợp lệ
-                </small>
-              </div>
+            <mat-form-field appearance="standard">
+              <mat-label>Nhập Tên<span class="red-text">*</span></mat-label>
+              <input type="text" matInput formControlName="name">
+              <mat-error *ngIf="sharedService.checkValidateInput(name)">
+                Không hợp lệ
+              </mat-error>
+            </mat-form-field>
 
-              <div class="col  ">
-                <label  >Nhập Email<span class="red-text">*</span></label>
-                <input type="text" class="form-control"   formControlName="email">
-                <small class="red-text"  *ngIf="sharedService.checkValidateInput(email)">
-                  Không hợp lệ
-                </small>
-              </div>
-            </div>
-            <div class="  mb-5">
-              <label>Số điện thoại<span class="red-text">*</span></label>
-              <input type="text" class="form-control"   formControlName="phoneNumber">
-              <small class="red-text"  *ngIf="sharedService.checkValidateInput(phoneNumber)">
+            <mat-form-field appearance="standard">
+              <mat-label>Nhập Email<span class="red-text">*</span></mat-label>
+              <input type="text" matInput formControlName="email">
+              <mat-error *ngIf="sharedService.checkValidateInput(email)">
                 Không hợp lệ
-              </small>
-            </div>
-            <div class="  mb-3">
-              <div>Ngày xem nhà<span class="red-text">*</span></div>
-              <input type="datetime-local" class="form-control"     formControlName="dateTime">
-              <small class="red-text" *ngIf="sharedService.checkValidateInput(dateTime)">
-                Không hợp lệ
-              </small>
-            </div>
+              </mat-error>
+            </mat-form-field>
 
-            <div class=" ">
-              <label for="form8">Lời nhắn</label>
-              <textarea type="text" class="md-textarea form-control" rows="1"    
-                formControlName="message"></textarea>
-              <small class="red-text"  *ngIf="sharedService.checkValidateInput(message)">
+            <mat-form-field appearance="standard">
+              <mat-label>Số điện thoại<span class="red-text">*</span></mat-label>
+              <input type="text" matInput formControlName="phoneNumber">
+              <mat-error *ngIf="sharedService.checkValidateInput(phoneNumber)">
                 Không hợp lệ
-              </small>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard">
+              <mat-label>Ngày xem nhà<span class="red-text">*</span></mat-label>
+              <input type="datetime-local" matInput formControlName="dateTime">
+              <mat-error *ngIf="sharedService.checkValidateInput(dateTime)">
+                Không hợp lệ
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="mb-3" appearance="standard">
+              <mat-label>Lời nhắn</mat-label>
+              <textarea type="text" matInput rows="1" formControlName="message"></textarea>
+              <mat-error *ngIf="sharedService.checkValidateInput(message)">
+                Không hợp lệ
+              </mat-error>
+            </mat-form-field>
+            <div>
+              <button type="submit" [disabled]="!editOrderForm.valid || isSubmit" mat-raised-button color="warn"
+                class="btn-block" (click)="editModal.hide()">
+                <span [ngClass]="{'spinner-border spinner-border-sm' : isSubmit}"> </span>
+                Lưu</button>
+              <button type="button" mat-button class="btn-block" (click)="editModal.hide()">Đóng</button>
             </div>
-            <button type="submit" [disabled]="!editOrderForm.valid || isSubmit" mat-raised-button color="warn" class="btn-block" (click)="editModal.hide()"
-               >
-              <span [ngClass]="{'spinner-border spinner-border-sm' : isSubmit}"> </span>
-              Lưu</button>
-            <button type="button" mat-raised-button color="primary"
-              (click)="editModal.hide()"  >Đóng</button>
-          </div>
-        </div>
       </div>
     </div>
   </form>

@@ -1,8 +1,8 @@
 <div class="container-fluid mt-5  wow fadeIn">
 
-  <div class="card">
-    <div class="card-header text-center  h5"><strong>Quản lý người dùng</strong></div>
-    <mat-form-field class="w-100">
+  <mat-card>
+    <div class="text-center  h5"><strong>Quản lý người dùng</strong></div>
+    <mat-form-field class="w-100" appearance="standard">
       <mat-label>Lọc</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Đang chờ">
     </mat-form-field>
@@ -71,5 +71,5 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
     <mat-paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>
-  </div>
+  </mat-card>
 </div>

@@ -4,11 +4,11 @@
     <app-search-bar (search)="searchHandlerAtParrent($event)"></app-search-bar>
     <!--Kết quả search-->
     <div *ngIf="paging.countResult!=null" class="text-center my-4 wow fadeIn">
-        <div>Tìm thấy: <span class="red-text h4">{{paging.countResult}}</span> kết quả</div>
-        <button [disabled]='paging.countResult==0' type="button" (click)="showMap = !showMap" mat-raised-button color="primary"
-           ><span [innerHTML]="!showMap ? 'Bản đồ ' : 'Danh sách '"></span>
-          <i  [class]="!showMap? 'fas fa-map-marked-alt' : 'fas fa-list-ul'"></i>
-        </button>
+      <div>Tìm thấy: <span class="red-text h4">{{paging.countResult}}</span> kết quả</div>
+      <button [disabled]='paging.countResult==0' type="button" (click)="showMap = !showMap" mat-raised-button
+        color="primary"><span [innerHTML]="!showMap ? 'Bản đồ ' : 'Danh sách '"></span>
+        <i [class]="!showMap? 'fas fa-map-marked-alt' : 'fas fa-list-ul'"></i>
+      </button>
     </div>
 
     <div *ngIf="places">
@@ -32,7 +32,7 @@
               (mouseOver)="makerOver(place)">
               <agm-info-window #infowindow>
                 <!--Card-->
-                <div class="card" style="width: 300px;">
+                <mat-card style="width: 300px;">
                   <a (click)="sharedService.placeDetail(place.placeID)">
                     <div class="view overlay zoom" style="height: 200px;">
                       <img [src]="place.imageLarge" class="img-thumbnail" alt="zoom">
@@ -41,23 +41,23 @@
                       </div>
                     </div>
                     <!--Card content-->
-                    <div class="card-body text-center">
-                      <!--Title-->
-                      <div class="card-title h5" style="height: 56px;">{{place?.title | slice:0:50}}...</div>
-                      <!--Text-->
+                    <mat-card-header>
+                      <mat-card-title class="h5" style="height: 56px;">{{place?.title | slice:0:50}}...</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content class="text-center">
                       <div class="h6">
                         <span class="badge badge-pill badge-info">{{place.roleOfPlaceName}}</span>
                       </div>
-                      <p class="card-text">{{place.bedRooms|| '?'}} phòng ngủ - {{place.toilets|| '?'}} phòng vệ sinh -
+                      <p>{{place.bedRooms|| '?'}} phòng ngủ - {{place.toilets|| '?'}} phòng vệ sinh -
                         {{place.area|| '?'}} m²
                       </p>
-                      <div class="card-title h6">
+                      <mat-card-title class="h6">
                         <i class="fas fa-map-marker-alt grey-text"></i> {{place.district}}
-                      </div>
-                      <div  class="card-title h5">{{place.price| number}} vnđ</div>
-                    </div>
+                      </mat-card-title>
+                      <mat-card-title class="h5">{{place.price| number}} vnđ</mat-card-title>
+                    </mat-card-content>
                   </a>
-                </div>
+                </mat-card>
                 <!--/.Card-->
               </agm-info-window>
             </agm-marker>

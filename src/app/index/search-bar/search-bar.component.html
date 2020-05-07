@@ -1,46 +1,49 @@
 <!-- Advance Search -->
-<div class="card">
-  <div class="p-3">
+<mat-card>
   <form [formGroup]="form" (ngSubmit)="searchForm(form.value)">
     <div class="container">
       <div  class="row">
 
-        <div class="col-md-2">
-          <input formControlName="title" class="form-control" type="text" placeholder="Nhập từ khóa">
-        </div>
+        <mat-form-field class="col-md-2" appearance="outline">
+          <mat-label>Nhập từ khóa</mat-label>
+          <input formControlName="title" type="text" matInput>
+        </mat-form-field>
 
-        <div class="col-md-2 text-center">
-          <select formControlName="roleOfPlaceID" class="form-control">
-            <option value="-1">Loại nhà đất</option>
-            <option *ngFor="let item of roleOfPlaces" [ngValue]="item.roleOfPlaceID">{{item.roleName}}
-            </option>
-          </select>
-        </div>
+        <mat-form-field class="col-md-2" appearance="outline">
+          <mat-label>Loại nhà đất</mat-label>
+          <mat-select formControlName="roleOfPlaceID">
+            <mat-option value="-1">Tất cả</mat-option>
+            <mat-option *ngFor="let item of roleOfPlaces" [value]="item.roleOfPlaceID">{{item.roleName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
         
+        <mat-form-field class="col-md-2" appearance="outline">
+          <mat-label>Quận/Huyện</mat-label>
+          <mat-select formControlName="districtID">
+            <mat-option value="-1">Tất cả</mat-option>
+            <mat-option *ngFor="let item of districts" [value]="item.id">{{item.district}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="col-md-2" appearance="outline">
+          <mat-label >Diện tích</mat-label>
+          <mat-select formControlName="areaRange">
+            <mat-option *ngFor="let item of areaRanges" [value]="item">{{item.text}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="col-md-2" appearance="outline">
+          <mat-label >Khoảng giá</mat-label>
+          <mat-select formControlName="priceRange">
+            <mat-option *ngFor="let item of priceRanges" [value]="item">{{item.text}}</mat-option>
+          </mat-select>
+        </mat-form-field>
         <div class="col-md-2">
-          <select formControlName="districtID" class="form-control">
-            <option value="-1" selected>Quận/Huyện</option>
-            <option *ngFor="let item of districts" [ngValue]="item.id">{{item.district}}</option>
-          </select>
-        </div>
-        <div class="col-md-2">
-          <select formControlName="areaRange" class="form-control">
-            <option *ngFor="let item of areaRanges" [ngValue]="item">{{item.text}}</option>
-          </select>
-        </div>
-        <div class="col-md-2">
-          <select formControlName="priceRange" class="form-control">
-            <option *ngFor="let item of priceRanges" [ngValue]="item">{{item.text}}</option>
-          </select>
-        </div>
-        <div class="col-md-2 ">
-          <button type="submit" mat-raised-button  color="primary">
+          <button class="mt-2 py-2"  type="submit" mat-raised-button  color="primary">
             <strong>Tìm kiếm</strong>
           </button>
         </div>
       </div>
     </div>
   </form>
-</div>
-</div>
+</mat-card>
 <!-- / Advance Search -->

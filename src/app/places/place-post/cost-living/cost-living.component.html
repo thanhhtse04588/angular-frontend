@@ -13,25 +13,31 @@
                       *ngFor="let group of getFormControls.controls ; let i=index">
                       <tr  *ngIf="group.get('isEditable').value" [formGroupName]="i">
                         <td>
-                          <input matInput type="text" id="costName" class="form-control" formControlName="costName">
-                          <small class="red-text" *ngIf="sharedService.checkValidateInput(group.get('costName'))">
+                          <mat-form-field appearance="standard">
+                          <input matInput type="text"  formControlName="costName">
+                          <mat-error *ngIf="sharedService.checkValidateInput(group.get('costName'))">
                             Không bỏ trống
-                          </small>
+                          </mat-error>
+                        </mat-form-field>
                         </td>
                         <td>
-                          <input matInput type="number" id="costPrice" class="form-control" formControlName="costPrice">
-                          <small class="red-text" *ngIf="sharedService.checkValidateInput(group.get('costPrice'))">
+                          <mat-form-field appearance="standard">
+                          <input matInput type="number" formControlName="costPrice">
+                          <span matSuffix>vnđ</span>
+                          <mat-error *ngIf="sharedService.checkValidateInput(group.get('costPrice'))">
                             Không hợp lệ
-                          </small>
+                          </mat-error>
+                        </mat-form-field>
                         </td>
                         <td>
-                          <select matInput  id="unitID" class="form-control" formControlName="unitID">
-                            <option value="" disabled>Chọn...</option>
-                            <option *ngFor="let unit of units" [ngValue]='unit.id' >{{unit.unitName}}</option>
-                          </select>
-                          <small class="red-text" *ngIf="sharedService.checkValidateInput(group.get('unitID'))">
+                          <mat-form-field appearance="standard">
+                          <mat-select matInput  formControlName="unitID">
+                            <mat-option *ngFor="let unit of units" [value]='unit.id' >{{unit.unitName}}</mat-option>
+                          </mat-select>
+                          <mat-error  *ngIf="sharedService.checkValidateInput(group.get('unitID'))">
                             Không bỏ trống
-                          </small>
+                          </mat-error>
+                        </mat-form-field>
                         </td>
                         <td>
                           <button mat-flat-button   (click)="deleteRow(i)"  >Xóa</button>

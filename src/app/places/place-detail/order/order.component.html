@@ -1,62 +1,62 @@
 <div class="m-100">
   <form (ngSubmit)="onSubmitOrder()" [formGroup]="requestOrderForm">
     <h1 mat-dialog-title class="text-center">Mẫu đăng ký đặt lịch xem nhà</h1>
-    <div mat-dialog-content class="p-5">
-      <div class="row mb-4">
-        <div class="col">
-          <label>Nhập Tên<span class="red-text">*</span></label>
-          <input type="text" class="form-control" formControlName="name">
-          <small class="red-text" *ngIf="sharedService.checkValidateInput(name)">
+    <div>
+      <div class="row">
+        <mat-form-field appearance="standard" class="col">
+          <mat-label>Nhập Tên<span class="red-text">*</span></mat-label>
+          <input type="text" matInput formControlName="name">
+          <mat-error *ngIf="sharedService.checkValidateInput(name)">
             Không bỏ trống
-          </small>
-        </div>
+          </mat-error>
+        </mat-form-field>
 
-        <div class="col">
-          <label>Nhập Email<span class="red-text">*</span></label>
-          <input type="text" class="form-control" formControlName="email">
-          <small class="red-text" *ngIf="sharedService.checkValidateInput(email)">
+        <mat-form-field appearance="standard" class="col">
+          <mat-label>Nhập Email<span class="red-text">*</span></mat-label>
+          <input type="text" matInput formControlName="email">
+          <mat-error *ngIf="sharedService.checkValidateInput(email)">
             Không hợp lệ
-          </small>
-        </div>
+          </mat-error>
+        </mat-form-field>
       </div>
-      <div class="row mb-4">
-        <div class="col">
-          <label>Nhập số điện thoại<span class="red-text">*</span></label>
-          <input type="text" id="form29" class="form-control" formControlName="phoneNumber">
-          <small class="red-text" *ngIf="sharedService.checkValidateInput(phoneNumber)">
+      <div class="row">
+        <mat-form-field  appearance="standard" class="col">
+          <mat-label>Nhập số điện thoại<span class="red-text">*</span></mat-label>
+          <input type="text"  matInput formControlName="phoneNumber">
+          <mat-error  *ngIf="sharedService.checkValidateInput(phoneNumber)">
             Không hợp lệ
-          </small>
-        </div>
+          </mat-error>
+        </mat-form-field>
 
-        <div class="col">
-          <label>Thời gian xem nhà<span class="red-text">*</span></label>
-          <input type="datetime-local" class="form-control" formControlName="datetime">
-          <div><small>(Lớn hơn ngày hiện tại và không quá 1 tháng)</small></div>
-          <small class="red-text" *ngIf="sharedService.checkValidateInput(datetime)">
+        <mat-form-field  appearance="standard" class="col">
+          <mat-label>Thời gian xem nhà<span class="red-text">*</span></mat-label>
+          <input type="datetime-local" matInput formControlName="datetime">
+          <mat-hint>(Lớn hơn ngày hiện tại và không quá 1 tháng)</mat-hint>
+          <mat-error *ngIf="sharedService.checkValidateInput(datetime)">
             Không hợp lệ
-          </small>
-        </div>
+          </mat-error>
+        </mat-form-field>
       </div>
-      <div>
-        <label for="form8">Lời nhắn</label>
-        <textarea type="text" id="form8" class="md-textarea form-control" rows="1" formControlName="mess"></textarea>
-        <small class="red-text" *ngIf="sharedService.checkValidateInput(mess)">
+      <mat-form-field appearance="standard" class="w-100">
+        <mat-label for="form8">Lời nhắn</mat-label>
+        <textarea type="text" matInput  rows="1" formControlName="mess"></textarea>
+        <mat-error *ngIf="sharedService.checkValidateInput(mess)">
           Tối đa 100 ký tự
-        </small>
-      </div>
+        </mat-error>
+      </mat-form-field>
       <div class="text-center my-2" [ngClass]="{'red-text': !payFor}"
-        [innerHTML]='payFor? "Bạn đã thanh toán phí dịch vụ thành công, hoàn thành mẫu và gửi": "Thanh toán phí dịch vụ 25$ (500.000vnd) ở cổng paypal để hoàn thành mẫu đăng ký" '>
+        [innerHTML]='payFor? "Bạn đã thanh toán phí dịch vụ thành công": "Thanh toán phí dịch vụ 25$ (500.000vnd) ở cổng paypal để hoàn thành mẫu đăng ký" '>
       </div>
       <ng-container *ngIf="!payFor">
         <app-paypal-button [pay]='pay' (payResult)='payResult($event)'></app-paypal-button>
       </ng-container>
-      <div mat-dialog-actions>
+      <div class="my-3">
           <button *ngIf='payFor' type="submit" mat-raised-button color="primary" class="btn-block"
             [disabled]="!requestOrderForm.valid || isSubmit">
             <span [ngClass]="{'spinner-border spinner-border-sm' : isSubmit}"> </span>
             <strong>Gửi</strong>
           </button>
-        <button mat-button class="btn-block" matDialogClose> Hủy</button>
+        <button mat-raised-button class="btn-block" matDialogClose> Hủy</button>
       </div>
     </div>
   </form>

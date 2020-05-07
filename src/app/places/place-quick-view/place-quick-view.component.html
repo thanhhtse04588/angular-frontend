@@ -1,5 +1,5 @@
           <!--Card-->
-          <div class="card">
+          <mat-card class="d-flex">
             <a (click)="sharedService.placeDetail(place.placeID)">
               <!--Card image-->
               <div class="view overlay zoom" style="height: 250px;">
@@ -8,23 +8,24 @@
                   <p class="white-text">Xem</p>
                 </div>
               </div>
+              <mat-card-header>
+                <mat-card-title style="height: 56px;">{{place?.title | slice:0:55}}</mat-card-title>
+              </mat-card-header>
               <!--Card content-->
-              <div class="card-body">
-                <!--Title-->
-                <div class="card-title h5" style="height: 56px;">{{place?.title | slice:0:60}}</div>
+              <mat-card-content>
                 <!--Text-->
                 <div class="h5">
                   <span class="badge badge-pill badge-info">{{place.roleOfPlaceName}}</span>
                 </div>
 
-                <p class="card-text">{{place.bedRooms}} phòng ngủ - {{place.toilets}} phòng vệ sinh - {{place.area}} m²
+                <p>{{place.bedRooms}} phòng ngủ - {{place.toilets}} phòng vệ sinh - {{place.area}} m²
                 </p>
-                <div class="card-title h5">
+                <mat-card-title class=" h5">
                   <i class="fas fa-map-marker-alt grey-text"></i> {{place.district}}
-                </div>
-                <div class="card-title h4"> {{place.price| number}} vnđ</div>
+                </mat-card-title>
+                <mat-card-title class="h4"> {{place.price| number}} vnđ</mat-card-title>
 
-              </div>
+              </mat-card-content>
             </a>
-          </div>
+          </mat-card>
           <!--/.Card-->

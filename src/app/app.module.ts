@@ -64,6 +64,7 @@ import { UserListComponent } from './admin/user-list/user-list.component';
 import { UserProfileDialogComponent } from './user/user-profile-dialog/user-profile-dialog.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { LoggerDialogComponent } from './index/logger-dialog/logger-dialog.component';
+import { ContractFormComponent } from './admin/order-list/contract-form/contract-form.component';
 
 
 @NgModule({
@@ -109,8 +110,12 @@ import { LoggerDialogComponent } from './index/logger-dialog/logger-dialog.compo
       UserProfileDialogComponent,
       UserProfileComponent,
       LoggerDialogComponent,
+      ContractFormComponent,
   ],
   entryComponents: [
+    ContractFormComponent,
+    OrderComponent,
+    UserProfileComponent,
     UserProfileDialogComponent,
     LoggerDialogComponent,
   ],

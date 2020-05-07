@@ -1,3 +1,4 @@
+import { SharedService } from './../../shared/service/shared.service';
 import { UserService } from './../../user/service/user.service';
 import { UserLogin } from '../../shared/model/user.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnInit {
   validatingSigninForm: FormGroup;
 
   constructor(
+    public sharedService: SharedService,
     private router: Router, public loginService: AuthenticationService, private registerService: AuthenticationService,
     private authGaurdService: AuthGaurdService, public userService: UserService) { }
 

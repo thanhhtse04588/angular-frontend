@@ -1,0 +1,49 @@
+<!-- DealForm -->
+
+    <form (ngSubmit)='sendDeal(formContract.value)' [formGroup]="formContract">
+        <div class="text-center">
+            <h1 mat-dialog-title>Tạo hợp đồng thuê nhà</h1>
+          <div><small>(Hợp đồng sẽ được gửi cho người thuê để xác nhận)</small></div>
+        </div>
+        <div class="mx-3">
+          <div mat-dialog-content class="my-3"> 
+            <button type="button" (click)="upload.click()"  mat-raised-button color="primary" >
+            Tải lên hợp đồng bản mềm<input type="file"  formControlName="contractLink" autocomplete="off" style="display:none;"
+              (change)="onFileSelected($event)" #upload/>
+          </button>
+          <small class="d-block" [ngClass]="{'red-text':!fileName}">{{fileName? fileName: "Yêu cầu tải lên hợp đồng bản mềm."}}</small>
+          </div>
+          <mat-form-field appearance="outline" class="mb-4 w-100">
+            <mat-label> Thời gian thuê từ ngày<span class="red-text">*</span></mat-label>
+            <input matInput type="date"  formControlName="startDate">
+            <mat-error *ngIf="sharedService.checkValidateInput(startDate)">
+              Không hợp lệ
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="mb-4 w-100">
+            <mat-label>Đến ngày<span class="red-text">*</span></mat-label>
+            <input type="date" matInput formControlName="endDate">
+            <mat-error *ngIf="sharedService.checkValidateInput(endDate) || formContract.errors?.invalidEndDate">
+              Không hợp lệ
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="mb-4 w-100">
+            <mat-label>Phí đặt cọc<span class="red-text">*</span>: </mat-label>
+            <input type="number" matInput formControlName="fee">
+            <span matSuffix>vnđ</span>
+            <mat-error  *ngIf="sharedService.checkValidateInput(fee)">
+              Không hợp lệ
+            </mat-error>
+          </mat-form-field>
+          <div class="mb-3">
+            <mat-checkbox [default]="false" formControlName="isUseService">Sử dụng dịch vụ(<small>Thanh toán phí dịch vụ hằng tháng qua hệ thống...</small>)</mat-checkbox >
+          </div>
+        <div mat-dialog-actions>
+          <button  mat-raised-button color="warn" class="btn-block mb-4" type="submit" mat-dialog-close [disabled]="formContract.invalid" mat>
+            Gửi
+          </button>
+        </div>
+        </div>
+    </form>

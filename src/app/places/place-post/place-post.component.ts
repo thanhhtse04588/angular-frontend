@@ -19,6 +19,7 @@ import { thanToday } from 'src/app/shared/directive/than-today.directive';
 @Component({
   selector: 'app-place-post',
   templateUrl: './place-post.component.html',
+  styles:['mat-form-field { width: 100%;}']
 })
 export class PlacePostComponent implements OnInit, OnDestroy, AfterViewChecked  {
   private subs = new Subscription();

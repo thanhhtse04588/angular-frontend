@@ -20,46 +20,49 @@
           </select>
         </div>
         <div *ngFor="let item of posts">
-          <div *ngIf="isStatusShow(item.statusID)" class="card mb-3">
+          <mat-card *ngIf="isStatusShow(item.statusID)" class="mb-3">
+            <mat-card-content>
               <div class="row">
-                <div class="col-md-5 view overlay zoom" >
-                  <a  (click)="sharedService.placeDetail(item.id)">
-                  <img  [src]="item.imageLarge" style="height: 236px;" class="img-thumbnail" alt="zoom">
-                  <div class="mask flex-center   waves-light">
-                    <p class="white-text">Xem</p>
-                  </div>
-                </a>
+                <div class="col-md-5 view overlay zoom">
+                  <a (click)="sharedService.placeDetail(item.id)">
+                    <img [src]="item.imageLarge" style="height: 200px;" class="img-thumbnail" alt="zoom">
+                    <div class="mask flex-center   waves-light">
+                      <p class="white-text">Xem</p>
+                    </div>
+                  </a>
                 </div>
-                <div class="card-body col-md-7">
-                  <div class="row">
-                    <div class="col-md-9" style="height: 130px;">
-                      <div class="card-title">
-                        <div class="h5">{{item.title | slice:0:70}}</div>
-                      </div>
+
+                <div class="col-md-7 d-flex align-items-start flex-column">
+                  <div class="mb-auto d-flex w-100">
+                    <div class="mr-auto">
+                      <mat-card-title>
+                        <div class="h5">{{item.title | slice:0:100}}</div>
+                      </mat-card-title>
                       <div>
-                        <p><strong>Địa chỉ: </strong>{{item.address | slice:0:70}}</p>
+                        <p><strong>Địa chỉ: </strong>{{item.address | slice:0:100}}</p>
                         <p><strong>Ngày đăng: </strong> {{item.datePost | date:'M/d/yyyy' }}</p>
                       </div>
                     </div>
-                    <div class="col-md-3">
+                    <div>
                       <button *ngIf="isCancelShow(item.statusID)" (click)="comfirmCancel.show()"
-                        (click)="placeID = item.id" style="width: 110px;" class="float-right"  mat-stroked-button
-                        color="accent"  > Hủy </button>
+                        (click)="placeID = item.id" mat-stroked-button color="accent"> Hủy </button>
                       <button *ngIf="isEditShow(item.statusID)" (click)="comfirmEdit.show()" (click)="placeID =item.id"
-                        style="width: 110px;" class="float-right"  mat-stroked-button color="warn"  >Chỉnh
-                        sửa</button>
+                        mat-stroked-button color="warn">Chỉnh sửa</button>
                     </div>
                   </div>
-                  <hr>
 
-                  <span class="h5">Giá: {{item.price| number}} vnđ</span>
-                  <span class="float-right h5 pr-2">
-                    <span [ngClass]="'badge badge-'+sharedService.placeStatusColor(item.statusID)">{{item.status}}</span>
-                  </span>
+                  <div class="d-flex w-100">
+                    <div class="h5 mr-auto">Giá: {{item.price| number}} vnđ</div>
+                    <div class="h5">
+                      <span [ngClass]="'badge badge-'+sharedService.placeStatusColor(item.statusID)">{{item.status}}</span>
+                    </div>
+
+                  </div>
 
                 </div>
               </div>
-          </div>
+            </mat-card-content>
+          </mat-card>
         </div>
       </div>
     </div>
@@ -74,10 +77,9 @@
           <div class="h5">Bạn có chắc chắn muốn HỦY</div>
         </div>
         <div class="modal-footer">
-          <a type="button" mat-stroked-button color="accent"  (click)="comfirmCancel.hide()" (click)="cancel()"
-             >Đồng ý </a>
-          <a type="button" mat-stroked-button color="accent"   (click)="comfirmCancel.hide()"
-             >Bỏ qua</a>
+          <a type="button" mat-stroked-button color="accent" (click)="comfirmCancel.hide()" (click)="cancel()">Đồng ý
+          </a>
+          <a type="button" mat-stroked-button color="accent" (click)="comfirmCancel.hide()">Bỏ qua</a>
         </div>
       </div>
     </div>
@@ -92,10 +94,9 @@
           <div class="h5">Bạn có chắc chắn muốn CHỈNH SỬA</div>
         </div>
         <div class="modal-footer justify-content-center">
-          <a type="button" mat-stroked-button color="warn"  (click)="comfirmEdit.hide()" (click)="edit()"
-             ><i class="fas fa-check"></i> </a>
-          <a type="button" mat-stroked-button color="warn"   (click)="comfirmEdit.hide()"
-             ><i class="fas fa-minus"></i></a>
+          <a type="button" mat-stroked-button color="warn" (click)="comfirmEdit.hide()" (click)="edit()"><i
+              class="fas fa-check"></i> </a>
+          <a type="button" mat-stroked-button color="warn" (click)="comfirmEdit.hide()"><i class="fas fa-minus"></i></a>
         </div>
       </div>
     </div>

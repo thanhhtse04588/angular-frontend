@@ -61,7 +61,7 @@ export class PlaceDetailComponent implements OnInit {
   }
   openDialog(): void {
     const dialogRef = this.dialog.open(OrderComponent, {
-      width: '620px',
+      width: '500px',
       data: this.place.placeID,
       disableClose: true
     });

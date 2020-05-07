@@ -82,7 +82,8 @@
                 </ng-container>
                 <ng-template #logOut>
                     <li class="nav-item">
-                        <a class="nav-link mx-2" mat-raised-button (click)="userService.openUserProfile(loginService.currentUserValue.userID)">
+                        <a class="nav-link mx-2" mat-raised-button
+                            (click)="userService.openUserProfile(loginService.currentUserValue.userID)">
                             <i class="fas fa-user"></i></a>
                     </li>
 
@@ -102,41 +103,32 @@
 
 <!-- Login Modal -->
 <form [formGroup]="validatingLoginForm" (ngSubmit)="checkLogin()">
-    <div mdbModal #frameLogin="mdbModal" class="modal fade down" id="frameModalTop" tabindex="-1" role="dialog"
-        aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div mdbModal #frameLogin="mdbModal" class="modal fade down" tabindex="-1" role="dialog">
+        <div class="modal-dialog" style="width:450px;" role="document">
             <div class="modal-content  p-5">
-                <div class="h4 mb-5 text-center">Đăng nhập</div>
+                <div class="h4 mb-3 text-center">Đăng nhập</div>
+                <mat-form-field appearance="standard">
+                    <mat-label>Tên đăng nhập</mat-label>
+                    <input type="text" formControlName="loginFormModalUsername" matInput>
+                </mat-form-field>
 
-                <input type="text" formControlName="loginFormModalUsername" class="form-control"
-                    placeholder="Tên đăng nhập">
-                <small
-                    *ngIf="loginFormModalUsername.invalid && (loginFormModalUsername.touched || loginFormModalUsername.dirty)"
-                    class="form-text text-muted">
-                    <span class="float-left red-text">Không hợp lệ</span>
-                </small>
-
-                <input type="password" formControlName="loginFormModalPassword" class="form-control mt-4"
-                    placeholder="Mật khẩu">
-                <small
-                    *ngIf="loginFormModalPassword.invalid && (loginFormModalPassword.touched || loginFormModalPassword.dirty)"
-                    class="form-text text-muted">
-                    <span class="float-left red-text">Không hợp lệ</span>
-                </small>
+                <mat-form-field appearance="standard">
+                    <mat-label>Mật khẩu</mat-label>
+                    <input matInput type="password" formControlName="loginFormModalPassword">
+                </mat-form-field>
                 <!-- Sign in button -->
-                <button mat-raised-button color="primary" class="btn-block mt-5 mb-4" type="submit"
+                <button mat-raised-button color="primary" class="btn-block" type="submit"
                     [disabled]="!validatingLoginForm.valid || isLoginSubmit">
                     <span [ngClass]="{'spinner-border spinner-border-sm' : isLoginSubmit}"> </span> Đăng nhập</button>
-
+                <button type="button" mat-raised-button class="my-3 btn-block" role="button"
+                    (click)="loginService.googleSignin();frameLogin.hide()">
+                    Đăng nhập với <i class="fab fa-google"></i>
+                </button>
                 <!-- Register -->
                 <p class="text-center">Bạn chưa có tài khoản?
-                    <a class="light-blue-text mx-2" (click)='frameSignin.show();frameLogin.hide()'>Đăng ký</a>
+                    <a class="light-blue-text" (click)='frameSignin.show();frameLogin.hide()'>Đăng ký</a>
                 </p>
                 <!-- Social login -->
-                <p class="text-center">Đăng nhập với : <a class="light-blue-text mx-2" role="button"
-                        (click)="loginService.googleSignin();frameLogin.hide()">
-                        <i class="fab fa-google fa-2x"></i>
-                    </a></p>
             </div>
         </div>
     </div>
@@ -145,46 +137,49 @@
 
 <!-- Signin Modal -->
 <form [formGroup]="validatingSigninForm" (ngSubmit)=doSignup()>
-    <div mdbModal #frameSignin="mdbModal" class="modal fade down" id="frameModalTop" tabindex="-1" role="dialog"
-        aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div mdbModal #frameSignin="mdbModal" class="modal fade down"  tabindex="-1" role="dialog">
+        <div class="modal-dialog" style="width:500px;" role="document">
             <div class="modal-content p-5 ">
-                <div class="mb-5 text-center h4">Đăng ký</div>
+                <div class="text-center h4 mb-3">Đăng ký</div>
 
-                <div class="form-row">
+                <div class="row">
                     <div class="col">
-                        <input type="text" formControlName="firstName" class="form-control" placeholder="Tên">
-                        <small class="form-text text-muted mb-4">Yêu cầu <span
-                                class="float-left red-text">*</span></small>
+                        <mat-form-field appearance="standard">
+                            <mat-label>Tên<span class="red-text">*</span></mat-label>
+                            <input type="text" formControlName="firstName" matInput>
+                            <mat-error *ngIf="sharedService.checkValidateInput(firstName)"> Không bỏ trống</mat-error>
+                        </mat-form-field>
                     </div>
                     <div class="col">
-                        <input type="text" formControlName="lastName" class="form-control" placeholder="Họ">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Họ</mat-label>
+                        <input type="text" formControlName="lastName" matInput>
+                    </mat-form-field>
                     </div>
                 </div>
                 <!--User name -->
-                <input type="text" formControlName="username" class="form-control" placeholder="Tên đăng nhập">
-                <small class="form-text text-muted mb-4 ">Yêu cầu <span class="float-left red-text">*</span></small>
-
+                <mat-form-field class="w-100" appearance="standard">
+                    <mat-label>Tên đăng nhập<span class="red-text">*</span></mat-label>
+                <input type="text" formControlName="username" matInput>
+                <mat-error *ngIf="sharedService.checkValidateInput(username)"> Không bỏ trống</mat-error>
+            </mat-form-field>
                 <!-- Password -->
-                <input type="password" formControlName="password" class="form-control" placeholder="Mật khẩu"
-                    aria-describedby="defaultRegisterFormPasswordHelpBlock">
-                <small class="form-text text-muted mb-4">
-                    <span class="float-left red-text">*</span>Mật khẩu ít nhất 6 đến 32 ký tự
-                </small>
-
+                <mat-form-field class="w-100" appearance="standard">
+                    <mat-label>Mật khẩu<span class="red-text">*</span></mat-label>
+                <input type="password" formControlName="password" matInput>
+                <mat-error *ngIf="sharedService.checkValidateInput(password)"> Không hợp lệ</mat-error>
+                <mat-hint > Mật khẩu ít nhất 6 đến 32 ký tự </mat-hint>
+            </mat-form-field>
                 <!-- Password -->
-                <input type="password" formControlName="confirmPasswrd" class="form-control"
-                    placeholder="Nhập lại mật khẩu" aria-describedby="defaultRegisterFormPasswordHelpBlock">
+                <mat-form-field class="w-100" appearance="standard">
+                    <mat-label>Nhập lại mật khẩu<span class="red-text">*</span></mat-label>
+                <input type="password" formControlName="confirmPasswrd" matInput>
+                <mat-error *ngIf="sharedService.checkValidateInput(password)"> Không hợp lệ</mat-error>
+            </mat-form-field>
 
                 <button mat-raised-button color="primary" class="btn-block my-4"
                     [disabled]="!validatingSigninForm.valid || isSigninSubmit" type="submit"> <span
                         [ngClass]="{'spinner-border spinner-border-sm' : isSigninSubmit}"> </span> Đăng ký</button>
-
-                <!-- Social register -->
-                <p class="text-center">Đăng ký với : <a class="light-blue-text mx-2" role="button"
-                        (click)="loginService.googleSignin();frameSignin.hide()">
-                        <i class="fab fa-google fa-2x"></i>
-                    </a></p>
             </div>
         </div>
     </div>

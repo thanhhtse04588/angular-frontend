@@ -1,6 +1,6 @@
 <h1 mat-dialog-title class="text-center">Thông tin cá nhân</h1>
 <div mat-dialog-content *ngIf="user">
-    <mat-tab-group>
+    <mat-tab-group mat-align-tabs="center">
         <mat-tab label="Thông tin">
             <mat-card>
                 <mat-card-header>
@@ -57,7 +57,7 @@
                 </mat-form-field>
                 <div class="mb-4">
                     <button mat-stroked-button type="button" (click)="upload.click()" color="primary">
-                        Ảnh đại diện<span class="red-text">*</span><input type="file" class="form-control" formControlName="avatarLink"
+                        Ảnh đại diện<span class="red-text">*</span><input type="file" formControlName="avatarLink"
                             autocomplete="off" style="display:none;" (change)="onFileSelected($event)" #upload />
                     </button>
                     <small [ngClass]="{'red-text':!fileName}">{{fileName? fileName: "Cập nhật ảnh đại diện."}}</small>

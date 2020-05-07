@@ -16,7 +16,7 @@ export class SearchBarComponent implements OnInit {
   districts: Observable<DistrictDB>;
   form: FormGroup;
   areaRanges = [{
-    areaMin: 0, areaMax: 999999999, text: 'Diện tích'
+    areaMin: 0, areaMax: 999999999, text: 'Tất cả'
   },
   {
     areaMin: 0, areaMax: 30, text: '< 30m²'
@@ -36,7 +36,7 @@ export class SearchBarComponent implements OnInit {
   ];
 
   priceRanges = [{
-    priceMin: 0, priceMax: 999999999, text: 'Khoảng giá'
+    priceMin: 0, priceMax: 999999999, text: 'Tất cả'
   },
   {
     priceMin: 0, priceMax: 2000000, text: '< 2 triệu/tháng'
@@ -80,7 +80,6 @@ export class SearchBarComponent implements OnInit {
     });
 
   }
-
   searchForm(form) {
     form.title = form.title.trim().toLowerCase();
     form.areaMax = form.areaRange.areaMax;
@@ -89,7 +88,6 @@ export class SearchBarComponent implements OnInit {
     form.priceMin = form.priceRange.priceMin;
     this.search.next(form);
   }
-
   // reloadCurrentRoute(currentUrl: string, data: any) {
   //   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
   //     this.router.navigate([currentUrl, data])

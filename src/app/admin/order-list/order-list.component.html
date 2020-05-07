@@ -1,7 +1,7 @@
 <div class="container-fluid mt-5">
-      <div class="card">
-        <div class="card-header text-center  h5"><strong>Danh sách Order </strong></div>
-        <mat-form-field class="w-100">
+      <mat-card>
+        <div class="text-center  h5"><strong>Danh sách Order </strong></div>
+        <mat-form-field class="w-100" appearance="standard">
           <mat-label>Lọc</mat-label>
           <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Đang chờ">
         </mat-form-field>
@@ -66,7 +66,7 @@
                     class="fas fa-check"></i></button>
                 <ng-template #dealButton>
                   <button type="button" mat-stroked-button color="warn"  (click)='item= element'
-                    (click)="dealForm.show()"  ><i class="fas fa-check"></i></button>
+                    (click)="openDialog(element)"  ><i class="fas fa-check"></i></button>
                 </ng-template>
 
                 <button type="button" mat-stroked-button color="accent"  (click)='item = element'
@@ -79,7 +79,7 @@
           <tr  mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
         <mat-paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>
-      </div>
+      </mat-card>
     </div>
 
 
@@ -118,60 +118,5 @@
            ><i class="fas fa-minus"></i></a>
       </div>
     </div>
-  </div>
-</div>
-
-<!-- DealForm -->
-<div mdbModal #dealForm="mdbModal" class="modal fade right" id="frameModalTop" tabindex="-1" role="dialog"
-  aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <form (ngSubmit)='sendDeal(formContract.value)' [formGroup]="formContract">
-      <div class="modal-content p-4">
-        <div class="text-center">
-          <div class="modal-title w-100 h4">Tạo hợp đồng thuê nhà</div>
-          <div><small>(Hợp đồng sẽ được gửi cho người thuê để xác nhận)</small></div>
-        </div>
-        <div class="mx-3">
-          <div class="my-3"> 
-            <button type="button" (click)="upload.click()"  mat-raised-button color="primary" >
-            Tải lên hợp đồng bản mềm<input type="file" class="form-control" formControlName="contractLink" autocomplete="off" style="display:none;"
-              (change)="onFileSelected($event)" #upload/>
-          </button>
-          <small class="d-block" [ngClass]="{'red-text':!fileName}">{{fileName? fileName: "Yêu cầu tải lên hợp đồng bản mềm."}}</small>
-          </div>
-          <div class="mb-4">
-            <label> Thời gian thuê từ ngày<span class="red-text">*</span>: </label>
-            <input type="date" class="form-control" formControlName="startDate">
-            <small class="red-text" *ngIf="sharedService.checkValidateInput(startDate)">
-              Không hợp lệ
-            </small>
-          </div>
-
-          <div class="mb-4">
-            <label>Đến ngày<span class="red-text">*</span>: </label>
-            <input type="date" class="form-control" formControlName="endDate">
-            <small class="red-text" *ngIf="sharedService.checkValidateInput(endDate) || formContract.errors?.invalidEndDate">
-              Không hợp lệ
-            </small>
-          </div>
-
-          <div class="mb-4">
-            <label>Phí đặt cọc(vnđ)<span class="red-text">*</span>: </label>
-            <input type="number" class="form-control" formControlName="fee">
-            <small class="red-text" *ngIf="sharedService.checkValidateInput(fee)">
-              Không hợp lệ
-            </small>
-          </div>
-          <div class="mb-3">
-            <mat-checkbox [default]="false" formControlName="isUseService">Sử dụng dịch vụ(<small>Thanh toán phí dịch vụ hằng tháng qua hệ thống...</small>)</mat-checkbox >
-          </div>
-        <div>
-          <button  mat-raised-button color="warn" class="btn-block mt-5 mb-4" type="submit"  [disabled]="formContract.invalid || isSubmit"(click)="dealForm.hide()" >
-            <span [ngClass]="{'spinner-border spinner-border-sm' : isSubmit}"> </span>Gửi
-          </button>
-        </div>
-        </div>
-      </div>
-    </form>
   </div>
 </div>

@@ -1,12 +1,12 @@
 <!--Main layout-->
 <div *ngIf="place" class="container wow fadeInDown">
   <div class="row mb-4">
-    <div class="card">
-      <div class="card-header text-center">
+    <mat-card>
+      <mat-card-title class="text-center">
         <div class="h4">{{place.title}}</div>
-      </div>
-      <div class="card-body px-5 pb-5">
-        <div class="card-title text-center">
+      </mat-card-title>
+      <div class="px-5 pb-5">
+        <div class="text-center">
           <div class="h5">
             <span>
               <i class="fas fa-home grey-text"></i><strong> {{place.roleOfPlace}}</strong>
@@ -93,7 +93,7 @@
 
           </div>
         </div>
-        <div class="row">
+        <div class="row my-5">
           <div class="col" *ngIf="place.listEquip?.length>0">
             <div class="h5"><strong>Thông tin nội thất</strong></div>
             <div  bordered="true" hover="true">
@@ -169,6 +169,6 @@
         </div>
 
       </div>
-    </div>
+    </mat-card>
   </div>
 </div>
