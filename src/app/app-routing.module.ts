@@ -1,3 +1,4 @@
+import { SellerContractComponent } from './user/seller-contract/seller-contract.component';
 import { UserListComponent } from './admin/user-list/user-list.component';
 import { RenterPaymentComponent } from './user/renter-payment/renter-payment.component';
 import { PaymentListComponent } from './admin/payment-list/payment-list.component';
@@ -55,6 +56,7 @@ const routes: Routes = [
           { path: 'post-edit', component: SellerPostEditComponent, canActivate: [AuthGaurdService] },
           { path: 'rented', component: SellerRentedComponent, canActivate: [AuthGaurdService] },
           { path: 'bill', component: SellerColBillComponent, canActivate: [AuthGaurdService] },
+          { path: 'contract', component: SellerContractComponent, canActivate: [AuthGaurdService] },
         ]
       },
       {

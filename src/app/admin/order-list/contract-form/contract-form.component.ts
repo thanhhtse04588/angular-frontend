@@ -38,8 +38,6 @@ export class ContractFormComponent implements OnInit {
     this.dialogRef.close();
   }
   onFileSelected(event) {
-    console.log(event);
-
     const n = Date.now();
     const file = event.target.files[0];
     this.fileName = file.name;

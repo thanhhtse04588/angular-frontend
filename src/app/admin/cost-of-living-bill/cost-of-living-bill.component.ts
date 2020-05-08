@@ -19,7 +19,7 @@ import { forkJoin } from 'rxjs';
 export class CostOfLivingBillComponent implements OnInit {
   @ViewChild('fillFormModal', { static: true }) fillFormModal: ModalDirective;
   bill: COLBill;
-  displayedColumns: string[] = ['colId','colDetail', 'renterId', 'ownerID', 'dateCollect',
+  displayedColumns: string[] = ['colId', 'colDetail', 'renterId', 'ownerID', 'dateCollect',
     'deadLineStatus', 'totalExpense', 'paymentStatusName', 'void'];
   dataSource: any;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -50,7 +50,8 @@ export class CostOfLivingBillComponent implements OnInit {
       } else {
         alert('Thao thác không thành công');
       }
-    }, err => alert('Thao thác không thành công'));
+    }, err => alert('Thao thác không thành công'),
+      () => this.fillFormModal.hide())
   }
 
   onInputAmount(amount: number, item: COLBillDetail) {

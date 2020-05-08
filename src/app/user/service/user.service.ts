@@ -21,8 +21,6 @@ export class UserService {
   openUserProfileDialog(id: number): void {
     this.getUserProfileByUserID(id).subscribe(
       data => {
-        console.log(data);
-        
         this.dialog.open(UserProfileDialogComponent, {
           width: '350px',
           data: data as UserProfile
@@ -43,7 +41,6 @@ export class UserService {
           if(result){
           result.userID= this.loginService.currentUserValue.userID;
           result.avatarLink = sessionStorage.getItem("avatarLink") || result.avatarLink;
-          console.log(JSON.stringify(result));
           this.updateUser(result).subscribe(_OBSERVER);}
         });
       }

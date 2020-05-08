@@ -2,9 +2,8 @@
   <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
     <mdb-carousel-item *ngFor="let img of imgSlide">
       <div class="view w-100" style="height: 70vh;">
-        <img class="d-block img-fluid"
-          [src]="img" alt="First slide">
-        <div class="mask rgba-black-light waves-light"  ></div>
+        <img class="d-block img-fluid" [src]="img" alt="First slide">
+        <div class="mask rgba-black-light waves-light"></div>
       </div>
       <div class="carousel-caption h-50 my-auto">
         <div class="mb-4 h1">
@@ -47,16 +46,16 @@
       <div class="row">
 
         <!--Grid column-->
-        <div class="col-md-6 mb-4">
+        <mat-card class="col-md-6 mb-4">
 
-          <img src="../../../assets/img/team.jpg" class="img-fluid z-depth-1-half" alt="">
+          <img src="../../../assets/img/team.jpg" class="img-fluid">
 
-        </div>
+        </mat-card>
         <!--Grid column-->
 
         <!--Grid column-->
-        <div class="col-md-6 mb-4">
-          <div class="view overlay z-depth-1 p-5">
+        <mat-card class="col-md-6 mb-4">
+          <div class="view overlay p-5">
             <!-- Main heading -->
             <div class="mb-3 h3">Về Chúng Tôi</div>
             <hr>
@@ -73,7 +72,7 @@
             <hr>
           </div>
 
-        </div>
+        </mat-card>
         <!--Grid column-->
 
       </div>

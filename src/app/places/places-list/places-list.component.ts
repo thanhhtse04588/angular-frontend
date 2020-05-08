@@ -19,7 +19,7 @@ export class PlacesListComponent implements OnInit {
   paging = new Paging();
   showMap = false;
   location: Location;
-  zoom = 13;
+  zoom = 12;
   previous: AgmInfoWindow;
   constructor(private searchService: SearchBarService, public sharedService: SharedService) {
   }

@@ -2,8 +2,11 @@
   <div class="container ">
     <div class="row py-5">
 
-      <div class="col-md-3 ">
-        <app-renter-menu></app-renter-menu>
+      <div class="col-md-3">
+        <app-renter-menu *ngIf="!ownerID;else sellerMenu"></app-renter-menu>
+        <ng-template #sellerMenu>
+          <app-seller-menu></app-seller-menu>
+        </ng-template>
       </div>
 
       <div class="col-md-9 ">
@@ -13,17 +16,19 @@
         </div>
         <div *ngFor="let contract of contracts">
           <mat-card class="mb-3">
-              <mat-card-header class="h5">{{contract.titlePlace}}</mat-card-header>
+            <mat-card-header class="h5">{{contract.titlePlace}}</mat-card-header>
             <mat-card-content class="px-5">
               <div>
                 <div class="row">
                   <div class="col">
                     <p><strong>Mã hợp đồng: </strong>{{contract.contractID}}</p>
-                    <p><strong>Chủ nhà: </strong> 
-                      <a mat-button color="primary" (click)="userService.openUserProfileDialog(contract.ownerID)"><i class="fas fa-info"></i></a>
+                    <p><strong>Chủ nhà: </strong>
+                      <a mat-button color="primary" (click)="userService.openUserProfileDialog(contract.ownerID)"><i
+                          class="fas fa-info"></i></a>
                     </p>
                     <p><strong>Người thuê: </strong>
-                      <a mat-button color="primary" (click)="userService.openUserProfileDialog(contract.renterID)"><i class="fas fa-info"></i></a>
+                      <a mat-button color="primary" (click)="userService.openUserProfileDialog(contract.renterID)"><i
+                          class="fas fa-info"></i></a>
                     </p>
                   </div>
                   <div class="col">
@@ -35,7 +40,8 @@
                   </div>
                   <div class="col d-flex align-items-start flex-column">
                     <p><strong>Thông tin nhà: </strong>
-                      <a mat-button color="primary" (click)="sharedService.placeDetail(contract.placeID)"><i class="fas fa-info"></i></a>
+                      <a mat-button color="primary" (click)="sharedService.placeDetail(contract.placeID)"><i
+                          class="fas fa-info"></i></a>
                     </p>
                     <div><strong>Trạng thái nhà: </strong>
                       <span [ngClass]="'text-'+ sharedService.placeStatusColor(contract.placeStatusID)">

@@ -1,10 +1,10 @@
+<mat-card>
 <h1 mat-dialog-title class="text-center">Thông tin người dùng</h1>
 <div mat-dialog-content *ngIf="user">
-  <mat-card>
     <mat-card-header>
       <div mat-card-avatar style="background-size: cover;background-image: url('{{user.avatarLink}}')"></div>
       <mat-card-title>
-        {{user.name}}
+        {{user.name| slice:0:20}}
       </mat-card-title>
       <mat-card-subtitle>
         {{user.statusName}}
@@ -15,11 +15,11 @@
         <mat-list-item><strong>Giới tính</strong> : {{user.gender}} </mat-list-item>
         <mat-list-item><strong>Địa chỉ</strong> : {{user.address}}</mat-list-item>
         <mat-list-item><strong>Số điện thoại</strong>: {{user.phoneNumber}}</mat-list-item>
-        <mat-list-item><strong>Email</strong>: {{user.email}}</mat-list-item>
+        <mat-list-item [matTooltip]="user.email" TooltipPosition="above"><strong>Email</strong>: {{user.email | slice:0:20}}</mat-list-item>
     </mat-list>
     </mat-card-content>
-  </mat-card>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Đóng</button>
+  <button mat-raised-button class="btn-block" (click)="onNoClick()">Đóng</button>
 </div>
+</mat-card>

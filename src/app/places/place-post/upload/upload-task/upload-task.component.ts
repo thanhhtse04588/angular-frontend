@@ -27,22 +27,11 @@ export class UploadTaskComponent implements OnInit {
   }
 
   startUpload() {
-
-    // The storage path
     const path = `test/${Date.now()}_${this.file.name}`;
-
-    // Reference to storage bucket
     const ref = this.storage.ref(path);
-
-    // The main task
     this.task = this.storage.upload(path, this.file);
-
-    // Progress monitoring
     this.percentage = this.task.percentageChanges();
-
     this.snapshot = this.task.snapshotChanges().pipe(
-      tap(console.log),
-      // The file's download URL
       finalize(async () => {
         this.downloadURL = await ref.getDownloadURL().toPromise();
         this.upload.next(this.downloadURL);

@@ -83,7 +83,7 @@ export class AuthenticationService {
       password: credential.user.uid
     });
     const logIn$ = this.authenticate(credential.user.email, credential.user.uid);
-    concat(signUp$, logIn$).subscribe(console.log);
+    concat(signUp$, logIn$).subscribe();
     return this.updateUserData(credential.user);
   }
 

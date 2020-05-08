@@ -18,9 +18,7 @@ export class PaypalButtonComponent implements OnInit {
 
   ngOnInit() {
     this.paypalOnInit();
-    console.log(this.pay);
   }
-
   paypalOnInit() {
     return paypal
       .Buttons({

@@ -24,7 +24,7 @@
           </div>
           <div class="mx-auto ">
             <div *ngIf="isActive(place.statusPlaceID);else statusPlace">
-              <button mat-raised-button (click)="openDialog()" [disabled]="!loginService.isUserLoggedIn()" color="primary"
+              <button mat-raised-button (click)="loginService.isUserLoggedIn()? openDialog():authGaurdService.showModal()" color="primary"
                 class="my-2 btn-lg"  >
                 Đặt lịch xem nhà
               </button>
@@ -36,10 +36,6 @@
               <div class="my-3 h4">Trạng thái: <strong [ngClass]="'text-'+sharedService.placeStatusColor(place.statusPlaceID)">{{place.statusPlace}}</strong></div>
             </ng-template>
 
-          </div>
-          <div *ngIf="!loginService.isUserLoggedIn()" class="alert alert-warning" role="alert">
-            Bạn cần <a (click)='authGaurdService.showModal()'><strong style="cursor: pointer;">đăng nhập</strong> để
-              thực hiện chức năng này</a>
           </div>
           <div class="h4"><strong>Thông tin chi tiết</strong></div>
         </div>

@@ -4,8 +4,8 @@ import { AdminService } from './../../admin/admin.service';
 import { Common, PlaceStatus, OrderStatus } from '../../shared/common';
 import { SharedService } from '../../shared/service/shared.service';
 import { UserService } from './../service/user.service';
-import { Observable, Subscription } from 'rxjs';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Component, OnInit, Input } from '@angular/core';
 import { ContractStatus } from 'src/app/shared/common';
 import { Contract } from 'src/app/shared/model/contract.model';
 import { PayPaypal } from 'src/app/shared/model/payment.model';
@@ -14,17 +14,14 @@ import { PayPaypal } from 'src/app/shared/model/payment.model';
   selector: 'app-renter-contract',
   templateUrl: './renter-contract.component.html',
 })
-export class RenterContractComponent implements OnInit, OnDestroy {
-  private subs = new Subscription();
+export class RenterContractComponent implements OnInit {
+  @Input('ownerID') ownerID: number;
   contracts: Observable<Contract>;
   constructor(
     public userService: UserService, public sharedService: SharedService,
     private adminService: AdminService, public loginService: AuthenticationService) { }
   ngOnInit() {
     this.reload();
-  }
-  ngOnDestroy() {
-    this.subs.unsubscribe();
   }
   isContractPending(status) {
     return status === ContractStatus.PENDING;
@@ -69,19 +66,18 @@ export class RenterContractComponent implements OnInit, OnDestroy {
       statusOrderID: OrderStatus.APPROVE, // Approve
       statusPlaceID: PlaceStatus.RENTED // Active -> Rented
     };
-    this.subs.add(this.adminService.changeStatusOrder(updateStatus).subscribe(
+    this.adminService.changeStatusOrder(updateStatus).subscribe(
       data => data ? this.reload() : this.sharedService.loggerDialog(false)
-    ));
+    );
   }
-
   vndToUsd(vnd: number) {
     return Math.ceil(vnd / Common.USDtoVND);
   }
   reload() {
-    this.subs.add(this.userService.getContractByRenterID(this.loginService.currentUserValue.userID).subscribe(
-      data => {
-        this.contracts = data;
-      }
-    ));
+    const getInRenter = this.userService.getContractByRenterID(this.loginService.currentUserValue.userID);
+    const getInOwner = this.userService.getContractByOwnerID(this.ownerID);
+
+    (this.ownerID ? getInOwner : getInRenter).subscribe(
+      data => this.contracts = data);
   }
 }

@@ -2,13 +2,13 @@ import { thanToday } from 'src/app/shared/directive/than-today.directive';
 import { UpdateOrderStatus } from './../../shared/model/order.model';
 import { AuthenticationService } from './../../index/service/authentication.service';
 import { SharedService } from '../../shared/service/shared.service';
-import { Validators, AbstractControl } from '@angular/forms';
+import { Validators } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { AdminService } from './../../admin/admin.service';
 import { PlaceStatus, OrderStatus } from '../../shared/common';
-import { Observable, Subscription } from 'rxjs';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../service/user.service';
 import { Order } from 'src/app/shared/model/order.model';
 
@@ -17,10 +17,9 @@ import { Order } from 'src/app/shared/model/order.model';
   templateUrl: './renter-order.component.html',
   styles: ['mat-form-field{width: 100%}']
 })
-export class RenterOrderComponent implements OnInit, OnDestroy {
+export class RenterOrderComponent implements OnInit {
   isSubmit = false;
   orders: Observable<Order>;
-  private subs = new Subscription();
   private userID: number;
   item: Order;
   updateStatus: UpdateOrderStatus;
@@ -52,12 +51,8 @@ export class RenterOrderComponent implements OnInit, OnDestroy {
   }
   reload() {
     this.userID = this.loginService.currentUserValue.userID;
-    this.subs.add(this.userService.getListOrderByUserID(this.userID).subscribe(
-      data => {
-        this.orders = data;
-        console.log(data);
-        
-      }));
+    this.userService.getListOrderByUserID(this.userID).subscribe(
+      data => this.orders = data);
   }
 
   isInProcess(status: number) {
@@ -67,7 +62,7 @@ export class RenterOrderComponent implements OnInit, OnDestroy {
     return status === OrderStatus.DEAL;
   }
   onReject() {
-    this.subs.add(this.adminService.changeStatusOrder(
+    this.adminService.changeStatusOrder(
       this.updateStatus = {
         orderID: this.item.orderID,
         placeID: this.item.placeID,
@@ -75,20 +70,16 @@ export class RenterOrderComponent implements OnInit, OnDestroy {
         statusPlaceID: PlaceStatus.ACTIVE // Active-> Active
       }).subscribe(
         data => data ? this.sharedService.loggerDialog(true) : this.sharedService.loggerDialog(false),
-        (err) => console.log(err),
+        null,
         () => this.reload()
-      ));
+      );
   }
 
   onSave(event) {
     this.isSubmit = true;
-    this.subs.add(this.userService.editOrder(event.value).subscribe(
-      data => data ? this.sharedService.loggerDialog(true) : this.sharedService.loggerDialog(false)));
+    this.userService.editOrder(event.value).subscribe(
+      data => data ? this.sharedService.loggerDialog(true) : this.sharedService.loggerDialog(false));
     this.reload();
-  }
-
-  ngOnDestroy() {
-    this.subs.unsubscribe();
   }
 
   get name() {

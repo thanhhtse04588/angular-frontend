@@ -105,7 +105,7 @@ exports: [
   MatListModule,
   MatSelectModule,
   MatSnackBarModule,
-
+  MatTooltipModule,
 ]
 })
 export class AngularMaterialModule {}
