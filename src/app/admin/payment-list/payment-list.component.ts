@@ -1,3 +1,4 @@
+import { UserService } from './../../user/service/user.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { SharedService } from './../../shared/service/shared.service';
 import { MatSort } from '@angular/material/sort';
@@ -18,6 +19,7 @@ export class PaymentListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   constructor(
+    public userService: UserService,
     public sharedService: SharedService,
     private paymentService: PaymentService
   ) { }

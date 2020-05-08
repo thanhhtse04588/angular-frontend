@@ -15,13 +15,10 @@ export enum Common {
 
 export const _OBSERVER = {
   next(res) {
-    (res === false) ? this.sharedService.loggerDialog(false) : this.sharedService.loggerDialog(true);
+    if(res === false) {this.sharedService.loggerDialog(false)}
   },
   error(err) {
     this.sharedService.loggerDialog(false);
-  },
-  complete() {
-    console.log('completed');
   }
 };
 

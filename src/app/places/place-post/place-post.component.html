@@ -15,7 +15,7 @@
               thực hiện chức năng này</a>
           </div>
         </div>
-        <mat-card >
+        <mat-card>
           <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
             <mat-vertical-stepper linear>
               <!-- page 1 -->
@@ -280,40 +280,34 @@
                   </mat-form-field>
 
                   <!-- checkingDate -->
-                    <mat-form-field class="col-lg-4 col-md-12  mb-4" appearance="standard">
-                      <mat-label for="checkingDate">Ngày xem nhà <span class="red-text">*</span></mat-label>
-                      <input type="date" id="checkingDate" formControlName="checkingDate" matInput>
-                      <mat-error class="red-text" *ngIf="sharedService.checkValidateInput(checkingDate)">
-                        Không hợp lệ
-                      </mat-error>
-                      <mat-hint>(Lớn hơn ngày hiện tại và không quá 1 tháng)</mat-hint>
-                    </mat-form-field>
-                  </div>
+                  <mat-form-field class="col-lg-4 col-md-12  mb-4" appearance="standard">
+                    <mat-label for="checkingDate">Ngày xem nhà <span class="red-text">*</span></mat-label>
+                    <input type="date" id="checkingDate" formControlName="checkingDate" matInput>
+                    <mat-error class="red-text" *ngIf="sharedService.checkValidateInput(checkingDate)">
+                      Không hợp lệ
+                    </mat-error>
+                    <mat-hint>(Lớn hơn ngày hiện tại và không quá 1 tháng)</mat-hint>
+                  </mat-form-field>
+                </div>
                 <div>
                   <button mat-stroked-button matStepperPrevious>Quay lại</button>
-                  <button type="button" mat-stroked-button matStepperNext>Tiếp tục</button>
+                  <button style="margin-right: 8px;" type="submit" mat-raised-button
+                    [color]="placeEditID? 'warn':'primary'" size="md" [disabled]="!form.valid 
+        || !loginService.isUserLoggedIn() 
+        || isSubmit 
+        || equipComponent?.eqmTable?.invalid 
+        || costComponent?.eqmTable?.invalid 
+        || !searchElementRef?.nativeElement?.value
+        || imageUploaded.length == 0">
+                    <span [ngClass]="{'spinner-border spinner-border-sm' : isSubmit}"> </span>
+                    <span [innerHTML]="placeEditID? 'Lưu chỉnh sửa':' Yêu cầu đăng tin'"></span>
+                  </button>
+                  <button type="button" mat-stroked-button  size="md"
+                    [routerLink]="['/places/home']">Hủy</button>
                 </div>
               </mat-step>
               <!-- done -->
-              <mat-step>
-                <ng-template matStepLabel>Hoàn thành</ng-template>
-                <div>
-                  <button mat-stroked-button matStepperPrevious>Quay lại</button>
-                </div>
-                <button style="margin-right: 8px;" type="submit" mat-raised-button
-                  [color]="placeEditID? 'warn':'primary'" size="md" [disabled]="!form.valid 
-      || !loginService.isUserLoggedIn() 
-      || isSubmit 
-      || equipComponent?.eqmTable?.invalid 
-      || costComponent?.eqmTable?.invalid 
-      || !searchElementRef?.nativeElement?.value
-      || imageUploaded.length == 0">
-                  <span [ngClass]="{'spinner-border spinner-border-sm' : isSubmit}"> </span>
-                  <span [innerHTML]="placeEditID? 'Lưu chỉnh sửa':' Yêu cầu đăng tin'"></span>
-                </button>
-                <button type="button" mat-raised-button color="accent" size="md"
-                  [routerLink]="['/places/home']">Hủy</button>
-              </mat-step>
+
             </mat-vertical-stepper>
           </form>
         </mat-card>

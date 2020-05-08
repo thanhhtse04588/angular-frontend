@@ -1,3 +1,4 @@
+import { ManagePostForm } from 'src/app/shared/model/place.model';
 import { _OBSERVER } from './../../shared/common';
 import { AuthenticationService } from 'src/app/index/service/authentication.service';
 import { UserProfileComponent } from './../user-profile/user-profile.component';
@@ -16,7 +17,7 @@ import { UserProfileDialogComponent } from '../user-profile-dialog/user-profile-
   providedIn: 'root'
 })
 export class UserService {
-  constructor(private http: HttpClient, public dialog: MatDialog,private loginService: AuthenticationService) { }
+  constructor(private http: HttpClient, public dialog: MatDialog, private loginService: AuthenticationService) { }
 
   openUserProfileDialog(id: number): void {
     this.getUserProfileByUserID(id).subscribe(
@@ -38,13 +39,14 @@ export class UserService {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-          if(result){
-          result.userID= this.loginService.currentUserValue.userID;
-          result.avatarLink = sessionStorage.getItem("avatarLink") || result.avatarLink;
-          this.updateUser(result).subscribe(_OBSERVER);}
+          if (result) {
+            result.userID = this.loginService.currentUserValue.userID;
+            result.avatarLink = sessionStorage.getItem("avatarLink") || result.avatarLink;
+            this.updateUser(result).subscribe(_OBSERVER);
+          }
         });
       }
-    );  
+    );
   }
 
   getAllUser(): Observable<any> {
@@ -72,7 +74,9 @@ export class UserService {
   }
 
   getAllPost(userid): Observable<any> {
-    return this.http.get(Common.urlBase + '/managepost/getallpost?userid=' + userid, _httpOptions);
+    return this.http.get<ManagePostForm[]>(Common.urlBase + '/managepost/getallpost?userid=' + userid, _httpOptions).pipe(map(data => {
+      return data.sort((a, b) => { return b.id - a.id; });
+    }));
   }
 
   getListOrderByUserID(userID): Observable<any> {

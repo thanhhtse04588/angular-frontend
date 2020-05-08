@@ -1,8 +1,9 @@
+import { finalize } from 'rxjs/operators';
 import { Common } from './../../shared/common';
 
 import { SharedService } from '../../shared/service/shared.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { BillStatus,_OBSERVER } from '../../shared/common';
+import { BillStatus, _OBSERVER } from '../../shared/common';
 import { ModalDirective } from 'angular-bootstrap-md';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -21,7 +22,7 @@ export class RenterColBillComponent implements OnInit {
   bills: COLBill[];
   bill: COLBill;
   displayedColumns: string[] = ['colId', 'placeId', 'dateCollect',
-  'deadLineStatus', 'totalExpense', 'paymentStatusName', 'button', 'paypal'];
+    'deadLineStatus', 'totalExpense', 'paymentStatusName', 'button', 'paypal'];
   dataSource: any;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -64,7 +65,7 @@ export class RenterColBillComponent implements OnInit {
       price: this.vndToUsd(bill.totalExpense),
       description: `Thanh toán tiền phí sinh hoạt hóa đơn:${bill.colId}`,
       payFor: false,
-      placeID: bill.placePrice,
+      placeID: bill.placeId,
       colId: bill.colId,
     };
     return pay;
@@ -72,8 +73,7 @@ export class RenterColBillComponent implements OnInit {
 
   getPayResult(result: PayPaypal) {
     if (result.payFor) {
-      this.billService.updateBillStatus(result.colId, BillStatus.PAID).subscribe(_OBSERVER);
-      this.totalLoad();
+      this.billService.updateBillStatus(result.colId, BillStatus.PAID).pipe(finalize(() => this.totalLoad())).subscribe(_OBSERVER);
     }
   }
 }

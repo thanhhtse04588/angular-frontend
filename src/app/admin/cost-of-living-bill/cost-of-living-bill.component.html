@@ -1,7 +1,8 @@
 <div class="container-fluid mt-5  wow fadeIn">
+  <div class="text-center mb-3 ">
+    <div class="h3 text-center">QUẢN LÝ HÓA ĐƠN DỊCH VỤ THANH TOÁN</div>
+  </div>
   <mat-card>
-    <div class="text-center  h5"><strong>Quản lý(xuất,nhập) hóa đơn hằng tháng</strong></div>
-
     <mat-form-field class="w-100" appearance="standard">
       <mat-label>Lọc</mat-label >
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Đang chờ">
@@ -24,12 +25,18 @@
 
       <ng-container matColumnDef="renterId">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Người thuê</th>
-        <td mat-cell *matCellDef="let element">{{element.renterId}}</td>
+        <td mat-cell *matCellDef="let element">
+          <a mat-button color="primary" (click)="userService.openUserProfileDialog(element.renterId)"><i
+            class="fas fa-info"></i></a>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="ownerID">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Chủ nhà</th>
-        <td mat-cell *matCellDef="let element"> {{element.ownerID}} </td>
+        <td mat-cell *matCellDef="let element">
+          <a mat-button color="primary" (click)="userService.openUserProfileDialog(element.ownerID)"><i
+            class="fas fa-info"></i></a>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="dateCollect">

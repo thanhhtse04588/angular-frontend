@@ -1,3 +1,4 @@
+import { _OBSERVER } from './../common';
 import { SharedService } from './../service/shared.service';
 
 import { AuthenticationService } from './../../index/service/authentication.service';
@@ -58,7 +59,7 @@ export class PaypalButtonComponent implements OnInit {
             description: this.pay.description,
             money: this.pay.price,
           };
-          this.paymentService.completePayment(payment).subscribe();
+          this.paymentService.completePayment(payment).subscribe(_OBSERVER);
         },
         onError: err => {
       this.sharedService.loggerDialog(false,'Có lỗi!,Thanh tóan Paypal thất bại!')

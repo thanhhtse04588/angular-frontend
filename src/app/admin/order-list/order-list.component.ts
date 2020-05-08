@@ -43,7 +43,7 @@ export class OrderListComponent implements OnInit {
       data: order,
     });
 
-    dialogRef.afterClosed().subscribe(finalize(() => this.reload()))
+    dialogRef.afterClosed().pipe(finalize(() => this.reload())).subscribe();
   }
 
   private reload() {

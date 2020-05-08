@@ -4,7 +4,7 @@ import { AdminService } from './../../admin/admin.service';
 import { Common, PlaceStatus, OrderStatus } from '../../shared/common';
 import { SharedService } from '../../shared/service/shared.service';
 import { UserService } from './../service/user.service';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { Component, OnInit, Input } from '@angular/core';
 import { ContractStatus } from 'src/app/shared/common';
 import { Contract } from 'src/app/shared/model/contract.model';
@@ -44,32 +44,23 @@ export class RenterContractComponent implements OnInit {
 
   getPayResult(result: PayPaypal) {
     if (result.payFor) {
-      this.userService.updateStatusContract(result?.contractID, ContractStatus.ACTIVE, result?.placeID).subscribe(
-        data => {
-          if (data) {
-            this.sharedService.loggerDialog(true, 'Thanh toán tiền đặt cọc thuê nhà thành công'),
-              this.onApproveDeal(result);
-          } else {
-            this.sharedService.loggerDialog(false, 'Có lỗi, liên hệ với chúng tôi để được hỗ trợ')
-          }
+      const updateStatus: UpdateOrderStatus = {
+        orderID: result.orderID,
+        placeID: result.placeID,
+        statusOrderID: OrderStatus.APPROVE, // Approve
+        statusPlaceID: PlaceStatus.RENTED // Active -> Rented
+      };
+      const changeStatusOrder = this.adminService.changeStatusOrder(updateStatus);
+      const updateStatusContract = this.userService.updateStatusContract(result?.contractID, ContractStatus.ACTIVE, result?.placeID);
+      forkJoin({changeStatusOrder, updateStatusContract}).subscribe(status => {
+        if (!status.changeStatusOrder || !status.updateStatusContract) {
+          this.sharedService.loggerDialog(false, 'Có lỗi, liên hệ với chúng tôi để được hỗ trợ')
         }
-        , (err) => this.sharedService.loggerDialog(false, 'Có lỗi, liên hệ với chúng tôi để được hỗ trợ')
-        , () => this.reload()
-      );
+        console.log(status);
+      }, null, () => this.reload())
     }
   }
 
-  onApproveDeal(pay: PayPaypal) {
-    const updateStatus: UpdateOrderStatus = {
-      orderID: pay.orderID,
-      placeID: pay.placeID,
-      statusOrderID: OrderStatus.APPROVE, // Approve
-      statusPlaceID: PlaceStatus.RENTED // Active -> Rented
-    };
-    this.adminService.changeStatusOrder(updateStatus).subscribe(
-      data => data ? this.reload() : this.sharedService.loggerDialog(false)
-    );
-  }
   vndToUsd(vnd: number) {
     return Math.ceil(vnd / Common.USDtoVND);
   }

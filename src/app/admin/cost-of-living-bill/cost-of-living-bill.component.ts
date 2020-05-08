@@ -1,3 +1,4 @@
+import { UserService } from './../../user/service/user.service';
 import { finalize, mergeMap } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { BillStatus } from '../../shared/common';
@@ -26,7 +27,7 @@ export class CostOfLivingBillComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   bills: COLBill[];
   selectedFile: File = null;
-  constructor(public sharedService: SharedService, private billService: CostOfLivingBillService, private storage: AngularFireStorage) { }
+  constructor(public userService: UserService, public sharedService: SharedService, private billService: CostOfLivingBillService, private storage: AngularFireStorage) { }
 
   ngOnInit(): void {
     this.totalLoad();
