@@ -20,7 +20,7 @@ export class ContractListComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   contracts: Contract[];
   contractSelected: Contract;
-  constructor(private adminService: AdminService, private userService: UserService, public sharedService: SharedService) { }
+  constructor(private adminService: AdminService, public userService: UserService, public sharedService: SharedService) { }
 
   ngOnInit() {
     this.reload();

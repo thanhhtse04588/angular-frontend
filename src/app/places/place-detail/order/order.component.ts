@@ -5,7 +5,6 @@ import { Common } from '../../../shared/common';
 import { AuthenticationService } from './../../../index/service/authentication.service';
 import { UserService } from './../../../user/service/user.service';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { Location } from '@angular/common';
 import { ElementRef, Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { PayPaypal, Payment } from 'src/app/shared/model/payment.model';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -22,7 +21,7 @@ export class OrderComponent implements OnInit {
   payFor = false;
   pay: PayPaypal = {
     price: Common.PRICEORDER.valueOf(),
-    description: 'Đặt cọc tiền giữ nhà',
+    description: 'Phí dịch vụ môi giới',
     payFor: false,
     placeID: this.placeID
   };
@@ -33,7 +32,7 @@ export class OrderComponent implements OnInit {
     public dialogRef: MatDialogRef<OrderComponent>,
     @Inject(MAT_DIALOG_DATA) public placeID: number,
     private userService: UserService, public loginService: AuthenticationService,
-    private location: Location, public sharedService: SharedService) { }
+     public sharedService: SharedService) { }
 
   ngOnInit() {
     this.ngOnInitOrderForm();
@@ -41,12 +40,9 @@ export class OrderComponent implements OnInit {
   payResult(event: PayPaypal) {
     this.payFor = event.payFor;
   }
-
-
   onNoClick(): void {
     this.dialogRef.close();
   }
-
   // Liên hệ ngay
   ngOnInitOrderForm() {
     this.requestOrderForm = new FormGroup({

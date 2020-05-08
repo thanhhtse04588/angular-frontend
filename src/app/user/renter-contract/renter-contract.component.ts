@@ -33,7 +33,7 @@ export class RenterContractComponent implements OnInit {
   getPay(contract: Contract) {
     const pay: PayPaypal = {
       price: this.vndToUsd(contract.fee),
-      description: 'Đặt cọc tiền hợp đồng thuê nhà',
+      description: 'Thanh toán đặt cọc hợp đồng thuê nhà',
       payFor: false,
       contractID: contract.contractID,
       placeID: contract.placeID,
