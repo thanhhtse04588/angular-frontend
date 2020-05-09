@@ -45,11 +45,11 @@
             <p>{{place.address}}</p>
             <div class="h5"><strong>Tiện ích:</strong></div>
             <ul>
-              <li>Phòng ngủ : {{place.bedRooms|| ""}} phòng.</li>
-              <li>Vệ sinh   : {{place.toilets|| ""}} phòng. </li>
-              <li>Tầm nhìn  : {{place.counterView|| ""}}. </li>
-              <li>Mặt đường : {{place.frontispiece|| ""}} m². </li>
-              <li>Hướng nhà : {{place.homeDirection|| ""}}. </li>
+              <li>Phòng ngủ : {{place.bedRooms|| ""}} phòng</li>
+              <li>Vệ sinh   : {{place.toilets|| ""}} phòng</li>
+              <li>Tầm nhìn  : {{place.counterView|| ""}}</li>
+              <li>Mặt đường : {{place.frontispiece|| ""}} m²</li>
+              <li>Hướng nhà : {{place.homeDirection|| ""}}</li>
             </ul>
           </div>
           <div class="col-md">
@@ -61,7 +61,7 @@
         <div class="row mb-4">
           <div class="container mt-3 ">
 
-            <mat-tab-group>
+            <mat-tab-group selectedIndex="1">
               <mat-tab label="Ảnh chụp">
                 <div id="imagesPlace" class="container tab-pane active">
                   <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
