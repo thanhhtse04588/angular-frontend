@@ -46,11 +46,6 @@
             <td mat-cell *matCellDef="let element" [ngClass]="'text-'+ sharedService.placeStatusColor(element.statusPlaceID)">{{element.statusPlace}}</td>
           </ng-container>
 
-          <!-- <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Trạng thái đơn</th>
-            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
-          </ng-container> -->
-
           <ng-container matColumnDef="void">
             <th mat-header-cell *matHeaderCellDef> Trạng thái đơn</th>
             <td mat-cell *matCellDef="let element">
@@ -98,7 +93,7 @@
         <div class="h5">Bạn có chắc chắn muốn DUYỆT</div>
       </div>
       <div class="modal-footer justify-content-center ">
-        <a type="button" mat-stroked-button  color="primary" (click)="comfirmApprove.hide()" (click)='onApprove()'  >
+        <a type="button" mat-stroked-button  color="primary" (click)="comfirmApprove.hide();onApprove();">
           <i class="fas fa-check"></i></a>
         <a type="button" mat-stroked-button  color="primary"   (click)="comfirmApprove.hide()"
            ><i class="fas fa-minus"></i></a>

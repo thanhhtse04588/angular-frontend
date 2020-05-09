@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from './../admin.service';
 import { Subscription } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { Checking, UpdateCheckingStatus } from 'src/app/shared/model/checking.model';
 
@@ -12,9 +12,8 @@ import { Checking, UpdateCheckingStatus } from 'src/app/shared/model/checking.mo
   selector: 'app-checking-list',
   templateUrl: './checking-list.component.html',
 })
-export class CheckingListComponent implements OnInit, OnDestroy {
-  private subs = new Subscription();
-  displayedColumns: string[] = ['checkingID','checkingDetail', 'title', 'dateTime',
+export class CheckingListComponent implements OnInit {
+  displayedColumns: string[] = ['checkingID', 'checkingDetail', 'title', 'dateTime',
     'phoneNumber', 'contactName', 'statusPlace', 'void'];
   dataSource: any;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -52,45 +51,31 @@ export class CheckingListComponent implements OnInit, OnDestroy {
     }
   }
   onApprove() {
-    if (this.item.statusPlaceID === PlaceStatus.PENDING) {
-      this.adminService.changeStatusChecking(
-        this.updateStatus = {
-          checkingID: this.item.checkingID,
-          placeID: this.item.placeID,
-          statusCheckingID: CheckingStatus.APPROVE, // Approve
-          statusPlaceID: PlaceStatus.CHECKING // Pending -> Checking
-        }).subscribe(
-          data => data ? this.reload() : this.sharedService.loggerDialog(false)
+    this.updateStatus = {
+      checkingID: this.item.checkingID,
+      placeID: this.item.placeID,
+      statusCheckingID: CheckingStatus.APPROVE, // Approve
+      statusPlaceID: this.item.statusPlaceID === PlaceStatus.PENDING ? PlaceStatus.CHECKING : PlaceStatus.ACTIVE // Pending -> Checking
+    };
 
-        );
-    } else if (this.item.statusPlaceID === PlaceStatus.CHECKING) {
-      this.adminService.changeStatusChecking(
-        this.updateStatus = {
-          checkingID: this.item.checkingID,
-          placeID: this.item.placeID,
-          statusCheckingID: CheckingStatus.APPROVE, // Approve
-          statusPlaceID: PlaceStatus.ACTIVE // Checking -> Active
-        }).subscribe(
-          data => data ? this.reload() : this.sharedService.loggerDialog(false)
-        );
-    }
+    this.adminService.changeStatusChecking(this.updateStatus).subscribe(
+      data => data ? this.sharedService.loggerDialog(true) : this.sharedService.loggerDialog(false)
+      , null, () => this.reload());
   }
 
   onReject() {
-    this.subs.add(this.adminService.changeStatusChecking(
-      this.updateStatus = {
-        checkingID: this.item.checkingID,
-        placeID: this.item.placeID,
-        statusCheckingID: CheckingStatus.REJECT, // Reject
-        statusPlaceID: PlaceStatus.CANCEL // Pending,Checking -> Cancel
-      }).subscribe(
-        data => data ? this.reload() : this.sharedService.loggerDialog(false)
-      ));
-  }
-  ngOnDestroy() {
-    this.subs.unsubscribe();
-  }
+    this.updateStatus = {
+      checkingID: this.item.checkingID,
+      placeID: this.item.placeID,
+      statusCheckingID: CheckingStatus.REJECT, // Reject
+      statusPlaceID: PlaceStatus.CANCEL // Pending,Checking -> Cancel
+    };
 
+    this.adminService.changeStatusChecking(this.updateStatus)
+      .subscribe(
+        data => data ? this.sharedService.loggerDialog(true) : this.sharedService.loggerDialog(false),
+        null, () => this.reload());
+  }
 }
 
 

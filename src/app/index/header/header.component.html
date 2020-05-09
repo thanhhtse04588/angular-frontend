@@ -105,10 +105,10 @@
 
 <!-- Login Modal -->
 <form [formGroup]="validatingLoginForm" (ngSubmit)="checkLogin()">
-    <div mdbModal #frameLogin="mdbModal" class="modal fade down" tabindex="-1" role="dialog">
-        <div class="modal-dialog" style="width:450px;" role="document">
+    <div mdbModal #frameLogin="mdbModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog text-center" style="width:450px;" role="document">
             <div class="modal-content  p-5">
-                <div class="h4 mb-3 text-center">Đăng nhập</div>
+                <div class="h4 mb-3">Đăng nhập</div>
                 <mat-form-field appearance="standard">
                     <mat-label>Tên đăng nhập</mat-label>
                     <input type="text" formControlName="loginFormModalUsername" matInput>
@@ -119,6 +119,7 @@
                     <input matInput type="password" formControlName="loginFormModalPassword">
                 </mat-form-field>
                 <!-- Sign in button -->
+                <small class="red-text" *ngIf="loginMess">{{loginMess}}</small>
                 <button mat-raised-button color="primary" class="btn-block" type="submit"
                     [disabled]="!validatingLoginForm.valid || isLoginSubmit">
                     <span [ngClass]="{'spinner-border spinner-border-sm' : isLoginSubmit}"> </span> Đăng nhập</button>
@@ -127,7 +128,7 @@
                     Đăng nhập với <i class="fab fa-google"></i>
                 </button>
                 <!-- Register -->
-                <p class="text-center">Bạn chưa có tài khoản?
+                <p>Bạn chưa có tài khoản?
                     <a class="light-blue-text" (click)='frameSignin.show();frameLogin.hide()'>Đăng ký</a>
                 </p>
                 <!-- Social login -->
@@ -139,10 +140,10 @@
 
 <!-- Signin Modal -->
 <form [formGroup]="validatingSigninForm" (ngSubmit)=doSignup()>
-    <div mdbModal #frameSignin="mdbModal" class="modal fade down"  tabindex="-1" role="dialog">
-        <div class="modal-dialog" style="width:500px;" role="document">
+    <div mdbModal #frameSignin="mdbModal" class="modal fade down" tabindex="-1" role="dialog">
+        <div class="modal-dialog text-center" style="width:500px;" role="document">
             <div class="modal-content p-5 ">
-                <div class="text-center h4 mb-3">Đăng ký</div>
+                <div class="h4 mb-3">Đăng ký</div>
 
                 <div class="row">
                     <div class="col">
@@ -155,31 +156,31 @@
                     <div class="col">
                         <mat-form-field appearance="standard">
                             <mat-label>Họ</mat-label>
-                        <input type="text" formControlName="lastName" matInput>
-                    </mat-form-field>
+                            <input type="text" formControlName="lastName" matInput>
+                        </mat-form-field>
                     </div>
                 </div>
                 <!--User name -->
                 <mat-form-field class="w-100" appearance="standard">
                     <mat-label>Tên đăng nhập<span class="red-text">*</span></mat-label>
-                <input type="text" formControlName="username" matInput>
-                <mat-error *ngIf="sharedService.checkValidateInput(username)"> Không bỏ trống</mat-error>
-            </mat-form-field>
+                    <input type="text" formControlName="username" matInput>
+                    <mat-error *ngIf="sharedService.checkValidateInput(username)"> Không bỏ trống</mat-error>
+                </mat-form-field>
                 <!-- Password -->
                 <mat-form-field class="w-100" appearance="standard">
                     <mat-label>Mật khẩu<span class="red-text">*</span></mat-label>
-                <input type="password" formControlName="password" matInput>
-                <mat-error *ngIf="sharedService.checkValidateInput(password)"> Không hợp lệ</mat-error>
-                <mat-hint > Mật khẩu ít nhất 6 đến 32 ký tự </mat-hint>
-            </mat-form-field>
+                    <input type="password" formControlName="password" matInput>
+                    <mat-error *ngIf="sharedService.checkValidateInput(password)"> Không hợp lệ</mat-error>
+                    <mat-hint> Mật khẩu ít nhất 6 đến 32 ký tự </mat-hint>
+                </mat-form-field>
                 <!-- Password -->
-                <mat-form-field class="w-100" appearance="standard">
+                <mat-form-field class="w-100 mb-3" appearance="standard">
                     <mat-label>Nhập lại mật khẩu<span class="red-text">*</span></mat-label>
-                <input type="password" formControlName="confirmPasswrd" matInput>
-                <mat-error *ngIf="sharedService.checkValidateInput(password)"> Không hợp lệ</mat-error>
-            </mat-form-field>
-
-                <button mat-raised-button color="primary" class="btn-block my-4"
+                    <input type="password" formControlName="confirmPasswrd" matInput>
+                    <mat-error *ngIf="sharedService.checkValidateInput(password)"> Không hợp lệ</mat-error>
+                </mat-form-field>
+                <small class="red-text" *ngIf="signUpMess">{{signUpMess}}</small>
+                <button mat-raised-button color="primary" class="btn-block mb-3"
                     [disabled]="!validatingSigninForm.valid || isSigninSubmit" type="submit"> <span
                         [ngClass]="{'spinner-border spinner-border-sm' : isSigninSubmit}"> </span> Đăng ký</button>
             </div>

@@ -33,7 +33,7 @@ export class GlobalErrorHandler implements ErrorHandler {
     }
     // Always log errors
     // logger.logError(message, stackTrace);
-    this.sharedService.openSnackBar(sideError);
+    // this.sharedService.openSnackBar(sideError);
     console.error(error);
     // this.router.navigate(['error'])
   }

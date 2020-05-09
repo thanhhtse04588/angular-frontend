@@ -50,12 +50,11 @@ export class PlaceDetailComponent implements OnInit {
       zoom: Common.ZOOM.valueOf(),
       marker: {
         lat: -28.68352,
-        lng: -147.20785
-      }
+        lng: -147.20785}
     };
+
     this.placeService.getCostUnit().subscribe(
-      data => this.units = data as CostUnitName[]
-    );
+      data => this.units = data as CostUnitName[]);
 
     this.getData();
   }
@@ -66,6 +65,7 @@ export class PlaceDetailComponent implements OnInit {
       disableClose: true
     });
   }
+
   getData() {
     this.placeService.getPlaceDetail(+sessionStorage.getItem('placeID'))
       .subscribe(data => {
@@ -87,6 +87,7 @@ export class PlaceDetailComponent implements OnInit {
         this.dataCost.paginator = this.paginatorCostTable;
       });
   }
+
   getUnitName(id: number) {
     return this.units?.find(unit => unit.id === id).unitName;
   }

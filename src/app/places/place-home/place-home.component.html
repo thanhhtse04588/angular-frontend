@@ -1,4 +1,4 @@
-<div class="wow fadeIn" style="margin-top: -100px;">
+<div style="margin-top: -100px;">
   <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
     <mdb-carousel-item *ngFor="let img of imgSlide">
       <div class="view w-100" style="height: 70vh;">
@@ -26,7 +26,7 @@
     <!--Section: Cards-->
     <section class="text-center">
       <div class="mb-5 h3">Bất động sản nổi bật trên trang</div>
-      <div class="row wow fadeIn">
+      <div class="row">
 
         <div class="col-lg-4 col-md-6 mb-4" *ngFor="let place of places">
           <app-place-quick-view [place]="place"></app-place-quick-view>
@@ -40,7 +40,7 @@
 
 
     <!--Section: Main info-->
-    <section class="mt-5 wow fadeIn">
+    <section class="mt-5">
 
       <!--Grid row-->
       <div class="row">
