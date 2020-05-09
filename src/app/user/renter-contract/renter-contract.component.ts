@@ -9,6 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ContractStatus } from 'src/app/shared/common';
 import { Contract } from 'src/app/shared/model/contract.model';
 import { PayPaypal } from 'src/app/shared/model/payment.model';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-renter-contract',
@@ -52,7 +53,7 @@ export class RenterContractComponent implements OnInit {
       };
       const changeStatusOrder = this.adminService.changeStatusOrder(updateStatus);
       const updateStatusContract = this.userService.updateStatusContract(result?.contractID, ContractStatus.ACTIVE, result?.placeID);
-      forkJoin({changeStatusOrder, updateStatusContract}).subscribe(status => {
+      forkJoin({ changeStatusOrder, updateStatusContract }).subscribe(status => {
         if (!status.changeStatusOrder || !status.updateStatusContract) {
           this.sharedService.loggerDialog(false, 'Có lỗi, liên hệ với chúng tôi để được hỗ trợ')
         }
@@ -66,7 +67,7 @@ export class RenterContractComponent implements OnInit {
   }
   reload() {
     const getInRenter = this.userService.getContractByRenterID(this.loginService.currentUserValue.userID);
-    const getInOwner = this.userService.getContractByOwnerID(this.ownerID);
+    const getInOwner = this.userService.getContractByOwnerID(this.ownerID).pipe(filter(contract => contract.contractID != ContractStatus.PENDING));
 
     (this.ownerID ? getInOwner : getInRenter).subscribe(
       data => this.contracts = data);

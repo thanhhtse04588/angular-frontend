@@ -1,9 +1,9 @@
 <!--Main layout-->
-<main class="pt-3 wow fadeIn">
+<main class="pt-3">
   <div class="container">
     <app-search-bar (search)="searchHandlerAtParrent($event)"></app-search-bar>
     <!--Kết quả search-->
-    <div *ngIf="paging.countResult!=null" class="text-center my-4 wow fadeIn">
+    <div *ngIf="paging.countResult!=null" class="text-center my-4">
       <div>Tìm thấy: <span class="red-text h4">{{paging.countResult}}</span> kết quả</div>
       <button [disabled]='paging.countResult==0' type="button" (click)="showMap = !showMap" mat-raised-button
         color="primary"><span [innerHTML]="!showMap ? 'Bản đồ ' : 'Danh sách '"></span>
@@ -15,7 +15,7 @@
       <!--List-->
       <div *ngIf="!showMap;else map" class="text-center">
         <div class="row ">
-          <div class="col-lg-4 col-md-6 mb-4 wow fadeInLeftBig" *ngFor="let place of places ">
+          <div class="col-lg-4 col-md-6 mb-4" *ngFor="let place of places ">
             <!--Card-->
             <app-place-quick-view [place]="place"></app-place-quick-view>
             <!--/.Card-->
@@ -24,7 +24,7 @@
       </div>
       <!-- map -->
       <ng-template #map>
-        <agm-map class="wow fadeIn" style="height: 600px;" [latitude]="location.latitude"
+        <agm-map style="height: 600px;" [latitude]="location.latitude"
           [longitude]="location.longitude" [zoom]="location.zoom">
           <ng-container *ngFor="let place of places">
             <agm-marker (markerClick)="clickedMarker(infowindow)" [latitude]="place.latitude"
@@ -66,7 +66,7 @@
 
       </ng-template>
       <!--Pagination-->
-      <nav class="mt-3 d-flex justify-content-center wow fadeIn">
+      <nav class="mt-3 d-flex justify-content-center ">
         <ul class="pagination pg-blue" *ngIf="paging && paging.countResult">
 
           <!--Arrow left-->

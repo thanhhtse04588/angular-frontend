@@ -19,9 +19,9 @@ import { thanToday } from 'src/app/shared/directive/than-today.directive';
 @Component({
   selector: 'app-place-post',
   templateUrl: './place-post.component.html',
-  styles:['mat-form-field { width: 100%;}']
+  styles: ['mat-form-field { width: 100%;}']
 })
-export class PlacePostComponent implements OnInit, OnDestroy, AfterViewChecked  {
+export class PlacePostComponent implements OnInit, OnDestroy, AfterViewChecked {
   private subs = new Subscription();
   @Input() placeEditID: number;
   isSubmit = false;
@@ -32,6 +32,7 @@ export class PlacePostComponent implements OnInit, OnDestroy, AfterViewChecked  
   wards: WardDB[];
   streets: StreetDB[];
   formatPrice: any;
+  redirect= 'user/seller/post-manage';
   // Equipment
   @ViewChild(EquipmentComponent)
   equipComponent: EquipmentComponent;
@@ -49,7 +50,6 @@ export class PlacePostComponent implements OnInit, OnDestroy, AfterViewChecked  
   address: string;
   private geoCoder;
   homeDirections = ['Bắc', 'Đông Bắc', 'Đông', 'Đông Nam', 'Nam', 'Tây Nam', 'Tây', 'Tây Bắc'];
-
   constructor(
     private placeService: PlaceService,
     private userService: UserService,
@@ -60,7 +60,9 @@ export class PlacePostComponent implements OnInit, OnDestroy, AfterViewChecked  
     public loginService: AuthenticationService,
     public authGaurdService: AuthGaurdService,
     public sharedService: SharedService,
-    private cdr: ChangeDetectorRef) { }
+    private cdr: ChangeDetectorRef) { 
+      
+    }
 
   defaultToEdit(data: PlacePostForm) {
     this.form.patchValue(data);
@@ -144,7 +146,7 @@ export class PlacePostComponent implements OnInit, OnDestroy, AfterViewChecked  
           this.address = results[0].formatted_address;
           this.searchElementRef.nativeElement.value = this.address;
         } else {
-          this.sharedService.loggerDialog(false,'Không tìm thấy kết quả');
+          this.sharedService.loggerDialog(false, 'Không tìm thấy kết quả');
         }
       } else {
         this.sharedService.loggerDialog(false);
@@ -176,12 +178,11 @@ export class PlacePostComponent implements OnInit, OnDestroy, AfterViewChecked  
     this.postPlaceForm.listEquip = this.equipComponent.getEquipTable();
     this.postPlaceForm.listCost = this.costComponent.getCostOfLivingTable();
     this.postPlaceForm.listImageLink = this.imageUploaded;
-    this.subs.add(this.placeService.insertPlace(this.postPlaceForm).subscribe(
-      data => data ? this.sharedService.loggerDialog(true,'Yêu cầu đăng tin thành công, chúng tôi sẽ sớm liên hệ với bạn !')
-        : this.sharedService.loggerDialog(false),
-      (err) => this.sharedService.loggerDialog(false),
-      () => this.router.navigate(['user/seller/post-manage'])
-    ));
+    this.placeService.insertPlace(this.postPlaceForm).subscribe(
+      data => data ? this.sharedService.loggerDialog(true, 'Yêu cầu đăng tin thành công, chúng tôi sẽ sớm liên hệ với bạn !',this.redirect)
+        : this.sharedService.loggerDialog(false,null,this.redirect),
+      (err) => this.sharedService.loggerDialog(false,null,this.redirect)
+    );
   }
 
   editPlace(form) {
@@ -197,11 +198,10 @@ export class PlacePostComponent implements OnInit, OnDestroy, AfterViewChecked  
     form.listCost = this.costComponent.getCostOfLivingTable();
     form.listImageLink = this.imageUploaded;
 
-    this.subs.add(this.userService.updatePlace(form).subscribe(
-      data => data ? this.sharedService.loggerDialog(true) : this.sharedService.loggerDialog(false),
-      (err) => this.sharedService.loggerDialog(false),
-      () => this.router.navigate(['user/seller/post-manage'])
-    ));
+    this.userService.updatePlace(form).subscribe(
+      data => data ? this.sharedService.loggerDialog(true,null,this.redirect) : this.sharedService.loggerDialog(false,null,this.redirect),
+      (err) => this.sharedService.loggerDialog(false,null,this.redirect)
+    );
   }
 
   onDistrictChange() {
@@ -212,17 +212,13 @@ export class PlacePostComponent implements OnInit, OnDestroy, AfterViewChecked  
     this.setStreet([]);
     this.latitude = +this.district.value.districtLatitude;
     this.longitude = +this.district.value.districtLongitude;
-    this.subs.add(this.placeService.getWardIDByDistrictID(this.district.value.id).subscribe(
-      data => {
-        this.wards = data as WardDB[];
-      }
-    ));
-    this.subs.add(this.placeService.getStreetIDByDistrictID(this.district.value.id).subscribe(
-      data => {
-        this.streets = data as StreetDB[];
-      }
-    ));
+
+    this.placeService.getWardIDByDistrictID(this.district.value.id).subscribe(
+      data => this.wards = data as WardDB[]);
+    this.placeService.getStreetIDByDistrictID(this.district.value.id).subscribe(
+      data => this.streets = data as StreetDB[]);
   }
+
   onWardChange() {
     this.latitude = +this.ward.value.wardLatitude;
     this.longitude = +this.ward.value.wardLongtitude;
@@ -230,8 +226,8 @@ export class PlacePostComponent implements OnInit, OnDestroy, AfterViewChecked  
   }
 
   updateAddress() {
-    this.searchElementRef.nativeElement.value = (this.street.value.streetName?.trim() || '') +
-      ' ' + (this.ward.value.wardName?.trim() || '') + ',' + (this.district.value.district?.trim() || '');
+    this.searchElementRef.nativeElement.value =
+      `${this.street.value.streetName?.trim() || ''} ${this.ward.value.wardName?.trim() || ''},${this.district.value.district?.trim() || ''}`;
   }
 
   isStepOneValid() {

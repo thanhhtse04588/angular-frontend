@@ -20,7 +20,8 @@ export class HeaderComponent implements OnInit {
   isSigninSubmit = false;
   validatingLoginForm: FormGroup;
   validatingSigninForm: FormGroup;
-
+  loginMess: string;
+  signUpMess: string;
   constructor(
     public sharedService: SharedService,
     private router: Router, public loginService: AuthenticationService, private registerService: AuthenticationService,
@@ -45,7 +46,7 @@ export class HeaderComponent implements OnInit {
 
   doSignup() {
     if (this.password.value !== this.confirmPasswrd.value) {
-      alert('Mật khẩu không khớp!');
+      this.signUpMess='Mật khẩu không khớp!'
       return;
     }
     this.isSigninSubmit = true;
@@ -56,8 +57,9 @@ export class HeaderComponent implements OnInit {
           alert('Đăng ký tài khoản thành công!');
           this.frameSignin.hide();
           this.frameLogin.show();
+          this.signUpMess='';
         } else {
-          alert('Tên đăng nhập đã tồn tại! Vui lòng nhập lại! ');
+          this.signUpMess='Tên đăng nhập đã tồn tại!'
         }
       }, null, () => this.isSigninSubmit = false
     );
@@ -70,8 +72,9 @@ export class HeaderComponent implements OnInit {
     this.loginService.authenticate(this.loginFormModalUsername.value, this.loginFormModalPassword.value).subscribe(
       (data: UserLogin) => {
         if (data.message === '401') {
-          alert('Tên đăng nhập hoặc mật khẩu không chính xác!');
+          this.loginMess='Tên đăng nhập,mật khẩu không chính xác!'
         } else {
+          this.loginMess='';
           if (this.loginService.isAdmin()) { this.router.navigate(['admin']); }
           this.frameLogin.hide();
         }

@@ -1,8 +1,8 @@
 <!--Main layout-->
-<div *ngIf="place" class="container wow fadeInDown">
-  <div class="row mb-4">
+<div *ngIf="place" class="container">
+  <div class="row pb-4">
     <mat-card>
-      <mat-card-title class="text-center">
+      <mat-card-title class="text-center my-3">
         <div class="h4">{{place.title}}</div>
       </mat-card-title>
       <div class="px-5 pb-5">
@@ -16,7 +16,7 @@
                 vnđ/tháng</strong>
             </span>
             <span>
-              <i class="fas fa-border-none grey-text" ></i> <strong> {{place.area}} m²</strong>
+              <i class="fas fa-border-none grey-text"></i> <strong> {{place.area}} m²</strong>
             </span>
             <span>
               <i class="fas fa-map-marker-alt grey-text"></i><strong> {{place.district}}</strong>
@@ -24,8 +24,9 @@
           </div>
           <div class="mx-auto ">
             <div *ngIf="isActive(place.statusPlaceID);else statusPlace">
-              <button mat-raised-button (click)="loginService.isUserLoggedIn()? openDialog():authGaurdService.showModal()" color="primary"
-                class="my-2 btn-lg"  >
+              <button mat-raised-button
+                (click)="loginService.isUserLoggedIn()? openDialog():authGaurdService.showModal()" color="primary"
+                class="my-2 btn-lg">
                 Đặt lịch xem nhà
               </button>
               <p class="red-text">Hiện tại đang có <strong>{{orderCount|| '0'}}</strong> người đăng ký xem nhà này
@@ -33,11 +34,13 @@
             </div>
 
             <ng-template #statusPlace>
-              <div class="my-3 h4">Trạng thái: <strong [ngClass]="'text-'+sharedService.placeStatusColor(place.statusPlaceID)">{{place.statusPlace}}</strong></div>
+              <div class="my-3 h4">Trạng thái: <strong
+                  [ngClass]="'text-'+sharedService.placeStatusColor(place.statusPlaceID)">{{place.statusPlace}}</strong>
+              </div>
             </ng-template>
 
           </div>
-          <div class="h4"><strong>Thông tin chi tiết</strong></div>
+          <div class="h4 my-3"><strong>Thông tin chi tiết</strong></div>
         </div>
         <div class="row">
           <div class="col-md">
@@ -46,8 +49,8 @@
             <div class="h5"><strong>Tiện ích:</strong></div>
             <ul>
               <li>Phòng ngủ : {{place.bedRooms|| ""}} phòng</li>
-              <li>Vệ sinh   : {{place.toilets|| ""}} phòng</li>
-              <li>Tầm nhìn  : {{place.counterView|| ""}}</li>
+              <li>Vệ sinh : {{place.toilets|| ""}} phòng</li>
+              <li>Tầm nhìn : {{place.counterView|| ""}}</li>
               <li>Mặt đường : {{place.frontispiece|| ""}} m²</li>
               <li>Hướng nhà : {{place.homeDirection|| ""}}</li>
             </ul>
@@ -59,40 +62,41 @@
         </div>
 
         <div class="row mb-4">
-          <div class="container mt-3 ">
+          <div class="container mt-3">
 
-            <mat-tab-group selectedIndex="1">
+            <mat-tab-group>
+
               <mat-tab label="Ảnh chụp">
-                <div id="imagesPlace" class="container tab-pane active">
-                  <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
-                    <mdb-carousel-item *ngFor="let img of place.listImage; let i = index">
+                <mdb-carousel>
+                  <ng-container *ngFor="let img of place.listImage; let i = index">
+                    <mdb-carousel-item>
                       <img class="d-block mx-auto img-fluid z-depth-1" style="height: 600px;" [src]="img">
                     </mdb-carousel-item>
-                  </mdb-carousel>
-                </div>
+                  </ng-container>
+                </mdb-carousel>
               </mat-tab>
+
               <mat-tab label="Bản đồ">
-                <div id="onMap" class="container tab-pane fade">
-                  <agm-map (mapReady)="infowindow.open()" style="height: 600px;" [longitude]="location?.longitude"
-                    [latitude]="location?.latitude" [zoom]="location.zoom">
-                    <agm-marker [longitude]="location?.marker?.lng" [latitude]="location?.marker?.lat">
-                      <agm-info-window #infowindow>
-                        <strong>
-                          <i class="fas fa-map-marker-alt" size="lg" class="red-text"></i>{{place.address}}
-                        </strong>
-                      </agm-info-window>
-                    </agm-marker>
-                  </agm-map>
-                </div>
+                <agm-map (mapReady)="infowindow.open()" style="height: 600px;" [longitude]="location?.longitude"
+                  [latitude]="location?.latitude" [zoom]="location.zoom">
+                  <agm-marker [longitude]="location?.marker?.lng" [latitude]="location?.marker?.lat">
+                    <agm-info-window #infowindow>
+                      <strong>
+                        <i class="fas fa-home fa-lg"></i> {{place.address}}
+                      </strong>
+                    </agm-info-window>
+                  </agm-marker>
+                </agm-map>
               </mat-tab>
+
             </mat-tab-group>
 
           </div>
         </div>
-        <div class="row my-5">
+        <div class="row mt-5">
           <div class="col" *ngIf="place.listEquip?.length>0">
             <div class="h5"><strong>Thông tin nội thất</strong></div>
-            <div  bordered="true" hover="true">
+            <div bordered="true" hover="true">
               <table mat-table [dataSource]="dataSource">
 
                 <!-- Position Column -->
@@ -125,8 +129,8 @@
                   <td mat-cell *matCellDef="let element"> {{element.equipmentDescrible}} </td>
                 </ng-container>
 
-                <tr  mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr  mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
               </table>
               <mat-paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>
             </div>
@@ -134,7 +138,7 @@
 
           <div class="col" *ngIf="place.listCost?.length>0">
             <div class="h5"><strong>Thông tin phí dịch vụ sinh hoạt</strong></div>
-            <div  bordered="true" hover="true">
+            <div bordered="true" hover="true">
               <table mat-table [dataSource]="dataCost">
 
                 <!-- Position Column -->
@@ -155,8 +159,8 @@
                   <td mat-cell *matCellDef="let element"> {{getUnitName(element.unitID)}} </td>
                 </ng-container>
 
-                <tr  mat-header-row *matHeaderRowDef="costColumns"></tr>
-                <tr  mat-row *matRowDef="let row; columns: costColumns;"></tr>
+                <tr mat-header-row *matHeaderRowDef="costColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: costColumns;"></tr>
               </table>
               <mat-paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>
             </div>
