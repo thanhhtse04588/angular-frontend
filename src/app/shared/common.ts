@@ -1,7 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 export enum Common {
-  // urlBase = 'http://34.92.85.142:8080/cyberplace-1.0',
-  urlBase = 'http://localhost:8080',
+  urlBase = 'http://34.92.85.142:8080/cyberplace-1.0',
+  // urlBase = 'http://localhost:8080',
   FAKESERVER = 'http://localhost:3000',
   roleAdmin = 1,
   PRICEORDER = 25,
