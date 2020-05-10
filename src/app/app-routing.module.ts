@@ -1,3 +1,4 @@
+import { AboutUsComponent } from './index/about-us/about-us.component';
 import { SellerContractComponent } from './user/seller-contract/seller-contract.component';
 import { UserListComponent } from './admin/user-list/user-list.component';
 import { RenterPaymentComponent } from './user/renter-payment/renter-payment.component';
@@ -40,6 +41,7 @@ const routes: Routes = [
       { path: 'home', component: PlaceHomeComponent },
       { path: 'detail', component: PlaceDetailComponent },
       { path: 'order', component: OrderComponent, canActivate: [AuthGaurdService] },
+      { path: 'about-us', component: AboutUsComponent},
     ]
   },
   {
