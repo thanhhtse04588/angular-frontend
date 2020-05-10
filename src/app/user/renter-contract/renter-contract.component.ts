@@ -67,7 +67,7 @@ export class RenterContractComponent implements OnInit {
   }
   reload() {
     const getInRenter = this.userService.getContractByRenterID(this.loginService.currentUserValue.userID);
-    const getInOwner = this.userService.getContractByOwnerID(this.ownerID).pipe(filter(contract => contract.statusContract != ContractStatus.PENDING));
+    const getInOwner = this.userService.getContractByOwnerID(this.ownerID).pipe(filter(contract => contract.contractStatusID != ContractStatus.PENDING));
 
     (this.ownerID ? getInOwner : getInRenter).subscribe(
       data => this.contracts = data);
