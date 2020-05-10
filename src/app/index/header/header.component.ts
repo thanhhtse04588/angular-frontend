@@ -29,10 +29,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.authGaurdService.setModal(this.frameLogin);
-
     this.validatingLoginForm = new FormGroup({
-      loginFormModalUsername: new FormControl('', [Validators.required, Validators.maxLength(32), Validators.minLength(6)]),
-      loginFormModalPassword: new FormControl('', [Validators.required, Validators.maxLength(32), Validators.minLength(6)]),
+      loginUsername: new FormControl('', [Validators.required, Validators.maxLength(32), Validators.minLength(6)]),
+      loginPassword: new FormControl('', [Validators.required, Validators.maxLength(32), Validators.minLength(6)]),
     });
 
     this.validatingSigninForm = new FormGroup({
@@ -69,7 +68,7 @@ export class HeaderComponent implements OnInit {
   checkLogin() {
     this.isLoginSubmit = true;
     // tslint:disable-next-line: deprecation
-    this.loginService.authenticate(this.loginFormModalUsername.value, this.loginFormModalPassword.value).subscribe(
+    this.loginService.authenticate(this.loginUsername.value, this.loginPassword.value).subscribe(
       (data: UserLogin) => {
         if (data.message === '401') {
           this.loginMess='Tên đăng nhập,mật khẩu không chính xác!'
@@ -100,12 +99,12 @@ export class HeaderComponent implements OnInit {
     return this.validatingSigninForm.get('confirmPasswrd');
   }
 
-  get loginFormModalUsername() {
-    return this.validatingLoginForm.get('loginFormModalUsername');
+  get loginUsername() {
+    return this.validatingLoginForm.get('loginUsername');
   }
 
-  get loginFormModalPassword() {
-    return this.validatingLoginForm.get('loginFormModalPassword');
+  get loginPassword() {
+    return this.validatingLoginForm.get('loginPassword');
   }
 
 }
