@@ -15,7 +15,7 @@
           <p>(Quý vị có thể quản lý, tìm kiếm ở đây)</p>
         </div>
         <div *ngFor="let contract of contracts">
-          <mat-card *ngIf="!(isContractPending(contract.contractStatusID)&&ownerID)" class="mb-3">
+          <mat-card class="mb-3">
             <mat-card-header class="h5">{{contract.titlePlace}}</mat-card-header>
             <mat-card-content class="px-5">
               <div>
