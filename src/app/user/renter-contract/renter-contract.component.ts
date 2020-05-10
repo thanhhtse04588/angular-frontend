@@ -9,7 +9,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ContractStatus } from 'src/app/shared/common';
 import { Contract } from 'src/app/shared/model/contract.model';
 import { PayPaypal } from 'src/app/shared/model/payment.model';
-import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-renter-contract',
@@ -17,7 +16,7 @@ import { filter } from 'rxjs/operators';
 })
 export class RenterContractComponent implements OnInit {
   @Input('ownerID') ownerID: number;
-  contracts: Observable<Contract>;
+  contracts: Observable<Contract[]>;
   constructor(
     public userService: UserService, public sharedService: SharedService,
     private adminService: AdminService, public loginService: AuthenticationService) { }
@@ -67,7 +66,7 @@ export class RenterContractComponent implements OnInit {
   }
   reload() {
     const getInRenter = this.userService.getContractByRenterID(this.loginService.currentUserValue.userID);
-    const getInOwner = this.userService.getContractByOwnerID(this.ownerID).pipe(filter(contract => contract.statusContract != ContractStatus.PENDING));
+    const getInOwner = this.userService.getContractByOwnerID(this.ownerID);
 
     (this.ownerID ? getInOwner : getInRenter).subscribe(
       data => this.contracts = data);
