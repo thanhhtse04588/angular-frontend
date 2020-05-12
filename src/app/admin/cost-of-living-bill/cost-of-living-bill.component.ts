@@ -38,6 +38,7 @@ export class CostOfLivingBillComponent implements OnInit {
   }
   onFillForm(bill: COLBill) {
     this.bill = bill;
+    this.onInputAmount();
     this.fillFormModal.show();
   }
   onSave() {
@@ -55,8 +56,10 @@ export class CostOfLivingBillComponent implements OnInit {
       () => this.fillFormModal.hide())
   }
 
-  onInputAmount(amount: number, item: COLBillDetail) {
-    item.expensePerCost = amount * item.costPrice;
+  onInputAmount(item?: COLBillDetail,amount?: number) {
+    if(item && amount){
+      item.expensePerCost = amount * item.costPrice;
+    }
     this.bill.totalExpense = this.bill.colBillDetails.map(element => element.expensePerCost).reduce((a, b) => a + b, this.bill.placePrice);
   }
 

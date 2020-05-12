@@ -14,11 +14,13 @@
             Bạn chưa có bài đăng nào
           </div>
         </div>
-        <div class="col-md-4 mb-3">
-          <select class="browser-default custom-select" [(ngModel)]="statusSelected">
-            <option *ngFor="let item of statusSelects" [value]="item.id">{{item.name}}</option>
-          </select>
-        </div>
+
+          <mat-form-field class="col-md-4 mb-3" appearance="outline">
+            <mat-select [(ngModel)]="statusSelected">
+              <mat-option *ngFor="let item of statusSelects" [value]="item.id"><strong>{{item.name}}</strong></mat-option>
+            </mat-select>
+          </mat-form-field>
+        
         <div *ngFor="let item of posts">
           <mat-card *ngIf="isStatusShow(item.statusID)" class="mb-3">
             <mat-card-content>
@@ -54,7 +56,8 @@
                   <div class="d-flex w-100">
                     <div class="h5 mr-auto">Giá: {{item.price| number}} vnđ</div>
                     <div class="h5">
-                      <span [ngClass]="'badge badge-'+sharedService.placeStatusColor(item.statusID)">{{item.status}}</span>
+                      <span
+                        [ngClass]="'badge badge-'+sharedService.placeStatusColor(item.statusID)">{{item.status}}</span>
                     </div>
 
                   </div>

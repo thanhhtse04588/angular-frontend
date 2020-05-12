@@ -21,7 +21,7 @@
               <div>
                 <div class="row">
                   <div class="col">
-                    <p><strong>Mã hợp đồng: </strong>{{contract.contractID}}</p>
+                    <p><strong>Mã hợp đồng: </strong><a mat-button color="primary" *ngIf='contract.contractLink' [href]="contract.contractLink" target="_blank"><i class="fas fa-info"></i></a> </p>
                     <p><strong>Chủ nhà: </strong>
                       <a mat-button color="primary" (click)="userService.openUserProfileDialog(contract.ownerID)"><i
                           class="fas fa-info"></i></a>

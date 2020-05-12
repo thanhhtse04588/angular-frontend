@@ -31,7 +31,7 @@
         <mat-form-field  appearance="standard" class="col">
           <mat-label>Thời gian xem nhà<span class="red-text">*</span></mat-label>
           <input type="datetime-local" matInput formControlName="datetime">
-          <mat-hint>(Lớn hơn ngày hiện tại và không quá 1 tháng)</mat-hint>
+          <mat-hint>(Lớn hơn ngày hiện tại)</mat-hint>
           <mat-error *ngIf="sharedService.checkValidateInput(datetime)">
             Không hợp lệ
           </mat-error>
