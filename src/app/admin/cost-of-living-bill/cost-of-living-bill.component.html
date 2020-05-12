@@ -117,7 +117,7 @@
               <td>
                 <mat-form-field appearance="standard">
                 <input type="number" [(ngModel)]="item.amount" [disabled]="item.unitID === 2 || isBillPaid(bill?.paymentStatusId)"
-                  (ngModelChange)="onInputAmount($event,item)" name="{{i}}" matInput min="0"
+                  (ngModelChange)="onInputAmount(item,$event)" name="{{i}}" matInput min="0"
                   required="required">
                 </mat-form-field>
               </td>

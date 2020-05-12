@@ -31,7 +31,7 @@ export class ContractFormComponent implements OnInit {
       startDate: new FormControl('', [Validators.required, thanToday()]),
       endDate: new FormControl('', [Validators.required]),
       fee: new FormControl('', [Validators.required, Validators.min(0)]),
-      isUseService: new FormControl('', [Validators.required]),
+      isUseService: new FormControl(''),
     }, { validators: endDateThanOneMonthStartDate });
   }
   onNoClick(): void {

@@ -9,7 +9,7 @@ export class Contract {
     contractLink: string;
     isUseService: number;
     contractStatusID: number;
-
+    
     titlePlace: string;
     contractID: number;
     statusContract: string;
