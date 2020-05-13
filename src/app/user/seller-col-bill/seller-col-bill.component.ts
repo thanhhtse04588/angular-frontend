@@ -32,8 +32,8 @@ export class SellerColBillComponent implements OnInit {
     this.totalLoad();
   }
   totalLoad() {
-    const renterID = this.loginService.currentUserValue.userID;
-    this.billService.getBillsByRenterID(renterID).subscribe(
+    const ownerID = this.loginService.currentUserValue.userID;
+    this.billService.getBillsByOwnerID(ownerID).subscribe(
       data => {
         this.bills = (data as COLBill[]);
         this.dataSource = new MatTableDataSource<COLBill>(this.bills);
