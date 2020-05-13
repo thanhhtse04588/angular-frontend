@@ -72,40 +72,22 @@ export class OrderListComponent implements OnInit {
   }
 
   onApprove() {
-    let updateStatus: UpdateOrderStatus;
-    updateStatus = {
-      orderID: this.item.orderID,
-      placeID: this.item.placeID,
-      statusOrderID:  OrderStatus.CONSIDER,// Approve
-      statusPlaceID: PlaceStatus.ACTIVE // Active -> ACtive
-    };
-    this.adminService.changeStatusOrder(updateStatus).subscribe(
-      data => {
-        if (data) {
-          this.sharedService.loggerDialog(true);
-          this.reload();
-        } else { alert('Lỗi! Thao tác không thành công!'); }
-      }
-    );
+    this.updateStatusOrder(OrderStatus.CONSIDER);
   }
 
   onReject() {
+    this.updateStatusOrder(OrderStatus.REJECT)
+  }
+  updateStatusOrder(statusID: number) {
     let updateStatus: UpdateOrderStatus;
     updateStatus = {
       orderID: this.item.orderID,
       placeID: this.item.placeID,
-      statusOrderID: OrderStatus.REJECT, // Reject
+      statusOrderID: statusID, // Reject
       statusPlaceID: PlaceStatus.ACTIVE // Active-> Active
     };
     this.adminService.changeStatusOrder(updateStatus).subscribe(
-      data => {
-        if (data) {
-          this.sharedService.loggerDialog(true);
-          this.reload();
-        } else { this.sharedService.loggerDialog(false); }
-      }
-    );
+      data => data ? this.sharedService.loggerDialog(true) : this.sharedService.loggerDialog(false)
+      , null, () => this.reload());
   }
-
-
 }
