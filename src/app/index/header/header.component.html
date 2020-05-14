@@ -117,6 +117,7 @@
                 <mat-form-field appearance="standard">
                     <mat-label>Tên đăng nhập</mat-label>
                     <input type="text" formControlName="loginUsername" matInput>
+                    <mat-hint>{{adminAccount| json}}</mat-hint>
                 </mat-form-field>
 
                 <mat-form-field appearance="standard">
@@ -128,7 +129,7 @@
                 <button mat-raised-button color="primary" class="btn-block" type="submit"
                     [disabled]="!validatingLoginForm.valid || isLoginSubmit">
                     <span [ngClass]="{'spinner-border spinner-border-sm' : isLoginSubmit}"> </span> Đăng nhập</button>
-                <button type="button" mat-raised-button class="my-3 btn-block" role="button"
+                <button type="button" mat-raised-button  class="my-3 btn-block" role="button"
                     (click)="loginService.googleSignin();frameLogin.hide()">
                     Đăng nhập với <i class="fab fa-google"></i>
                 </button>
@@ -177,7 +178,7 @@
                 <div id="password-container">
                 <mat-form-field class="w-100" appearance="standard">
                     <mat-label>Mật khẩu<span class="red-text">*</span></mat-label>
-                    <input type="password" formControlName="password" matInput>
+                    <input type="password" formControlName="password"  matInput>
                     <mat-error id="username-error-msg" *ngIf="sharedService.checkValidateInput(password)"> Không hợp lệ</mat-error>
                     <mat-hint> Mật khẩu ít nhất 6 đến 32 ký tự </mat-hint>
                 </mat-form-field>
@@ -185,7 +186,7 @@
                 <!-- Password -->
                 <mat-form-field class="w-100 mb-3" appearance="standard">
                     <mat-label>Nhập lại mật khẩu<span class="red-text">*</span></mat-label>
-                    <input type="password" formControlName="confirmPasswrd" matInput>
+                    <input type="password" formControlName="confirmPasswrd"  matInput>
                     <mat-error id="password-error-msg" *ngIf="sharedService.checkValidateInput(password)"> Không hợp lệ</mat-error>
                 </mat-form-field>
                 <small class="red-text" *ngIf="signUpMess">{{signUpMess}}</small>

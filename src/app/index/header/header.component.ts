@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
   validatingSigninForm: FormGroup;
   loginMess: string;
   signUpMess: string;
+  adminAccount ={username:'admin123',pass: 'admin123'};
   constructor(
     public sharedService: SharedService,
     private router: Router, public loginService: AuthenticationService, private registerService: AuthenticationService,
